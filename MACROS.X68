@@ -1,0 +1,5 @@
+REPAINT MACRO
+    MOVE.B #94, D0
+    TRAP #15
+
+    ENDM
