@@ -1,0 +1,49 @@
+*-----------------------------------------------------------
+* Title      : SpriteData
+* Written by : Xana
+* Date       :
+* Description: Generado automaticamente por pyconverterU.py
+*-----------------------------------------------------------
+ColorTEST:
+	DC.L $000000FF, $00808000, $0080B3FF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF
+	DC.L $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF
+	DC.L $00FFFFFF, $00FFFFFF, $00FFFFFF
+	DC.L -1
+SizeTEST:
+	DC.W 0, 0, 63, 63, 2, 2, 61, 61, 4, 4, 59, 59, 26, 26, 27, 27
+	DC.W 24, 24, 25, 25, 22, 22, 23, 23, 20, 20, 21, 21, 18, 18, 19, 19
+	DC.W 16, 16, 17, 17, 14, 14, 15, 15, 40, 40, 41, 41, 38, 38, 39, 39
+	DC.W 36, 36, 37, 37, 34, 34, 35, 35, 32, 32, 33, 33, 30, 30, 31, 31
+	DC.W 28, 28, 29, 29, 54, 54, 55, 55, 56, 56, 57, 57, 58, 58, 59, 59
+	DC.W 60, 60, 61, 61, 62, 62, 63, 63, 52, 52, 53, 53, 50, 50, 51, 51
+	DC.W 48, 48, 49, 49, 46, 46, 47, 47, 44, 44, 45, 45, 42, 42, 43, 43
+	DC.W 12, 12, 13, 13, 10, 10, 11, 11, 8, 8, 9, 9, 6, 6, 7, 7
+	DC.W 4, 4, 5, 5, 2, 2, 3, 3, 0, 0, 1, 1
+
+
+TEST DC.L ColorTEST, SizeTEST
+ColorTEST2:
+	DC.L $000000FF, $00808000, $0080B3FF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF
+	DC.L $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF
+	DC.L $00FFFFFF, $00FFFFFF, $00FFFFFF
+	DC.L -1
+SizeTEST2:
+	DC.W 0, 0, 63, 63, 2, 2, 61, 61, 4, 4, 59, 59, 36, 26, 37, 27
+	DC.W 38, 24, 39, 25, 40, 22, 41, 23, 42, 20, 43, 21, 44, 18, 45, 19
+	DC.W 46, 16, 47, 17, 48, 14, 49, 15, 22, 40, 23, 41, 24, 38, 25, 39
+	DC.W 26, 36, 27, 37, 28, 34, 29, 35, 30, 32, 31, 33, 32, 30, 33, 31
+	DC.W 34, 28, 35, 29, 8, 54, 9, 55, 6, 56, 7, 57, 4, 58, 5, 59
+	DC.W 2, 60, 3, 61, 0, 62, 1, 63, 10, 52, 11, 53, 12, 50, 13, 51
+	DC.W 14, 48, 15, 49, 16, 46, 17, 47, 18, 44, 19, 45, 20, 42, 21, 43
+	DC.W 50, 12, 51, 13, 52, 10, 53, 11, 54, 8, 55, 9, 56, 6, 57, 7
+	DC.W 58, 4, 59, 5, 60, 2, 61, 3, 62, 0, 63, 1
+
+
+TEST2 DC.L ColorTEST2, SizeTEST2
+
+
+
+*~Font name~Courier New~
+*~Font size~10~
+*~Tab type~1~
+*~Tab size~4~

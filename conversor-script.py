@@ -9,8 +9,11 @@ import numpy as np
 
 class Conversor():
 
-    dirSprites = "./sprites/"
+    dirSprites = "./svg/"
     dirMapas   = "./mapas/"
+
+    pathSprites = "./data/sprites.x68"
+    pathMaps    = "./data/maps.x68"
 
     def __init__(self):
         self.PrintMenu()
@@ -50,7 +53,7 @@ class Conversor():
 
     def ConvertAllSprites(self):
         print("\nConvirtiendo Sprites (SVG)")
-        with open("sprites.X68", "w") as fsprite:
+        with open(self.pathSprites, "w") as fsprite:
             fsprite.writelines("*-----------------------------------------------------------\n")
             fsprite.writelines("* Title      : SpriteData\n")
             fsprite.writelines("* Written by : Xana\n")
@@ -63,7 +66,7 @@ class Conversor():
                 self.ConvertSpriteSVG(self.dirSprites+x)
 
             #fsprite.writelines(f"\nSPRITEV DC.L {', '.join(names)}\n")
-        with open("sprites.X68", "+a") as fsprite:
+        with open(self.pathSprites, "+a") as fsprite:
             fsprite.writelines("\n\n\n*~Font name~Courier New~\n")
             fsprite.writelines("*~Font size~10~\n")
             fsprite.writelines("*~Tab type~1~\n")
@@ -75,12 +78,12 @@ class Conversor():
         
         #print(retText)
 
-        subprocess.run(f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py {path} sprites.x68 {path}".split())
+        subprocess.run(f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py {path} {self.pathSprites} {path}".split())
         
 
     def ConvertAllMapas(self):
         print("\nConvirtiendo Mapas")
-        with open("mapas.X68", "w") as fmap:
+        with open(self.pathMaps, "w") as fmap:
             fmap.writelines("*-----------------------------------------------------------\n")
             fmap.writelines("* Title      : MapData\n")
             fmap.writelines("* Written by : Xana\n")

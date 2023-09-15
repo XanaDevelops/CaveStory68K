@@ -1,6 +1,6 @@
 00001000 Starting Address
 Assembler used: EASy68K Editor/Assembler v5.16.01
-Created On: 15/09/2023 21:00:03
+Created On: 16/09/2023 0:44:21
 
 00000000                             1  *-----------------------------------------------------------
 00000000                             2  * Title      : Cave Story (Port)
@@ -17,121 +17,234 @@ Created On: 15/09/2023 21:00:03
 00000000                            13  -------------------- end include --------------------
 00000000                            14      INCLUDE "CONST.X68"
 00000000                            15  ;SCREEN CONST
-00000000  =00000400                 16  SCREEN_WIDTH    EQU 1024
-00000000  =00000300                 17  SCREEN_HEIGHT   EQU 768
+00000000  =00000340                 16  SCREEN_WIDTH    EQU 832
+00000000  =00000270                 17  SCREEN_HEIGHT   EQU 624
 00000000                            18  
-00000000  =00000004                 19  SCREEN_XSCROLL  EQU 4
-00000000  =00000008                 20  SCREEN_YSCROLL  EQU 8
-00000000  =00000000                 21  SCREEN_RSCROLL  EQU 0
-00000000  =00000000                 22  SCREEN_CSCROLL  EQU 0
-00000000  =000000CD                 23  SCREEN_WSCROLL  EQU 205
-00000000  =00000060                 24  SCREEN_HSCROLL  EQU 96
-00000000                            25  
-00000000                            26  ;COLORS              XXBBGGRR
-00000000  =00000000                 27  BLACK           EQU $00000000 
-00000000  =00000080                 28  MAROON          EQU $00000080 
-00000000  =00008000                 29  GREEN           EQU $00008000 
-00000000  =00008080                 30  OLIVE           EQU $00008080 
-00000000  =00800000                 31  NAVY            EQU $00800000 
-00000000  =00800080                 32  PURPLE          EQU $00800080 
-00000000  =00808000                 33  TEAL            EQU $00808000 
-00000000  =00808080                 34  GRAY            EQU $00808080 
-00000000  =000000FF                 35  RED             EQU $000000FF 
-00000000  =0000FF00                 36  LIME            EQU $0000FF00 
-00000000  =0000FFFF                 37  YELLOW          EQU $0000FFFF 
-00000000  =00FF0000                 38  BLUE            EQU $00FF0000 
-00000000  =00FF00FF                 39  FUCHSIA         EQU $00FF00FF 
-00000000  =00FFFF00                 40  AQUA            EQU $00FFFF00 
-00000000  =00C0C0C0                 41  LTGRAY          EQU $00C0C0C0 
-00000000  =00FFFFFF                 42  WHITE           EQU $00FFFFFF 
-00000000                            43  
-00000000                            44  
+00000000  =00000002                 19  SCREEN_UPTIME   EQU 2
+00000000                            20  
+00000000  =00000004                 21  SCREEN_XSCROLL  EQU 4
+00000000  =00000008                 22  SCREEN_YSCROLL  EQU 8
+00000000  =00000000                 23  SCREEN_RSCROLL  EQU 0
+00000000  =00000000                 24  SCREEN_CSCROLL  EQU 0
+00000000  =000000CD                 25  SCREEN_WSCROLL  EQU 205
+00000000  =00000060                 26  SCREEN_HSCROLL  EQU 96
+00000000                            27  
+00000000                            28  ;COLORS              XXBBGGRR
+00000000  =00000000                 29  BLACK           EQU $00000000 
+00000000  =00000080                 30  MAROON          EQU $00000080 
+00000000  =00008000                 31  GREEN           EQU $00008000 
+00000000  =00008080                 32  OLIVE           EQU $00008080 
+00000000  =00800000                 33  NAVY            EQU $00800000 
+00000000  =00800080                 34  PURPLE          EQU $00800080 
+00000000  =00808000                 35  TEAL            EQU $00808000 
+00000000  =00808080                 36  GRAY            EQU $00808080 
+00000000  =000000FF                 37  RED             EQU $000000FF 
+00000000  =0000FF00                 38  LIME            EQU $0000FF00 
+00000000  =0000FFFF                 39  YELLOW          EQU $0000FFFF 
+00000000  =00FF0000                 40  BLUE            EQU $00FF0000 
+00000000  =00FF00FF                 41  FUCHSIA         EQU $00FF00FF 
+00000000  =00FFFF00                 42  AQUA            EQU $00FFFF00 
+00000000  =00C0C0C0                 43  LTGRAY          EQU $00C0C0C0 
+00000000  =00FFFFFF                 44  WHITE           EQU $00FFFFFF 
 00000000                            45  
 00000000                            46  
-00000000                            47  -------------------- end include --------------------
-00000000                            48      INCLUDE "VARS.X68"
-00000000                            49  
-00000000                            50  
-00000000                            51  -------------------- end include --------------------
-00000000                            52  
-00001000                            53      ORG    $1000
-00001000                            54  START:                  ; first instruction of program
-00001000                            55  
-00001000  6100 0042                 56      BSR SYSTEM_INIT
-00001004  6100 0056                 57      BSR SET_SCROLL_TEXT
-00001008                            58  
-00001008  103C 0050                 59      MOVE.B #80, D0
-0000100C  223C 00FF00FF             60      MOVE.L #$00FF00FF, D1
-00001012  4E4F                      61      TRAP #15
-00001014  5200                      62      ADDQ.B #1, D0
-00001016  4E4F                      63      TRAP #15
-00001018                            64  
-00001018  103C 0057                 65      MOVE.B #87, D0
-0000101C  7200                      66      MOVE.L #0, D1
-0000101E  7400                      67      MOVE.L #0, D2
-00001020  363C 0400                 68      MOVE.W #SCREEN_WIDTH, D3
-00001024  383C 0300                 69      MOVE.W #SCREEN_HEIGHT, D4
-00001028  4E4F                      70      TRAP #15
-0000102A                            71      
-0000102A                            72m     REPAINT
-00001030                            73      
-00001030  3F3C 0003                 74      MOVE.W #3, -(SP)
-00001034  6100 003E                 75      BSR SCROLL
-00001038                            76m     REPAINT
-0000103E                            77      
-0000103E                            78      
-0000103E  548F                      79      ADDQ.L #2, SP
-00001040                            80  
-00001040  FFFF FFFF                 81      SIMHALT             ; halt simulator
-00001044                            82  
-00001044                            83      INCLUDE "SYSTEM.X68"
-00001044                            84  SYSTEM_INIT:
-00001044                            85      ;CONFIGURE SCREEN
-00001044  103C 0021                 86      MOVE.B #33, D0
-00001048  223C 04000300             87      MOVE.L #SCREEN_WIDTH*$10000+SCREEN_HEIGHT, D1
-0000104E  4E4F                      88      TRAP #15
-00001050                            89  
-00001050  103C 005C                 90      MOVE.B #92, D0
-00001054  123C 0011                 91      MOVE.B #17, D1
-00001058  4E4F                      92      TRAP #15
-0000105A                            93  
-0000105A  4E75                      94      RTS
-0000105C                            95  
-0000105C                            96  SET_SCROLL_TEXT:
-0000105C  48E7 E000                 97      MOVEM.L D0-D2, -(SP)
-00001060                            98  
-00001060  103C 0015                 99      MOVE.B #21, D0
-00001064  7200                     100      MOVE.L #BLACK, D1
-00001066  243C 04060000            101      MOVE.L #$04060000, D2   ;Example: D2.L = $01090005 is Fixedsys, 9 point, Bold Underline 8px
-0000106C  4E4F                     102      TRAP #15
-0000106E                           103  
-0000106E  4CDF 0007                104      MOVEM.L (SP)+, D2-D0
-00001072  4E75                     105      RTS
-00001074                           106  
-00001074                           107  
-00001074                           108  -------------------- end include --------------------
-00001074                           109      INCLUDE "ScreenScroll.X68"
-00001074                           110  SCROLL:
-00001074                           111  ;   MUEVE LA PANTALLA
-00001074                           112  ;   20(SP).W SCROLL DIR
-00001074                           113  ;       0:UP
-00001074                           114  ;       1:DOWN
-00001074                           115  ;       2:LEFT
-00001074                           116  ;       3:RIGHT
-00001074  48E7 F000                117      MOVEM.L D0-D3, -(SP)
-00001078  103C 0019                118      MOVE.B #25, D0
-0000107C  7200                     119      MOVE.L #SCREEN_RSCROLL*$10000+SCREEN_CSCROLL, D1
-0000107E  243C 006000CD            120      MOVE.L #SCREEN_HSCROLL*$10000+SCREEN_WSCROLL, D2
-00001084  362F 0014                121      MOVE.W 20(SP), D3
-00001088  4E4F                     122      TRAP #15
-0000108A                           123  
-0000108A  4CDF 000F                124      MOVEM.L (SP)+, D3-D0
-0000108E  4E75                     125      RTS
-00001090                           126  
-00001090                           127  
-00001090                           128  -------------------- end include --------------------
-00001090                           129  
-00001090                           130      END    START        ; last line of source
+00000000                            47  
+00000000                            48  
+00000000                            49  -------------------- end include --------------------
+00000000                            50      INCLUDE "VARS.X68"
+00000000                            51  
+00000000                            52  WORLD_X     DS.W 1
+00000002                            53  WORLD_Y     DS.W 1
+00000004                            54  
+00000004= 0000                      55  CURRENTMAP  DC.W 0
+00000006                            56  
+00000006= 0000                      57  PLAYER_X    DC.W 0
+00000008= 0000                      58  PLAYER_Y    DC.W 0
+0000000A                            59  
+0000000A                            60  -------------------- end include --------------------
+0000000A                            61      
+0000000A                            62  
+00001000                            63      ORG    $1000
+00001000                            64  START:                  ; first instruction of program
+00001000                            65  
+00001000  6100 0094                 66      BSR SYSTEM_INIT
+00001004  6100 00A8                 67      BSR SET_SCROLL_TEXT
+00001008                            68  
+00001008  7E00                      69      MOVE.L #0, D7
+0000100A                            70  TESTLOOP:
+0000100A  5247                      71      ADDQ.W #1, D7
+0000100C  0807 0000                 72      BTST.L #0, D7
+00001010  6700 000C                 73      BEQ _TEST1
+00001014  41F9 0000126E             74      LEA TEST, A0
+0000101A  6000 0008                 75      BRA PAINTLOOP
+0000101E                            76      _TEST1:
+0000101E  41F9 0000141E             77      LEA TEST2, A0
+00001024                            78  PAINTLOOP:
+00001024  518F                      79      SUBQ.L #8, SP
+00001026  2F48 0004                 80      MOVE.L A0, 4(SP)
+0000102A  2EBC 00000000             81      MOVE.L #0, (SP)
+00001030  3EB9 00001094             82      MOVE.W OFFSET_TEST, (SP)
+00001036  3F79 00001094 0002        83      MOVE.W OFFSET_TEST, 2(SP)
+0000103E                            84  
+0000103E  3C3C 000D                 85      MOVE.W #13, D6
+00001042                            86      _LOOPY:
+00001042  3F79 00001094 0002        87          MOVE.W OFFSET_TEST, 2(SP)
+0000104A  3A3C 000A                 88          MOVE.W #10, D5
+0000104E                            89          _LOOPX:
+0000104E  6100 03F2                 90              BSR FASTSPRITE
+00001052  066F 0040 0002            91              ADD.W #64, 2(SP)
+00001058  51CD FFF4                 92              DBRA D5, _LOOPX
+0000105C  066F 0040 0000            93          ADD.W #64, 0(SP)
+00001062  51CE FFDE                 94          DBRA D6, _LOOPY
+00001066                            95      
+00001066  508F                      96      ADDQ.L #8, SP
+00001068                            97  
+00001068                            98m     REPAINT
+0000106E                            99  
+0000106E  303C 0017                100      MOVE.W #23, D0
+00001072  7201                     101      MOVE.L #1, D1
+00001074                           102      ;TRAP #15
+00001074                           103  
+00001074  5979 00001094            104      SUBQ.W #4, OFFSET_TEST
+0000107A                           105  
+0000107A  0C79 FFC0 00001094       106      CMP.W #-64, OFFSET_TEST
+00001082  6686                     107      BNE TESTLOOP
+00001084  33FC 0000 00001094       108      MOVE.W #0, OFFSET_TEST
+0000108C  6000 FF7C                109      BRA TESTLOOP
+00001090                           110  
+00001090                           111  
+00001090  FFFF FFFF                112      SIMHALT             ; halt simulator
+00001094                           113  
+00001094= 0000                     114  OFFSET_TEST DC.W 0
+00001096                           115  
+00001096                           116      INCLUDE "SYSTEM.X68"
+00001096                           117  SYSTEM_INIT:
+00001096                           118      ;CONFIGURE SCREEN
+00001096  103C 0021                119      MOVE.B #33, D0
+0000109A  223C 03400270            120      MOVE.L #SCREEN_WIDTH*$10000+SCREEN_HEIGHT, D1
+000010A0  4E4F                     121      TRAP #15
+000010A2                           122  
+000010A2  103C 005C                123      MOVE.B #92, D0  ;dbuf
+000010A6  123C 0011                124      MOVE.B #17, D1
+000010AA  4E4F                     125      TRAP #15
+000010AC                           126  
+000010AC  4E75                     127      RTS
+000010AE                           128  
+000010AE                           129  SET_SCROLL_TEXT:
+000010AE  48E7 E000                130      MOVEM.L D0-D2, -(SP)
+000010B2                           131  
+000010B2  103C 0015                132      MOVE.B #21, D0
+000010B6  7200                     133      MOVE.L #BLACK, D1
+000010B8  243C 04060000            134      MOVE.L #$04060000, D2   ;Example: D2.L = $01090005 is Fixedsys, 9 point, Bold Underline 8px
+000010BE  4E4F                     135      TRAP #15
+000010C0                           136  
+000010C0  4CDF 0007                137      MOVEM.L (SP)+, D2-D0
+000010C4  4E75                     138      RTS
+000010C6                           139  
+000010C6                           140  
+000010C6                           141  -------------------- end include --------------------
+000010C6                           142      INCLUDE "data/sprites.x68"
+000010C6                           143  ColorTEST:
+000010C6= 000000FF 00808000 ...    144      DC.L $000000FF, $00808000, $0080B3FF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF
+00001106= 00FFFFFF 00FFFFFF ...    145      DC.L $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF
+00001146= 00FFFFFF 00FFFFFF ...    146      DC.L $00FFFFFF, $00FFFFFF, $00FFFFFF
+00001152= FFFFFFFF                 147      DC.L -1
+00001156                           148  SizeTEST:
+00001156= 0000 0000 003F 0...      149      DC.W 0, 0, 63, 63, 2, 2, 61, 61, 4, 4, 59, 59, 26, 26, 27, 27
+00001176= 0018 0018 0019 0...      150      DC.W 24, 24, 25, 25, 22, 22, 23, 23, 20, 20, 21, 21, 18, 18, 19, 19
+00001196= 0010 0010 0011 0...      151      DC.W 16, 16, 17, 17, 14, 14, 15, 15, 40, 40, 41, 41, 38, 38, 39, 39
+000011B6= 0024 0024 0025 0...      152      DC.W 36, 36, 37, 37, 34, 34, 35, 35, 32, 32, 33, 33, 30, 30, 31, 31
+000011D6= 001C 001C 001D 0...      153      DC.W 28, 28, 29, 29, 54, 54, 55, 55, 56, 56, 57, 57, 58, 58, 59, 59
+000011F6= 003C 003C 003D 0...      154      DC.W 60, 60, 61, 61, 62, 62, 63, 63, 52, 52, 53, 53, 50, 50, 51, 51
+00001216= 0030 0030 0031 0...      155      DC.W 48, 48, 49, 49, 46, 46, 47, 47, 44, 44, 45, 45, 42, 42, 43, 43
+00001236= 000C 000C 000D 0...      156      DC.W 12, 12, 13, 13, 10, 10, 11, 11, 8, 8, 9, 9, 6, 6, 7, 7
+00001256= 0004 0004 0005 0...      157      DC.W 4, 4, 5, 5, 2, 2, 3, 3, 0, 0, 1, 1
+0000126E                           158  
+0000126E                           159  
+0000126E= 000010C6 00001156        160  TEST DC.L ColorTEST, SizeTEST
+00001276                           161  ColorTEST2:
+00001276= 000000FF 00808000 ...    162      DC.L $000000FF, $00808000, $0080B3FF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF
+000012B6= 00FFFFFF 00FFFFFF ...    163      DC.L $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF, $00FFFFFF
+000012F6= 00FFFFFF 00FFFFFF ...    164      DC.L $00FFFFFF, $00FFFFFF, $00FFFFFF
+00001302= FFFFFFFF                 165      DC.L -1
+00001306                           166  SizeTEST2:
+00001306= 0000 0000 003F 0...      167      DC.W 0, 0, 63, 63, 2, 2, 61, 61, 4, 4, 59, 59, 36, 26, 37, 27
+00001326= 0026 0018 0027 0...      168      DC.W 38, 24, 39, 25, 40, 22, 41, 23, 42, 20, 43, 21, 44, 18, 45, 19
+00001346= 002E 0010 002F 0...      169      DC.W 46, 16, 47, 17, 48, 14, 49, 15, 22, 40, 23, 41, 24, 38, 25, 39
+00001366= 001A 0024 001B 0...      170      DC.W 26, 36, 27, 37, 28, 34, 29, 35, 30, 32, 31, 33, 32, 30, 33, 31
+00001386= 0022 001C 0023 0...      171      DC.W 34, 28, 35, 29, 8, 54, 9, 55, 6, 56, 7, 57, 4, 58, 5, 59
+000013A6= 0002 003C 0003 0...      172      DC.W 2, 60, 3, 61, 0, 62, 1, 63, 10, 52, 11, 53, 12, 50, 13, 51
+000013C6= 000E 0030 000F 0...      173      DC.W 14, 48, 15, 49, 16, 46, 17, 47, 18, 44, 19, 45, 20, 42, 21, 43
+000013E6= 0032 000C 0033 0...      174      DC.W 50, 12, 51, 13, 52, 10, 53, 11, 54, 8, 55, 9, 56, 6, 57, 7
+00001406= 003A 0004 003B 0...      175      DC.W 58, 4, 59, 5, 60, 2, 61, 3, 62, 0, 63, 1
+0000141E                           176  
+0000141E                           177  
+0000141E= 00001276 00001306        178  TEST2 DC.L ColorTEST2, SizeTEST2
+00001426                           179  
+00001426                           180  
+00001426                           181  
+00001426                           182  -------------------- end include --------------------
+00001426                           183      INCLUDE "ScreenScroll.X68"
+00001426                           184  SCROLL:
+00001426                           185  ;   MUEVE LA PANTALLA
+00001426                           186  ;   20(SP).W SCROLL DIR
+00001426                           187  ;       0:UP
+00001426                           188  ;       1:DOWN
+00001426                           189  ;       2:LEFT
+00001426                           190  ;       3:RIGHT
+00001426  48E7 F000                191      MOVEM.L D0-D3, -(SP)
+0000142A  103C 0019                192      MOVE.B #25, D0
+0000142E  7200                     193      MOVE.L #SCREEN_RSCROLL*$10000+SCREEN_CSCROLL, D1
+00001430  243C 006000CD            194      MOVE.L #SCREEN_HSCROLL*$10000+SCREEN_WSCROLL, D2
+00001436  362F 0014                195      MOVE.W 20(SP), D3
+0000143A  4E4F                     196      TRAP #15
+0000143C                           197  
+0000143C  4CDF 000F                198      MOVEM.L (SP)+, D3-D0
+00001440  4E75                     199      RTS
+00001442                           200  
+00001442                           201  
+00001442                           202  -------------------- end include --------------------
+00001442                           203      INCLUDE "FastSprite.x68"
+00001442                           204  FASTSPRITE:
+00001442                           205      ;START X EN 36(SP)
+00001442                           206      ;START Y EN 38(SP)
+00001442                           207      ;40(SP) @SPRITE
+00001442  48E7 F8E0                208      MOVEM.L D0-D4/A0-A2, -(SP)
+00001446                           209  
+00001446  206F 0028                210      MOVE.L 40(SP), A0
+0000144A  2250                     211      MOVE.L (A0), A1             ;COLOR
+0000144C  2468 0004                212      MOVE.L 4(A0), A2            ;POS
+00001450                           213      
+00001450                           214      FASTSPRITELOOP:
+00001450  103C 0050                215          MOVE.B #80, D0          ;SET COLOR
+00001454  2219                     216          MOVE.L (A1)+, D1
+00001456  B2BC FFFFFFFF            217          CMP.L #-1, D1
+0000145C  6700 0024                218          BEQ EXITFASTSPRITE
+00001460  4E4F                     219          TRAP #15
+00001462  5200                     220          ADDQ.B #1, D0
+00001464  4E4F                     221          TRAP #15
+00001466                           222  
+00001466  103C 0057                223          MOVE.B #87, D0
+0000146A  4C9A 001E                224          MOVEM.W (A2)+, D1-D4    ;LOAD LOCAR COORDS
+0000146E                           225  
+0000146E  D26F 0024                226          ADD.W 36(SP), D1        ;ADD EXT COORDS
+00001472  D66F 0024                227          ADD.W 36(SP), D3
+00001476  D46F 0026                228          ADD.W 38(SP), D2
+0000147A  D86F 0026                229          ADD.W 38(SP), D4
+0000147E                           230          ;ADDQ.W #1, D4
+0000147E                           231  
+0000147E  4E4F                     232          TRAP #15
+00001480                           233  
+00001480  60CE                     234          BRA FASTSPRITELOOP
+00001482                           235  
+00001482                           236      EXITFASTSPRITE:
+00001482  4CDF 071F                237      MOVEM.L (SP)+, A2-A0/D4-D0
+00001486  4E75                     238      RTS
+00001488                           239  
+00001488                           240  -------------------- end include --------------------
+00001488                           241  
+00001488                           242  
+00001488                           243      END    START        ; last line of source
 
 No errors detected
 No warnings generated
@@ -143,6 +256,12 @@ Symbol-name         Value
 AQUA                FFFF00
 BLACK               0
 BLUE                FF0000
+COLORTEST           10C6
+COLORTEST2          1276
+CURRENTMAP          4
+EXITFASTSPRITE      1482
+FASTSPRITE          1442
+FASTSPRITELOOP      1450
 FUCHSIA             FF00FF
 GRAY                808080
 GREEN               8000
@@ -150,22 +269,37 @@ LIME                FF00
 LTGRAY              C0C0C0
 MAROON              80
 NAVY                800000
+OFFSET_TEST         1094
 OLIVE               8080
+PAINTLOOP           1024
+PLAYER_X            6
+PLAYER_Y            8
 PURPLE              800080
 RED                 FF
 REPAINT             0
 SCREEN_CSCROLL      0
-SCREEN_HEIGHT       300
+SCREEN_HEIGHT       270
 SCREEN_HSCROLL      60
 SCREEN_RSCROLL      0
-SCREEN_WIDTH        400
+SCREEN_UPTIME       2
+SCREEN_WIDTH        340
 SCREEN_WSCROLL      CD
 SCREEN_XSCROLL      4
 SCREEN_YSCROLL      8
-SCROLL              1074
-SET_SCROLL_TEXT     105C
+SCROLL              1426
+SET_SCROLL_TEXT     10AE
+SIZETEST            1156
+SIZETEST2           1306
 START               1000
-SYSTEM_INIT         1044
+SYSTEM_INIT         1096
 TEAL                808000
+TEST                126E
+TEST2               141E
+TESTLOOP            100A
 WHITE               FFFFFF
+WORLD_X             0
+WORLD_Y             2
 YELLOW              FFFF
+_LOOPX              104E
+_LOOPY              1042
+_TEST1              101E

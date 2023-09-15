@@ -5,8 +5,10 @@
 * Description:
 *-----------------------------------------------------------
 ;SCREEN CONST
-SCREEN_WIDTH    EQU 1024
-SCREEN_HEIGHT   EQU 768
+SCREEN_WIDTH    EQU 832
+SCREEN_HEIGHT   EQU 624
+
+SCREEN_UPTIME   EQU 2
 
 SCREEN_XSCROLL  EQU 4
 SCREEN_YSCROLL  EQU 8

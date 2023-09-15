@@ -2,6 +2,7 @@ import sys, inkex
 
 def ConvertSpriteSVG() -> list:
     SCALE = 2
+
     path = user_args[1]
     svgName = path.split("/")[-1].split(".")[0].upper()
 
@@ -10,13 +11,7 @@ def ConvertSpriteSVG() -> list:
 
     colors = []
     sizes = []
-    #print(svg_root.getchildren())
-    #input("LOL")
-    '''for elem in svg_root.getchildren():
-         print(elem)
-         [print(x, x.values()) for x in elem.iter()]
-         print(dir(elem)
-    input("END")'''
+
     for obj in my_all_shapes():
         try:
             actualColor = obj.style()["fill"][1:]
@@ -32,7 +27,7 @@ def ConvertSpriteSVG() -> list:
         x1, x2 = [round(float(n))*SCALE for n in A]
         y1, y2 = [round(float(n))*SCALE for n in B]
         #print(x1,y1,x2,y2)
-        [sizes.append(x) for x in [x1,y1,x2,y2]]
+        [sizes.append(x) for x in [x1,y1,x2-1,y2-1]]
 
 
     colorText += truncateText(colors, "DC.L")
@@ -67,7 +62,7 @@ def my_all_shapes():
         tmplay = []
         #print(lay, dir(lay), lay.label)
         layerId = int(lay.label.split()[1])
-        print(f"layerid {layerId} de label {lay.label}", lay)
+        #print(f"layerid {layerId} de label {lay.label}", lay)
         for obj in lay:
             if isinstance(obj, inkex.ShapeElement):
                 #print(obj)
@@ -76,14 +71,14 @@ def my_all_shapes():
                  print("NO")
         #print("lay", tmplay)
         templayers.append([tmplay, layerId])
-    print("old",templayers,"\n\n")
+    #print("old",templayers,"\n\n")
     templayers.sort(key=lambda x:x[1])
-    print("new",templayers,"\n\n")
+    #print("new",templayers,"\n\n")
     layer_shapes = []
     for layer in templayers:
          for obj in layer[0]:
             layer_shapes.append(inkex_object(obj))
-    print(layer_shapes,"\n")
+    #print(layer_shapes,"\n")
     # Find all ShapeElements whose parent is the root.
     root_shapes = [inkex_object(obj)
                    for obj in svg

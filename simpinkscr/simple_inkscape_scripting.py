@@ -1207,7 +1207,7 @@ class SimpleMarker(SimpleObject):
                          obj_style=style, track=True)
 
 
-class SimpleGroup(SimpleObject, collections.abc.MutableSEQUence):
+class SimpleGroup(SimpleObject, collections.abc.MutableSequence):
     'Represent a group of objects.'
 
     def __init__(self, obj, transform, conn_avoid, clip_path_obj, mask_obj,

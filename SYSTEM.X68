@@ -10,7 +10,7 @@ SYSTEM_INIT:
     MOVE.L #SCREEN_WIDTH*$10000+SCREEN_HEIGHT, D1
     TRAP #15
 
-    MOVE.B #92, D0
+    MOVE.B #92, D0  ;dbuf
     MOVE.B #17, D1
     TRAP #15
 
