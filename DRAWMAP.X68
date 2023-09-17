@@ -60,7 +60,7 @@ DRAW_MAP:
             DBRA D5, _LOOPDMX
         ADD.W #64, 2(SP)
         ADD.W 4(A0), D1
-        SUB.W #SCREEN_XTILE-1, D1
+        SUB.W #SCREEN_XTILE+1, D1
         DBRA D6, _LOOPDMY
     
     ADDQ.L #8, SP

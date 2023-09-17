@@ -60,7 +60,7 @@ class Conversor():
             fsprite.writelines("* Date       :\n")
             fsprite.writelines("* Description: Generado automaticamente por pyconverterU.py\n")
             fsprite.writelines("*-----------------------------------------------------------\n")
-            
+            fsprite.writelines("ColorNULL:\n\tDC.L -1\nSizeNULL:\n\tDC.W 0,0,0,0\n\nNULL: DC.L ColorNULL, SizeNULL\n\n")
         for x in os.listdir(self.dirSprites):
             if(".svg" in x):
                 self.ConvertSpriteSVG(self.dirSprites+x)
@@ -95,7 +95,7 @@ class Conversor():
                 if x.endswith(".bmp"):
                     data, name, x,y = self.ConvertMapa(self.dirMapas+x)
                     fmap.writelines(data+"\n")
-                    fmap.writelines(f"{name} DC.L {name}_DATA\n\t\t\tDC.W {x} {y}\n")
+                    fmap.writelines(f"{name} DC.L {name}_DATA\n\t\t\tDC.W {x}, {y}\n")
 
 
             fmap.writelines("\n\n\n*~Font name~Courier New~\n")

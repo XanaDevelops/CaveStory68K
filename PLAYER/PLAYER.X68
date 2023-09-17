@@ -4,11 +4,16 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
+PAINT_PLAYER:
+    MOVE.L #QUOTE_L_0, -(SP)
+    MOVE.W #SCREEN_WIDTH/2-32, -(SP)
+    MOVE.W #SCREEN_HEIGHT/2-32, -(SP)
 
-SPRITES DC.L NULL, TILE1 
+    BSR FASTSPRITE
 
-MAPAS   DC.L TESTMAP
+    ADDQ.L #8, SP
 
+    RTS
 
 *~Font name~Courier New~
 *~Font size~10~

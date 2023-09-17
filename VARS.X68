@@ -14,6 +14,10 @@ CURRENTMAPID    DC.W 0
 PLAYER_X    DC.W 0
 PLAYER_Y    DC.W 0
 
+                 ;UDLR
+PLAYER_ST   DC.B %00000000
+            DS.W 0
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~
