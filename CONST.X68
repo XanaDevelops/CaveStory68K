@@ -5,8 +5,12 @@
 * Description:
 *-----------------------------------------------------------
 ;SCREEN CONST
-SCREEN_WIDTH    EQU 832
-SCREEN_HEIGHT   EQU 624
+SCREEN_WIDTH    EQU 720
+SCREEN_HEIGHT   EQU 540
+
+SCREEN_XTILE    EQU 12
+SCREEN_YTILE    EQU 9
+TILESIZE        EQU 64
 
 SCREEN_UPTIME   EQU 2
 
@@ -34,6 +38,15 @@ FUCHSIA         EQU $00FF00FF
 AQUA            EQU $00FFFF00 
 LTGRAY          EQU $00C0C0C0 
 WHITE           EQU $00FFFFFF 
+
+;SPECIAL KEYS
+KEY_LEFT        EQU $25
+KEY_UP          EQU $26
+KEY_RIGHT       EQU $27
+KEY_DOWN        EQU $28      
+F11             EQU $7A
+ESC             EQU $1B
+
 
 
 

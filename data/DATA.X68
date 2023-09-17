@@ -5,14 +5,9 @@
 * Description:
 *-----------------------------------------------------------
 
-WORLD_X     DS.W 1
-WORLD_Y     DS.W 1
+SPRITES DC.L TEST, NEGRO
 
-CURRENTMAPDIR   DS.L 1
-CURRENTMAPID    DC.W 0
-
-PLAYER_X    DC.W 0
-PLAYER_Y    DC.W 0
+MAPAS   DC.L CHECKERMAP
 
 *~Font name~Courier New~
 *~Font size~10~

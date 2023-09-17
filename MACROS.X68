@@ -3,3 +3,25 @@ REPAINT MACRO
     TRAP #15
 
     ENDM
+
+CLRSCREEN MACRO
+    MOVE.B #11, D0
+    MOVE.W #$FF00, D1
+    TRAP #15
+
+    ENDM
+
+UPDATE_KEY MACRO
+    IFNE NARG-3
+        FAIL ERROR UPDATE_KEY, ARGUMENTOS INSUFICIENTES
+        MEXIT
+    ENDC
+    BTST.L \1, D1
+    BNE SIK\@
+    BCLR.B \2, \3
+    BRA END\@
+    SIK\@:
+    BSET.B \2, \3
+    END\@:
+
+    ENDM

@@ -6,7 +6,7 @@
 *-----------------------------------------------------------
     INCLUDE "MACROS.X68"
     INCLUDE "CONST.X68"
-    INCLUDE "VARS.X68"
+    
     
 
     ORG    $1000
@@ -15,60 +15,66 @@ START:                  ; first instruction of program
     BSR SYSTEM_INIT
     BSR SET_SCROLL_TEXT
 
-    MOVE.L #0, D7
-TESTLOOP:
-    ADDQ.W #1, D7
-    BTST.L #0, D7
-    BEQ _TEST1
-    LEA TEST, A0
-    BRA PAINTLOOP
-    _TEST1:
-    LEA TEST2, A0
-PAINTLOOP:
-    SUBQ.L #8, SP
-    MOVE.L A0, 4(SP)
-    MOVE.L #0, (SP)
-    MOVE.W OFFSET_TEST, (SP)
-    MOVE.W OFFSET_TEST, 2(SP)
+    MOVE.W #0, WORLD_X
+    MOVE.W #0, WORLD_Y
 
-    MOVE.W #13, D6
-    _LOOPY:
-        MOVE.W OFFSET_TEST, 2(SP)
-        MOVE.W #10, D5
-        _LOOPX:
-            BSR FASTSPRITE
-            ADD.W #64, 2(SP)
-            DBRA D5, _LOOPX
-        ADD.W #64, 0(SP)
-        DBRA D6, _LOOPY
+    MOVE.W #0, CURRENTMAPID
+    LEA MAPAS, A0
+    MOVE.W CURRENTMAPDIR, D0
+    ASL.W #2, D0                ;MULU #4
+    ADDA.W CURRENTMAPID, A0
+    MOVE.L (A0), CURRENTMAPDIR
+
+TESTLOOP:
+
+
     
-    ADDQ.L #8, SP
+PAINTLOOP:
+    BSR UPDATE_KEYS
+
+    MOVE.L CURRENTMAPDIR, -(SP)
+    BSR DRAW_MAP
+    ADDQ.L #4, SP
+
 
     REPAINT
+    CLRSCREEN
+        
+    ADD.W #2, WORLD_X
+    ADD.W #3, WORLD_Y
 
-    MOVE.W #23, D0
+    MOVE.W #23, D0      ;WAIT
     MOVE.L #1, D1
-    ;TRAP #15
+    TRAP #15
 
-    SUBQ.W #4, OFFSET_TEST
-
-    CMP.W #-64, OFFSET_TEST
-    BNE TESTLOOP
-    MOVE.W #0, OFFSET_TEST
+ENDTESTLOOP:
     BRA TESTLOOP
 
 
     SIMHALT             ; halt simulator
 
-OFFSET_TEST DC.W 0
 
+SPEED_X         DC.W 0
+SPEED_Y         DC.W 0
+
+    INCLUDE "VARS.X68"
+    INCLUDE "TECLADO.X68"
     INCLUDE "SYSTEM.X68"
-    INCLUDE "data/sprites.x68"
     INCLUDE "ScreenScroll.X68"
     INCLUDE "FastSprite.x68"
+    INCLUDE "DRAWMAP.x68"
+    INCLUDE "data/DATA.x68"
+    INCLUDE "data/sprites.x68"
+    INCLUDE "data/maps.x68"
 
 
     END    START        ; last line of source
+
+
+
+
+
+
 
 
 

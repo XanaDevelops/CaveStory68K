@@ -95,6 +95,7 @@ class Conversor():
                 if x.endswith(".bmp"):
                     data, name, x,y = self.ConvertMapa(self.dirMapas+x)
                     fmap.writelines(data+"\n")
+                    fmap.writelines(f"{name} DC.L {name}_DATA\n\t\t\tDC.W {x} {y}\n")
 
 
             fmap.writelines("\n\n\n*~Font name~Courier New~\n")
@@ -108,7 +109,7 @@ class Conversor():
 
         pix = np.array(img).reshape(img.height, img.width, 4).tolist()
 
-        retText = bmpName+":\n"
+        retText = bmpName+"_data:\n"
         auxText = []
         for y in range(img.height):
             l = 0
