@@ -45,7 +45,7 @@ CALCULATE_COLISSION_BBOX:
     ;X_GLOBAL (ENTIDAD) 34
     ;Y_GLOBAL (ENTIDAD) 32
     ;return:  
-    ; W.(LOWBYTE) 00(UP)(UR)(DL)(DR)----
+    ; W.(LOWBYTE) 00 (UL)(UR)(DL)(DR)----
 
     MOVEM.L D0-D4/D7/A0, -(SP)
 
