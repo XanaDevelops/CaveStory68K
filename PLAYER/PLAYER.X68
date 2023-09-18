@@ -4,10 +4,13 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
+
+PLAYER_BBOX DC.W 0,0,64,64
+
 PAINT_PLAYER:
     MOVE.L #QUOTE_L_0, -(SP)
-    MOVE.W #SCREEN_WIDTH/2-32, -(SP)
     MOVE.W #SCREEN_HEIGHT/2-32, -(SP)
+    MOVE.W #SCREEN_WIDTH/2-32, -(SP)
 
     BSR FASTSPRITE
 

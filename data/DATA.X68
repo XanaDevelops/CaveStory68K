@@ -7,7 +7,7 @@
 
 SPRITES DC.L NULL, TILE1 
 
-MAPAS   DC.L TESTMAP
+MAPAS   DC.L TESTMAP, CAVIDAD
 
 
 *~Font name~Courier New~

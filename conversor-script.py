@@ -106,7 +106,7 @@ class Conversor():
     def ConvertMapa(self, path:str, verb:bool=False):
         img = Image.open(path)
         bmpName = path.split("/")[-1].split(".")[0].upper()
-
+        #print(bmpName,"\n", np.array(img))
         pix = np.array(img).reshape(img.height, img.width, 4).tolist()
 
         retText = bmpName+"_data:\n"
