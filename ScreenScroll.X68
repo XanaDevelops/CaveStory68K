@@ -35,7 +35,7 @@ PREVENT_SCREEN_OOB:
                 MOVE.W SCREEN_Y, D3
                 NEG D3
                 MOVE.W D3, D1
-                BCLR.B #KEYM_UP, PLAYER_ST
+                BCLR.B #KEYM_UP, SCREEN_ST
     _NO_OOB_UP:
 
     CMP.W #0, D1                            ;DEJAR MARGEN 1px BAJO/DERECHA
@@ -55,7 +55,7 @@ PREVENT_SCREEN_OOB:
             BLT _NO_OOB_DOWN
                 ;SUBQ.W #1, D3
                 MOVE.W D3, D1
-                BCLR.B #KEYM_DOWN, PLAYER_ST
+                BCLR.B #KEYM_DOWN, SCREEN_ST
     _NO_OOB_DOWN:
 
     CMP.W #0, D0
@@ -69,7 +69,7 @@ PREVENT_SCREEN_OOB:
                 MOVE.W SCREEN_X, D2
                 NEG D2
                 MOVE.W D2, D0
-                BCLR.B #KEYM_LEFT, PLAYER_ST
+                BCLR.B #KEYM_LEFT, SCREEN_ST
     _NO_OOB_LEFT:
 
     CMP.W #0, D0                            ;DEJAR MARGEN 1px BAJO/DERECHA
@@ -84,7 +84,7 @@ PREVENT_SCREEN_OOB:
         CMP.W #MAX_SCRLL_SPEED, D2
         BGT _NO_OOB_RIGHT
             MOVE.W D2, D0
-            BCLR.B #KEYM_RIGHT, PLAYER_ST
+            BCLR.B #KEYM_RIGHT, SCREEN_ST
     _NO_OOB_RIGHT:
 
     MOVEM.L (SP)+, A0/D4-D2

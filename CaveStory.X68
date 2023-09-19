@@ -18,8 +18,8 @@ START:                  ; first instruction of program
     MOVE.W #0, SCREEN_X
     MOVE.W #0, SCREEN_Y
 
-    MOVE.W #SCREEN_WIDTH\2-32, PLAYER_X
-    MOVE.W #SCREEN_HEIGHT\2-32, PLAYER_Y
+    ;MOVE.W #SCREEN_WIDTH\2-32, PLAYER_X
+    ;MOVE.W #SCREEN_HEIGHT\2-32, PLAYER_Y
     
     MOVE.W #0, SCR_SPEED_X
     MOVE.W #0, SCR_SPEED_Y
@@ -46,7 +46,6 @@ PAINTLOOP:
     BSR DRAW_MAP
     ADDQ.L #4, SP
 
-    BSR PAINT_PLAYER
 
     REPAINT
     CLRSCREEN
@@ -56,7 +55,7 @@ PAINTLOOP:
 
     BTST.B #KEYM_UP, KEY_PRESS_PLAYER
     BEQ _NOKUP
-    BTST.B #KEYM_UP, PLAYER_ST
+    BTST.B #KEYM_UP, SCREEN_ST
     BEQ _NOKUP
     SUBQ.W #2, SCR_SPEED_Y
     _NOKUP:
@@ -82,7 +81,7 @@ PAINTLOOP:
     LIMIT_SCRLL_SPEED D0
     LIMIT_SCRLL_SPEED D1
 
-    ORI.B #$F0, PLAYER_ST
+    ORI.B #$F0, SCREEN_ST
 
     BSR PREVENT_SCREEN_OOB
 
@@ -116,18 +115,21 @@ SCR_SPEED_Y         DC.W 0
 
     INCLUDE "TECLADO.X68"
     INCLUDE "SYSTEM.X68"
-    INCLUDE "PLAYER/PLAYER.X68"
     INCLUDE "COLISSION.X68"
     INCLUDE "ScreenScroll.X68"
     INCLUDE "FastSprite.x68"
     INCLUDE "DRAWMAP.x68"
     INCLUDE "VARS.X68"
+    INCLUDE "ENTITY/EntityIncluder.x68"
+    INCLUDE "ENTITY/EntityManagement.x68"
     INCLUDE "data/DATA.x68"
     INCLUDE "data/sprites.x68"
     INCLUDE "data/maps.x68"
 
 
     END    START        ; last line of source
+
+
 
 
 

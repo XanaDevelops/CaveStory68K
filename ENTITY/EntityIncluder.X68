@@ -4,7 +4,9 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-    INCLUDE "entities/PLAYER.X68"
+    INCLUDE "ENTITY/entities/PLAYER.X68"
+
+
 
 *~Font name~Courier New~
 *~Font size~10~

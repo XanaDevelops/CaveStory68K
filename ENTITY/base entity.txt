@@ -1,4 +1,4 @@
-0   ID              DS.W 1
+0   ID              DS.W 1 !=0
 2   XPOS            DS.W 1
 4   YPOS            DS.W 1
 6   XSPEED          DS.W 1
@@ -7,9 +7,10 @@
 12  COLISION_BOX    DS.W 4 (TOP_X)(TOP_Y)(BOT_X)(BOT_Y) RESPECTO XPOS,YPOS
 20  @START          DS.L 1
 24  @UPDATE         DS.L 1
-28  @DRAW           DS.L 1
-32  @SPRITE2.0      DS.L 1
-34  SPRITE_INDEX    DS.W 1
-38  AUX_DATA        DS.L 5
+28  @SPRITE2.0      DS.L 1 VECTOR QUE APUNTA AL SPRITE2 EN USO, PUEDE CAMBIAR C
+32  SPRITE_INDEX    DS.W 1
+34  AUX_DATA        DS.L 5
                     DS.W 1
 56
+
+A0 apunta a @ID

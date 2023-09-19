@@ -5,7 +5,8 @@
 * Description:
 *-----------------------------------------------------------
 DEBUG           EQU 1
-
+NUM_ENT         EQU 100
+ENT_SIZE_L      EQU 56
 ;SCREEN CONST
 SCREEN_WIDTH    EQU 640
 SCREEN_HEIGHT   EQU 512
