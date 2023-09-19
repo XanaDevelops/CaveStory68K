@@ -1,0 +1,15 @@
+0   ID              DS.W 1
+2   XPOS            DS.W 1
+4   YPOS            DS.W 1
+6   XSPEED          DS.W 1
+8   YSPEED          DS.W 1
+10  STATUS          DS.W 1 00(CAN_UP)(CAN_DOWN)(CAN_LEFT)(CAN_RIGHT)----
+12  COLISION_BOX    DS.W 4 (TOP_X)(TOP_Y)(BOT_X)(BOT_Y) RESPECTO XPOS,YPOS
+20  @START          DS.L 1
+24  @UPDATE         DS.L 1
+28  @DRAW           DS.L 1
+32  @SPRITE2.0      DS.L 1
+34  SPRITE_INDEX    DS.W 1
+38  AUX_DATA        DS.L 5
+                    DS.W 1
+56
