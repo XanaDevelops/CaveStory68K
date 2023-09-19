@@ -5,7 +5,7 @@
 * Description:
 *-----------------------------------------------------------
 
-SPRITES DC.L NULL, TILE1 
+SPRITES DC.L NULL, TILE_CUEVA_0, TILE_CUEVA_1
 
 MAPAS   DC.L TESTMAP, CAVIDAD
 
