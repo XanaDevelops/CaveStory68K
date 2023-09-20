@@ -1,0 +1,171 @@
+*-----------------------------------------------------------
+* Title      :
+* Written by :
+* Date       :
+* Description:
+*-----------------------------------------------------------
+
+UPDATE_PHYSICS:
+    ; (SP) @ENT
+    ; fisicas de colision por hitbox continuas por implementación
+    ; del algoritmo de bresenham
+
+    MOVE.L (SP), A0
+    LEA INTERACT_MAP, A2
+    MOVE.L CURRENTMAPDIR, A1
+    ;GRAVEDAD TODO
+    
+    MOVE.W 2(A0), D0
+    ADD.W 8(A0), D0
+    MOVE.W D0, -(SP)
+
+    MOVE.W 4(A0), D0
+    ADD.W 10(A0), D0
+    MOVE.W D0, -(SP)
+
+.BRESENHAM:
+    ;2(A0)  X0
+    ;4(A0)  Y0
+    ;2(SP)  X1
+    ;0(SP)  Y1
+    ;D0     DX
+    ;D1     DY
+    ;D2     SX
+    ;D3     SY
+    ;D4     E1
+    ;D5     E2
+    MOVE.W 2(A0), D0
+    SUB.W 2(SP), D0
+    BPL .NO_ABS
+        NEG D0
+    .NO_ABS:
+    MOVE.W 4(A0), D1
+    SUB.W 0(SP), D1
+    BMI .SI_ABS  ;-ABS
+        NEG D1
+    .SI_ABS:
+    MOVE.W #-1, D2
+    MOVE.W 2(SP), D6
+    CMP.W 2(A0), D6
+    BLE .NO_SX
+        MOVE.W #1, D2
+    .NO_SX:
+    MOVE.W #-1, D3
+    MOVE.W 0(SP), D6
+    CMP.W 4(A0), D6
+    BLE .NO_SY
+        MOVE.W #1, D3
+    .NO_SY:
+
+    MOVE.W D0, D4
+    ADD.W D1, D4
+
+    _BRESENLOOP:
+        MOVE.W 2(A0), D6
+        MOVE.W 4(A0), D7
+
+        BSR COLICHECK
+
+        CMP.W 2(SP), D6
+        BNE _NO_EQ_1
+            CMP.W 0(SP), D7
+            BNE _NO_EQ_1
+                BRA _EXIT_BRESENHAM
+        _NO_EQ_1:
+
+        MOVE.W D4, D5
+        LSL.W #1, D5
+
+        CMP.W D5, D1
+        BGT _NO_IF_1
+            CMP.W 2(SP), D6
+            BEQ _EXIT_BRESENHAM
+            ADD.W D1, D4
+            ADD.W D2, 2(A0)         ;X
+        _NO_IF_1:
+        CMP.W D5, D0
+        BLT _NO_IF_2
+            CMP.W 0(SP), D7
+            BEQ _EXIT_BRESENHAM
+            ADD.W D0, D4
+            ADD.W D3, 4(A0)         ;Y
+        _NO_IF_2:
+    BRA _BRESENLOOP
+
+    _EXIT_BRESENHAM:
+
+
+    .ENDPHSC:
+    RTS
+
+
+COLICHECK:
+    ;PENSAR
+    ;COLISION LATERAL, PUNTOS SUPERIORES SI SUELO
+    ;SINO TAMBIEN
+
+    ADDA.L #14, A0
+    MOVEM.W (A0)+, D1-D4
+    SUBA.L #22, A0
+
+    ADD.W 2(A0), D1
+    ADD.W 2(A0), D3
+    
+    ADD.W 4(A0), D2
+    ADD.W 4(A0), D4
+
+    LSR.W #6, D1  ;DIVU.W #64, D1
+    LSR.W #6, D2
+    LSR.W #6, D3
+    LSR.W #6, D4
+
+    MULU.W 4(A1), D2
+    MULU.W 4(A1), D4
+
+    CLR.W D7
+
+    MOVE.W D1, D0
+    ADD.W D2, D0
+
+    CMP.B #-1, (A0, D0)
+    BNE .NO_COLI_UPL
+    BSET.L #7, D7
+    .NO_COLI_UPL:
+
+    MOVE.W D3, D0
+    ADD.W D2, D0
+
+    CMP.B #-1, (A0,D0)
+    BNE .NO_COLI_UPR
+    BSET.L #6, D7
+    .NO_COLI_UPR:
+
+    MOVE.W D1, D0
+    ADD.W D4, D0
+
+    CMP.B #-1, (A0,D0)
+    BNE .NO_COLI_DWL
+    BSET.L #5, D7
+    .NO_COLI_DWL:
+
+    MOVE.W D3, D0
+    ADD.W D4, D0
+
+    CMP.B #-1, (A0,D0)
+    BNE .NO_COLI_DWR
+    BSET.L #4, D7
+    .NO_COLI_DWR:
+
+    MOVE.W D7, 32(SP)   ;CAMBIAR 32(SP), 
+
+    RTS
+
+
+
+
+
+
+*~Font name~Courier New~
+*~Font size~10~
+*~Tab type~1~
+*~Tab size~4~

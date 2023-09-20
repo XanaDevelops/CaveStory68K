@@ -54,14 +54,14 @@ PLAYER_PAINT:
 PLAYER:
     DC.W 1                                          ;ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 0
+    DC.W 0                                          ;HP
     DC.W 0, 0                                       ;SPEED
-    DC.W 0                                          ;STATUS ;CAN? ;00UDLR----
+    DC.W 0                                          ;STATUS 00UDLR(AIRBONE)---
     DC.W 0,0, 64,64                                 ;COLISION_BOX
     DC.L PLAYER_START, PLAYER_UPDATE, PLAYER_PAINT  ;@
     DC.L QUOTE_WALK_L                               ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
-    DS.L 5                                          ;+0.W (timer sprite)
+    DS.L 5                                          ;42.W (timer sprite)
     DS.W 1
 
 
