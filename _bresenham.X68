@@ -5,7 +5,8 @@
 * Description:
 *-----------------------------------------------------------
     ORG    $1000
-VECTOR DC.W 10,10, 15,10, 20,10, 25, 10, 30,10, 30,15, 30,20, 30, 25, 30,30, 25,30, 20,30, 15,30, 10,30, 10,25, 10,20, 10,15, -1, -1
+VECTOR DC.W 50,50, -1,-1
+TEST    DC.W 20
 START:                  ; first instruction of program
     MOVE.B #80, D0
     MOVE.L #$000000FF, D1
@@ -17,14 +18,14 @@ START:                  ; first instruction of program
     MOVE.W #20, -(SP)
     MOVEM.W (A0)+, D0-D1
     CMP.W #-1, D0
-    BEQ EXIT
+    BEQ .EXIT
     MOVE.W D0, -(SP)
     MOVE.W D1, -(SP)
 
     BSR BRESENHAM
     ADDA.L #8, SP
     BRA LOOP
-    EXIT:
+    .EXIT:
     SIMHALT             ; halt simulator
 
 BRESENHAM:
@@ -87,7 +88,7 @@ BRESENHAM:
             CMP.W 6(SP), D6
             BEQ _EXIT_BRESENHAM
             ADD.W D1, D4
-            ADD.W D2, 10(SP)
+            ADD.W D2, 10(SP) ;SE PUEDEN COMENTAR SIM PROBLEMAS
         _NO_IF_1:
         CMP.W D5, D0
         BLT _NO_IF_2
@@ -96,6 +97,14 @@ BRESENHAM:
             ADD.W D0, D4
             ADD.W D3, 8(SP)
         _NO_IF_2:
+        
+        ;SUB.W #1, (TEST)
+        ;CMP.W #0, (TEST)
+        ;BNE _TEST
+        ;MOVE.W 8(SP), D7
+        ;MOVE.W D7, 4(SP)
+        ;BRA BRESENHAM
+        ;_TEST:
         BRA _BRESENLOOP
 
     _EXIT_BRESENHAM:
@@ -112,6 +121,7 @@ PAINT:
 * Put variables and constants here
 
     END    START        ; last line of source
+
 
 
 

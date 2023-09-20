@@ -17,14 +17,11 @@ START:                  ; first instruction of program
 
     MOVE.W #0, SCREEN_X
     MOVE.W #0, SCREEN_Y
-
-    ;MOVE.W #SCREEN_WIDTH\2-32, PLAYER_X
-    ;MOVE.W #SCREEN_HEIGHT\2-32, PLAYER_Y
     
     MOVE.W #0, SCR_SPEED_X
     MOVE.W #0, SCR_SPEED_Y
 
-    MOVE.W #0, CURRENTMAPID
+    MOVE.W #1, CURRENTMAPID
     LEA MAPAS, A0
     MOVE.W CURRENTMAPID, D0
     ASL.W #2, D0                ;MULU #4
@@ -126,12 +123,15 @@ SCR_SPEED_Y         DC.W 0
     INCLUDE "VARS.X68"
     INCLUDE "ENTITY/EntityIncluder.x68"
     INCLUDE "ENTITY/EntityManagement.x68"
+    INCLUDE "ENTITY/Physics.X68"
     INCLUDE "data/DATA.x68"
     INCLUDE "data/sprites.x68"
     INCLUDE "data/maps.x68"
 
 
     END    START        ; last line of source
+
+
 
 
 

@@ -9,6 +9,7 @@
 START:                  ; first instruction of program
     
 * Put program code here
+
     MOVE.W #4, D0
     CMP.W #2, D0
     BLT _A
@@ -23,6 +24,7 @@ START:                  ; first instruction of program
 
 
     END    START        ; last line of source
+
 
 
 
