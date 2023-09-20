@@ -31,6 +31,11 @@ START:                  ; first instruction of program
     ADDA.W D0, A0
     MOVE.L (A0), CURRENTMAPDIR
 
+    MOVE.L #PLAYER, -(SP)
+    BSR INSTANCE_ENTITY
+
+    ADDQ.L #4, SP
+
     BSR GENERATE_COLIMAP
 
 TESTLOOP:
@@ -46,12 +51,12 @@ PAINTLOOP:
     BSR DRAW_MAP
     ADDQ.L #4, SP
 
+    BSR DRAW_ALL_ENT
 
     REPAINT
     CLRSCREEN
-        
-    ;ADD.W #2, SCREEN_X
-    ;ADD.W #3, SCREEN_Y
+    
+    BSR UPDATE_ALL_ENT
 
     BTST.B #KEYM_UP, KEY_PRESS_PLAYER
     BEQ _NOKUP
@@ -84,7 +89,6 @@ PAINTLOOP:
     ORI.B #$F0, SCREEN_ST
 
     BSR PREVENT_SCREEN_OOB
-
 
     ADD.W D0, SCREEN_X
     ADD.W D1, SCREEN_Y
@@ -128,6 +132,7 @@ SCR_SPEED_Y         DC.W 0
 
 
     END    START        ; last line of source
+
 
 
 

@@ -5,17 +5,20 @@
 * Description:
 *-----------------------------------------------------------
 
-SCREEN_X     DS.W 1
-SCREEN_Y     DS.W 1
+SCREEN_X    DS.W 1
+SCREEN_Y    DS.W 1
 
                 ;CAN?
                  ;UDLR
-SCREEN_ST    DC.B 0
+SCREEN_ST   DC.B 0
+            DC.W 0
+SCRBGCOLOR  DC.L $00202020
 
 CURRENTMAPDIR   DS.L 1
 CURRENTMAPID    DC.W 0
 
 INTERACT_MAP DCB.B 100*100,0
+
 
 
 *~Font name~Courier New~

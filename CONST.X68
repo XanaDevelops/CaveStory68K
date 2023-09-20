@@ -5,8 +5,10 @@
 * Description:
 *-----------------------------------------------------------
 DEBUG           EQU 1
-NUM_ENT         EQU 100
-ENT_SIZE_L      EQU 56
+
+NUM_ENT         EQU 75
+ENT_SIZE_L      EQU 64  ;MULTIPLO 4
+
 ;SCREEN CONST
 SCREEN_WIDTH    EQU 640
 SCREEN_HEIGHT   EQU 512
@@ -25,6 +27,9 @@ SCREEN_RSCROLL  EQU 0
 SCREEN_CSCROLL  EQU 0
 SCREEN_WSCROLL  EQU 255
 SCREEN_HSCROLL  EQU 68
+
+;PLAYER
+ANIMSPEED       EQU 6
 
 ;COLORS              XXBBGGRR
 BLACK           EQU $00000000 
