@@ -49,13 +49,19 @@ AQUA            EQU $00FFFF00
 LTGRAY          EQU $00C0C0C0 
 WHITE           EQU $00FFFFFF 
 
-;SPECIAL KEYS
+;KEYS
+KEY_Z           EQU $5A
+KEY_X           EQU $58
+KEY_A           EQU $41
+KEY_S           EQU $53
+
 KEY_LEFT        EQU $25
 KEY_UP          EQU $26
 KEY_RIGHT       EQU $27
 KEY_DOWN        EQU $28      
 F11             EQU $7A
 ESC             EQU $1B
+
 
 
 

@@ -22,10 +22,20 @@ PLAYER_UPDATE:
         MOVE.W #MAX_SCRLL_SPEED, 10(A0)
     .NOMXSPED:
 
-    BTST.B #KEYM_LEFT, KEY_PRESS_PLAYER
+    BTST.B #KEYM_LEFT, (KEY_PRESS_PLAYER) ;MOVIMIENTO
     BEQ .NOLEFT
     SUBQ.W #2, 8(A0) 
     .NOLEFT:
+
+    BTST.B #KEYM_RIGHT, (KEY_PRESS_PLAYER) ;MOVIMIENTO
+    BEQ .NORIGHT
+    ADDQ.W #2, 8(A0) 
+    .NORIGHT:
+
+    BTST.B #KEYM_Z, (KEY_PRESS_PLAYER)
+    BEQ .NOZ
+    SUBQ.W #8, 10(A0) 
+    .NOZ:
 
     BSR UPDATE_PHYSICS
 
@@ -39,6 +49,7 @@ PLAYER_UPDATE:
     ADDQ.L #4, SP
     MOVE.L (SP)+, D0
     RTS
+
 PLAYER_PAINT:
     MOVEM.L D0-D2/A1-A2, -(SP)
 
@@ -86,7 +97,7 @@ PLAYER:
     DC.W 0                                          ;HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00UDLR(AIRBONE)---
-    DC.W 0,0, 64,64                                 ;COLISION_BOX
+    DC.W 8,0, 58,64                                 ;COLISION_BOX
     DC.L PLAYER_START, PLAYER_UPDATE, PLAYER_PAINT  ;@
     DC.L QUOTE_WALK_L                               ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX

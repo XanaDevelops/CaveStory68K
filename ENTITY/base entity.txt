@@ -13,6 +13,6 @@
 38  SPRITE_INDEX    DS.L 1
 42  AUX_DATA        DS.L 5
                     DS.W 1
-64
+64  
 
 A0 apunta a @ID
