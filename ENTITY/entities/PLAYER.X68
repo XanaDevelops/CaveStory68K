@@ -6,11 +6,38 @@
 *-----------------------------------------------------------
 
 PLAYER_START:
-    MOVE.W #SCREEN_HEIGHT/2-32, 2(A0)
-    MOVE.W #SCREEN_WIDTH/2-32, 4(A0)
+    MOVE.W #SCREEN_WIDTH/2-32, 2(A0)
+    MOVE.W #SCREEN_HEIGHT/2-32, 4(A0)
+    ;ADD.W #64, 4(A0)
     MOVE.W #ANIMSPEED, 42(A0)
     RTS
 PLAYER_UPDATE:
+    MOVE.L D0, -(SP)
+
+    MOVE.L A0, -(SP)
+
+    ADDQ.W #1, 10(A0)                   ;GRAVEDAD
+    CMP.W #MAX_SCRLL_SPEED, 10(A0)
+    BLE .NOMXSPED
+        MOVE.W #MAX_SCRLL_SPEED, 10(A0)
+    .NOMXSPED:
+
+    BTST.B #KEYM_LEFT, KEY_PRESS_PLAYER
+    BEQ .NOLEFT
+    SUBQ.W #2, 8(A0) 
+    .NOLEFT:
+
+    BSR UPDATE_PHYSICS
+
+    MOVE.W 4(A0), D0                ;PANTALLA SEGUIR CAIDA
+    SUB.W (SCREEN_Y), D0
+    CMP.W #SCREEN_HEIGHT-200, D0
+    BLT .NOSEEKY
+        ADD.W #2, (SCR_SPEED_Y)
+    .NOSEEKY:
+
+    ADDQ.L #4, SP
+    MOVE.L (SP)+, D0
     RTS
 PLAYER_PAINT:
     MOVEM.L D0-D2/A1-A2, -(SP)
@@ -24,9 +51,11 @@ PLAYER_PAINT:
 
     ;MOVE.L #QUOTE_L_0, -(SP)
     MOVE.L A2, -(SP)
-    MOVE.W 2(A0), D0
-    MOVE.W D0, -(SP)
     MOVE.W 4(A0), D0
+    SUB.W (SCREEN_Y), D0
+    MOVE.W D0, -(SP)
+    MOVE.W 2(A0), D0
+    SUB.W (SCREEN_X), D0
     MOVE.W D0, -(SP)
 
     BSR FASTSPRITE
@@ -63,6 +92,7 @@ PLAYER:
     DC.L 0                                          ;SPRITEINDEX
     DS.L 5                                          ;42.W (timer sprite)
     DS.W 1
+
 
 
 

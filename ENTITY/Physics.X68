@@ -9,8 +9,9 @@ UPDATE_PHYSICS:
     ; (SP) @ENT
     ; fisicas de colision por hitbox continuas por implementación
     ; del algoritmo de bresenham
+    MOVEM.L D0-D7/A1-A2, -(SP)
 
-    MOVE.L (SP), A0
+    MOVE.L 44(SP), A0
     LEA INTERACT_MAP, A2
     MOVE.L CURRENTMAPDIR, A1
     ;GRAVEDAD TODO
@@ -26,8 +27,8 @@ UPDATE_PHYSICS:
 .BRESENHAM:
     ;2(A0)  X0
     ;4(A0)  Y0
-    ;2(SP)  X1
-    ;0(SP)  Y1
+    ;2(SP)  X1 -> 6(SP)
+    ;0(SP)  Y1 -> 4(SP)
     ;D0     DX
     ;D1     DY
     ;D2     SX
@@ -60,15 +61,19 @@ UPDATE_PHYSICS:
     MOVE.W D0, D4
     ADD.W D1, D4
 
+    SUBA.L #4, SP ;ESPACIO WORDS 0(SP) DESPX, 2(SP) DESPY
+
     _BRESENLOOP:
         MOVE.W 2(A0), D6
         MOVE.W 4(A0), D7
 
-        BSR COLICHECK
+ 
 
-        CMP.W 2(SP), D6
+        CLR.L (SP)
+
+        CMP.W 6(SP), D6
         BNE _NO_EQ_1
-            CMP.W 0(SP), D7
+            CMP.W 4(SP), D7
             BNE _NO_EQ_1
                 BRA _EXIT_BRESENHAM
         _NO_EQ_1:
@@ -78,24 +83,31 @@ UPDATE_PHYSICS:
 
         CMP.W D5, D1
         BGT _NO_IF_1
-            CMP.W 2(SP), D6
+            CMP.W 6(SP), D6
             BEQ _EXIT_BRESENHAM
             ADD.W D1, D4
             ADD.W D2, 2(A0)         ;X
+            MOVE.W D2, 0(SP)
+            
         _NO_IF_1:
         CMP.W D5, D0
         BLT _NO_IF_2
-            CMP.W 0(SP), D7
+            CMP.W 4(SP), D7
             BEQ _EXIT_BRESENHAM
             ADD.W D0, D4
             ADD.W D3, 4(A0)         ;Y
+            MOVE.W D3, 2(SP)
         _NO_IF_2:
+
+    BSR COLICHECK
+    
     BRA _BRESENLOOP
 
     _EXIT_BRESENHAM:
-
+    ADDQ.L #8, SP
 
     .ENDPHSC:
+    MOVEM.L (SP)+, A2-A1/D7-D0
     RTS
 
 
@@ -103,6 +115,7 @@ COLICHECK:
     ;PENSAR
     ;COLISION LATERAL, PUNTOS SUPERIORES SI SUELO
     ;SINO TAMBIEN
+    MOVEM.L D0-D4/D6-D7, -(SP)
 
     ADDA.L #14, A0
     MOVEM.W (A0)+, D1-D4
@@ -127,7 +140,7 @@ COLICHECK:
     MOVE.W D1, D0
     ADD.W D2, D0
 
-    CMP.B #-1, (A0, D0)
+    CMP.B #-1, (A2, D0)
     BNE .NO_COLI_UPL
     BSET.L #7, D7
     .NO_COLI_UPL:
@@ -135,7 +148,7 @@ COLICHECK:
     MOVE.W D3, D0
     ADD.W D2, D0
 
-    CMP.B #-1, (A0,D0)
+    CMP.B #-1, (A2,D0)
     BNE .NO_COLI_UPR
     BSET.L #6, D7
     .NO_COLI_UPR:
@@ -143,7 +156,7 @@ COLICHECK:
     MOVE.W D1, D0
     ADD.W D4, D0
 
-    CMP.B #-1, (A0,D0)
+    CMP.B #-1, (A2,D0)
     BNE .NO_COLI_DWL
     BSET.L #5, D7
     .NO_COLI_DWL:
@@ -151,13 +164,34 @@ COLICHECK:
     MOVE.W D3, D0
     ADD.W D4, D0
 
-    CMP.B #-1, (A0,D0)
+    CMP.B #-1, (A2,D0)
     BNE .NO_COLI_DWR
     BSET.L #4, D7
     .NO_COLI_DWR:
 
-    MOVE.W D7, 32(SP)   ;CAMBIAR 32(SP), 
+    ;MOVE.W D7, 32(SP)   ;CAMBIAR 32(SP), 
+    ;Poc
+    CMP.W #0, D7
+    BEQ .NOCOLI
+        CMP.W #0, 32(SP)
+        BEQ .NOXMOVE
+            MOVE.W 32(SP), D6
+            SUB.W D6, 2(A0)
+            MOVE.W #0, 8(A0)
+            MOVE.W 2(A0), D6
+            MOVE.W D6, 38(SP)
+        .NOXMOVE:
+        CMP.W #0, 34(SP)
+        BEQ .NOYMOVE
+            MOVE.W 34(SP), D6
+            SUB.W D6, 4(A0)
+            MOVE.W #0, 10(A0)
+            MOVE.W 4(A0), D6
+            MOVE.W D6, 36(SP)
+        .NOYMOVE:
+    .NOCOLI:
 
+    MOVEM.L (SP)+, D7-D6/D4-D0
     RTS
 
 

@@ -16,7 +16,7 @@ START:                  ; first instruction of program
     BSR SET_SCROLL_TEXT
 
     MOVE.W #0, SCREEN_X
-    MOVE.W #0, SCREEN_Y
+    MOVE.W #TILESIZE*0, SCREEN_Y
     
     MOVE.W #0, SCR_SPEED_X
     MOVE.W #0, SCR_SPEED_Y
@@ -54,6 +54,8 @@ PAINTLOOP:
     CLRSCREEN
     
     BSR UPDATE_ALL_ENT
+
+    BRA _NOKRIGHT
 
     BTST.B #KEYM_UP, KEY_PRESS_PLAYER
     BEQ _NOKUP
