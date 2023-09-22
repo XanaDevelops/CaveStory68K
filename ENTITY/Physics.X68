@@ -81,15 +81,7 @@ UPDATE_PHYSICS:
         MOVE.W D4, D5
         LSL.W #1, D5
 
-        CMP.W D5, D1
-        BGT _NO_IF_1
-            CMP.W 6(SP), D6
-            BEQ _EXIT_BRESENHAM
-            ADD.W D1, D4
-            ADD.W D2, 2(A0)         ;X
-            MOVE.W D2, 0(SP)
-            
-        _NO_IF_1:
+
         CMP.W D5, D0
         BLT _NO_IF_2
             CMP.W 4(SP), D7
@@ -97,9 +89,22 @@ UPDATE_PHYSICS:
             ADD.W D0, D4
             ADD.W D3, 4(A0)         ;Y
             MOVE.W D3, 2(SP)
+            BSR COLICHECK
+            BRA _BRESENLOOP
         _NO_IF_2:
+        CMP.W D5, D1
+        BGT _NO_IF_1
+            CMP.W 6(SP), D6
+            BEQ _EXIT_BRESENHAM
+            ADD.W D1, D4
+            ADD.W D2, 2(A0)         ;X
+            MOVE.W D2, 0(SP)
+            BSR COLICHECK
+            BRA _BRESENLOOP
+        _NO_IF_1:
+        
 
-    BSR COLICHECK
+    ;BSR COLICHECK
     
     BRA _BRESENLOOP
 
@@ -126,6 +131,12 @@ COLICHECK:
     
     ADD.W 4(A0), D2
     ADD.W 4(A0), D4
+
+    ;TEST
+    ADDQ.W #1, D1
+    ADDQ.W #1, D3
+    SUBQ.W #1, D2
+    SUBQ.W #1, D4
 
     LSR.W #6, D1  ;DIVU.W #64, D1
     LSR.W #6, D2
@@ -173,14 +184,7 @@ COLICHECK:
     ;Poc
     CMP.W #0, D7
     BEQ .NOCOLI
-        CMP.W #0, 32(SP)
-        BEQ .NOXMOVE
-            MOVE.W 32(SP), D6
-            SUB.W D6, 2(A0)
-            MOVE.W #0, 8(A0)
-            MOVE.W 2(A0), D6
-            MOVE.W D6, 38(SP)
-        .NOXMOVE:
+        
         CMP.W #0, 34(SP)
         BEQ .NOYMOVE
             MOVE.W 34(SP), D6
@@ -189,6 +193,14 @@ COLICHECK:
             MOVE.W 4(A0), D6
             MOVE.W D6, 36(SP)
         .NOYMOVE:
+        CMP.W #0, 32(SP)
+        BEQ .NOXMOVE
+            MOVE.W 32(SP), D6
+            SUB.W D6, 2(A0)
+            MOVE.W #0, 8(A0)
+            MOVE.W 2(A0), D6
+            MOVE.W D6, 38(SP)
+        .NOXMOVE:
     .NOCOLI:
 
     MOVEM.L (SP)+, D7-D6/D4-D0
