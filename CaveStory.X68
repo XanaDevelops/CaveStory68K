@@ -21,7 +21,7 @@ START:                  ; first instruction of program
     MOVE.W #0, SCR_SPEED_X
     MOVE.W #0, SCR_SPEED_Y
 
-    MOVE.W #1, CURRENTMAPID
+    MOVE.W #0, CURRENTMAPID
     LEA MAPAS, A0
     MOVE.W CURRENTMAPID, D0
     ASL.W #2, D0                ;MULU #4
@@ -132,6 +132,7 @@ SCR_SPEED_Y         DC.W 0
 
 
     END    START        ; last line of source
+
 
 
 

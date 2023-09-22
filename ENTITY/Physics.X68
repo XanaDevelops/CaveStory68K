@@ -182,6 +182,7 @@ COLICHECK:
 
     ;MOVE.W D7, 32(SP)   ;CAMBIAR 32(SP), 
     ;Poc
+    
     CMP.W #0, D7
     BEQ .NOCOLI
         
@@ -192,6 +193,13 @@ COLICHECK:
             MOVE.W #0, 10(A0)
             MOVE.W 4(A0), D6
             MOVE.W D6, 36(SP)
+            BTST #5, D7
+            BNE .SETGROUND
+            BTST #4, D7
+            BNE .SETGROUND
+            BRA .NOYMOVE
+            .SETGROUND:
+                BSET.B #3, 13(A0)
         .NOYMOVE:
         CMP.W #0, 32(SP)
         BEQ .NOXMOVE
