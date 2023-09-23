@@ -4,7 +4,8 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-SOLID_ID DC.B 4, -1
+SOLID_ID    DC.B 4, 8, -1
+            DS.W 0
 
 GENERATE_COLIMAP:
     MOVEM.L D0-D2/D6-D7/A0-A2, -(SP)
