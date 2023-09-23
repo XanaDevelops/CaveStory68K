@@ -141,17 +141,16 @@ CAMERA_MOVE:
 
     MOVE.W 2(A0), D0
     SUB.W (SCREEN_X), D0
-    MOVE.W #(SCREEN_WIDTH/4)*3, D2
-
-    CMP.B #0, 44(A0)
+    
+    CMP.B #0, 44(A0)                    ;Scroll horizontal
     BEQ .PNLEFT
-        SUB.W #SCREEN_WIDTH/4, D0
-        ASR.W #2, D0
+        SUB.W #100-TILESIZE, D0
+        ASR.W #3, D0
         MOVE.W D0, (SCR_SPEED_X)    
-        BRA .ENDCAM
+    BRA .ENDCAM
     .PNLEFT:
-        SUB.W #(SCREEN_WIDTH/4)*3, D0
-        ASR.W #2, D0
+        SUB.W #SCREEN_WIDTH-100, D0
+        ASR.W #3, D0
         MOVE.W D0, (SCR_SPEED_X)
     .ENDCAM:
     MOVE.L (SP)+, D1

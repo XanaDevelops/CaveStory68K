@@ -61,9 +61,9 @@ class Conversor():
             fsprite.writelines("* Description: Generado automaticamente por pyconverterU.py\n")
             fsprite.writelines("*-----------------------------------------------------------\n")
             fsprite.writelines("ColorNULL:\n\tDC.L -1\nSizeNULL:\n\tDC.W 0,0,0,0\n\nNULL: DC.L ColorNULL, SizeNULL\n\n")
-        for x in os.listdir(self.dirSprites):
-            if(".svg" in x):
-                self.ConvertSpriteSVG(self.dirSprites+x)
+            fsprite.flush()
+            os.fsync(fsprite)
+        self.RecursiveConverter(self.dirSprites)
 
             #fsprite.writelines(f"\nSPRITEV DC.L {', '.join(names)}\n")
         with open(self.pathSprites, "+a") as fsprite:
@@ -71,6 +71,16 @@ class Conversor():
             fsprite.writelines("*~Font size~10~\n")
             fsprite.writelines("*~Tab type~1~\n")
             fsprite.writelines("*~Tab size~4~\n")
+
+    def RecursiveConverter(self, path:str):
+        for x in os.listdir(path):
+            #print("###############\n############")
+            ###print("COMPROBANDO",path+"/"+x,os.path.isdir(path+"/"+x))
+            #print("###############\n############")
+            if(os.path.isdir(path+"/"+x)):
+                self.RecursiveConverter(path+"/"+x)
+            if(".svg" in x):
+                self.ConvertSpriteSVG(path+"/"+x)
 
     def ConvertSpriteSVG(self, path:str, verb:bool = False) -> list:
 

@@ -1,9 +1,11 @@
-import sys, inkex
+import sys, inkex, os
+
 
 def ConvertSpriteSVG() -> list:
     SCALE = 2
 
     path = user_args[1]
+    #print("CONVERSOR", path)
     svgName = path.split("/")[-1].split(".")[0].upper()
 
     colorText = f"Color{svgName}:\n"
@@ -36,9 +38,11 @@ def ConvertSpriteSVG() -> list:
         
 
     retText = f"{colorText}\tDC.L -1\n{sizeText}\n\n{svgName} DC.L Color{svgName}, Size{svgName}\n"
-    #print("\n###########\n"+retText+"##################\n")
+    #print("\n###########\nRETTEXT\n"+retText+"##################\n",user_args[0])
     with open(user_args[0], "+a") as sprites:
-         sprites.write(retText)
+        sprites.write(retText)
+        sprites.flush()
+        os.fsync(sprites)
 
     #return [retText, svgName]
 
