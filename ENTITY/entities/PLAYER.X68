@@ -12,7 +12,7 @@ PLAYER_START:
     MOVE.W #10, 6(A0)
     MOVE.B #-1, 44(A0)
     RTS
-    
+
 PLAYER_UPDATE:
     MOVE.L D0, -(SP)
 
@@ -62,13 +62,24 @@ PLAYER_UPDATE:
         MOVE.W #-MAX_PLYR_SPEED, 8(A0)
     .NOMMAX:
 
-    BTST.B #KEYM_Z, (KEY_PRESS_PLAYER)      ;SALTO BASE
+    BTST.B #3, 13(A0)
+    BEQ .NOS
+        MOVE.B #18, 45(A0)
+    .NOS:
+
+    BTST.B #KEYM_Z, (KEY_PRESS_PLAYER)      ;SALTO BASE SUBI.W #16, 10(A0) 
     BEQ .NOZ
     BTST.B #3, 13(A0)
-    BEQ .NOZ
-    SUBI.W #16, 10(A0) 
+    BNE .SIS
+    CMP.B #0, 45(A0)
+    BLE .ENDZ
+    .SIS:
+    MOVE.W #-9, 10(A0)   ;VEL SALTO
+    SUBQ.B #1, 45(A0)
+    BRA .ENDZ
     .NOZ:
-
+    CLR.B 45(A0)
+    .ENDZ:
     BCLR.B #3, 13(A0)
     BSR UPDATE_PHYSICS
 
@@ -153,12 +164,12 @@ CAMERA_MOVE:
     
     CMP.B #0, 44(A0)                    ;Scroll horizontal
     BEQ .PNLEFT
-        SUB.W #100-TILESIZE, D0
+        SUB.W #130-TILESIZE, D0
         ASR.W #3, D0
         MOVE.W D0, (SCR_SPEED_X)    
     BRA .ENDCAM
     .PNLEFT:
-        SUB.W #SCREEN_WIDTH-100, D0
+        SUB.W #SCREEN_WIDTH-130, D0
         ASR.W #3, D0
         MOVE.W D0, (SCR_SPEED_X)
     .ENDCAM:
@@ -179,6 +190,8 @@ PLAYER:
     DC.L 0                                          ;SPRITEINDEX
     DS.L 5                                          ;42.W (timer sprite)
     DS.W 1                                          ;44.B (lookdir) 0:left -1:right
+                                                    ;45.B (timer jump)
+
 
 
 
