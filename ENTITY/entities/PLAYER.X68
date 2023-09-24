@@ -68,8 +68,7 @@ PLAYER_UPDATE:
     BEQ .NOS
         MOVE.B #18, 45(A0)
     .NOS:
-
-    BTST.B #KEYM_Z, (KEY_PRESS_PLAYER)      ;SALTO BASE SUBI.W #16, 10(A0) 
+    BTST.B #KEYM_Z, (KEY_PRESS_PLAYER)      ;SALTO BASE  
     BEQ .NOZ
     BTST.B #3, 13(A0)
     BNE .SIS
@@ -83,6 +82,28 @@ PLAYER_UPDATE:
     CLR.B 45(A0)
     .ENDZ:
     BCLR.B #3, 13(A0)
+
+    CMP.W #0, 8(A0)
+    BEQ .NOANIM
+        MOVE.L 38(A0), D1                   ;ANIM_INDEX
+        MOVE.W 42(A0), D2                   ;CONTROLAR SALTO TODO
+        SUBQ.W #1, D2
+        CMP.W #0, D2
+        BNE .NOTIMER
+            MOVE.W #ANIMSPEED, D2
+            ADDQ.L #1, D1
+            MOVE.L 34(A0), A1
+            CMP.L (A1), D1
+            BLT .NOOF
+            MOVE.L #0, D1
+            .NOOF:
+            MOVE.L D1, 38(A0)
+        .NOTIMER:
+        MOVE.W D2, 42(A0)
+    BRA .ENDANIM
+    .NOANIM:
+        CLR.L 38(A0)
+    .ENDANIM:
     BSR UPDATE_PHYSICS
 
     BSR CAMERA_MOVE
@@ -100,8 +121,6 @@ PLAYER_PAINT:
     ASL.L #2, D1
     MOVE.L 4(A1, D1), A2
 
-
-    ;MOVE.L #QUOTE_L_0, -(SP)
     MOVE.L A2, -(SP)
     MOVE.W 4(A0), D0
     SUB.W (SCREEN_Y), D0
@@ -114,20 +133,7 @@ PLAYER_PAINT:
 
     ADDQ.L #8, SP
 
-    ASR.W #2, D1                ;ANIM_INDEX
-    MOVE.W 42(A0), D2
-    SUBQ.W #1, D2
-    CMP.W #0, D2
-    BNE .NOTIMER
-        MOVE.W #ANIMSPEED, D2
-        ADDQ.L #1, D1
-        CMP.L (A1), D1
-        BLT .NOOF
-        MOVE.L #0, D1
-        .NOOF:
-        MOVE.L D1, 38(A0)
-    .NOTIMER:
-    MOVE.W D2, 42(A0)
+    
 
     MOVEM.L (SP)+, A2-A1/D2-D0
     RTS

@@ -35,6 +35,8 @@ START:                  ; first instruction of program
 
     BSR GENERATE_COLIMAP
 
+    CLRSCREEN
+
 TESTLOOP:
     MOVE.B		#8,D0 ;GET TIEMPO EN MILIS
 	TRAP		#15
