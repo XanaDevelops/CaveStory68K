@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
-   sodipodi:docname="QUOTE_L_2.svg"
+   sodipodi:docname="QUOTE_R_U_2.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,8 +25,8 @@
      inkscape:document-units="mm"
      showgrid="true"
      inkscape:zoom="17.036854"
-     inkscape:cx="26.090498"
-     inkscape:cy="16.346915"
+     inkscape:cx="11.592516"
+     inkscape:cy="15.701256"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="1912"
@@ -64,19 +64,26 @@
        x="8"
        y="0" />
     <rect
-       style="fill:#ff0000;stroke-width:0.919866"
+       style="fill:#ff4629;fill-opacity:1;stroke-width:1.30089"
        id="rect2"
        width="22"
-       height="2"
-       x="9"
-       y="2" />
+       height="4"
+       x="8"
+       y="0" />
     <rect
-       style="fill:#ff0000;stroke-width:1.41421"
+       style="fill:#ff4629;stroke-width:1.1547;fill-opacity:1"
        id="rect4"
-       width="3"
+       width="2"
        height="4"
        x="6"
        y="2" />
+    <rect
+       style="fill:#8ca5bd;fill-opacity:1;stroke-width:1.1547"
+       id="rect21-3-8-0"
+       width="6"
+       height="4"
+       x="18"
+       y="16" />
     <rect
        style="fill:#8ca5bd;fill-opacity:1;stroke-width:0.816497"
        id="rect21-3"
@@ -92,11 +99,11 @@
        x="8"
        y="4" />
     <rect
-       style="fill:#ff0000"
+       style="fill:#ff4629;fill-opacity:1"
        id="rect5"
        width="2"
        height="2"
-       x="8"
+       x="30"
        y="0" />
     <rect
        style="fill:#082577;fill-opacity:1"
@@ -104,7 +111,7 @@
        width="2"
        height="6"
        x="10"
-       y="6" />
+       y="4" />
     <rect
        style="fill:#000000;stroke-width:1"
        id="rect9"
@@ -125,9 +132,9 @@
        width="2"
        height="6"
        x="24"
-       y="6" />
+       y="4" />
     <rect
-       style="fill:#ff0000"
+       style="fill:#ff4629;fill-opacity:1"
        id="rect8"
        width="2"
        height="2"
@@ -198,13 +205,6 @@
        y="8" />
     <rect
        style="fill:#f2f2f2;stroke-width:0.353553"
-       id="rect10-3"
-       width="2"
-       height="2"
-       x="22"
-       y="22" />
-    <rect
-       style="fill:#f2f2f2;stroke-width:0.353553"
        id="rect10-3-2"
        width="2"
        height="2"
@@ -239,9 +239,16 @@
        x="26"
        y="12" />
     <rect
-       style="fill:#8ca5bd;fill-opacity:1;stroke-width:1.05409"
+       style="fill:#000000;fill-opacity:1"
+       id="rect20-4"
+       width="2"
+       height="2"
+       x="20"
+       y="16" />
+    <rect
+       style="fill:#8ca5bd;fill-opacity:1;stroke-width:0.942807"
        id="rect21"
-       width="10"
+       width="8"
        height="2"
        x="16"
        y="4" />
@@ -254,18 +261,18 @@
        y="6" />
     <rect
        style="fill:#8ca5bd;fill-opacity:1;stroke-width:0.471405"
-       id="rect21-3-8-0"
-       width="2"
-       height="2"
-       x="18"
-       y="16" />
-    <rect
-       style="fill:#8ca5bd;fill-opacity:1;stroke-width:0.471405"
        id="rect21-3-8-0-4"
        width="2"
        height="2"
        x="16"
        y="14" />
+    <rect
+       style="fill:#8ca5bd;fill-opacity:1;stroke-width:0.471405"
+       id="rect21-3-8-0-4-4"
+       width="2"
+       height="2"
+       x="18"
+       y="16" />
     <rect
        style="fill:#8ca5bd;fill-opacity:1;stroke-width:0.471405"
        id="rect21-3-8-0-49"

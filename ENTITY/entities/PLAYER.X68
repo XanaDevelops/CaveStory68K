@@ -10,7 +10,7 @@ PLAYER_START:
     MOVE.W #SCREEN_HEIGHT/2-32, 4(A0)
     MOVE.W #ANIMSPEED, 42(A0)
     MOVE.W #10, 6(A0)
-    MOVE.B #-1, 44(A0)
+    MOVE.B #4, 44(A0)
     RTS
 
 PLAYER_UPDATE:
@@ -33,16 +33,18 @@ PLAYER_UPDATE:
     BTST.B #KEYM_RIGHT, (KEY_PRESS_PLAYER) ;AÑADIR LIMITADORES
     BEQ .NORIGHT
     ADDQ.W #2, 8(A0) 
-    MOVE.B #-1, 44(A0)
+    MOVE.B #4, 44(A0)
     .NORIGHT:
 
-    CMP.B #0, 44(A0)    ;DIBUJADO SPRITE DIR
-    BEQ .ESIZQ
-        MOVE.L #QUOTE_WALK_R, 34(A0)
-        BRA .ENDDIRSPR
-    .ESIZQ:
-        MOVE.L #QUOTE_WALK_L, 34(A0)
-    .ENDDIRSPR:
+    CLR.W D0
+    BTST.B #KEYM_UP, (KEY_PRESS_PLAYER)
+    BEQ .NOUP
+    ADDQ.W #8, D0
+    .NOUP:
+
+    LEA QUOTE_WALK_ANIM, A1
+    ADD.B 44(A0), D0
+    MOVE.L (A1, D0.W), 34(A0)
 
     CMP.W #0, 8(A0)
     BEQ .ESZERO
@@ -152,10 +154,6 @@ CAMERA_MOVE:
     BLE .NOKSDW
         MOVE.W (SCR_SPEED_Y), D1
         ADDQ.W #2, D1
-        CMP.W #MAX_SCRLL_SPEED, D1
-        BLT .NOMXSKDW
-            MOVE.W #MAX_SCRLL_SPEED, D1
-        .NOMXSKDW:
         MOVE.W D1, (SCR_SPEED_Y)
     .NOKSDW:
 
@@ -186,11 +184,12 @@ PLAYER:
     DC.W 0                                          ;STATUS 00UDLR(AIRBONE)---
     DC.W 8,2, 58,64                                 ;COLISION_BOX
     DC.L PLAYER_START, PLAYER_UPDATE, PLAYER_PAINT  ;@
-    DC.L QUOTE_WALK_L                               ;@SPRITE DEFECTO
+    DC.L QUOTE_WALK_RN                              ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DS.L 5                                          ;42.W (timer sprite)
-    DS.W 1                                          ;44.B (lookdir) 0:left -1:right
+    DS.W 1                                          ;44.B (lookdir) 0:left 4:right (+8 up) 
                                                     ;45.B (timer jump)
+
 
 
 

@@ -26,7 +26,7 @@ PREVENT_SCREEN_OOB:
 
     CMP.W #0, D1
     BGE _NO_OOB_UP
-        CMP.W #MAX_SCRLL_SPEED, SCREEN_Y
+        CMP.W #MAX_SCRLL_SPEEDY, SCREEN_Y
         BGE _NO_OOB_UP
             MOVE.W D1, D3
             NEG D3
@@ -49,7 +49,7 @@ PREVENT_SCREEN_OOB:
 
         MULU.W #TILESIZE, D3
         SUB.W D4, D3
-        CMP.W #MAX_SCRLL_SPEED, D3
+        CMP.W #MAX_SCRLL_SPEEDY, D3
         BGT _NO_OOB_DOWN
             CMP.W D3, D1
             BLT _NO_OOB_DOWN
@@ -60,7 +60,7 @@ PREVENT_SCREEN_OOB:
 
     CMP.W #0, D0
     BGE _NO_OOB_LEFT
-        CMP.W #MAX_SCRLL_SPEED, SCREEN_X
+        CMP.W #MAX_SCRLL_SPEEDX, SCREEN_X
         BGE _NO_OOB_LEFT
             MOVE.W D0, D2
             NEG D2
@@ -81,7 +81,7 @@ PREVENT_SCREEN_OOB:
         SUBQ.W #1, D2
         MULU.W #TILESIZE, D2
         SUB.W D4, D2
-        CMP.W #MAX_SCRLL_SPEED, D2
+        CMP.W #MAX_SCRLL_SPEEDX, D2
         BGT _NO_OOB_RIGHT
             MOVE.W D2, D0
             BCLR.B #KEYM_RIGHT, SCREEN_ST
@@ -89,6 +89,7 @@ PREVENT_SCREEN_OOB:
 
     MOVEM.L (SP)+, A0/D4-D2
     RTS
+
 
 *~Font name~Courier New~
 *~Font size~10~
