@@ -10,8 +10,9 @@ PLAYER_START:
     MOVE.W #SCREEN_HEIGHT/2-32, 4(A0)
     MOVE.W #ANIMSPEED, 42(A0)
     MOVE.W #10, 6(A0)
-    CLR.W 44(A0)
+    MOVE.B #-1, 44(A0)
     RTS
+    
 PLAYER_UPDATE:
     MOVE.L D0, -(SP)
 
@@ -34,6 +35,14 @@ PLAYER_UPDATE:
     ADDQ.W #2, 8(A0) 
     MOVE.B #-1, 44(A0)
     .NORIGHT:
+
+    CMP.B #0, 44(A0)    ;DIBUJADO SPRITE DIR
+    BEQ .ESIZQ
+        MOVE.L #QUOTE_WALK_R, 34(A0)
+        BRA .ENDDIRSPR
+    .ESIZQ:
+        MOVE.L #QUOTE_WALK_L, 34(A0)
+    .ENDDIRSPR:
 
     CMP.W #0, 8(A0)
     BEQ .ESZERO
@@ -92,7 +101,7 @@ PLAYER_PAINT:
 
     ADDQ.L #8, SP
 
-    ASR.W #2, D1                ;
+    ASR.W #2, D1                ;ANIM_INDEX
     MOVE.W 42(A0), D2
     SUBQ.W #1, D2
     CMP.W #0, D2
