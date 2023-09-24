@@ -16,29 +16,30 @@ PLAYER_START:
 PLAYER_UPDATE:
     MOVE.L D0, -(SP)
 
-    MOVE.L A0, -(SP)
-
-    ADDQ.W #G, 10(A0)                   ;GRAVEDAD
-    CMP.W #MAX_FALL_SPEED, 10(A0)
-    BLE .NOMXSPED
-        MOVE.W #MAX_FALL_SPEED, 10(A0)
-    .NOMXSPED:
-
     BTST.B #KEYM_LEFT, (KEY_PRESS_PLAYER) ;MOVIMIENTO
+    BNE .SILEFT
+    BTST.B #KEYM_LEFT, (KEY_HOLD_PLAYER)
     BEQ .NOLEFT
+    .SILEFT:
     SUBQ.W #2, 8(A0)
     CLR.B 44(A0)
     .NOLEFT:
     
-    BTST.B #KEYM_RIGHT, (KEY_PRESS_PLAYER) ;AÑADIR LIMITADORES
+    BTST.B #KEYM_RIGHT, (KEY_PRESS_PLAYER) 
+    BNE .SIRIGHT
+    BTST.B #KEYM_RIGHT, (KEY_HOLD_PLAYER)
     BEQ .NORIGHT
+    .SIRIGHT:
     ADDQ.W #2, 8(A0) 
     MOVE.B #4, 44(A0)
     .NORIGHT:
 
     CLR.W D0
     BTST.B #KEYM_UP, (KEY_PRESS_PLAYER)
+    BNE .SIUP
+    BTST.B #KEYM_UP, (KEY_HOLD_PLAYER)
     BEQ .NOUP
+    .SIUP:
     ADDQ.W #8, D0
     .NOUP:
 
@@ -69,7 +70,10 @@ PLAYER_UPDATE:
         MOVE.B #18, 45(A0)
     .NOS:
     BTST.B #KEYM_Z, (KEY_PRESS_PLAYER)      ;SALTO BASE  
+    BNE .SIZ
+    BTST.B #KEYM_Z, (KEY_HOLD_PLAYER)
     BEQ .NOZ
+    .SIZ:
     BTST.B #3, 13(A0)
     BNE .SIS
     CMP.B #0, 45(A0)
@@ -82,6 +86,11 @@ PLAYER_UPDATE:
     CLR.B 45(A0)
     .ENDZ:
     BCLR.B #3, 13(A0)
+
+    BTST.B #KEYM_X, (KEY_PRESS_PLAYER)
+    BEQ .NOX
+    BSR BULLET_SHOT
+    .NOX:
 
     CMP.W #0, 8(A0)
     BEQ .NOANIM
@@ -104,38 +113,30 @@ PLAYER_UPDATE:
     .NOANIM:
         CLR.L 38(A0)
     .ENDANIM:
-    BSR UPDATE_PHYSICS
 
+    MOVE.L A0, -(SP)
+    BSR UPDATE_PHYSICS
+    ADDQ.L #4, SP
+    
     BSR CAMERA_MOVE
 
-    ADDQ.L #4, SP
+    
     MOVE.L (SP)+, D0
     RTS
 
 PLAYER_PAINT:
-    MOVEM.L D0-D2/A1-A2, -(SP)
+    RTS
 
-    MOVE.L 34(A0), A1
-    MOVE.L 38(A0), D1
+BULLET_SHOT:
+    MOVE.W 2(A0), -(SP)
+    MOVE.W 4(A0), -(SP)
+    MOVE.W #0, -(SP)
+    MOVE.W #3, -(SP)
+    MOVE.L #BULLET_POLARSTAR, -(SP)
 
-    ASL.L #2, D1
-    MOVE.L 4(A1, D1), A2
+    BSR INSTANCE_ENTITY
 
-    MOVE.L A2, -(SP)
-    MOVE.W 4(A0), D0
-    SUB.W (SCREEN_Y), D0
-    MOVE.W D0, -(SP)
-    MOVE.W 2(A0), D0
-    SUB.W (SCREEN_X), D0
-    MOVE.W D0, -(SP)
-
-    BSR FASTSPRITE
-
-    ADDQ.L #8, SP
-
-    
-
-    MOVEM.L (SP)+, A2-A1/D2-D0
+    ADDA.L #12, SP
     RTS
 
 CAMERA_MOVE:
@@ -187,14 +188,15 @@ PLAYER:
     DC.W 0, 0                                       ;POSITION
     DC.W 0                                          ;HP
     DC.W 0, 0                                       ;SPEED
-    DC.W 0                                          ;STATUS 00UDLR(AIRBONE)---
+    DC.W 0                                          ;STATUS 00UDLR(!AIRBONE)(!GRAV)--
     DC.W 8,2, 58,64                                 ;COLISION_BOX
-    DC.L PLAYER_START, PLAYER_UPDATE, PLAYER_PAINT  ;@
+    DC.L PLAYER_START, PLAYER_UPDATE, DEFALUT_PAINT  ;@
     DC.L QUOTE_WALK_RN                              ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DS.L 5                                          ;42.W (timer sprite)
     DS.W 1                                          ;44.B (lookdir) 0:left 4:right (+8 up) 
                                                     ;45.B (timer jump)
+                                                    ;46.B (equipped arm)
 
 
 

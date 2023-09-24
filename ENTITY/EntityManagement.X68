@@ -88,11 +88,33 @@ FIND_FIRST_ID:
 
     MOVEM.L (SP)+, A0/D7/D0
     RTS
+
 FIND_ALL_ID:
     RTS
 
-ENTITY_FIND_ALL     DCB.L NUM_ENT,-1
-ENTITY_MEM          DCB.L NUM_ENT*ENT_SIZE_L,0
+DEFALUT_PAINT:
+    MOVEM.L D0-D2/A1-A2, -(SP)
+
+    MOVE.L 34(A0), A1
+    MOVE.L 38(A0), D1
+
+    ASL.L #2, D1
+    MOVE.L 4(A1, D1), A2
+
+    MOVE.L A2, -(SP)
+    MOVE.W 4(A0), D0
+    SUB.W (SCREEN_Y), D0
+    MOVE.W D0, -(SP)
+    MOVE.W 2(A0), D0
+    SUB.W (SCREEN_X), D0
+    MOVE.W D0, -(SP)
+
+    BSR FASTSPRITE
+
+    ADDQ.L #8, SP
+
+    MOVEM.L (SP)+, A2-A1/D2-D0
+    RTS
 
 
 

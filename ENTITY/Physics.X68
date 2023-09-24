@@ -14,7 +14,15 @@ UPDATE_PHYSICS:
     MOVE.L 44(SP), A0
     LEA INTERACT_MAP, A2
     MOVE.L CURRENTMAPDIR, A1
-    ;GRAVEDAD TODO
+    
+    BTST.B #2, 13(A0)
+    BNE .NOGRAV
+        ADDQ.W #G, 10(A0)                   ;GRAVEDAD
+        CMP.W #MAX_FALL_SPEED, 10(A0)
+        BLE .NOMXSPED
+            MOVE.W #MAX_FALL_SPEED, 10(A0)
+        .NOMXSPED:
+    .NOGRAV:
     
     MOVE.W 2(A0), D0
     ADD.W 8(A0), D0
@@ -216,7 +224,10 @@ COLICHECK:
 
 
 
+COLLISION_ENTITY:
+    
 
+    RTS
 
 
 *~Font name~Courier New~

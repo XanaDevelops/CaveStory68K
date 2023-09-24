@@ -5,6 +5,7 @@
 * Description:
 *-----------------------------------------------------------
     INCLUDE "ENTITY/entities/PLAYER.X68"
+    INCLUDE "ENTITY/entities/BULLET_POLARSTAR.X68"
 
 
 

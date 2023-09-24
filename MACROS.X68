@@ -53,16 +53,26 @@ LIMIT_SCRLL_SPEED MACRO
     ENDM
 
 UPDATE_KEY MACRO
-    IFNE NARG-3
+    IFNE NARG-4
         FAIL ERROR UPDATE_KEY, ARGUMENTOS INSUFICIENTES
         MEXIT
     ENDC
     BTST.L \1, D1
     BNE SIK\@
     BCLR.B \2, \3
+    BCLR.B \2, \4
     BRA END\@
     SIK\@:
+    BTST.B \2, \3
+    BNE HOLD\@
+    BTST.B \2, \4
+    BNE HOLD\@
     BSET.B \2, \3
+    BCLR.B \2, \4
+    BRA END\@
+    HOLD\@:
+    BCLR.B \2, \3
+    BSET.B \2, \4
     END\@:
 
     ENDM

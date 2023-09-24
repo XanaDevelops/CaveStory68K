@@ -4,15 +4,16 @@
 6   HP              DS.W 1
 8   XSPEED          DS.W 1
 10  YSPEED          DS.W 1
-12  STATUS          DS.W 1 00 13:(CAN_UP)(CAN_DOWN)(CAN_LEFT)(CAN_RIGHT)(!AIRBONE)---
+12  STATUS          DS.W 1 00 13:(CAN_UP)(CAN_DOWN)(CAN_LEFT)(CAN_RIGHT)(!AIRBONE)(!GRAV)--
 14  COLISION_BOX    DS.W 4 (TOP_X)(TOP_Y)(BOT_X)(BOT_Y) RESPECTO XPOS,YPOS
 22  @START          DS.L 1
 26  @UPDATE         DS.L 1
 30  @DRAW           DS.L 1
-34  @SPRITE2.0      DS.L 1 VECTOR QUE APUNTA AL SPRITE2 EN USO, (SPRITE2 DC.W N, @1, @2...)
+34  @SPRITE2.0      DS.L 1 VECTOR QUE APUNTA AL SPRITE2 EN USO, (SPRITE2 DC.L N, @1, @2...)
 38  SPRITE_INDEX    DS.L 1
 42  AUX_DATA        DS.L 5
                     DS.W 1
 64  
 
 A0 apunta a @ID
+en start: SP data se encuentra en 24(SP), sin contar registros movem

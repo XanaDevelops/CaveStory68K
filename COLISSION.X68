@@ -38,12 +38,6 @@ GENERATE_COLIMAP:
     MOVEM.L (SP)+, A2-A0/D7-D6/D2-D0
     RTS
 
-
-CALCULATE_INTERACT:
-    RTS
-
-
-
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~
