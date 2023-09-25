@@ -36,6 +36,13 @@ INSTANCE_ENTITY:
     RTS
     
 DESTROY_ENTITY:
+    ; (SP) @ENT A ELIMINAR
+    MOVE.L A0, -(SP)
+    
+    MOVE.L 8(SP), A0
+    CLR.W (A0)
+    
+    MOVE.L (SP)+, A0
     RTS
 
 UPDATE_ALL_ENT:
@@ -116,7 +123,19 @@ DEFALUT_PAINT:
     MOVEM.L (SP)+, A2-A1/D2-D0
     RTS
 
+IS_OUT_DISPLAY:
+    ;DEVUELVE 1 SI SU HITBOX SE ENCUENTRA FUERA
+    MOVEM.L , -(SP)
 
+    MOVE.L (SP), A0
+    ADDA.L #14, A0
+    MOVEM.L (A0)+, D2-D5
+    SUBA.L #22, A0
+
+    MOVE.W XPOS(A0), D0
+
+    MOVEM.L (SP)+, 
+    RTS
 
 *~Font name~Courier New~
 *~Font size~10~

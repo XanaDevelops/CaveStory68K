@@ -5,7 +5,7 @@
 * Description:
 *-----------------------------------------------------------
 BLT_SPEED   EQU 40
-VSPEEDPS DC.W 0,-BLT_SPEED, 0,BLT_SPEED, -BLT_SPEED,0, BLT_SPEED,0
+VSPEEDPS DC.W  -BLT_SPEED,0, BLT_SPEED,0, 0,-BLT_SPEED, 0,BLT_SPEED
 BLT_PS_START:
     ;36(SP) DIR
     ;38(SP) LEVEL
@@ -18,24 +18,36 @@ BLT_PS_START:
 
     BSET.B #2, 13(A0) ;DISABLE GRAV
     
-    MOVE.W 38(SP), D0
-    MOVE.B D0, 42(A0)
-
     ;AQUI SE MIRARIA EL DAÑO POR NIVEL, MIENTRAS...
     MOVE.W #1, 6(A0)
 
     LEA PSTAR_BULLETS, A1
-    ASL.W #2, D0
-    MOVE.L (A1, D0), 34(A0) ;LOAD SPRITE
 
+    MOVE.W 38(SP), D0
+    MOVE.B D0, 42(A0)
+    ASL.W #2, D0
+    
+    MOVE.L (A1, D0), 34(A0) ;LOAD SPRITE
+    
     MOVE.W 36(SP), D0
     MOVE.B D0, 46(A0)
+
+    CMP.B #2, D0
+    BGE .NOV
+        MOVE.L #0, 38(A0)
+        BRA .ENDIR
+    .NOV:
+        MOVE.L #1, 38(A0)
+        MOVE.W #4, 18(A0)
+        MOVE.W #64, 20(A0)
+    .ENDIR:
 
     MOVEM.L (SP)+, A1/D0
     RTS
 
 BLT_PS_UPDATE:
     MOVEM.L D0/A1, -(SP)
+    CLR.L D0
 
     LEA VSPEEDPS, A1
     MOVE.B 46(A0), D0
@@ -45,6 +57,15 @@ BLT_PS_UPDATE:
 
     MOVE.L A0, -(SP)
     BSR UPDATE_PHYSICS
+    
+    CLR.L D0
+    MOVE.B 13(A0), D0
+    ANDI.B #%11110000, D0
+    CMP.B #0, D0
+    BEQ .NOHIT
+        BSR DESTROY_ENTITY
+    .NOHIT:
+
     ADDA.L #4, SP
 
     MOVEM.L (SP)+, A1/D0
@@ -57,7 +78,7 @@ BULLET_POLARSTAR:
     DC.W 0, 0                                       ;POSITION
     DC.W 0                                          ;HP (damage dealt)
     DC.W 0, 0                                       ;SPEED
-    DC.W 0                                          ;STATUS 00UDLR(AIRBONE)---
+    DC.W 0                                          ;STATUS 00 UDLR(AIRBONE)(!GRAV)--
     DC.W 0,0, 64,4                                  ;COLISION_BOX
     DC.L BLT_PS_START, BLT_PS_UPDATE, DEFALUT_PAINT ;@
     DC.L PSTAR_BULLET_1                             ;@SPRITE DEFECTO
@@ -65,8 +86,10 @@ BULLET_POLARSTAR:
     DS.L 5                                          ;42.B (level) 012
     DS.W 1                                          ;43.B (max onscreen)
                                                     ;44.W (max traveldistance)
-                                                    ;46.B (dir) 0123 UDLR
+                                                    ;46.B (dir) 0123 LRUD
                                                     
+
+
 
 
 

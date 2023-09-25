@@ -34,14 +34,26 @@ PLAYER_UPDATE:
     MOVE.B #4, 44(A0)
     .NORIGHT:
 
+    CLR.B 45(A0)
     CLR.W D0
+
     BTST.B #KEYM_UP, (KEY_PRESS_PLAYER)
     BNE .SIUP
     BTST.B #KEYM_UP, (KEY_HOLD_PLAYER)
     BEQ .NOUP
     .SIUP:
-    ADDQ.W #8, D0
+    MOVE.W #8, D0
+    MOVE.B #8, 45(A0)
     .NOUP:
+
+    BTST.B #KEYM_DOWN, (KEY_PRESS_PLAYER)
+    BNE .SIDW
+    BTST.B #KEYM_DOWN, (KEY_HOLD_PLAYER)
+    BEQ .NODW
+    .SIDW:
+    ;MOVE.W #12, D0
+    MOVE.B #12, 45(A0)
+    .NODW:
 
     LEA QUOTE_WALK_ANIM, A1
     ADD.B 44(A0), D0
@@ -67,7 +79,7 @@ PLAYER_UPDATE:
 
     BTST.B #3, 13(A0)
     BEQ .NOS
-        MOVE.B #18, 45(A0)
+        MOVE.B #18, 46(A0)
     .NOS:
     BTST.B #KEYM_Z, (KEY_PRESS_PLAYER)      ;SALTO BASE  
     BNE .SIZ
@@ -76,14 +88,14 @@ PLAYER_UPDATE:
     .SIZ:
     BTST.B #3, 13(A0)
     BNE .SIS
-    CMP.B #0, 45(A0)
+    CMP.B #0, 46(A0)
     BLE .ENDZ
     .SIS:
     MOVE.W #-9, 10(A0)   ;VEL SALTO
-    SUBQ.B #1, 45(A0)
+    SUBQ.B #1, 46(A0)
     BRA .ENDZ
     .NOZ:
-    CLR.B 45(A0)
+    CLR.B 46(A0)
     .ENDZ:
     BCLR.B #3, 13(A0)
 
@@ -128,15 +140,37 @@ PLAYER_PAINT:
     RTS
 
 BULLET_SHOT:
+    MOVE.L D0, -(SP)
+    CLR.L D0
+
     MOVE.W 2(A0), -(SP)
     MOVE.W 4(A0), -(SP)
-    MOVE.W #0, -(SP)
-    MOVE.W #3, -(SP)
+
+    ADD.W #32, (SP)     ;OFFSET Y
+    CMP.B #0, 44(A0)
+    BEQ .NOXOF
+        ADD.W #64, 2(SP)
+    .NOXOF:
+
+    MOVE.W #1, -(SP)    ;NIVEL
+    
+    CMP.B #0, 45(A0)
+    BEQ .NOUD
+    MOVE.B 45(A0), D0
+    SUB.W #32, 2(SP)    ;DES OF Y
+    BRA .ENDDIR
+    .NOUD:
+    MOVE.B 44(A0), D0
+    .ENDDIR:
+    ASR.W #2, D0
+    MOVE.W D0, -(SP)
+    
     MOVE.L #BULLET_POLARSTAR, -(SP)
 
     BSR INSTANCE_ENTITY
 
     ADDA.L #12, SP
+    MOVE.L (SP)+, D0
     RTS
 
 CAMERA_MOVE:
@@ -194,9 +228,13 @@ PLAYER:
     DC.L QUOTE_WALK_RN                              ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DS.L 5                                          ;42.W (timer sprite)
-    DS.W 1                                          ;44.B (lookdir) 0:left 4:right (+8 up) 
-                                                    ;45.B (timer jump)
-                                                    ;46.B (equipped arm)
+    DS.W 1                                          ;44.B (lookdir) 0:left 4:right 
+                                                    ;45.B (lookdir) 8:up 12:down
+                                                    ;46.B (timer jump)
+                                                    ;47.B (equipped arm)
+
+
+
 
 
 

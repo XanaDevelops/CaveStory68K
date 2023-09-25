@@ -15,6 +15,8 @@ UPDATE_PHYSICS:
     LEA INTERACT_MAP, A2
     MOVE.L CURRENTMAPDIR, A1
     
+    AND.B #%00001111, 13(A0)
+
     BTST.B #2, 13(A0)
     BNE .NOGRAV
         ADDQ.W #G, 10(A0)                   ;GRAVEDAD
@@ -74,8 +76,6 @@ UPDATE_PHYSICS:
     _BRESENLOOP:
         MOVE.W 2(A0), D6
         MOVE.W 4(A0), D7
-
- 
 
         CLR.L (SP)
 
@@ -190,7 +190,8 @@ COLICHECK:
 
     ;MOVE.W D7, 32(SP)   ;CAMBIAR 32(SP), 
     ;Poc
-    
+    OR.B D7, 13(A0)
+
     CMP.W #0, D7
     BEQ .NOCOLI
         
