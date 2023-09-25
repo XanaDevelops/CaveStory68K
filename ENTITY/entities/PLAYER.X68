@@ -149,7 +149,7 @@ BULLET_SHOT:
     ADD.W #32, (SP)     ;OFFSET Y
     CMP.B #0, LOOKDIRLR(A0)
     BEQ .NOXOF
-        ADD.W #64, 2(SP)
+        ADD.W #32, 2(SP)
     .NOXOF:
 
     MOVE.W #1, -(SP)    ;NIVEL

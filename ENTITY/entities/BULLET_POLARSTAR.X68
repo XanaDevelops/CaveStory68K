@@ -42,15 +42,6 @@ BLT_PS_START:
         MOVE.W #64, COLISION_BOX+6(A0)
     .ENDIR:
 
-    CMP.B #2, D0
-    BGE .NOV
-        MOVE.L #0, 38(A0)
-        BRA .ENDIR
-    .NOV:
-        MOVE.L #1, 38(A0)
-        MOVE.W #4, 18(A0)
-        MOVE.W #64, 20(A0)
-    .ENDIR:
 
     MOVEM.L (SP)+, A1/D0
     RTS
@@ -105,6 +96,7 @@ LEVELPOWER      EQU AUX_DATA
 MAX_SCREEN      EQU AUX_DATA+1
 MAX_TRVL_DIST   EQU AUX_DATA+2
 TRAVEL_DIR      EQU AUX_DATA+4
+
 
 
 
