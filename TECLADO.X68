@@ -6,7 +6,7 @@
 *-----------------------------------------------------------
 ;KEY MASKS
 KEYM_UP         EQU 7 
-KEYM_DOWN       EQU 8
+KEYM_DOWN       EQU 6
 KEYM_LEFT       EQU 5
 KEYM_RIGHT      EQU 4
 KEYM_Z          EQU 3

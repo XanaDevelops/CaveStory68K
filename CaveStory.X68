@@ -6,8 +6,6 @@
 *-----------------------------------------------------------
     INCLUDE "MACROS.X68"
     INCLUDE "CONST.X68"
-    
-    
 
     ORG    $1000
 START:                  ; first instruction of program
@@ -113,6 +111,7 @@ SCR_SPEED_Y         DC.W 0
 
 
     END    START        ; last line of source
+
 
 
 
