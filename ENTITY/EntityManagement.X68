@@ -100,6 +100,14 @@ FIND_ALL_ID:
     RTS
 
 DEFALUT_PAINT:
+    MOVE.L A0, -(SP)
+    SUBA.L #2, SP
+    
+    BSR IS_OUT_DISPLAY
+    ADDA.L #6, SP
+    CMP.W #0, -6(SP)
+    BNE .SKIPDP
+
     MOVEM.L D0-D2/A1-A2, -(SP)
 
     MOVE.L 34(A0), A1
@@ -121,19 +129,20 @@ DEFALUT_PAINT:
     ADDQ.L #8, SP
 
     MOVEM.L (SP)+, A2-A1/D2-D0
+    .SKIPDP:
     RTS
 
 IS_OUT_DISPLAY:
     ;DEVUELVE 1 SI SU HITBOX SE ENCUENTRA FUERA
-    ;30(SP).L A0
-    ;28(SP).W RET
-    MOVEM.L D0-D5/A0, -(SP)
+    ;38(SP).L A0
+    ;36(SP).W RET
+    MOVEM.L D0-D6/A0, -(SP)
 
-    CLR.W 28(SP)
+    CLR.W 36(SP)
 
-    MOVE.L 30(SP), A0
+    MOVE.L 38(SP), A0
     ADDA.L #14, A0
-    MOVEM.L (A0)+, D1-D4 ;XY XY
+    MOVEM.W (A0)+, D2-D5 ;XY XY
     SUBA.L #22, A0
 
     MOVE.W XPOS(A0), D0
@@ -141,17 +150,26 @@ IS_OUT_DISPLAY:
     SUB.W (SCREEN_X), D0
     SUB.W (SCREEN_Y), D1
 
-    MOVE.W D0, D5
-    ADD.W D1, D5
-    CMP.W #SCREEN_WIDTH, D5
+    MOVE.W D0, D6
+    ADD.W D2, D6
+    CMP.W #SCREEN_WIDTH, D6
     BGT .OD
-    
-
-
+    MOVE.W D0, D6
+    ADD.W D4, D6
+    CMP.W #0, D6
+    BLT .OD
+    MOVE.W D1, D6
+    ADD.W D3, D6
+    CMP.W  #SCREEN_HEIGHT, D6
+    BGT .OD
+    MOVE.W D1, D6
+    ADD.W D5, D6
+    CMP.W #0, D6
+    BGE .ENDOD
     .OD:
-    MOVE.W #1, 24(SP)
+    MOVE.W #1, 36(SP)
     .ENDOD:
-    MOVEM.L (SP)+, A0/D5-D0
+    MOVEM.L (SP)+, A0/D6-D0
     RTS
 
 *~Font name~Courier New~
