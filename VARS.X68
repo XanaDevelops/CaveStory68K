@@ -9,7 +9,7 @@ SCREEN_X    DS.W 1
 SCREEN_Y    DS.W 1
 
                 ;CAN?
-                 ;UDLR
+                 ;UDLR---(FSKIP)
 SCREEN_ST   DC.B 0
             DC.W 0
 SCRBGCOLOR  DC.L $00202020

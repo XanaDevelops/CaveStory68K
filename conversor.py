@@ -37,7 +37,7 @@ def ConvertSpriteSVG() -> list:
     sizeText  += truncateText(sizesT, "DC.W")
         
 
-    retText = f"{colorText}\tDC.L -1\n{sizeText}\n\n{svgName} DC.L Color{svgName}, Size{svgName}\n"
+    retText = f"{colorText}\tDC.L -1\n{sizeText}\n{svgName} DC.L Color{svgName}, Size{svgName}\n\n\n"
     #print("\n###########\nRETTEXT\n"+retText+"##################\n",user_args[0])
     with open(user_args[0], "+a") as sprites:
         sprites.write(retText)

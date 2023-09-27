@@ -46,16 +46,17 @@ PAINTLOOP:
 
     BSR UPDATE_ALL_ENT
 
+    REPAINT
+    CLRSCREEN
+    BTST.B #0, (SCREEN_ST)
+    BEQ .FSKIP
     BSR DRAW_ALL_ENT
 
     MOVE.L CURRENTMAPDIR, -(SP)
     BSR DRAW_MAP
     ADDQ.L #4, SP
-
-    REPAINT
-    CLRSCREEN
-    
-    
+    .FSKIP:
+    BCLR.B #0, (SCREEN_ST)
 
     MOVE.W (SCR_SPEED_X), D0
     MOVE.W (SCR_SPEED_Y), D1
@@ -77,10 +78,29 @@ PAINTLOOP:
     MOVE.W D1, SCR_SPEED_Y
 
     
+.PINTARFPS:
+    MOVE.B #11, D0
+    MOVE.W #35<<8, D1
+    TRAP #15
 
+    MOVE.B #81, D0
+    MOVE.L #WHITE, D1
+    TRAP #15
 
 ENDTESTLOOP:
     MOVE.L	(SP)+,D7 ;RECUPERA EL TIEMPO DE ANTES
+    
+    MOVE.B		#8,D0	;OBTIENE EL TIEMPO
+	TRAP		#15
+
+	SUB.L		D7,D1 ;RESTA
+    MOVE.B #3, D0
+    TRAP #15
+
+    MOVE.B #11, D0
+    MOVE.W #36<<8, D1
+    TRAP #15
+
     WAIT_REFRESH:
 	MOVE.B		#8,D0	;OBTIENE EL TIEMPO
 	TRAP		#15
@@ -88,6 +108,13 @@ ENDTESTLOOP:
 	SUB.L		D7,D1 ;RESTA
 	CMP.B		#SCREEN_UPTIME,D1	;COMPARA CON EL TIEMPO OBJETIVO
 	BMI.S		WAIT_REFRESH ;SINO PUES ESO
+    CMP.B #SCREEN_UPTIME+2, D1
+    BLT .NOFSKIP
+    BSET.B #0, (SCREEN_ST)
+    .NOFSKIP:
+    MOVE.B #3, D0
+    TRAP #15
+
     BRA TESTLOOP
 
 
@@ -103,6 +130,7 @@ SCR_SPEED_Y         DC.W 0
     INCLUDE "ScreenScroll.X68"
     INCLUDE "FastSprite.x68"
     INCLUDE "DRAWMAP.x68"
+    INCLUDE "HUD.X68"
     INCLUDE "VARS.X68"
     INCLUDE "ENTITY/EntityIncluder.x68"
     INCLUDE "ENTITY/EntityManagement.x68"
@@ -113,6 +141,8 @@ SCR_SPEED_Y         DC.W 0
 
 
     END    START        ; last line of source
+
+
 
 
 

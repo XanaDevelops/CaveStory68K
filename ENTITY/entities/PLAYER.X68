@@ -89,7 +89,7 @@ PLAYER_UPDATE:
 
     BTST.B #3, STATUS+1(A0)
     BEQ .NOS
-        MOVE.B #18, TIMERJUMP(A0)
+        MOVE.B #22, TIMERJUMP(A0)
     .NOS:
     BTST.B #KEYM_Z, (KEY_PRESS_PLAYER)      ;SALTO BASE  
     BNE .SIZ
@@ -196,10 +196,10 @@ BULLET_SHOT:
     ADD.W #32, (SP)     ;OFFSET Y
     CMP.B #0, LOOKDIRLR(A0)
     BEQ .NOXOF
-        ADD.W #32, 2(SP)
+        ADD.W #40, 2(SP)
     .NOXOF:
 
-    MOVE.W #1, -(SP)    ;NIVEL
+    MOVE.W #2, -(SP)    ;NIVEL
     
     CMP.B #0, LOOKDIRUD(A0)
     BEQ .NOUD
