@@ -51,14 +51,18 @@ PLAYER_UPDATE:
     BTST.B #KEYM_DOWN, (KEY_HOLD_PLAYER)
     BEQ .NODW
     .SIDW:
-    MOVE.W #24, D0
     BTST.B #3, STATUS+1(A0)
     BEQ .LKOBK
-    SUBQ.W #8, D0                  ;16 BACK 24 LKDOWN
-    CLR.W XSPEED(A0)
+        CMP.W #0, XSPEED(A0)
+        BNE .NODW
+            MOVE.W #16, D0                  ;16 BACK 24 LKDOWN
+            MOVE.B #12, LOOKDIRUD(A0)
+            CLR.L SPRITE_INDEX(A0)          ;FIXBUG
+            BRA .NODW
     .LKOBK:
-    MOVE.B #12, LOOKDIRUD(A0)
-    CLR.L SPRITE_INDEX(A0)          ;FIXBUG?
+            MOVE.W #24, D0
+            MOVE.B #12, LOOKDIRUD(A0)
+            CLR.L SPRITE_INDEX(A0)          ;FIXBUG
     .NODW:
 
     LEA QUOTE_ANIM_V, A1
@@ -143,6 +147,43 @@ PLAYER_UPDATE:
     RTS
 
 PLAYER_PAINT:
+    MOVEM.L D0-D2/A1-A2, -(SP)
+
+    MOVE.L AD_SPRITE(A0), A1
+    MOVE.L SPRITE_INDEX(A0), D1
+
+    ASL.L #2, D1
+    MOVE.L 4(A1, D1), A2
+
+    LEA ARM_POLARSTAR, A1
+    CLR.W D0
+
+    ADD.B LOOKDIRUD(A0), D0
+    ADD.B LOOKDIRLR(A0), D0
+    CMP.B #12, LOOKDIRUD(A0)
+    BNE .NOADD
+        ADDQ.B #4, D0
+    .NOADD:
+
+    MOVE.L (A1, D0), -(SP)
+
+    MOVE.W 4(A0), D0
+    SUB.W (SCREEN_Y), D0
+    MOVE.W D0, -(SP)
+    MOVE.W 2(A0), D0
+    SUB.W (SCREEN_X), D0
+    MOVE.W D0, -(SP)
+
+    BSR FASTSPRITE
+
+    MOVE.L A2, 4(SP)
+
+    BSR FASTSPRITE
+
+    ADDQ.L #8, SP
+
+    MOVEM.L (SP)+, A2-A1/D2-D0
+    .SKIPDP:
     RTS
 
 BULLET_SHOT:
@@ -230,7 +271,7 @@ PLAYER:
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00UDLR(!AIRBONE)(!GRAV)--
     DC.W 8,2, 58,64                                 ;COLISION_BOX
-    DC.L PLAYER_START, PLAYER_UPDATE, DEFALUT_PAINT  ;@
+    DC.L PLAYER_START, PLAYER_UPDATE, PLAYER_PAINT  ;@
     DC.L QUOTE_WALK_RN                              ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DS.L 5                                          ;42.W (timer sprite)
@@ -242,6 +283,7 @@ TIMERSPRITE     EQU AUX_DATA
 LOOKDIRLR       EQU AUX_DATA+2
 LOOKDIRUD       EQU AUX_DATA+3
 TIMERJUMP       EQU AUX_DATA+4
+
 
 
 

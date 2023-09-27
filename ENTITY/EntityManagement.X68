@@ -108,10 +108,10 @@ DEFALUT_PAINT:
     CMP.W #0, -6(SP)
     BNE .SKIPDP
 
-    MOVEM.L D0-D2/A1-A2, -(SP)
+    MOVEM.L D0-D1/A1-A2, -(SP)
 
-    MOVE.L 34(A0), A1
-    MOVE.L 38(A0), D1
+    MOVE.L AD_SPRITE(A0), A1
+    MOVE.L SPRITE_INDEX(A0), D1
 
     ASL.L #2, D1
     MOVE.L 4(A1, D1), A2
@@ -128,7 +128,7 @@ DEFALUT_PAINT:
 
     ADDQ.L #8, SP
 
-    MOVEM.L (SP)+, A2-A1/D2-D0
+    MOVEM.L (SP)+, A2-A1/D1-D0
     .SKIPDP:
     RTS
 
