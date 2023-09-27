@@ -45,6 +45,18 @@ DESTROY_ENTITY:
     MOVE.L (SP)+, A0
     RTS
 
+SLASHKILLA: ;/kill @e
+    MOVEM.L D7/A0, -(SP)
+    LEA ENTITY_MEM, A0
+    MOVE.W #NUM_ENT-1, D7
+    .KILLALOOP:
+        MOVE.W #0, ID(A0)
+        ADDA.L #ENT_SIZE_L, A0
+    DBRA D7, .KILLALOOP
+    
+    MOVEM.L (SP)+, A0/D7
+    RTS
+
 UPDATE_ALL_ENT:
     MOVEM.L D7/A0-A1, -(SP)
 

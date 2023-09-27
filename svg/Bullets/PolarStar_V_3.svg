@@ -25,11 +25,11 @@
      inkscape:document-units="px"
      showgrid="true"
      inkscape:zoom="17.765625"
-     inkscape:cx="16.323659"
+     inkscape:cx="16.351803"
      inkscape:cy="21.924362"
      inkscape:window-width="1278"
-     inkscape:window-height="1341"
-     inkscape:window-x="1272"
+     inkscape:window-height="1041"
+     inkscape:window-x="626"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1">
@@ -82,7 +82,7 @@
        width="28"
        height="16"
        x="2"
-       y="-24"
+       y="-16"
        transform="rotate(90)" />
     <rect
        style="fill:#6472cf;fill-opacity:1;stroke-width:2.83627"
@@ -90,7 +90,7 @@
        width="32"
        height="4"
        x="0"
-       y="-22"
+       y="-14"
        transform="rotate(90)" />
     <rect
        style="fill:#6472cf;fill-opacity:1;stroke-width:2.83627"
@@ -98,7 +98,7 @@
        width="32"
        height="4"
        x="0"
-       y="-14"
+       y="-6"
        transform="rotate(90)" />
     <rect
        style="fill:#cacaff;fill-opacity:1;stroke-width:0.858733"
@@ -106,7 +106,7 @@
        width="28"
        height="12"
        x="2"
-       y="-22"
+       y="-14"
        transform="rotate(90)" />
     <rect
        style="fill:#fefefe;fill-opacity:1;stroke-width:0.918023"
@@ -114,7 +114,7 @@
        width="24"
        height="16"
        x="4"
-       y="-24"
+       y="-16"
        transform="rotate(90)" />
   </g>
 </svg>

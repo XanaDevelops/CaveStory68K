@@ -15,28 +15,28 @@ UPDATE_PHYSICS:
     LEA INTERACT_MAP, A2
     MOVE.L CURRENTMAPDIR, A1
     
-    AND.B #%00001111, 13(A0)
+    AND.B #%00001111, STATUS+1(A0)
 
-    BTST.B #2, 13(A0)
+    BTST.B #2, STATUS+1(A0)
     BNE .NOGRAV
-        ADDQ.W #G, 10(A0)                   ;GRAVEDAD
-        CMP.W #MAX_FALL_SPEED, 10(A0)
+        ADDQ.W #G, YSPEED(A0)                   ;GRAVEDAD
+        CMP.W #MAX_FALL_SPEED, YSPEED(A0)
         BLE .NOMXSPED
-            MOVE.W #MAX_FALL_SPEED, 10(A0)
+            MOVE.W #MAX_FALL_SPEED, YSPEED(A0)
         .NOMXSPED:
     .NOGRAV:
     
-    MOVE.W 2(A0), D0
-    ADD.W 8(A0), D0
+    MOVE.W XPOS(A0), D0
+    ADD.W XSPEED(A0), D0
     MOVE.W D0, -(SP)
 
-    MOVE.W 4(A0), D0
-    ADD.W 10(A0), D0
+    MOVE.W YPOS(A0), D0
+    ADD.W YSPEED(A0), D0
     MOVE.W D0, -(SP)
 
 .BRESENHAM:
-    ;2(A0)  X0
-    ;4(A0)  Y0
+    ;XPOS(A0)  X0
+    ;YPOS(A0)  Y0
     ;2(SP)  X1 -> 6(SP)
     ;0(SP)  Y1 -> 4(SP)
     ;D0     DX
@@ -45,25 +45,25 @@ UPDATE_PHYSICS:
     ;D3     SY
     ;D4     E1
     ;D5     E2
-    MOVE.W 2(A0), D0
+    MOVE.W XPOS(A0), D0
     SUB.W 2(SP), D0
     BPL .NO_ABS
         NEG D0
     .NO_ABS:
-    MOVE.W 4(A0), D1
+    MOVE.W YPOS(A0), D1
     SUB.W 0(SP), D1
     BMI .SI_ABS  ;-ABS
         NEG D1
     .SI_ABS:
     MOVE.W #-1, D2
     MOVE.W 2(SP), D6
-    CMP.W 2(A0), D6
+    CMP.W XPOS(A0), D6
     BLE .NO_SX
         MOVE.W #1, D2
     .NO_SX:
     MOVE.W #-1, D3
     MOVE.W 0(SP), D6
-    CMP.W 4(A0), D6
+    CMP.W YPOS(A0), D6
     BLE .NO_SY
         MOVE.W #1, D3
     .NO_SY:
@@ -74,8 +74,8 @@ UPDATE_PHYSICS:
     SUBA.L #4, SP ;ESPACIO WORDS 0(SP) DESPX, 2(SP) DESPY
 
     _BRESENLOOP:
-        MOVE.W 2(A0), D6
-        MOVE.W 4(A0), D7
+        MOVE.W XPOS(A0), D6
+        MOVE.W YPOS(A0), D7
 
         CLR.L (SP)
 
@@ -95,7 +95,7 @@ UPDATE_PHYSICS:
             CMP.W 4(SP), D7
             BEQ _EXIT_BRESENHAM
             ADD.W D0, D4
-            ADD.W D3, 4(A0)         ;Y
+            ADD.W D3, YPOS(A0)         
             MOVE.W D3, 2(SP)
             BSR COLICHECK
             BRA _BRESENLOOP
@@ -105,7 +105,7 @@ UPDATE_PHYSICS:
             CMP.W 6(SP), D6
             BEQ _EXIT_BRESENHAM
             ADD.W D1, D4
-            ADD.W D2, 2(A0)         ;X
+            ADD.W D2, XPOS(A0)         ;X
             MOVE.W D2, 0(SP)
             BSR COLICHECK
             BRA _BRESENLOOP
@@ -134,11 +134,11 @@ COLICHECK:
     MOVEM.W (A0)+, D1-D4
     SUBA.L #22, A0
 
-    ADD.W 2(A0), D1
-    ADD.W 2(A0), D3
+    ADD.W XPOS(A0), D1
+    ADD.W XPOS(A0), D3
     
-    ADD.W 4(A0), D2
-    ADD.W 4(A0), D4
+    ADD.W YPOS(A0), D2
+    ADD.W YPOS(A0), D4
 
     ;TEST
     ADDQ.W #1, D1
@@ -190,7 +190,7 @@ COLICHECK:
 
     ;MOVE.W D7, 32(SP)   ;CAMBIAR 32(SP), 
     ;Poc
-    OR.B D7, 13(A0)
+    OR.B D7, STATUS+1(A0)
 
     CMP.W #0, D7
     BEQ .NOCOLI
@@ -198,9 +198,9 @@ COLICHECK:
         CMP.W #0, 34(SP)
         BEQ .NOYMOVE
             MOVE.W 34(SP), D6
-            SUB.W D6, 4(A0)
-            MOVE.W #0, 10(A0)
-            MOVE.W 4(A0), D6
+            SUB.W D6, YPOS(A0)
+            MOVE.W #0, YSPEED(A0)
+            MOVE.W YPOS(A0), D6
             MOVE.W D6, 36(SP)
             BTST #5, D7
             BNE .SETGROUND
@@ -208,14 +208,14 @@ COLICHECK:
             BNE .SETGROUND
             BRA .NOYMOVE
             .SETGROUND:
-                BSET.B #3, 13(A0)
+                BSET.B #3, STATUS+1(A0)
         .NOYMOVE:
         CMP.W #0, 32(SP)
         BEQ .NOXMOVE
             MOVE.W 32(SP), D6
-            SUB.W D6, 2(A0)
-            MOVE.W #0, 8(A0)
-            MOVE.W 2(A0), D6
+            SUB.W D6, XPOS(A0)
+            MOVE.W #0, XSPEED(A0)
+            MOVE.W XPOS(A0), D6
             MOVE.W D6, 38(SP)
         .NOXMOVE:
     .NOCOLI:
