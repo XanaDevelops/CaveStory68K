@@ -49,7 +49,12 @@ PAINTLOOP:
     MOVE.L CURRENTMAPDIR, -(SP)
     BSR DRAW_MAP
     ADDQ.L #4, SP
+    
+    BSR HUD_DRAW
+    
     .FSKIP:
+
+
     BCLR.B #0, (SCREEN_ST)
 
     MOVE.W (SCR_SPEED_X), D0
