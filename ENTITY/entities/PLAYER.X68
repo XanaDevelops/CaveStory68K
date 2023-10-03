@@ -119,7 +119,6 @@ PLAYER_UPDATE:
         MOVE.L SPRITE_INDEX(A0), D1                   ;ANIM_INDEX
         MOVE.W TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO
         SUBQ.W #1, D2
-        CMP.W #0, D2
         BNE .NOTIMER
             MOVE.W #ANIMSPEED, D2
             ADDQ.L #1, D1

@@ -98,7 +98,7 @@ BULLET_POLARSTAR:
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(AIRBONE)(!GRAV)--
     DC.W 0,0, 64,4                                  ;COLISION_BOX
-    DC.L BLT_PS_START, BLT_PS_UPDATE, DEFALUT_PAINT ;@
+    DC.L BLT_PS_START, BLT_PS_UPDATE, DEFAULT_PAINT ;@
     DC.L PSTAR_BULLET_1                             ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DS.L 5                                          ;42.B (level) 012

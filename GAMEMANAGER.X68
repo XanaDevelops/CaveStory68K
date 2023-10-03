@@ -23,6 +23,14 @@ LOAD_MAP:
 
     BSR GENERATE_COLIMAP
 
+
+    MOVE.W #$120, -(SP)
+    MOVE.W #$300, -(SP)
+    MOVE.L #BAT, -(SP)
+    BSR INSTANCE_ENTITY
+
+    ADDA.L #8, SP
+
     MOVEM.L (SP)+, A0/D0
     RTS
 
