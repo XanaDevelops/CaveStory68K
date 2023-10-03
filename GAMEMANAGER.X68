@@ -16,18 +16,36 @@ LOAD_MAP:
     ASL.W #2, D0                ;MULU #4
     MOVE.L (A0, D0), CURRENTMAPDIR
 
+
+    BSR GENERATE_COLIMAP
+
     MOVE.L #PLAYER, -(SP)
     BSR INSTANCE_ENTITY
 
     ADDQ.L #4, SP
 
-    BSR GENERATE_COLIMAP
-
-
     MOVE.W #$120, -(SP)
-    MOVE.W #$300, -(SP)
+    MOVE.W #$380, -(SP)
     MOVE.L #BAT, -(SP)
     BSR INSTANCE_ENTITY
+
+    MOVE.W #$220, 6(SP)
+    MOVE.W #$400, 4(SP)
+    BSR INSTANCE_ENTITY
+
+    MOVE.W #20, D0
+    .LOOPBORRAR:
+    ADD.W #$30, 6(SP)
+    BSR INSTANCE_ENTITY
+    DBRA D0, .LOOPBORRAR
+
+    SUB.W #$40, 4(SP)
+    MOVE.W #$220, 6(SP)
+    MOVE.W #20, D0
+    .LOOPBORRAR2:
+    ADD.W #$30, 6(SP)
+    BSR INSTANCE_ENTITY
+    DBRA D0, .LOOPBORRAR2
 
     ADDA.L #8, SP
 
