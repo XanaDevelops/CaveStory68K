@@ -166,10 +166,10 @@ PLAYER_PAINT:
 
     MOVE.L (A1, D0), -(SP)
 
-    MOVE.W 4(A0), D0
+    MOVE.W YPOS(A0), D0
     SUB.W (SCREEN_Y), D0
     MOVE.W D0, -(SP)
-    MOVE.W 2(A0), D0
+    MOVE.W XPOS(A0), D0
     SUB.W (SCREEN_X), D0
     MOVE.W D0, -(SP)
 
@@ -183,6 +183,9 @@ PLAYER_PAINT:
 
     MOVEM.L (SP)+, A2-A1/D2-D0
     .SKIPDP:
+    RTS
+
+PLAYER_DAMAGE:
     RTS
 
 BULLET_SHOT:
@@ -271,13 +274,14 @@ PLAYER:
     DC.W 0                                          ;STATUS 00UDLR(!AIRBONE)(!GRAV)--
     DC.W 8,2, 58,64                                 ;COLISION_BOX
     DC.L PLAYER_START, PLAYER_UPDATE, PLAYER_PAINT  ;@
+    DC.L PLAYER_DAMAGE                              ;@
     DC.L QUOTE_WALK_RN                              ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
-    DS.L 5                                          ;42.W (timer sprite)
-    DS.W 1                                          ;44.B (lookdir) 0:left 4:right 
-                                                    ;45.B (lookdir) 8:up 12:down
-                                                    ;46.B (timer jump)
-                                                    ;47.B (equipped arm)
+    DS.L 4                                          ;46.W (timer sprite)
+    DS.W 1                                          ;47.B (lookdir) 0:left 4:right 
+                                                    ;48.B (lookdir) 8:up 12:down
+                                                    ;49.B (timer jump)
+                                                    ;50.B (equipped arm)
 TIMERSPRITE     EQU AUX_DATA
 LOOKDIRLR       EQU AUX_DATA+2
 LOOKDIRUD       EQU AUX_DATA+3

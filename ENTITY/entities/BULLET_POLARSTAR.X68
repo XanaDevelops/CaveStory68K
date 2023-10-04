@@ -33,7 +33,7 @@ BLT_PS_START:
     ;CAJA DE COLISION
     ;TODO
     ASL.W #2, D0
-    MOVE.L (A1, D0), 34(A0) ;LOAD SPRITE
+    MOVE.L (A1, D0), AD_SPRITE(A0) ;LOAD SPRITE
     
     MOVE.W 36(SP), D0
     MOVE.B D0, TRAVEL_DIR(A0)
@@ -83,8 +83,11 @@ BLT_PS_UPDATE:
     CMP.W #0, (A1)
     BGE .NOCOLIE
     
-    MOVE.W DAMAGE(A0), D0
-    SUB.W D0, HP(A1)
+    MOVE.W DAMAGE(A0), -(SP)
+    MOVE.L A1, -(SP)
+    MOVE.L AD_DODAM(A1), A1
+    JSR (A1)
+    ADDQ.L #6, SP
 
     BSR DESTROY_ENTITY
     
@@ -112,6 +115,8 @@ BLT_PS_UPDATE:
 
 BLT_PS_PAINT:
     RTS
+BLT_PS_DAMAGE:
+    RTS
 
 BULLET_POLARSTAR:
     DC.W 10                                         ;ID
@@ -121,12 +126,13 @@ BULLET_POLARSTAR:
     DC.W 0                                          ;STATUS 00 UDLR(AIRBONE)(!GRAV)--
     DC.W 0,0, 64,4                                  ;COLISION_BOX
     DC.L BLT_PS_START, BLT_PS_UPDATE, DEFAULT_PAINT ;@
+    DC.L BLT_PS_DAMAGE                              ;@
     DC.L PSTAR_BULLET_1                             ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
-    DS.L 5                                          ;42.B (level) 012
-    DS.W 1                                          ;43.B (max onscreen)
-                                                    ;44.W (max traveldistance)
-                                                    ;46.B (dir) 0123 LRUD
+    DS.L 4                                          ;46.B (level) 012
+    DS.W 1                                          ;47.B (max onscreen)
+                                                    ;48.W (max traveldistance)
+                                                    ;49.B (dir) 0123 LRUD
                                                     
 
 

@@ -23,12 +23,15 @@ LOAD_MAP:
     BSR INSTANCE_ENTITY
 
     ADDQ.L #4, SP
-
+    
+    
+    
     MOVE.W #$120, -(SP)
     MOVE.W #$380, -(SP)
     MOVE.L #BAT, -(SP)
     BSR INSTANCE_ENTITY
-    ;BRA .ENDGM
+    
+    BRA .ENDGM
 
     MOVE.W #$220, 6(SP)
     MOVE.W #$400, 4(SP)
@@ -50,7 +53,7 @@ LOAD_MAP:
 
     .ENDGM:
 
-    ADDA.L #8, SP
+    ADDA.L #8, SP       ;OJO CON ESTO
 
     MOVEM.L (SP)+, A0/D0
     RTS

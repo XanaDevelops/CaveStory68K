@@ -129,10 +129,10 @@ DEFAULT_PAINT:
     MOVE.L 4(A1, D1), A2
 
     MOVE.L A2, -(SP)
-    MOVE.W 4(A0), D0
+    MOVE.W YPOS(A0), D0
     SUB.W (SCREEN_Y), D0
     MOVE.W D0, -(SP)
-    MOVE.W 2(A0), D0
+    MOVE.W XPOS(A0), D0
     SUB.W (SCREEN_X), D0
     MOVE.W D0, -(SP)
 

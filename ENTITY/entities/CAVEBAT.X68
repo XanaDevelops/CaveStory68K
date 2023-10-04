@@ -72,7 +72,16 @@ BAT_UPDATE:
 
 BAT_PAINT:
     RTS
+BAT_DAMAGE:
+    ; (SP).W DAMAGE
+    MOVEM.L D0/A0, -(SP)
+    MOVE.L 12(SP), A0
 
+    MOVE.W 16(SP), D0
+    SUB.W D0, HP(A0)
+
+    MOVEM.L (SP)+, A0/D0
+    RTS
 
 BAT:
     DC.W -1                                         ;ID
@@ -82,14 +91,16 @@ BAT:
     DC.W 0                                          ;STATUS 00UDLR(!AIRBONE)(!GRAV)--
     DC.W 4,4, 42,48                                 ;COLISION_BOX
     DC.L BAT_START, BAT_UPDATE, DEFAULT_PAINT       ;@
+    DC.L BAT_DAMAGE                                 ;@
     DC.L BAT_FLY_L                                  ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
-    DS.L 5                                          ;
+    DS.L 4                                          ;
     DS.W 1                                          ;
 
 BATANMSPD   EQU ANIMSPEED+1
 TIMERSPRITE EQU AUX_DATA      ;W 
 VELDIR      EQU AUX_DATA+2    ;B
+
 
 
 
