@@ -69,8 +69,31 @@ BLT_PS_UPDATE:
     MOVE.W (A1, D0), XSPEED(A0)
     MOVE.W 2(A1, D0), YSPEED(A0)
 
+    MOVE.L #-1, -(SP)
     MOVE.L A0, -(SP)
     BSR UPDATE_PHYSICS
+    
+    BSR COLLISION_ENTITY
+
+    CMP.L #-1, 4(SP)
+    BEQ .NOCOLIE
+    
+    MOVE.L 4(SP), A1
+    CMP.W #0, (A1)
+    BGE .NOCOLIE
+    
+    MOVE.W DAMAGE(A0), D0
+    SUB.W D0, HP(A1)
+    MOVE.L A0, (SP)
+
+    BSR DESTROY_ENTITY
+    
+    ADDA.L #8, SP
+    BRA .ENDBLTPSUP 
+    
+    .NOCOLIE:
+
+    ADDQ.L #4, SP
     
     CLR.L D0
     MOVE.B STATUS+1(A0), D0
@@ -85,6 +108,7 @@ BLT_PS_UPDATE:
     SUBQ.B #1, MAX_T_SCREEN(A0)
 
     .ENDBLTPSUP:
+    
     MOVEM.L (SP)+, A1/D0
     RTS
 
@@ -113,6 +137,7 @@ LEVELPOWER      EQU AUX_DATA
 MAX_T_SCREEN      EQU AUX_DATA+1
 MAX_TRVL_DIST   EQU AUX_DATA+2
 TRAVEL_DIR      EQU AUX_DATA+4
+
 
 
 

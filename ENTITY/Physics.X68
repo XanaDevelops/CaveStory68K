@@ -226,12 +226,60 @@ COLICHECK:
 
 
 COLLISION_ENTITY:
-    ; (SP) A0
-    ; (SP) @COLI, SINO -1
+    ; 56(SP) A0
+    ; 60(SP) @COLI, SINO -1
     
-    ;hola
+    MOVEM.L D0-D5/D7/A0, -(SP)
 
+    MOVE.L 36(SP), A0
+    MOVE.L #-1, 40(SP)
+    LEA ENTITY_MEM, A1
+    
+    ADDA.L #COLISION_BOX, A0
+    MOVEM.W (A0)+, D0-D3
+    SUB.L #COLISION_BOX+8, A0
+
+    ADD.W XPOS(A0), D0
+    ADD.W XPOS(A0), D2
+    ADD.W YPOS(A0), D1
+    ADD.W YPOS(A0), D3
+
+    MOVE.W #NUM_ENT-1, D7
+    .LOOPCE:
+    CMP.W #0, ID(A1)
+    BEQ .JNEXT
+
+    MOVE.W XPOS(A1), D4
+    MOVE.W D4, D5
+    ADD.W COLISION_BOX(A1), D4
+    ADD.W COLISION_BOX+4(A1), D5
+
+    CMP.W D4, D2
+    BLT .JNEXT
+    CMP.W D5, D0
+    BGT .JNEXT
+
+    MOVE.W YPOS(A1), D4
+    MOVE.W D4, D5
+    ADD.W COLISION_BOX+2(A1), D4
+    ADD.W COLISION_BOX+6(A1), D5
+
+    CMP.W D4, D3
+    BLT .JNEXT
+    CMP.W D5, D1
+    BGT .JNEXT
+
+    MOVE.L A1, 40(SP)
+    BRA .ENDCE
+
+    .JNEXT:
+    ADDA.L #ENT_SIZE_L, A1
+    DBRA D7, .LOOPCE
+    
+    .ENDCE:
+    MOVEM.L (SP)+, A0/D7/D5-D0
     RTS
+
 
 
 *~Font name~Courier New~

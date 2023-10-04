@@ -23,14 +23,13 @@ FASTSPRITE:
         ADDQ.B #1, D0
         TRAP #15
 
-        MOVE.B #87, D0
+        ADDQ.B #6, D0
         MOVEM.W (A2)+, D1-D4    ;LOAD LOCAR COORDS
 
         ADD.W 36(SP), D1        ;ADD EXT COORDS
         ADD.W 36(SP), D3
         ADD.W 38(SP), D2
         ADD.W 38(SP), D4
-        ;ADDQ.W #1, D4
 
         TRAP #15
 
