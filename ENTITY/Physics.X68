@@ -229,7 +229,7 @@ COLLISION_ENTITY:
     ; (SP) A0
     ; (SP) @COLI, SINO -1
     
-    
+    ;hola
 
     RTS
 
