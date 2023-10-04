@@ -9,7 +9,8 @@
 
     ORG    $1000
 START:                  ; first instruction of program
-
+    ;test xp
+    
     BSR SYSTEM_INIT
     BSR SET_SCROLL_TEXT
 
