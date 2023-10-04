@@ -26,6 +26,7 @@ BAT_UPDATE:
     BGT .NOKILL
         MOVE.L A0, -(SP)
         BSR DESTROY_ENTITY
+        ADDQ.L #4, SP
         BRA .ENDUPDATE
     .NOKILL:
 

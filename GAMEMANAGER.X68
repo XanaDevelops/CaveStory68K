@@ -28,7 +28,7 @@ LOAD_MAP:
     MOVE.W #$380, -(SP)
     MOVE.L #BAT, -(SP)
     BSR INSTANCE_ENTITY
-    BRA .ENDGM
+    ;BRA .ENDGM
 
     MOVE.W #$220, 6(SP)
     MOVE.W #$400, 4(SP)

@@ -226,13 +226,13 @@ COLICHECK:
 
 
 COLLISION_ENTITY:
-    ; 56(SP) A0
-    ; 60(SP) @COLI, SINO -1
+    ; 40(SP) A0
+    ; 36(SP) @COLI, SINO -1
     
     MOVEM.L D0-D5/D7/A0, -(SP)
 
-    MOVE.L 36(SP), A0
-    MOVE.L #-1, 40(SP)
+    MOVE.L 40(SP), A0
+    MOVE.L #-1, 36(SP)
     LEA ENTITY_MEM, A1
     
     ADDA.L #COLISION_BOX, A0
@@ -269,7 +269,10 @@ COLLISION_ENTITY:
     CMP.W D5, D1
     BGT .JNEXT
 
-    MOVE.L A1, 40(SP)
+    CMP.L A0, A1
+    BEQ .JNEXT
+
+    MOVE.L A1, 36(SP)
     BRA .ENDCE
 
     .JNEXT:

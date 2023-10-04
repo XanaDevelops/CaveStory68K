@@ -28,9 +28,10 @@ BLT_PS_START:
     ;SEGUN NIVEL, 
     MOVE.B #10, MAX_T_SCREEN(A0)
     ;AQUI SE MIRARIA EL DAÑO POR NIVEL, MIENTRAS...
-    MOVE.W #1, DAMAGE(A0)
-    ;CAJA DE COLISION
+    MOVE.W #4, DAMAGE(A0)
     
+    ;CAJA DE COLISION
+    ;TODO
     ASL.W #2, D0
     MOVE.L (A1, D0), 34(A0) ;LOAD SPRITE
     
@@ -69,32 +70,29 @@ BLT_PS_UPDATE:
     MOVE.W (A1, D0), XSPEED(A0)
     MOVE.W 2(A1, D0), YSPEED(A0)
 
-    MOVE.L #-1, -(SP)
     MOVE.L A0, -(SP)
     BSR UPDATE_PHYSICS
     
+    MOVE.L #-1, -(SP)
     BSR COLLISION_ENTITY
 
-    CMP.L #-1, 4(SP)
+    MOVE.L (SP)+, A1
+    CMP.L #-1, A1
     BEQ .NOCOLIE
-    
-    MOVE.L 4(SP), A1
+
     CMP.W #0, (A1)
     BGE .NOCOLIE
     
     MOVE.W DAMAGE(A0), D0
     SUB.W D0, HP(A1)
-    MOVE.L A0, (SP)
 
     BSR DESTROY_ENTITY
     
-    ADDA.L #8, SP
+    ADDA.L #4, SP
     BRA .ENDBLTPSUP 
     
     .NOCOLIE:
 
-    ADDQ.L #4, SP
-    
     CLR.L D0
     MOVE.B STATUS+1(A0), D0
     ANDI.B #%11110000, D0
