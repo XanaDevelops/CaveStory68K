@@ -6,6 +6,8 @@
 *-----------------------------------------------------------
 
 PLAYER_START:
+    MOVE.L A0, (PLAYERREF)
+
     MOVE.W #SCREEN_WIDTH/2-32, XPOS(A0)
     MOVE.W #SCREEN_HEIGHT/2-32+300, YPOS(A0)
     MOVE.W #ANIMSPEED, TIMERSPRITE(A0)
@@ -141,6 +143,11 @@ PLAYER_UPDATE:
     
     BSR CAMERA_MOVE
 
+    SUBQ.B #1, TIMERINVI(A0)
+    BPL .NOZIN
+    CLR.B TIMERINVI(A0)
+    .NOZIN:
+
     
     MOVE.L (SP)+, D0
     RTS
@@ -186,6 +193,20 @@ PLAYER_PAINT:
     RTS
 
 PLAYER_DAMAGE:
+    ; (SP).W DAMAGE
+    MOVEM.L D0/A0, -(SP)
+    MOVE.L 12(SP), A0
+
+    CMP.B #0, TIMERINVI(A0)
+    BNE .CNTDAMG
+
+    MOVE.W 16(SP), D0
+    SUB.W D0, HP(A0)
+
+    ADD.B #INVTIME, TIMERINVI(A0)
+
+    .CNTDAMG:
+    MOVEM.L (SP)+, A0/D0
     RTS
 
 BULLET_SHOT:
@@ -282,13 +303,13 @@ PLAYER:
                                                     ;48.B (lookdir) 8:up 12:down
                                                     ;49.B (timer jump)
                                                     ;50.B (equipped arm)
-TIMERSPRITE     EQU AUX_DATA
-LOOKDIRLR       EQU AUX_DATA+2
-LOOKDIRUD       EQU AUX_DATA+3
-TIMERJUMP       EQU AUX_DATA+4
+TIMERSPRITE     EQU AUX_DATA    ;W
+LOOKDIRLR       EQU AUX_DATA+2  ;B
+LOOKDIRUD       EQU AUX_DATA+3  ;B
+TIMERJUMP       EQU AUX_DATA+4  ;B
+TIMERINVI       EQU AUX_DATA+5  ;B
 
-
-
+INVTIME         EQU 16
 
 
 

@@ -31,7 +31,7 @@ LOAD_MAP:
     MOVE.L #BAT, -(SP)
     BSR INSTANCE_ENTITY
     
-    BRA .ENDGM
+    ;BRA .ENDGM
 
     MOVE.W #$220, 6(SP)
     MOVE.W #$400, 4(SP)
@@ -58,6 +58,7 @@ LOAD_MAP:
     MOVEM.L (SP)+, A0/D0
     RTS
 
+PLAYERREF DS.L 1
 
 *~Font name~Courier New~
 *~Font size~10~

@@ -37,7 +37,7 @@ TESTLOOP:
 PAINTLOOP:
     BSR UPDATE_KEYS
 
-    BSR UPDATE_ALL_ENT
+    JSR UPDATE_ALL_ENT
 
     
     BTST.B #0, (SCREEN_ST)
@@ -45,7 +45,7 @@ PAINTLOOP:
     REPAINT
     CLRSCREEN
 
-    BSR DRAW_ALL_ENT
+    JSR DRAW_ALL_ENT
 
     MOVE.L CURRENTMAPDIR, -(SP)
     BSR DRAW_MAP
@@ -142,6 +142,7 @@ SCR_SPEED_Y         DC.W 0
 
 
     END    START        ; last line of source
+
 
 
 

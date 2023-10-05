@@ -11,14 +11,26 @@ HUD_DRAW:
 
     BSR FASTSPRITE
 
-    LEA .TEXTLVL, A1
-    MOVE.B #95, D0
-    MOVE.W #20, D1
-    MOVE.W #85, D2
+    MOVE.B #11, D0
+    MOVE.W #$0204, D1
     TRAP #15
 
+    MOVE.B #14, D0
+    LEA .TEXTLVL, A1
+    TRAP #15
+
+    MOVE.B #11, D0
+    MOVE.W #$0205, D1
+    TRAP #15
+
+    MOVE.B #14, D0
     LEA .TEXTHP, A1
-    ADD.W #20, D2
+    TRAP #15
+
+    MOVE.B #3, D0
+    MOVE.L (PLAYERREF), A0
+    CLR.L D1
+    MOVE.W HP(A0), D1
     TRAP #15
 
 

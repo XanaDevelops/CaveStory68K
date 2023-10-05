@@ -20,7 +20,7 @@ BAT_START:
     RTS
 
 BAT_UPDATE:
-    MOVEM.L D1-D2, -(SP)
+    MOVEM.L D1-D2/A1, -(SP)
 
     CMP.W #0, HP(A0)
     BGT .NOKILL
@@ -50,8 +50,22 @@ BAT_UPDATE:
 
     MOVE.L A0, -(SP)
     BSR UPDATE_PHYSICS
-    ADDQ.L #4, SP
     
+    SUBQ.L #4, -(SP)
+    BSR COLLISION_ENTITY
+    MOVE.L (SP)+, A1
+    CMP.L #-1, A1
+    BEQ .NOCOLIE
+    CMP.W #1, ID(A1)
+    BNE .NOCOLIE
+    MOVE.W #BATATK, -(SP)
+    MOVE.L A1, -(SP)
+    MOVE.L AD_DODAM(A1), A1
+    JSR (A1)
+    ADDQ.L #6, SP
+    .NOCOLIE:
+    ADDQ.L #4, SP
+
     MOVE.L SPRITE_INDEX(A0), D1                   ;ANIM_INDEX
         MOVE.W TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO
         SUBQ.W #1, D2
@@ -68,7 +82,7 @@ BAT_UPDATE:
         MOVE.W D2, TIMERSPRITE(A0)
 
     .ENDUPDATE:
-    MOVEM.L (SP)+, D2-D1
+    MOVEM.L (SP)+, A1/D2-D1
 
 BAT_PAINT:
     RTS
@@ -97,13 +111,12 @@ BAT:
     DS.L 4                                          ;
     DS.W 1                                          ;
 
-BATANMSPD   EQU ANIMSPEED+1
 TIMERSPRITE EQU AUX_DATA      ;W 
 VELDIR      EQU AUX_DATA+2    ;B
 
 
-
-
+BATATK      EQU 2
+BATANMSPD   EQU ANIMSPEED+1
 
 *~Font name~Courier New~
 *~Font size~10~
