@@ -26,6 +26,8 @@ START:                  ; first instruction of program
 
     ADDQ.L #2, SP
 
+    CLR.B (GAMEFLAGS)
+
     CLRSCREEN
 
 TESTLOOP:
@@ -37,8 +39,11 @@ TESTLOOP:
 PAINTLOOP:
     BSR UPDATE_KEYS
 
+    JSR GM_UPDATE
+    BTST.B #7, (GAMEFLAGS)
+    BNE .NOUPD
     JSR UPDATE_ALL_ENT
-
+    .NOUPD:
     
     BTST.B #0, (SCREEN_ST)
     BNE .FSKIP
@@ -142,6 +147,7 @@ SCR_SPEED_Y         DC.W 0
 
 
     END    START        ; last line of source
+
 
 
 

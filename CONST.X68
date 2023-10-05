@@ -86,6 +86,9 @@ F11             EQU $7A
 ESC             EQU $1B
 
 
+;TEXT CONTROL
+LF              EQU $0A
+CR              EQU $0D
 
 
 

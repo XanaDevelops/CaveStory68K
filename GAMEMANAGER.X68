@@ -59,7 +59,49 @@ LOAD_MAP:
     MOVEM.L (SP)+, A0/D0
     RTS
 
-PLAYERREF DS.L 1
+GM_UPDATE:
+    CMP.B #0, (PLYERDED)
+    BEQ .ALIVE
+    SUB.B #1, (WAITDED)
+    BPL .WAIT
+    CLR.B (WAITDED)
+
+    BSET.B #7, (GAMEFLAGS)
+
+    MOVE.B #11, D0
+    MOVE.W #$1005, D1
+    TRAP #15
+    MOVE.B #14, D0
+    LEA GOVERTEXT, A1
+    TRAP #15
+
+    BTST.B #KEYM_Z, (KEY_PRESS_PLAYER)
+    BEQ .NOZ
+    MOVE.W CURRENTMAPID, D0
+    MOVE.W D0, -(SP)
+    BSR LOAD_MAP
+    ADDQ.L #2, SP
+    BCLR.B #7, (GAMEFLAGS)
+    .NOZ:
+
+    BRA .ALIVE
+    .WAIT:
+
+    .ALIVE:
+    RTS
+
+GM_PLYRDED:
+    MOVE.B #1, (PLYERDED)
+    MOVE.B #20, (WAITDED)
+
+    RTS
+
+
+PLAYERREF   DS.L 1
+PLYERDED    DC.B 0
+WAITDED     DC.B 0
+GOVERTEXT  DC.B 'GAME OVER: PULSA Z PARA CONTINUAR',0
+
 
 *~Font name~Courier New~
 *~Font size~10~
