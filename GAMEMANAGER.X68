@@ -56,6 +56,7 @@ LOAD_MAP:
 
     ADDA.L #8, SP       ;OJO CON ESTO
 
+
     MOVEM.L (SP)+, A0/D0
     RTS
 
@@ -101,6 +102,7 @@ PLAYERREF   DS.L 1
 PLYERDED    DC.B 0
 WAITDED     DC.B 0
 GOVERTEXT  DC.B 'GAME OVER: PULSA Z PARA CONTINUAR',0
+
 
 
 *~Font name~Courier New~

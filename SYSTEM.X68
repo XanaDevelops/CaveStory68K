@@ -14,6 +14,8 @@ SYSTEM_INIT:
     MOVE.B #17, D1
     TRAP #15
 
+    JSR START_CLIENT
+
     MOVE.W SR, -(SP)    ;PASA A USUARIO
     ANDI.W #$DFFF, (SP)
     RTE
@@ -31,6 +33,7 @@ SET_SCROLL_TEXT:
 
     MOVEM.L (SP)+, D2-D0
     RTS
+
 
 
 

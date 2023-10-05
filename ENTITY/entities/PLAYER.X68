@@ -23,12 +23,15 @@ PLAYER_START:
 PLAYER_UPDATE:
     MOVEM.L D0-D1, -(SP)
 
-    CMP.W #0, HP(A0)
+    CMP.W #0, HP(A0)        ;KILL?
     BNE .LIVE
         BSR GM_PLYRDED
+        MOVE.W #0, -(SP)
+        MOVE.W #1, -(SP)
+        BSR PLAY_SFX
         MOVE.L A0, -(SP)
         BSR DESTROY_ENTITY
-        ADDQ.L #4, SP
+        ADDQ.L #8, SP
         BRA .ENDUPDATE
     .LIVE:
 
