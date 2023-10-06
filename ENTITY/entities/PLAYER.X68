@@ -26,7 +26,7 @@ PLAYER_UPDATE:
     CMP.W #0, HP(A0)        ;KILL?
     BNE .LIVE
         BSR GM_PLYRDED
-        MOVE.W #0, -(SP)
+        MOVE.W #1, -(SP)
         MOVE.W #1, -(SP)
         BSR PLAY_SFX
         MOVE.L A0, -(SP)
@@ -138,6 +138,14 @@ PLAYER_UPDATE:
             MOVE.L #0, D1
             .NOOF:
             MOVE.L D1, SPRITE_INDEX(A0)
+
+            BTST.B #3, STATUS+1(A0)
+            BNE .NOSFXWALK
+            MOVE.W #2, -(SP)
+            MOVE.W #0, -(SP)
+            BSR PLAY_SFX
+            ADDQ.L #4, SP
+            .NOSFXWALK:
         .NOTIMER:
         MOVE.W D2, TIMERSPRITE(A0)
     BRA .ENDANIM
@@ -219,6 +227,12 @@ PLAYER_DAMAGE:
 
     NEG.W XSPEED(A0)
     ;NEG.W YSPEED(A0)
+
+    MOVE.W #0, -(SP)
+    MOVE.W #1, -(SP)
+    BSR PLAY_SFX
+
+    ADDQ.L #4, SP
 
     .CNTDAMG:
     MOVEM.L (SP)+, A0/D0
