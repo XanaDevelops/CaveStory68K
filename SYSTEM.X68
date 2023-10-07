@@ -16,11 +16,13 @@ SYSTEM_INIT:
 
     JSR START_CLIENT
 
+    RTS
+
     MOVE.W SR, -(SP)    ;PASA A USUARIO
     ANDI.W #$DFFF, (SP)
     RTE
 
-    ;RTS
+    
 
 SET_SCROLL_TEXT:
     MOVEM.L D0-D2, -(SP)

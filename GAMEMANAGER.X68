@@ -23,13 +23,15 @@ LOAD_MAP:
     BSR INSTANCE_ENTITY
 
     ADDQ.L #4, SP
-    
-    
+
+    MOVE.W #4, -(SP)
+    JSR SEND_BGM
+    ADDQ.L #2, SP
     
     MOVE.W #$120, -(SP)
     MOVE.W #$380, -(SP)
     MOVE.L #BAT, -(SP)
-    BSR INSTANCE_ENTITY
+    BSR INSTANCE_ENTITY     ;DEBUG BATS
     
     ;BRA .ENDGM
 
@@ -54,7 +56,7 @@ LOAD_MAP:
 
     .ENDGM:
 
-    ADDA.L #8, SP       ;OJO CON ESTO
+    ADDA.L #8, SP       ;OJO CON ESTO, DEBUG BATS
 
 
     MOVEM.L (SP)+, A0/D0
@@ -87,13 +89,19 @@ GM_UPDATE:
 
     BRA .ALIVE
     .WAIT:
-
+    CMP.B #0, (WAITDED)
+    BNE .ALIVE
+    MOVE.W #9, -(SP)
+    JSR SEND_BGM
+    ADDQ.L #2, SP
     .ALIVE:
     RTS
 
 GM_PLYRDED:
     MOVE.B #1, (PLYERDED)
     MOVE.B #20, (WAITDED)
+
+    JSR STOP_BGM
 
     RTS
 
@@ -102,6 +110,9 @@ PLAYERREF   DS.L 1
 PLYERDED    DC.B 0
 WAITDED     DC.B 0
 GOVERTEXT  DC.B 'GAME OVER: PULSA Z PARA CONTINUAR',0
+
+
+
 
 
 

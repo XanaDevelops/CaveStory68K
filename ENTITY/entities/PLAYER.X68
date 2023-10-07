@@ -26,7 +26,7 @@ PLAYER_UPDATE:
     CMP.W #0, HP(A0)        ;KILL?
     BNE .LIVE
         BSR GM_PLYRDED
-        MOVE.W #1, -(SP)
+        MOVE.W #66, -(SP)
         MOVE.W #1, -(SP)
         BSR PLAY_SFX
         MOVE.L A0, -(SP)
@@ -111,6 +111,14 @@ PLAYER_UPDATE:
     CMP.B #0, TIMERJUMP(A0)
     BLE .ENDZ
     .SIS:
+    CMP.W #22, TIMERJUMP(A0)
+    BNE .NOSFXJ
+    MOVE.W #68, -(SP)
+    MOVE.W #0, -(SP)
+    JSR PLAY_SFX
+    ADDQ.L #4, SP
+
+    .NOSFXJ:
     MOVE.W #-9, YSPEED(A0)   ;VEL SALTO
     SUBQ.B #1, TIMERJUMP(A0)
     BRA .ENDZ
@@ -141,7 +149,7 @@ PLAYER_UPDATE:
 
             BTST.B #3, STATUS+1(A0)
             BNE .NOSFXWALK
-            MOVE.W #2, -(SP)
+            MOVE.W #69, -(SP)
             MOVE.W #0, -(SP)
             BSR PLAY_SFX
             ADDQ.L #4, SP
@@ -228,7 +236,7 @@ PLAYER_DAMAGE:
     NEG.W XSPEED(A0)
     ;NEG.W YSPEED(A0)
 
-    MOVE.W #0, -(SP)
+    MOVE.W #67, -(SP)
     MOVE.W #1, -(SP)
     BSR PLAY_SFX
 
@@ -241,6 +249,12 @@ PLAYER_DAMAGE:
 BULLET_SHOT:
     MOVE.L D0, -(SP)
     CLR.L D0
+
+    ;DEPENDE ARMA/NIVEL
+    MOVE.W #62, -(SP)
+    MOVE.W #1, -(SP)
+    JSR PLAY_SFX
+    ADDQ.L #4, SP
 
     MOVE.W XPOS(A0), -(SP)
     MOVE.W YPOS(A0), -(SP)
@@ -339,6 +353,7 @@ TIMERJUMP       EQU AUX_DATA+4  ;B
 TIMERINVI       EQU AUX_DATA+5  ;B
 
 INVTIME         EQU 30
+
 
 
 

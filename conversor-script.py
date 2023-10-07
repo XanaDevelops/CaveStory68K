@@ -2,6 +2,7 @@
 #from simpinkscr.simple_inkscape_scripting import *
 
 #from simple_inkscape_scripting import all_shapes
+from io import TextIOWrapper
 import sys, os, subprocess
 from PIL import Image
 import numpy as np
@@ -9,11 +10,14 @@ import numpy as np
 
 class Conversor():
 
-    dirSprites = "./svg/"
-    dirMapas   = "./mapas/"
+    dirSprites  = "./svg/"
+    dirMapas    = "./mapas/"
+    dirSFX      = "./SFX/"
+    dirBGM      = "./BGM/"
 
     pathSprites = "./data/sprites.x68"
     pathMaps    = "./data/maps.x68"
+    pathSI      = "./data/sounds.x68"
 
     def __init__(self):
         self.PrintMenu()
@@ -27,7 +31,8 @@ class Conversor():
             print("     [2] ConvertSprites (SVG)")
             print("     [3] ConvertMapas (BMP)")
             print("     [4] ConvertSingle")
-            print("     [5] Convertir Coords")                    
+            print("     [5] Convertir Coords")  
+            print("     [6] Importar sonidos")                  
             print("     [0] Exit")
 
             r = input("?: ")
@@ -42,7 +47,8 @@ class Conversor():
                         self.ConvertAllMapas()
                     case 4:
                         self.ConvertSpriteSVG(input("Path: "))
-                        
+                    case 6:
+                        self.SoundImport()
                     case 0:
                         salir = True
                     case _:
@@ -155,6 +161,50 @@ class Conversor():
 
         #print(retText)
         return [retText, bmpName, img.width, img.height]
+    
+    def SoundImport(self):
+        print("\nImportando Canciones y SFX")
+        with open(self.pathSI, "+w") as fsound:
+            fsound.writelines("*-----------------------------------------------------------\n")
+            fsound.writelines("* Title      : SoundData\n")
+            fsound.writelines("* Written by : Xana\n")
+            fsound.writelines("* Date       :\n")
+            fsound.writelines("* Description: Generado automaticamente por conversor-script.py\n")
+            fsound.writelines("*-----------------------------------------------------------\n")
+
+            self._soundImport(self.dirSFX, "SFX", fsound)
+            self._soundImport(self.dirBGM, "BGM", fsound)
+
+
+            fsound.writelines("\n\n\n*~Font name~Courier New~\n")
+            fsound.writelines("*~Font size~10~\n")
+            fsound.writelines("*~Tab type~1~\n")
+            fsound.writelines("*~Tab size~4~\n")
+                    
+    def _soundImport(self, path:str, name:str, file:TextIOWrapper) -> None:
+        snd_v = []
+        snds  = []
+        n=0
+        for x in os.listdir(path):
+            if x.endswith(".wav"):
+                vName = self.SectorName(x.upper())
+                snd_v.append(vName)
+                snds.append(self.SongNamer(x, path, vName, n))
+                n+=1
+        file.write(f"NUM{name}\tEQU {len(snd_v)}\n")
+        file.write(f"{name}_V\n")
+        file.writelines(self.truncateText(snd_v, "DC.L"))
+        file.writelines(snds)
+        file.write("\tDS.W 0\n\n")
+
+    def SongNamer(self, x:str, path:str, vName:str, n:int) -> str:
+        return f"{vName}\tDC.B '{path}{x}',0\t;{n}\n"
+    
+    def SectorName(self, x:str) -> str:
+        for y in ["_", " ",".WAV","(", ")", "'","'","!", "NTERNAL", "ERCUSSION"]:
+            x=x.replace(y, "") 
+        return f".{x}"
+
     
     def ToBGR(self, x:list):
         r,g,b,a=x

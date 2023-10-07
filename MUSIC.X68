@@ -5,12 +5,51 @@
 * Description:
 *-----------------------------------------------------------
 START_CLIENT:
-    LEA SFX_V, A0
+    LEA SFX_V, A0           ;SETUP LOAD SONGS
     MOVE.W #NUMSFX-1, D7
-    BRA LDR_MUS
+    BSR LDR_MUS
+
+    JSR START_TCP_CLIENT
+
+    RTS
+
     
 START_SERVER:
+    LEA BGM_V, A0           ;SETUP LOAD SONGS
+    MOVE.W #NUMBGM-1, D7
+    BSR LDR_MUS
+
+    JSR START_TCP_SERVER
+
     RTS
+
+SEND_BGM:
+    ; 4->6(SP) ID BGM
+    MOVE.W #CMDPBGM, -(SP)
+    JSR SEND_DATA
+    MOVE.W 6(SP), (SP)
+    JSR SEND_DATA
+    ADDQ.L #2, SP
+    
+    RTS
+
+PLAY_BGM:
+    ; 20(SP).W ID SND
+    MOVEM.L D0-D2/A0, -(SP)
+
+    MOVE.B #76, D0
+    MOVE.L #3, D2
+    TRAP #15
+
+    MOVE.B #76, D0
+    MOVE.W 20(SP), D1
+    SUBQ.L #2, D2
+    TRAP #15
+
+    MOVEM.L (SP)+, A0/D2-D0
+    RTS
+
+
 PLAY_SFX:
     ; 22(SP).W ID SND
     ; 20(SP).W HAS PRIO
@@ -30,6 +69,24 @@ PLAY_SFX:
     MOVEM.L (SP)+, A0/D2-D0
     RTS
 
+STOP_SFX:  
+    MOVEM.L D0/D2, -(SP)
+
+    MOVE.B #76, D0
+    MOVE.L #3, D2
+    TRAP #15
+
+    MOVEM.L (SP)+, D2/D0
+
+    RTS
+
+STOP_BGM:  
+    MOVE.W #CMDSTOP, -(SP)
+    JSR SEND_DATA
+    ADDQ.L #2, SP
+
+    RTS
+
 LDR_MUS:
     MOVE.B #71, D0
     CLR.W D2
@@ -42,14 +99,11 @@ LDR_MUS:
     DBRA D7, .LOOP
     RTS
 
-NUMSFX  EQU 3
-SFX_V   DC.L .SFXPYRHURT, .SFXPYRDEATH, .SFXPYRWALK
-.SFXPYRHURT     DC.B './SFX/snd_quote_hurt.wav',0
-.SFXPYRDEATH    DC.B './SFX/snd_quote_die.wav',0
-.SFXPYRWALK    DC.B './SFX/snd_quote_walk.wav',0
+    INCLUDE "./data/sounds.x68"
 
-NUMBGM  EQU 0
-BGM_V   DC.L 0
+
+CMDPBGM     EQU $1010
+CMDSTOP     EQU $7676
 
 
 
