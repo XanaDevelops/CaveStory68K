@@ -24,7 +24,7 @@ LOAD_MAP:
 
     ADDQ.L #4, SP
 
-    MOVE.W #4, -(SP)
+    MOVE.W #41, -(SP)       ;MUSICA
     JSR SEND_BGM
     ADDQ.L #2, SP
     

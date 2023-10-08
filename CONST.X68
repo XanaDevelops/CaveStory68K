@@ -48,7 +48,7 @@ AUX_DATA        EQU 46
 
 
 ;PLAYER
-ANIMSPEED       EQU 3
+ANIMSPEED       EQU 2
 MAX_PLYR_SPEED  EQU 7
 
 G               EQU 1

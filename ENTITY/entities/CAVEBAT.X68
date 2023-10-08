@@ -94,6 +94,11 @@ BAT_DAMAGE:
     MOVE.W 16(SP), D0
     SUB.W D0, HP(A0)
 
+    MOVE.W #36, -(SP)
+    MOVE.W #1, -(SP)
+    BSR PLAY_SFX
+    ADDQ.L #4, SP
+
     MOVEM.L (SP)+, A0/D0
     RTS
 

@@ -4,7 +4,7 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-BLT_SPEED   EQU 40
+BLT_SPEED   EQU 45
 VSPEEDPS DC.W  -BLT_SPEED,0, BLT_SPEED,0, 0,-BLT_SPEED, 0,BLT_SPEED
 BLT_PS_START:
     ;36(SP) DIR
