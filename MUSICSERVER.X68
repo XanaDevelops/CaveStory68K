@@ -4,6 +4,7 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
+    INCLUDE "XPMODE.X68"
     INCLUDE "MACROS.X68"
     INCLUDE "CONST.X68"
 
@@ -51,6 +52,7 @@ START:                  ; first instruction of program
     INCLUDE "MUSIC.X68"
 
     END    START        ; last line of source
+
 
 
 
