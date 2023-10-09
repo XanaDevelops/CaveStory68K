@@ -105,7 +105,7 @@ BAT_DAMAGE:
 BAT:
     DC.W -1                                         ;ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 10                                         ;HP
+    DC.W 3                                          ;HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00UDLR(!AIRBONE)(!GRAV)--
     DC.W 4,4, 42,48                                 ;COLISION_BOX

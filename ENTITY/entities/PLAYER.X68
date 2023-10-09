@@ -323,12 +323,20 @@ CAMERA_MOVE:
     CMP.B #0, LOOKDIRLR(A0)                    ;Scroll horizontal
     BEQ .PNLEFT
         SUB.W #130-TILESIZE, D0
-        ASR.W #SCREEN_VXDIV, D0
+        ASR.W #3, D0
+        CMP.W #-SCREEN_MAXVX, D0
+        BGE .NOMX
+        MOVE.W #-SCREEN_MAXVX, D0
+        .NOMX:
         MOVE.W D0, (SCR_SPEED_X)    
     BRA .ENDCAM
     .PNLEFT:
         SUB.W #SCREEN_WIDTH-130, D0
-        ASR.W #SCREEN_VXDIV, D0
+        ASR.W #3, D0
+        CMP.W #SCREEN_MAXVX, D0
+        BLE .NOMX2
+        MOVE.W #SCREEN_MAXVX, D0
+        .NOMX2:
         MOVE.W D0, (SCR_SPEED_X)
     .ENDCAM:
     MOVE.L (SP)+, D1
