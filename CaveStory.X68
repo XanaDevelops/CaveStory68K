@@ -5,6 +5,7 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
+    INCLUDE "XPMODE.X68"
     INCLUDE "MACROS.X68"
     INCLUDE "CONST.X68"
 
@@ -47,7 +48,7 @@ PAINTLOOP:
     .NOUPD:
     
     BTST.B #0, (SCREEN_ST)
-    BNE .FSKIP
+    ;BNE .FSKIP
     REPAINT
     CLRSCREEN
 
@@ -150,6 +151,7 @@ SCR_SPEED_Y         DC.W 0
 
 
     END    START        ; last line of source
+
 
 
 
