@@ -4,8 +4,7 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-BLT_SPEED   EQU 45
-VSPEEDPS DC.W  -BLT_SPEED,0, BLT_SPEED,0, 0,-BLT_SPEED, 0,BLT_SPEED
+VSPEEDPS DC.W  -BLT_PS_SPEED,0, BLT_PS_SPEED,0, 0,-BLT_PS_SPEED, 0,BLT_PS_SPEED
 BLT_PS_START:
     ;36(SP) DIR
     ;38(SP) LEVEL
@@ -141,6 +140,7 @@ LEVELPOWER      EQU AUX_DATA
 MAX_T_SCREEN      EQU AUX_DATA+1
 MAX_TRVL_DIST   EQU AUX_DATA+2
 TRAVEL_DIR      EQU AUX_DATA+4
+
 
 
 

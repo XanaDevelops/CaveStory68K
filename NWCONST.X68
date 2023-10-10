@@ -21,6 +21,10 @@ ANIMSPEED       EQU 2
 
 MAX_PLYR_SPEED  EQU 7
 MAX_FALL_SPEED  EQU 20
+
+;BULLETS
+BLT_PS_SPEED   EQU 45
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~
