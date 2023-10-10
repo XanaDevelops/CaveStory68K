@@ -121,7 +121,8 @@ VELDIR      EQU AUX_DATA+2    ;B
 
 
 BATATK      EQU 2
-BATANMSPD   EQU 1
+
+
 
 *~Font name~Courier New~
 *~Font size~10~
