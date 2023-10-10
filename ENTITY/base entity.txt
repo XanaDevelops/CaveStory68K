@@ -18,3 +18,12 @@
 
 A0 apunta a @ID
 en start: SP data se encuentra en 24(SP), sin contar registros movem
+
+IDs:
+PLAYER:     1
+ENEMY:      -1*X
+BULLETQ:    1X
+BULLETK:    2X
+NPC:        3X
+INTERACT:   5X
+COLECT:     7X

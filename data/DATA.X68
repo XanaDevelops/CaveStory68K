@@ -49,6 +49,8 @@ BAT_FLY_L       DC.L 3
                 DC.L CAVEBAT_F_L_0, CAVEBAT_F_L_1, CAVEBAT_F_L_2
 
 
+CARTELS         DC.L 1
+                DC.L SPR_CARTEL
 
 MAPAS   DC.L TESTMAP, CAVIDAD
 
