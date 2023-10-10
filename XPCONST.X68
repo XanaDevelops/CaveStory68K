@@ -32,6 +32,7 @@ INVTIME         EQU 50
 BLT_PS_SPEED   EQU 35
 
 ;BAT
+BATMY       EQU 20
 BATANMSPD   EQU 3
 *~Font name~Courier New~
 *~Font size~10~

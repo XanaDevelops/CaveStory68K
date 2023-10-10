@@ -34,10 +34,10 @@ BAT_UPDATE:
     BNE .NOIMP
     NOT.B VELDIR(A0)
     BMI .ESNEG
-        ADD.W #12, YSPEED(A0)
+        ADD.W #BATMY, YSPEED(A0)
         BRA .NOIMP
     .ESNEG:
-        SUB.W #12, YSPEED(A0)
+        SUB.W #BATMY, YSPEED(A0)
     .NOIMP:
 
     CMP.W #0, YSPEED(A0)
@@ -121,6 +121,7 @@ VELDIR      EQU AUX_DATA+2    ;B
 
 
 BATATK      EQU 2
+
 
 
 
