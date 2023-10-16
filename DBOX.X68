@@ -14,6 +14,7 @@ START_DBOX:
 
     RTS
 UPDATE_DBOX:
+    MOVE.W #1, (MORELINES) ;TEST
     SUBQ.W #1, (TXTDELAYV)
     BPL .NOTIM
         MOVE.W #TXTDELAY, (TXTDELAYV)
@@ -37,15 +38,11 @@ DRAW_DBOX:
     TRAP #15
 
     MOVE.B #11, D0          ;POS PROVISIONAL
-    MOVE.W #$0816, D1 ;081B
+    MOVE.W #$0411, D1 ;081B
     TRAP #15
 
-    MOVE.B #80, D0
+    MOVE.B #81, D0
     MOVE.L #BLACK, D1
-    TRAP #15
-
-    ADDQ.B #1, D0
-    MOVE.L #WHITE, D1
     TRAP #15
 
     CLR.L D1
@@ -72,7 +69,7 @@ DIAGINDEX       DS.W 1
 MORELINES       DS.W 1
 TXTDELAYV       DS.W 1
 
-TXTDELAY       EQU 2
+TXTDELAY       EQU 1
 
 DBOXX1          EQU 20
 DBOXX2          EQU SCREEN_WIDTH-20

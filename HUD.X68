@@ -15,6 +15,10 @@ HUD_DRAW:
     MOVE.W #$0204, D1
     TRAP #15
 
+    MOVE.B #81, D0
+    MOVE.L #BLACK, D1
+    TRAP #15
+
     MOVE.B #14, D0
     LEA .TEXTLVL, A1
     TRAP #15
