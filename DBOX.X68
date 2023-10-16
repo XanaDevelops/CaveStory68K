@@ -6,7 +6,9 @@
 *-----------------------------------------------------------
 
 START_DBOX:
-    MOVE.W #0, (CURRENTTXTID)
+    MOVE.W #0, (CURRENTTXTID) ;temp #0
+
+    ANDI.B #%1001111, (GAMEFLAGS)
     CLR.W (HASPORTTR)
     CLR.W (TXTINDEX)
     CLR.W (DIAGINDEX)
@@ -14,20 +16,45 @@ START_DBOX:
 
     RTS
 UPDATE_DBOX:
-    ;MOVE.W #3, (MORELINES) ;TEST
+    CMP.W #-1, (CURRENTTXTID)
+    BEQ .NONLINE
+
+    BTST.B #6, (GAMEFLAGS)
+    BEQ .NOEND
+    BTST.B #KEYM_Z, (KEY_PRESS_PLAYER)
+    BEQ .NONLINE
+    MOVE.W #-1, (CURRENTTXTID)
+    RTS                 ;A VER QUE TAL RTS AHÍ, POR SI LUEGO MUEVO REGISTROS
+    .NOEND:
+    BTST.B #KEYM_X, (KEY_HOLD_PLAYER)
+    BNE .SITIM
     SUBQ.W #1, (TXTDELAYV)
     BPL .NOTIM
+    .SITIM:
         MOVE.W #TXTDELAY, (TXTDELAYV)
         ADDQ.W #1, (TXTINDEX)
     .NOTIM:
-    CMP.W #40, (TXTINDEX)
+    BTST.B #5, (GAMEFLAGS)
+    BNE .SILINE
+    CMP.W #35, (TXTINDEX)
     BLT .NONLINE
-    ADDQ.W #1, (MORELINES)
+    .SILINE:
     CLR.W (TXTINDEX)
+    BCLR.B #5, (GAMEFLAGS)
+
+    CMP.W #MAXLINES-1, (MORELINES)
+    BLT .NOSCR
+    ADDQ.W #1, (DIAGINDEX)
+    BRA .NONLINE
+    .NOSCR:
+    ADDQ.W #1, (MORELINES)
     .NONLINE:
     RTS
+
 DRAW_DBOX:
-    
+    CMP.W #-1, (CURRENTTXTID)
+    BEQ .END_DBOX
+
     MOVE.B #80, D0
     MOVE.L #WHITE, D1
     TRAP #15
@@ -67,7 +94,12 @@ DRAW_DBOX:
 
     MOVE.B #1, D0               ;SELECCIONA FRASE
     MOVE.L (A6, D2.W), A1
-    
+
+    CMP.L #-1, A1
+    BNE .NOEND
+    BSET.B #6, (GAMEFLAGS)
+    BRA .END_DBOX
+    .NOEND:
     CMP.W #0, D4
     BEQ .LASTLINEA
     MOVE.W #255, D1
@@ -75,12 +107,16 @@ DRAW_DBOX:
     BRA .PAINTLINEA 
     .LASTLINEA: 
     MOVE.W (TXTINDEX), D1
+    CMP.B #0, (A1, D1)
+    BNE .PAINTLINEA
+    BSET.B #5, (GAMEFLAGS)
     .PAINTLINEA:       
     TRAP #15
     
     ADDQ.W #1, D3
     SUBQ.W #1, D4
     BGE .LOOPDBOX
+    .END_DBOX:
     RTS
 
 CURRENTTXTID    DS.W 1
@@ -90,8 +126,8 @@ DIAGINDEX       DS.W 1
 MORELINES       DS.W 1
 TXTDELAYV       DS.W 1
 
-TXTDELAY       EQU 1
-
+TXTDELAY        EQU 1
+MAXLINES        EQU 6
 DBOXX1          EQU 20
 DBOXX2          EQU SCREEN_WIDTH-20
 DBOXY1          EQU (SCREEN_HEIGHT/2)+80

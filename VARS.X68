@@ -5,7 +5,8 @@
 * Description:
 *-----------------------------------------------------------
 
-GAMEFLAGS   DC.B 0 ;(UPDENT)
+GAMEFLAGS   DC.B 0 ;(UPD_ENT)(END_DBOX)(CR_DBOX)-----
+            DS.W 0
 
 SCREEN_X    DS.W 1
 SCREEN_Y    DS.W 1
