@@ -31,6 +31,8 @@ START:                  ; first instruction of program
 
     CLRSCREEN
 
+    BSR START_DBOX ;QUITAR!!
+
 TESTLOOP:
     MOVE.B		#8,D0 ;GET TIEMPO EN CENTS
 	TRAP		#15
@@ -41,6 +43,9 @@ PAINTLOOP:
     BSR UPDATE_KEYS
 
     JSR GM_UPDATE
+
+    BSR UPDATE_DBOX
+
     BTST.B #7, (GAMEFLAGS)
     BNE .NOUPD
     JSR UPDATE_ALL_ENT
