@@ -19,10 +19,6 @@ LOAD_MAP:
 
     BSR GENERATE_COLIMAP
 
-    MOVE.L #PLAYER, -(SP)
-    BSR INSTANCE_ENTITY
-
-    ADDQ.L #4, SP
 
     MOVE.W #41, -(SP)       ;MUSICA
     JSR SEND_BGM
@@ -32,8 +28,15 @@ LOAD_MAP:
     MOVE.W #$380, -(SP)
     MOVE.L #BAT, -(SP)
     BSR INSTANCE_ENTITY     ;DEBUG BATS
+
+    MOVE.W #$140, 6(SP)
+    MOVE.W #$400, 4(SP)
+    MOVE.L #CARTEL, (SP)
+    BSR INSTANCE_ENTITY
     
     ;BRA .ENDGM
+
+    MOVE.L #BAT, (SP)
 
     MOVE.W #$220, 6(SP)
     MOVE.W #$400, 4(SP)
@@ -57,6 +60,11 @@ LOAD_MAP:
     .ENDGM:
 
     ADDA.L #8, SP       ;OJO CON ESTO, DEBUG BATS
+
+    MOVE.L #PLAYER, -(SP)
+    BSR INSTANCE_ENTITY
+
+    ADDQ.L #4, SP
 
 
     MOVEM.L (SP)+, A0/D0

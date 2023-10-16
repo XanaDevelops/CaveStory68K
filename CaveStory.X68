@@ -1,4 +1,3 @@
-
 *-----------------------------------------------------------
 * Title      : Cave Story (Port)
 * Written by :
@@ -60,6 +59,7 @@ PAINTLOOP:
     
     BSR HUD_DRAW
     
+    BSR DRAW_DBOX
     .FSKIP:
 
 
@@ -141,16 +141,22 @@ SCR_SPEED_Y         DC.W 0
     INCLUDE "DRAWMAP.x68"
     INCLUDE "HUD.X68"
     INCLUDE "VARS.X68"
+    INCLUDE "DBOX.X68"
     INCLUDE "ENTITY/EntityIncluder.x68"
     INCLUDE "ENTITY/EntityManagement.x68"
     INCLUDE "ENTITY/Physics.X68"
+    INCLUDE "ENTITY/Interactor.x68"
     INCLUDE "MUSIC.X68"
     INCLUDE "data/DATA.x68"
     INCLUDE "data/sprites.x68"
     INCLUDE "data/maps.x68"
+    INCLUDE "data/Dialogs.x68"
 
 
     END    START        ; last line of source
+
+
+
 
 
 

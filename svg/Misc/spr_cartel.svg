@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
-   sodipodi:docname="cartel.svg"
+   sodipodi:docname="spr_cartel.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,11 +25,11 @@
      inkscape:document-units="px"
      showgrid="true"
      inkscape:zoom="17.765625"
-     inkscape:cx="17.449428"
+     inkscape:cx="17.421284"
      inkscape:cy="13.312225"
      inkscape:window-width="1278"
      inkscape:window-height="1341"
-     inkscape:window-x="1272"
+     inkscape:window-x="1264"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1">
@@ -62,70 +62,70 @@
        width="18"
        height="16"
        x="2"
-       y="2" />
+       y="4" />
     <rect
        style="fill:#ffb967;fill-opacity:1;stroke-width:0.487465"
        id="rect1-7"
        width="4"
        height="2"
        x="8"
-       y="18" />
+       y="20" />
     <rect
        style="fill:#ffb967;fill-opacity:1;stroke-width:0.487465"
        id="rect1-7-7"
        width="4"
        height="2"
        x="20"
-       y="4" />
+       y="6" />
     <rect
        style="fill:#ffb967;fill-opacity:1;stroke-width:0.487465"
        id="rect1-7-79"
        width="4"
        height="2"
        x="14"
-       y="2" />
+       y="4" />
     <rect
        style="fill:#ffb967;fill-opacity:1;stroke-width:0.487465"
        id="rect1-7-5"
        width="4"
        height="2"
        x="6"
-       y="2" />
+       y="4" />
     <rect
        style="fill:#ffb967;fill-opacity:1;stroke-width:0.487465"
        id="rect1-7-3"
        width="2"
        height="4"
        x="2"
-       y="2" />
+       y="4" />
     <rect
        style="fill:#ffb967;fill-opacity:1;stroke-width:0.487465"
        id="rect1-7-3-2"
        width="2"
        height="4"
        x="0"
-       y="14" />
+       y="16" />
     <rect
        style="fill:#ea7321;fill-opacity:1;stroke-width:0.844314"
        id="rect1-7-3-2-3"
        width="6"
        height="4"
        x="10"
-       y="20" />
+       y="22" />
     <rect
        style="fill:#ea7321;fill-opacity:1;stroke-width:0.34469"
        id="rect1-7-3-2-3-7"
        width="2"
        height="2"
        x="6"
-       y="18" />
+       y="20" />
     <rect
        style="fill:#ea7321;fill-opacity:1;stroke-width:0.487465"
        id="rect1-7-3-2-3-7-5"
        width="2"
        height="4"
        x="0"
-       y="10"
+       y="12"
        inkscape:transform-center-x="0.056288478"
        inkscape:transform-center-y="1.9138083" />
     <rect
@@ -134,7 +134,7 @@
        width="2"
        height="2"
        x="2"
-       y="0"
+       y="2"
        inkscape:transform-center-x="0.056288478"
        inkscape:transform-center-y="0.95690413" />
     <rect
@@ -143,7 +143,7 @@
        width="4"
        height="2"
        x="10"
-       y="2"
+       y="4"
        inkscape:transform-center-x="0.11257696"
        inkscape:transform-center-y="0.95690413" />
     <rect
@@ -152,77 +152,77 @@
        width="2"
        height="2"
        x="2"
-       y="8" />
+       y="10" />
     <rect
        style="fill:#675567;fill-opacity:1;stroke-width:0.487465"
        id="rect1-7-3-7-4"
        width="4"
        height="2"
        x="6"
-       y="8" />
+       y="10" />
     <rect
        style="fill:#f3e298;fill-opacity:1;stroke-width:2.73587"
        id="rect1-2"
        width="18"
        height="14"
        x="12"
-       y="6" />
+       y="8" />
     <rect
        style="fill:#f3e298;fill-opacity:1;stroke-width:0.487462"
        id="rect1-2-9"
        width="4"
        height="2"
        x="24"
-       y="20" />
+       y="22" />
     <rect
        style="fill:#f3e298;fill-opacity:1;stroke-width:0.487462"
        id="rect1-2-9-1"
        width="4"
        height="2"
        x="14"
-       y="0" />
+       y="2" />
     <rect
        style="fill:#f3e298;fill-opacity:1;stroke-width:0.844309"
        id="rect1-2-9-8"
        width="4"
        height="6"
        x="10"
-       y="24" />
+       y="26" />
     <rect
        style="fill:#ffb967;fill-opacity:1;stroke-width:0.487465"
        id="rect1-7-3-2-5"
        width="2"
        height="4"
        x="28"
-       y="14" />
+       y="16" />
     <rect
        style="fill:#ffb967;fill-opacity:1;stroke-width:0.34469"
        id="rect1-7-3-2-5-3"
        width="2"
        height="2"
        x="22"
-       y="20" />
+       y="22" />
     <rect
        style="fill:#ffb967;fill-opacity:1;stroke-width:0.34469"
        id="rect1-7-3-2-5-3-1"
        width="2"
        height="2"
        x="12"
-       y="22" />
+       y="24" />
     <rect
        style="fill:#ffb967;fill-opacity:1;stroke-width:0.487465"
        id="rect1-7-3-2-5-3-0"
        width="2"
        height="4"
        x="10"
-       y="24" />
+       y="26" />
     <rect
        style="fill:#ea7321;fill-opacity:1;stroke-width:0.487465"
        id="rect1-7-3-2-3-7-5-5-8"
        width="2"
        height="4"
        x="18"
-       y="0"
+       y="2"
        inkscape:transform-center-x="0.056288478"
        inkscape:transform-center-y="1.9138083" />
     <rect
@@ -231,7 +231,7 @@
        width="2"
        height="2"
        x="24"
-       y="4"
+       y="6"
        inkscape:transform-center-x="0.056288478"
        inkscape:transform-center-y="0.95690413" />
     <rect
@@ -240,7 +240,7 @@
        width="2"
        height="4"
        x="28"
-       y="18"
+       y="20"
        inkscape:transform-center-x="0.056288478"
        inkscape:transform-center-y="1.9138083" />
     <rect
@@ -249,7 +249,7 @@
        width="4"
        height="2"
        x="18"
-       y="20"
+       y="22"
        inkscape:transform-center-x="0.11257696"
        inkscape:transform-center-y="0.95690413" />
     <rect
@@ -258,7 +258,7 @@
        width="2"
        height="2"
        x="8"
-       y="28"
+       y="30"
        inkscape:transform-center-x="0.056288478"
        inkscape:transform-center-y="0.95690413" />
     <rect
@@ -267,20 +267,20 @@
        width="6"
        height="2"
        x="12"
-       y="10" />
+       y="12" />
     <rect
        style="fill:#675567;fill-opacity:1;stroke-width:0.34469"
        id="rect1-7-3-7-4-0"
        width="2"
        height="2"
        x="20"
-       y="12" />
+       y="14" />
     <rect
        style="fill:#675567;fill-opacity:1;stroke-width:0.34469"
        id="rect1-7-3-7-4-8"
        width="2"
        height="2"
        x="24"
-       y="12" />
+       y="14" />
   </g>
 </svg>
