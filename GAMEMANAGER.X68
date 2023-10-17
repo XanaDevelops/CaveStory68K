@@ -7,7 +7,9 @@
 LOAD_MAP:
     ; (SP).W ID MAP
     BSR SLASHKILLA
-    
+
+    MOVE.W #-1, (CURRENTTXTID) ;QUITA DBOX
+
     MOVEM.L D0/A0, -(SP)
 
     MOVE.W 12(SP), D0
@@ -16,10 +18,9 @@ LOAD_MAP:
     ASL.W #2, D0                ;MULU #4
     MOVE.L (A0, D0), CURRENTMAPDIR
 
-
     BSR GENERATE_COLIMAP
 
-
+    ;PASAR A OTRO LUGAR, GENERACION MAPA #0
     MOVE.W #41, -(SP)       ;MUSICA
     JSR SEND_BGM
     ADDQ.L #2, SP
@@ -79,13 +80,19 @@ GM_UPDATE:
 
     BSET.B #7, (GAMEFLAGS)
 
-    MOVE.B #11, D0
-    MOVE.W #$1005, D1
-    TRAP #15
-    MOVE.B #14, D0
-    LEA GOVERTEXT, A1
-    TRAP #15
+    ;MOVE.B #11, D0
+    ;MOVE.W #$1005, D1
+    ;TRAP #15
+    ;MOVE.B #14, D0
+    ;LEA GOVERTEXT, A1
+    ;TRAP #15
+    CMP.W #-1, (CURRENTTXTID)
+    BNE .NOBTXT
+    MOVE.W #1, -(SP)
+    BSR START_DBOX
+    ADDQ.W #2, SP
 
+    .NOBTXT:    
     BTST.B #KEYM_Z, (KEY_PRESS_PLAYER)
     BEQ .NOZ
     MOVE.W CURRENTMAPID, D0
