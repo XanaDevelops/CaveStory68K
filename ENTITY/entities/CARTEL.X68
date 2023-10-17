@@ -6,11 +6,13 @@
 *-----------------------------------------------------------
 
 CARTEL_START:
-    ;36(SP) YPOS 
-    ;38(SP) XPOS
+    ;28(SP) YPOS 
+    ;30(SP) XPOS
 
     MOVE.W 28(SP), YPOS(A0)
     MOVE.W 30(SP), XPOS(A0)
+
+    MOVE.W #0, INTERACT_ID(A0)
     
     RTS
 CARTEL_UPDATE:

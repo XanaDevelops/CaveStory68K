@@ -72,14 +72,15 @@ BLT_PS_UPDATE:
     MOVE.L A0, -(SP)
     BSR UPDATE_PHYSICS
     
-    MOVE.L #-1, -(SP)
+    ;MOVE.L #-1, -(SP)
+    SUBQ.L #4, SP
     BSR COLLISION_ENTITY
 
     MOVE.L (SP)+, A1
-    CMP.L #-1, A1
+    CMP.L #-1, A1       ;CHECK COLI
     BEQ .NOCOLIE
 
-    CMP.W #0, (A1)
+    CMP.W #0, (A1)      ;CHECK ENEMIGO
     BGE .NOCOLIE
     
     MOVE.W DAMAGE(A0), -(SP)

@@ -16,7 +16,7 @@ SYSTEM_INIT:
 
     JSR START_CLIENT
 
-    RTS
+    MOVE.W #-1, (CURRENTTXTID)
 
     MOVE.W SR, -(SP)    ;PASA A USUARIO
     ANDI.W #$DFFF, (SP)

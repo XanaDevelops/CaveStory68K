@@ -70,6 +70,22 @@ PLAYER_UPDATE:
             MOVE.W #16, D0                  ;16 BACK 24 LKDOWN
             MOVE.B #12, LOOKDIRUD(A0)
             CLR.L SPRITE_INDEX(A0)          ;FIXBUG
+
+            ;MIRAR SI INTERACTUA ALGO
+            MOVE.L A0, -(SP)
+            SUBQ.L #4, SP
+            BSR COLLISION_ENTITY
+
+            MOVE.L (SP)+, A1
+            ADDQ.L #4, SP
+            CMP.L #-1, A1
+            BEQ .NODW
+            CMP.W #50, ID(A1)
+            BLT .NODW
+            MOVE.L A1, -(SP)
+            MOVE.L AD_INTER(A1), A1
+            JSR (A1)
+            ADDQ.L #4, SP
             BRA .NODW
     .LKOBK:
             MOVE.W #24, D0

@@ -31,7 +31,7 @@ START:                  ; first instruction of program
 
     CLRSCREEN
 
-    BSR START_DBOX ;QUITAR!!
+    ;BSR START_DBOX ;QUITAR!!
 
 TESTLOOP:
     MOVE.B		#8,D0 ;GET TIEMPO EN CENTS

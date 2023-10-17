@@ -6,9 +6,11 @@
 *-----------------------------------------------------------
 
 START_DBOX:
-    MOVE.W #0, (CURRENTTXTID) ;temp #0
+    ; 4(SP).W ID
+    MOVE.W 4(SP), (CURRENTTXTID) 
 
-    ANDI.B #%1001111, (GAMEFLAGS)
+    ANDI.B #%00011111, (GAMEFLAGS)
+    BSET.B #7, (GAMEFLAGS)
     CLR.W (HASPORTTR)
     CLR.W (TXTINDEX)
     CLR.W (DIAGINDEX)
@@ -24,6 +26,8 @@ UPDATE_DBOX:
     BTST.B #KEYM_Z, (KEY_PRESS_PLAYER)
     BEQ .NONLINE
     MOVE.W #-1, (CURRENTTXTID)
+    BCLR.B #7, (GAMEFLAGS)
+    BCLR.B #KEYM_Z, (KEY_PRESS_PLAYER)  ;BUG SALTO SALIR DBOX
     RTS                 ;A VER QUE TAL RTS AHÍ, POR SI LUEGO MUEVO REGISTROS
     .NOEND:
     BTST.B #KEYM_X, (KEY_HOLD_PLAYER)
