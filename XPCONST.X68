@@ -19,6 +19,9 @@ SCREEN_UPTIME   EQU 1
 ;GAME MANAGER
 WAITDEDT        EQU 40
 
+;DBOX
+DBOXTS          EQU $0A13
+MAXLINES        EQU 8
 
 ;PLAYER
 ANIMSPEED       EQU 4
@@ -34,6 +37,7 @@ BLT_PS_SPEED   EQU 35
 ;BAT
 BATMY       EQU 20
 BATANMSPD   EQU 3
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~

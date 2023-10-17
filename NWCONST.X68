@@ -21,6 +21,7 @@ WAITDEDT        EQU 20
 
 ;DBOX
 DBOXTS          EQU $0411
+MAXLINES        EQU 6
 
 ;PLAYER
 ANIMSPEED       EQU 2
@@ -36,6 +37,7 @@ BLT_PS_SPEED   EQU 45
 ;BAT
 BATMY          EQU 12
 BATANMSPD   EQU 1
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~

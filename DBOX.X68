@@ -127,11 +127,11 @@ MORELINES       DS.W 1
 TXTDELAYV       DS.W 1
 
 TXTDELAY        EQU 1
-MAXLINES        EQU 6
 DBOXX1          EQU 20
 DBOXX2          EQU SCREEN_WIDTH-20
 DBOXY1          EQU (SCREEN_HEIGHT/2)+80
 DBOXY2          EQU SCREEN_HEIGHT-20
+
 
 
 *~Font name~Courier New~
