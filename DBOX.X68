@@ -69,7 +69,7 @@ DRAW_DBOX:
     MOVE.W #DBOXY2, D4
     TRAP #15
 
-    MOVE.W #$0411, D3
+    MOVE.W #DBOXTS, D3
 
     MOVE.B #81, D0
     MOVE.L #BLACK, D1
