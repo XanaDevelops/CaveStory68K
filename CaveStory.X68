@@ -53,7 +53,7 @@ PAINTLOOP:
     .NOUPD:
     
     BTST.B #0, (SCREEN_ST)
-    BNE .FSKIP
+    ;BNE .FSKIP
     REPAINT
     CLRSCREEN
 
