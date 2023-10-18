@@ -6,10 +6,12 @@
 *-----------------------------------------------------------
 
 GAMEFLAGS   DC.B 0 ;(UPD_ENT)(END_DBOX)(CR_DBOX)-----
-            DS.W 0
+FTOSKIP     DC.B 0
 
-SCREEN_X    DS.W 1
-SCREEN_Y    DS.W 1
+SCREEN_X        DS.W 1
+SCREEN_Y        DS.W 1
+SCR_SPEED_X     DC.W 0
+SCR_SPEED_Y     DC.W 0
 
                 ;CAN?
                  ;UDLR---(FSKIP)

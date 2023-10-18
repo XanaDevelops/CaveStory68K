@@ -12,6 +12,7 @@ ENT_SIZE_L      EQU 64  ;MULTIPLO 4
 INTBASE         EQU $64
 TRAPBASE        EQU $80
 
+MAXFSKIP        EQU 5
 
 TILESIZE        EQU 64
 
