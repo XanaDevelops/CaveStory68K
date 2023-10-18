@@ -42,7 +42,7 @@ TESTLOOP:
 PAINTLOOP:
     ;BSR UPDATE_KEYS
     TRAP #0
-    
+
     JSR GM_UPDATE
 
     BSR UPDATE_DBOX
@@ -53,7 +53,7 @@ PAINTLOOP:
     .NOUPD:
     
     BTST.B #0, (SCREEN_ST)
-    ;BNE .FSKIP
+    BNE .FSKIP
     REPAINT
     CLRSCREEN
 
