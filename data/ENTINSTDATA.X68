@@ -10,6 +10,21 @@ ENTINSTADA  DC.L .EIDAT1
         ;XY @ENTITY
 .EIDAT1 DC.W 3
             DC.L $01200380, BAT>>16|BAT<<16
+        DC.W 3
+            DC.L $02200380, BAT>>16|BAT<<16
+        DC.W 3
+            DC.L $02600380, BAT>>16|BAT<<16
+        DC.W 3
+            DC.L $02A00380, BAT>>16|BAT<<16
+        DC.W 3
+            DC.L $02D00380, BAT>>16|BAT<<16
+        DC.W 3
+            DC.L $03200380, BAT>>16|BAT<<16
+        DC.W 3
+            DC.L $03600380, BAT>>16|BAT<<16
+        DC.W 3
+            DC.L $03A00380, BAT>>16|BAT<<16
+
         DC.W 4
             DC.W 0
             DC.L $01400400, CARTEL>>16|CARTEL<<16
