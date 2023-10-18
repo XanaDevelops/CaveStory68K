@@ -8,8 +8,7 @@
     INCLUDE "MACROS.X68"
     INCLUDE "CONST.X68"
 
-    ORG    $1000
-START:                  ; first instruction of program
+INIT:                  ; first instruction of program
     ;test xp
     
     BSR SYSTEM_INIT
@@ -42,7 +41,7 @@ TESTLOOP:
 PAINTLOOP:
     ;BSR UPDATE_KEYS
     TRAP #0
-
+    
     JSR GM_UPDATE
 
     BSR UPDATE_DBOX
@@ -160,7 +159,7 @@ SCR_SPEED_Y         DC.W 0
     INCLUDE "data/Dialogs.x68"
 
 
-    END    START        ; last line of source
+
 
 
 
