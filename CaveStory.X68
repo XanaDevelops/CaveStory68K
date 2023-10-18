@@ -30,29 +30,36 @@ INIT:                  ; first instruction of program
 
     CLRSCREEN
 
-    ;BSR START_DBOX ;QUITAR!!
-
-TESTLOOP:
     ;MOVE.B		#8,D0 ;GET TIEMPO EN CENTS
 	;TRAP		#15
 	;MOVE.L D1, -(SP) ;LO GUARDA PARA MÁS ADELANTE
 
     
-PAINTLOOP:
+MAINLOOP:
     ;BSR UPDATE_KEYS
     TRAP #0
     
-    JSR GM_UPDATE
+    SUBQ.B #1, (FTOSKIP)
+    MOVE.B (FTOSKIP), D0
+    .UPDATE:
+    MOVE.B D0, (FTOSKIP)
 
+    JSR GM_UPDATE
     BSR UPDATE_DBOX
 
     BTST.B #7, (GAMEFLAGS)
     BNE .NOUPD
     JSR UPDATE_ALL_ENT
-    .NOUPD:
     
+    MOVE.B (FTOSKIP), D0
+    EXT.W D0
+    DBRA D0, .UPDATE
+    
+    .NOUPD:
     BTST.B #0, (SCREEN_ST)
-    ;BNE .FSKIP
+    BNE .FSKIP
+    CLR.B (FTOSKIP)
+
     REPAINT
     CLRSCREEN
 
@@ -68,66 +75,40 @@ PAINTLOOP:
     .FSKIP:
 
 
-    BCLR.B #0, (SCREEN_ST)
+    ;BCLR.B #0, (SCREEN_ST)
 
-    MOVE.W (SCR_SPEED_X), D0
-    MOVE.W (SCR_SPEED_Y), D1
     
-    REDUCE_SCRLL_SPEED D0
-    REDUCE_SCRLL_SPEED D1
-
-    LIMIT_SCRLL_SPEED D0, MAX_SCRLL_SPEEDX
-    LIMIT_SCRLL_SPEED D1, MAX_SCRLL_SPEEDY
-
-    ORI.B #$F0, SCREEN_ST
-
-    BSR PREVENT_SCREEN_OOB
-
-    ADD.W D0, SCREEN_X
-    ADD.W D1, SCREEN_Y
-
-    MOVE.W D0, SCR_SPEED_X
-    MOVE.W D1, SCR_SPEED_Y
-
     
 .PINTARFPS:
-    ;MOVE.B #11, D0      ;COLOCAR CURSOR
-    ;MOVE.W #35<<8, D1
-    ;TRAP #15
+    MOVE.B #11, D0      ;COLOCAR CURSOR
+    MOVE.W #35<<8, D1
+    TRAP #15
 
     MOVE.B #81, D0      ;FONDO NEGRO
     MOVE.L #BLACK, D1
     TRAP #15
 
 ENDTESTLOOP:
-    ;MOVE.L	(SP)+,D7 ;RECUPERA EL TIEMPO DE ANTES
-    
-    ;MOVE.B		#8,D0	;OBTIENE EL TIEMPO
-	;TRAP		#15
+    MOVE.B #3, D0
+    CLR.L D1
+    MOVE.B (FTOSKIP), D1
+    TRAP #15
 
-	;SUB.L		D7,D1 ;RESTA
-    ;MOVE.B #3, D0
-    ;TRAP #15
+    .WAIT_REFRESH:
+    CMP.B #0, (FTOSKIP)
+    BEQ .WAIT_REFRESH
+    CMP.B #1, (FTOSKIP)
+    BGT .DOFSKIP
+        BCLR.B #0, (SCREEN_ST)
+        BRA MAINLOOP
+    .DOFSKIP:
+    BSET.B #0, (SCREEN_ST)
+    CMP.B #MAXFSKIP, (FTOSKIP)
+    BLE MAINLOOP
+    MOVE.B #MAXFSKIP, (FTOSKIP)
+    BCLR.B #0, (SCREEN_ST)
+    BRA MAINLOOP
 
-    ;MOVE.B #11, D0
-    ;MOVE.W #39<<8, D1
-    ;TRAP #15
-
-    WAIT_REFRESH:
-	;MOVE.B		#8,D0	;OBTIENE EL TIEMPO
-	;TRAP		#15
-
-	;SUB.L		D7,D1 ;RESTA
-	;CMP.B		#SCREEN_UPTIME,D1	;COMPARA CON EL TIEMPO OBJETIVO
-	;BMI.S		WAIT_REFRESH ;SINO PUES ESO
-    ;CMP.B #SCREEN_UPTIME*2, D1
-    ;BLT .NOFSKIP
-    ;BSET.B #0, (SCREEN_ST)
-    ;.NOFSKIP:
-    ;MOVE.B #3, D0
-    ;TRAP #15
-
-    BRA TESTLOOP
 
 
     INCLUDE "TECLADO.X68"
@@ -151,56 +132,6 @@ ENDTESTLOOP:
     INCLUDE "data/sprites.x68"
     INCLUDE "data/maps.x68"
     INCLUDE "data/Dialogs.x68"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

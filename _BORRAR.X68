@@ -10,11 +10,11 @@ START:                  ; first instruction of program
     
 * Put program code here
 
-    MOVE.W #4, D0
-    CMP.W #2, D0
-    BLT _A
-    MOVE.W #$FF, D1
-    _A:
+    CLR.L D0
+    MOVE.L #0, D1
+    .A:
+    ADDQ.W #1, D0
+    DBRA D1, .A
     
     
     
@@ -24,6 +24,8 @@ START:                  ; first instruction of program
 
 
     END    START        ; last line of source
+
+
 
 
 

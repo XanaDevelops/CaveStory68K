@@ -18,10 +18,17 @@ SYSTEM_INIT:
     ORI.W #%0000111000000000, SR
     ;INSTALL
     MOVE.L #UPDATE_KEYS, (TRAPBASE)  
-    
+    MOVE.L #ISRSCREEN, (INTBASE+(4*7))
+    MOVE.L #EXCADDRES, ($0C)
+    ;CONFIGURE
+    MOVE.B #32, D0
+    MOVE.B #6, D1
+    MOVE.B #$87, D2
+    MOVE.L #SCREEN_UPTIME, D3
+    TRAP #15
     ;INT ON
     ANDI.W #%111100011111111, SR
-    
+    ;ENABLE
     MOVE.B #32, D0
     MOVE.B #5, D1
     TRAP #15
@@ -49,6 +56,91 @@ SET_SCROLL_TEXT:
     RTS
 
 
+EXCADDRES:
+    MOVEM.L A7-D0, -(SP)
+    ;CLS
+    MOVE.B #11, D0
+    MOVE.W #$FF00, D0
+    TRAP #15
+
+    MOVE.B #94, D0
+    TRAP #15
+
+    LEA .EXCADDRESTXT, A0
+    MOVE.B #13, D0
+    MOVE.L (A0)+, A1
+    TRAP #15
+
+    MOVE.B #94, D0
+    TRAP #15
+
+    MOVE.B #23, D0
+    MOVE.L #150, D1
+    TRAP #15
+
+    MOVE.B #16, D2
+    MOVE.W #15, D7
+    .REGLOOP:
+    MOVE.B #14, D0
+    MOVE.L (A0)+, A1
+    TRAP #15
+    ADDQ.B #1, D0
+    MOVE.L (SP)+, D1
+    TRAP #15
+    SUBQ.B #1, D0
+    LEA .LFCR, A1
+    TRAP #15
+    DBRA D7, .REGLOOP
+    ;SP
+    MOVE.L (A0)+, A1
+    MOVE.L A1, A2
+    MOVE.W #6, D7
+    .SPLOOP:
+    MOVE.B #14, D0
+    MOVE.L A2, A1
+    TRAP #15
+    ADDQ.B #1, D0
+    MOVE.W (SP)+, D1
+    EXT.L D1
+    TRAP #15
+    SUBQ.B #1, D0
+    LEA .LFCR, A1
+    TRAP #15
+    DBRA D7, .SPLOOP
+    
+
+
+    MOVE.B #94, D0
+    TRAP #15
+    ;NO HAY NADA QUE PODAMOS HACER
+    SIMHALT
+
+    .EXCADDRESTXT:  DC.L .ERR, .D0, .D1, .D2, .D3, .D4, .D5, .D6, .D7
+                    DC.L .A0, .A1, .A2, .A3, .A4, .A5, .A6, .A7, .SP
+    .ERR: DC.B 'ADDRESS ERROR',0
+    .D0:  DC.B 'D0: ',0
+    .D1:  DC.B 'D1: ',0
+    .D2:  DC.B 'D2: ',0
+    .D3:  DC.B 'D3: ',0
+    .D4:  DC.B 'D4: ',0
+    .D5:  DC.B 'D5: ',0
+    .D6:  DC.B 'D6: ',0
+    .D7:  DC.B 'D7: ',0
+    .A0:  DC.B 'A0: ',0
+    .A1:  DC.B 'A1: ',0
+    .A2:  DC.B 'A2: ',0
+    .A3:  DC.B 'A3: ',0
+    .A4:  DC.B 'A4: ',0
+    .A5:  DC.B 'A5: ',0
+    .A6:  DC.B 'A6: ',0
+    .A7:  DC.B 'A7: ',0
+    .AD:  DC.B 'AC AD: ',0
+    .IR:  DC.B 'IR: ',0
+    .PC:  DC.B 'PC: ',0
+    .SP:  DC.B 'SP: ',0
+    .LFCR: DC.B LF,CR,0
+            DS.W 0
+    
 
 
 

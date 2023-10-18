@@ -9,10 +9,10 @@ DEBUG           EQU 1
 NUM_ENT         EQU 75
 ENT_SIZE_L      EQU 64  ;MULTIPLO 4
 
-INTBASE         EQU $64
+INTBASE         EQU $60 ;ES $64, PERO -4
 TRAPBASE        EQU $80
 
-MAXFSKIP        EQU 5
+MAXFSKIP        EQU 1
 
 TILESIZE        EQU 64
 
