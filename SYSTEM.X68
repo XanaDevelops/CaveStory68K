@@ -12,6 +12,18 @@ SYSTEM_INIT:
 
     MOVE.B #92, D0  ;dbuf
     MOVE.B #17, D1
+    TRAP #15  
+
+    ;INT OFF
+    ORI.W #%0000111000000000, SR
+    ;INSTALL
+    MOVE.L #UPDATE_KEYS, (TRAPBASE)  
+    
+    ;INT ON
+    ANDI.W #%111100011111111, SR
+    
+    MOVE.B #32, D0
+    MOVE.B #5, D1
     TRAP #15
 
     JSR START_CLIENT
@@ -19,7 +31,7 @@ SYSTEM_INIT:
     MOVE.W #-1, (CURRENTTXTID)
 
     MOVE.W SR, -(SP)    ;PASA A USUARIO
-    ANDI.W #$DFFF, (SP)
+    ANDI.W #$DFFF, (SP) ;D8FF
     RTE
 
     
@@ -35,6 +47,8 @@ SET_SCROLL_TEXT:
 
     MOVEM.L (SP)+, D2-D0
     RTS
+
+
 
 
 

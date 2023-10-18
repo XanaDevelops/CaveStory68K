@@ -48,7 +48,7 @@ UPDATE_KEYS:
 
     MOVEM.L (SP)+, D1-D0
 
-    RTS
+    RTE
 
 *~Font name~Courier New~
 *~Font size~10~

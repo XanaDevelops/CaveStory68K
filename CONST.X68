@@ -9,6 +9,9 @@ DEBUG           EQU 1
 NUM_ENT         EQU 75
 ENT_SIZE_L      EQU 64  ;MULTIPLO 4
 
+INTBASE         EQU $64
+TRAPBASE        EQU $80
+
 
 TILESIZE        EQU 64
 
