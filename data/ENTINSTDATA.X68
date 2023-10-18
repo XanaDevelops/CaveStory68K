@@ -17,13 +17,13 @@ ENTINSTADA  DC.L .EIDAT1
         DC.W 3
             DC.L $02A00380, BAT>>16|BAT<<16
         DC.W 3
-            DC.L $02D00380, BAT>>16|BAT<<16
+            DC.L $02D003D0, BAT>>16|BAT<<16
         DC.W 3
-            DC.L $03200380, BAT>>16|BAT<<16
+            DC.L $032003D0, BAT>>16|BAT<<16
         DC.W 3
-            DC.L $03600380, BAT>>16|BAT<<16
+            DC.L $036003D0, BAT>>16|BAT<<16
         DC.W 3
-            DC.L $03A00380, BAT>>16|BAT<<16
+            DC.L $03A003D0, BAT>>16|BAT<<16
 
         DC.W 4
             DC.W 0
