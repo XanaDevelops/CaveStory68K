@@ -152,6 +152,7 @@ SCR_SPEED_Y         DC.W 0
     INCLUDE "ENTITY/Physics.X68"
     INCLUDE "ENTITY/Interactor.x68"
     INCLUDE "MUSIC.X68"
+    INCLUDE "data/ENTINSTDATA.X68"
     INCLUDE "data/DATA.x68"
     INCLUDE "data/sprites.x68"
     INCLUDE "data/maps.x68"
@@ -159,6 +160,7 @@ SCR_SPEED_Y         DC.W 0
 
 
     END    START        ; last line of source
+
 
 
 

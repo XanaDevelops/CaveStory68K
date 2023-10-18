@@ -24,13 +24,15 @@ START_SERVER:
     RTS
 
 SEND_BGM:
-    ; 4->6(SP) ID BGM
+    ; 10(SP) ID BGM
+    MOVE.L D0, -(SP)
     MOVE.W #CMDPBGM, -(SP)
     JSR SEND_DATA
-    MOVE.W 6(SP), (SP)
+    MOVE.W 10(SP), (SP)
     JSR SEND_DATA
     ADDQ.L #2, SP
-    
+
+    MOVE.L (SP)+, D0
     RTS
 
 PLAY_BGM:

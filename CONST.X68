@@ -48,10 +48,13 @@ AD_SPRITE       EQU 38
 SPRITE_INDEX    EQU 42
 AUX_DATA        EQU 46
 
-
 ;PLAYER
 G               EQU 1
 
+;DIALOGS
+ITESTDIAG       EQU 0
+IDIEDDIAG       EQU 1
+OBVIODIAG       EQU 2
 
 ;COLORS              XXBBGGRR
 BLACK           EQU $00000000 

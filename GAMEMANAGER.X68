@@ -6,7 +6,7 @@
 *-----------------------------------------------------------
 LOAD_MAP:
     ; (SP).W ID MAP
-    BSR SLASHKILLA
+    JSR SLASHKILLA
 
     MOVE.W #-1, (CURRENTTXTID) ;QUITA DBOX
 
@@ -20,54 +20,28 @@ LOAD_MAP:
 
     BSR GENERATE_COLIMAP
 
-    ;PASAR A OTRO LUGAR, GENERACION MAPA #0
     MOVE.W #41, -(SP)       ;MUSICA
     JSR SEND_BGM
     ADDQ.L #2, SP
-    
-    MOVE.W #$120, -(SP)
-    MOVE.W #$380, -(SP)
-    MOVE.L #BAT, -(SP)
-    BSR INSTANCE_ENTITY     ;DEBUG BATS
 
-    MOVE.W #$140, 6(SP)
-    MOVE.W #$400, 4(SP)
-    MOVE.L #CARTEL, (SP)
+    LEA ENTINSTADA, A0      ;CARGAR ENTIDADES A
+    MOVE.L (A0, D0.W), A0   ;INSTANCIAR
+
+    .INSTMLOOP:
+    MOVE.W (A0)+, D0
+    MOVE.W D0, D1
+    CMP.W #-1, D0
+    BEQ .ENDINSTS
+    .ILOOP:
+    MOVE.W (A0)+, -(SP)
+    DBRA D0, .ILOOP
     BSR INSTANCE_ENTITY
-    
-    ;BRA .ENDGM
+    ADDQ.W #1, D1
+    LSL.W #1, D1
+    ADD.L D1, SP
+    BRA .INSTMLOOP
 
-    MOVE.L #BAT, (SP)
-
-    MOVE.W #$220, 6(SP)
-    MOVE.W #$400, 4(SP)
-    BSR INSTANCE_ENTITY
-
-    MOVE.W #20, D0
-    .LOOPBORRAR:
-    ADD.W #$30, 6(SP)
-    BSR INSTANCE_ENTITY
-    DBRA D0, .LOOPBORRAR
-
-    BRA .ENDGM
-    SUB.W #$40, 4(SP)
-    MOVE.W #$220, 6(SP)
-    MOVE.W #20, D0
-    .LOOPBORRAR2:
-    ADD.W #$30, 6(SP)
-    BSR INSTANCE_ENTITY
-    DBRA D0, .LOOPBORRAR2
-
-    .ENDGM:
-
-    ADDA.L #8, SP       ;OJO CON ESTO, DEBUG BATS
-
-    MOVE.L #PLAYER, -(SP)
-    BSR INSTANCE_ENTITY
-
-    ADDQ.L #4, SP
-
-
+.ENDINSTS:
     MOVEM.L (SP)+, A0/D0
     RTS
 
@@ -125,6 +99,7 @@ PLAYERREF   DS.L 1
 PLYERDED    DC.B 0
 WAITDED     DC.B 0
 GOVERTEXT  DC.B 'GAME OVER: PULSA Z PARA CONTINUAR',0
+
 
 
 

@@ -17,7 +17,7 @@
 64  
 
 A0 apunta a @ID
-en start: SP data se encuentra en 24(SP), sin contar registros movem
+en start: SP data se encuentra en 28(SP), sin contar registros movem
 
 IDs:
 PLAYER:     1

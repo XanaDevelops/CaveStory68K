@@ -6,11 +6,14 @@
 *-----------------------------------------------------------
 
 PLAYER_START:
+    ;28(SP) YPOS 
+    ;30(SP) XPOS
+
     MOVE.L A0, (PLAYERREF)
     CLR.B (PLYERDED)
 
-    MOVE.W #128, XPOS(A0)
-    MOVE.W #128, YPOS(A0)
+    MOVE.W 30(SP), XPOS(A0)
+    MOVE.W 28(SP), YPOS(A0)
 
     MOVE.W #SCREEN_WIDTH/2-32, (SCREEN_X)
     MOVE.W #SCREEN_HEIGHT/2-32+300, (SCREEN_Y)
