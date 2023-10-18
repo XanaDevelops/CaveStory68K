@@ -1,0 +1,44 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "sin nombre.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "PrtCave.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 4
+        },
+        "sin nombre.tmx": {
+            "scale": 8,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 63.4375,
+                "y": 224
+            }
+        }
+    },
+    "last.imagePath": "D:/UIB/2n/CaveStory/CVSource",
+    "map.fixedSize": false,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "openFiles": [
+        "sin nombre.tmx",
+        "PrtCave.tsx"
+    ],
+    "project": "sin nombre.tiled-project",
+    "recentFiles": [
+        "PrtCave.tsx",
+        "sin nombre.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    },
+    "tileset.transparentColor": "#000000",
+    "tileset.useTransparentColor": true
+}
