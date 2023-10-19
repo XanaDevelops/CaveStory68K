@@ -6,12 +6,12 @@
 *-----------------------------------------------------------
 LOAD_MAP:
     ; (SP).W ID MAP
-    JSR SLASHKILLA
+    MOVEM.L D0/A0, -(SP)
 
     MOVE.W #-1, (CURRENTTXTID) ;QUITA DBOX
 
-    MOVEM.L D0/A0, -(SP)
-
+    JSR SLASHKILLA
+    
     MOVE.W 12(SP), D0
     MOVE.W D0, CURRENTMAPID
     LEA MAPAS, A0
