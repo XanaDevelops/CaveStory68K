@@ -56,6 +56,8 @@ UPDATE_DBOX:
     RTS
 
 DRAW_DBOX:
+    MOVEM.L D0-D4, -(SP)
+
     CMP.W #-1, (CURRENTTXTID)
     BEQ .END_DBOX
 
@@ -121,6 +123,8 @@ DRAW_DBOX:
     SUBQ.W #1, D4
     BGE .LOOPDBOX
     .END_DBOX:
+
+    MOVEM.L (SP)+, D4-D0
     RTS
 
 CURRENTTXTID    DS.W 1
