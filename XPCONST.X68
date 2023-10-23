@@ -43,7 +43,7 @@ BATANMSPD   EQU 3
 HRTANMSPD   EQU 3
 
 ;DORITO
-DRTANMSPD   EQU 3
+DRTANMSPD   EQU 2
 
 
 *~Font name~Courier New~
