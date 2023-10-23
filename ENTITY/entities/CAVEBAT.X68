@@ -24,17 +24,26 @@ BAT_UPDATE:
 
     CMP.W #0, HP(A0)
     BGT .NOKILL
+        ;DROP
+        SUBQ.L #2, SP ;TIPO
+        MOVE.W XPOS(A0), -(SP)
+        MOVE.W YPOS(A0), -(SP)
+
         TRAP #14
         MOVE.L (RNGSEED), D1
         ANDI.L #$FF, D1
         CMP.B #$7F, D1
         BHI .NOHEART
-        MOVE.W XPOS(A0), -(SP)
-        MOVE.W YPOS(A0), -(SP)
+        MOVE.W #0, 4(SP) ;TEST
         MOVE.L #HEART, -(SP)
-        JSR INSTANCE_ENTITY
-        ADDQ.L #8, SP
+        BRA .ENDDROP
         .NOHEART:
+        MOVE.W #1, 4(SP) ;TEST
+        MOVE.L #DORITO, -(SP)
+        .ENDDROP:
+        JSR INSTANCE_ENTITY
+        ADDA.L #10, SP
+        
         MOVE.L A0, -(SP)
         BSR DESTROY_ENTITY
         ADDQ.L #4, SP
@@ -132,6 +141,7 @@ VELDIR      EQU AUX_DATA+2    ;B
 
 
 BATATK      EQU 2
+
 
 
 
