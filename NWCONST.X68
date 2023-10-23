@@ -37,7 +37,10 @@ BLT_PS_SPEED   EQU 45
 
 ;BAT
 BATMY          EQU 12
-BATANMSPD   EQU 1
+BATANMSPD      EQU 1
+
+;HEART
+HRTANMSPD   EQU 3
 
 *~Font name~Courier New~
 *~Font size~10~

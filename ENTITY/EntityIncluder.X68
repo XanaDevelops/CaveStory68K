@@ -8,6 +8,7 @@
     INCLUDE "ENTITY/entities/BULLET_POLARSTAR.X68"
     INCLUDE "ENTITY/entities/CAVEBAT.X68"
     INCLUDE "ENTITY/entities/CARTEL.X68"
+    INCLUDE "ENTITY/entities/HEART.x68"
 
 
 

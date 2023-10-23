@@ -33,6 +33,9 @@ ENTINSTADA  DC.L .EIDAT1
             DC.L $01C00400, CARTEL>>16|CARTEL<<16
         DC.W 3
             DC.L $008003A0, PLAYER>>16|PLAYER<<16
+        DC.W 4
+            DC.W 0
+            DC.L $00D003A0, HEART>>16|HEART<<16
         DC.W -1
 
 *~Font name~Courier New~

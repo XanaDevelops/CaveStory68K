@@ -85,6 +85,8 @@ PLAYER_UPDATE:
             BEQ .NODW
             CMP.W #50, ID(A1)
             BLT .NODW
+            CMP.W #70, ID(A1)
+            BGE .NODW
             MOVE.L A1, -(SP)
             MOVE.L AD_INTER(A1), A1
             JSR (A1)
