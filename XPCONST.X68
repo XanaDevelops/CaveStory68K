@@ -40,7 +40,7 @@ BATMY       EQU 20
 BATANMSPD   EQU 3
 
 ;HEART
-HRTANMSPD   EQU 2
+HRTANMSPD   EQU 3
 
 *~Font name~Courier New~
 *~Font size~10~

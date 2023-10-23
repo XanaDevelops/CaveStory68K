@@ -23,6 +23,7 @@ HEART_START:
     ;DEF HEART_SM
     .ENDHSTART:
     RTS
+
 HEART_UPDATE:
     ;MIRAR SI INTERACTUA ALGO
     MOVE.L A0, -(SP)
@@ -34,7 +35,7 @@ HEART_UPDATE:
     CMP.L #-1, A1
     BEQ .NODW
     CMP.W #1, ID(A1)
-    BLT .NODW
+    BNE .NODW
     MOVE.W HP(A0), -(SP)
     MOVE.L A1, -(SP)
     BSR HEART_INTERACT
@@ -69,7 +70,13 @@ HEART_INTERACT:
 
     MOVE.L 12(SP), A0
     MOVE.W 16(SP), D0
-    ADD.W D0, HP(A0)
+    
+    ADD.W HP(A0), D0
+    CMP.W MAXHEALTH(A0), D0
+    BLE .NOOV
+    MOVE.W MAXHEALTH(A0), D0
+    .NOOV:
+    MOVE.W D0, HP(A0)
 
     MOVEM.L (SP)+, A0/D0
     RTS
