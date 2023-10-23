@@ -48,6 +48,19 @@ DORITO_UPDATE:
     BRA .ENDUPDATE
     .NODW: 
 
+    BCLR.B #3, STATUS+1(A0)
+
+    MOVE.L A0, -(SP)
+    BSR UPDATE_PHYSICS
+    ADDQ.L #4, SP
+
+    ;COMPROBAR SUELO
+    CLR.L D0
+    BTST.B #3, STATUS+1(A0)
+    BEQ .NOHIT
+        MOVE.W #-10, YSPEED(A0)
+    .NOHIT:
+
     MOVE.L SPRITE_INDEX(A0), D1                   ;ANIM_INDEX
         MOVE.W TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO
         SUBQ.W #1, D2
@@ -87,8 +100,8 @@ DORITO:
     DC.W 0, 0                                       ;POSITION
     DC.W 0                                          ;HP
     DC.W 0, 0                                       ;SPEED
-    DC.W 0                                          ;STATUS 00UDLR(!AIRBONE)(!GRAV)--
-    DC.W 6,6, 50,50                                 ;COLISION_BOX 44
+    DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
+    DC.W 6,6, 50,64                                 ;COLISION_BOX 44
     DC.L DORITO_START, DORITO_UPDATE, DEFAULT_PAINT ;@
     DC.L DORITO_INTERACT                            ;@
     DC.L DORITO_M                                   ;@SPRITE DEFECTO

@@ -191,7 +191,7 @@ COLICHECK:
     ;MOVE.W D7, 32(SP)   ;CAMBIAR 32(SP), 
     ;Poc
     OR.B D7, STATUS+1(A0)
-
+    ;BCLR.B #3, STATUS+1(A0)
     CMP.W #0, D7
     BEQ .NOCOLI
         
