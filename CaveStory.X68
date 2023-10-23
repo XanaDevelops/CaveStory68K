@@ -12,7 +12,7 @@ INIT:                  ; first instruction of program
     ;test xp
     
     BSR SYSTEM_INIT
-    BSR SET_SCROLL_TEXT
+    
 
     MOVE.W #0, SCREEN_X
     MOVE.W #TILESIZE*0, SCREEN_Y
@@ -36,6 +36,8 @@ INIT:                  ; first instruction of program
 
     
 MAINLOOP:
+    ;UPDATE RNG
+    TRAP #14
     ;BSR UPDATE_KEYS
     TRAP #0
     

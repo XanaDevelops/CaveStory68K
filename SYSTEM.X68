@@ -14,10 +14,13 @@ SYSTEM_INIT:
     MOVE.B #17, D1
     TRAP #15  
 
+    BSR SET_SCROLL_TEXT
+
     ;INT OFF
     ORI.W  #%0000011100000000, SR
     ;INSTALL
-    MOVE.L #UPDATE_KEYS, (TRAPBASE)  
+    MOVE.L #UPDATE_KEYS, (TRAPBASE)
+    MOVE.L #UPDRNG, (TRAPBASE+(4*14))
     MOVE.L #ISRSCREEN, (INTBASE+(4*7))
     MOVE.L #EXCADDRES, ($0C)
     MOVE.L #IRQTRACE, ($24)
@@ -35,6 +38,11 @@ SYSTEM_INIT:
     MOVE.B #5, D1
     TRAP #15
 
+    ;ESTABLECE LA SEMILLA
+    MOVE.B #8, D0
+    TRAP #15
+    MOVE.L D1, (RNGSEED)
+
     JSR START_CLIENT
 
     MOVE.W #-1, (CURRENTTXTID)
@@ -43,7 +51,36 @@ SYSTEM_INIT:
     ANDI.W #$DFFF, (SP) ;D8FF
     RTE
 
+UPDRNG:
+    ;ACTUALIZA RNGSEED 
+    ;TRAP #14
+    MOVEM.L D0-D2, -(SP)
+
+    MOVE.L (RNGSEED), D0
+    MOVE.L D0, D1
     
+    MOVE.L D0, D2
+    LSR.L #2, D2
+    EOR.L D2, D1
+
+    MOVE.L D0, D2
+    LSR.L #3, D2
+    EOR.L D2, D1
+
+    MOVE.L D0, D2
+    LSR.L #5, D2
+    EOR.L D2, D1
+
+    LSR.L #1, D0
+
+    BTST.L #0, D1
+    BEQ .SB
+    BSET.L #31, D0
+    .SB:  
+    MOVE.L D0, (RNGSEED)
+    
+    MOVEM.L (SP)+, D2-D0
+    RTE
 
 SET_SCROLL_TEXT:
     MOVEM.L D0-D2, -(SP)
@@ -157,6 +194,12 @@ IRQTRACE:
     .PCTRACE2:  DS.L 1
     .PCTRACE3:  DC.L 1
     .PCTRACE4:  DC.L 1
+
+
+
+
+
+
 
 
 

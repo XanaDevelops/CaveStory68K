@@ -13,6 +13,8 @@ SCREEN_Y        DS.W 1
 SCR_SPEED_X     DC.W 0
 SCR_SPEED_Y     DC.W 0
 
+RNGSEED         DS.L 1
+
                 ;CAN?
                  ;UDLR---(FSKIP)
 SCREEN_ST   DC.B 0
