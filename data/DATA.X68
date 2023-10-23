@@ -52,6 +52,9 @@ BAT_FLY_L       DC.L 3
 CARTELS         DC.L 1
                 DC.L SPR_CARTEL
 
+HEART_SM        DC.L 2
+                DC.L HEART_SM_0, HEART_SM_1
+
 MAPAS   DC.L TESTMAP, CAVIDAD
 
 
