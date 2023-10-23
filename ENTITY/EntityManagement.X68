@@ -136,7 +136,7 @@ DEFAULT_PAINT:
     SUB.W (SCREEN_X), D0
     MOVE.W D0, -(SP)
 
-    BSR FASTSPRITE
+    JSR FASTSPRITE
 
     ADDQ.L #8, SP
 
@@ -183,6 +183,7 @@ IS_OUT_DISPLAY:
     .ENDOD:
     MOVEM.L (SP)+, A0/D6-D0
     RTS
+
 
 *~Font name~Courier New~
 *~Font size~10~

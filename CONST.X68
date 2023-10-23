@@ -58,6 +58,11 @@ G               EQU 1
 ;COLECT
 SMHEART         EQU 3
 BGHEART         EQU 5
+
+SDORITO         EQU 1
+MDORITO         EQU 3
+BGDORITO        EQU 5
+
 ;DIALOGS
 ITESTDIAG       EQU 0
 IDIEDDIAG       EQU 1

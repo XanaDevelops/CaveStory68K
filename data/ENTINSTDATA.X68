@@ -36,6 +36,9 @@ ENTINSTADA  DC.L .EIDAT1
         DC.W 4
             DC.W 0
             DC.L $00D003A0, HEART>>16|HEART<<16
+        DC.W 4
+            DC.W 1
+            DC.L $018003A0, DORITO>>16|DORITO<<16
         DC.W -1
 
 *~Font name~Courier New~

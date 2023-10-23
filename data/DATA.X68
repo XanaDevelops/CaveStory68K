@@ -54,6 +54,8 @@ CARTELS         DC.L 1
 
 HEART_SM        DC.L 2
                 DC.L HEART_SM_0, HEART_SM_1
+DORITO_M        DC.L 6
+                DC.L DORITO_M_0, DORITO_M_1, DORITO_M_2, DORITO_M_3, DORITO_M_4, DORITO_M_5
 
 MAPAS   DC.L TESTMAP, CAVIDAD
 

@@ -42,6 +42,9 @@ BATANMSPD      EQU 1
 ;HEART
 HRTANMSPD   EQU 3
 
+;DORITO
+DRTANMSPD   EQU 2
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~
