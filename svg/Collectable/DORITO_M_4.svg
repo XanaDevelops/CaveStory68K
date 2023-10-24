@@ -24,12 +24,12 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      showgrid="true"
-     inkscape:zoom="25.124388"
-     inkscape:cx="21.035338"
-     inkscape:cy="25.572762"
-     inkscape:window-width="1278"
-     inkscape:window-height="1341"
-     inkscape:window-x="1264"
+     inkscape:zoom="17.765625"
+     inkscape:cx="20.91117"
+     inkscape:cy="28.031662"
+     inkscape:window-width="958"
+     inkscape:window-height="1000"
+     inkscape:window-x="-7"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1">
@@ -82,7 +82,7 @@
        width="2"
        height="2"
        x="-30"
-       y="21"
+       y="20"
        transform="rotate(-90)" />
     <rect
        style="fill:#ea7321;fill-opacity:1;stroke-width:0.649904"
@@ -90,7 +90,7 @@
        width="2"
        height="2"
        x="-26"
-       y="13"
+       y="12"
        transform="rotate(-90)" />
     <rect
        style="fill:#ea7321;fill-opacity:1;stroke-width:0.649904"
@@ -98,7 +98,7 @@
        width="2"
        height="2"
        x="-32"
-       y="25"
+       y="24"
        transform="rotate(-90)" />
     <rect
        style="fill:#ffb967;fill-opacity:1;stroke-width:1.2998"
@@ -106,7 +106,7 @@
        width="4"
        height="4"
        x="-24"
-       y="11"
+       y="10"
        transform="rotate(-90)" />
     <rect
        style="fill:#ffb967;fill-opacity:1;stroke-width:0.649902"
@@ -114,7 +114,7 @@
        width="2.0000007"
        height="2"
        x="-18"
-       y="21"
+       y="20"
        transform="rotate(-90)" />
     <rect
        style="fill:#ffb967;fill-opacity:1;stroke-width:1.12566"
@@ -122,7 +122,7 @@
        width="6"
        height="2"
        x="-26"
-       y="15"
+       y="14"
        transform="rotate(-90)" />
     <rect
        style="fill:#ffb967;fill-opacity:1;stroke-width:2.51707"
@@ -130,7 +130,7 @@
        width="10"
        height="6"
        x="-28"
-       y="17"
+       y="16"
        transform="rotate(-90)" />
     <rect
        style="fill:#ffb967;fill-opacity:1;stroke-width:2.59962"
@@ -138,7 +138,7 @@
        width="16"
        height="4"
        x="-30"
-       y="23"
+       y="22"
        transform="rotate(-90)" />
     <rect
        style="fill:#ea7321;fill-opacity:1;stroke-width:0.649904"
@@ -146,7 +146,7 @@
        width="2"
        height="2"
        x="-28"
-       y="17"
+       y="16"
        transform="rotate(-90)" />
     <rect
        style="fill:#ea7321;fill-opacity:1;stroke-width:0.649902"
@@ -154,7 +154,7 @@
        width="2"
        height="2"
        x="-22"
-       y="11"
+       y="10"
        transform="rotate(-90)" />
     <rect
        style="fill:#ea7321;fill-opacity:1;stroke-width:0.649902"
@@ -162,7 +162,7 @@
        width="2"
        height="2"
        x="-20"
-       y="15"
+       y="14"
        transform="rotate(-90)" />
     <rect
        style="fill:#ea7321;fill-opacity:1;stroke-width:0.649902"
@@ -170,7 +170,7 @@
        width="2"
        height="2"
        x="-18"
-       y="19"
+       y="18"
        transform="rotate(-90)" />
   </g>
 </svg>

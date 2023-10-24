@@ -13,6 +13,7 @@ INIT:                  ; first instruction of program
     
     BSR SYSTEM_INIT
     
+    JSR KC_INIT
 
     MOVE.W #0, SCREEN_X
     MOVE.W #TILESIZE*0, SCREEN_Y
@@ -45,6 +46,8 @@ MAINLOOP:
     MOVE.B (FTOSKIP), D0
     .UPDATE:
     MOVE.B D0, (FTOSKIP)
+
+    JSR KC_UPD
 
     JSR GM_UPDATE
     BSR UPDATE_DBOX
@@ -124,6 +127,7 @@ ENDTESTLOOP:
     INCLUDE "HUD.X68"
     INCLUDE "VARS.X68"
     INCLUDE "DBOX.X68"
+    INCLUDE "KC.X68"
     INCLUDE "ENTITY/EntityIncluder.x68"
     INCLUDE "ENTITY/EntityManagement.x68"
     INCLUDE "ENTITY/Physics.X68"
@@ -134,6 +138,7 @@ ENDTESTLOOP:
     INCLUDE "data/sprites.x68"
     INCLUDE "data/maps.x68"
     INCLUDE "data/Dialogs.x68"
+
 
 
 
