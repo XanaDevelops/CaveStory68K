@@ -40,10 +40,11 @@ BATMY       EQU 20
 BATANMSPD   EQU 3
 
 ;HEART
-HRTANMSPD   EQU 3
+HRTANMSPD   EQU 4
 
 ;DORITO
 DRTANMSPD   EQU 2
+
 
 
 *~Font name~Courier New~
