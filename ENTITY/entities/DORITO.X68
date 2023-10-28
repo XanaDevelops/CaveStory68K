@@ -29,14 +29,16 @@ DORITO_UPDATE:
     ;MIRAR SI INTERACTUA ALGO
     MOVE.L A0, -(SP)
     SUBQ.L #4, SP
-    BSR COLLISION_ENTITY
+    BSR COLLISION_ENT_PLR
 
     MOVE.L (SP)+, A1
     ADDQ.L #4, SP
     CMP.L #-1, A1
     BEQ .NODW
-    CMP.W #1, ID(A1)
-    BNE .NODW
+
+    ;CMP.W #1, ID(A1)
+    ;BNE .NODW
+
     MOVE.W HP(A0), -(SP)
     MOVE.L A1, -(SP)
     BSR DORITO_INTERACT

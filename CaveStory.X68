@@ -23,6 +23,7 @@ INIT:                  ; first instruction of program
 
     MOVE.W #0, -(SP)
 
+    JSR ENTSTCSTART
     BSR LOAD_MAP
 
     ADDQ.L #2, SP
@@ -30,6 +31,7 @@ INIT:                  ; first instruction of program
     CLR.B (GAMEFLAGS)
 
     CLRSCREEN
+
 
     ;MOVE.B		#8,D0 ;GET TIEMPO EN CENTS
 	;TRAP		#15
@@ -130,6 +132,7 @@ ENDTESTLOOP:
     INCLUDE "KC.X68"
     INCLUDE "ENTITY/EntityIncluder.x68"
     INCLUDE "ENTITY/EntityManagement.x68"
+    INCLUDE "ENTITY/ENTITY_STATIC_START.x68"
     INCLUDE "ENTITY/Physics.X68"
     INCLUDE "ENTITY/Interactor.x68"
     INCLUDE "MUSIC.X68"
@@ -138,6 +141,7 @@ ENDTESTLOOP:
     INCLUDE "data/sprites.x68"
     INCLUDE "data/maps.x68"
     INCLUDE "data/Dialogs.x68"
+
 
 
 

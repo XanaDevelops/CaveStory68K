@@ -79,16 +79,18 @@ PLAYER_UPDATE:
             ;MIRAR SI INTERACTUA ALGO
             MOVE.L A0, -(SP)
             SUBQ.L #4, SP
-            BSR COLLISION_ENTITY
+            BSR COLLISION_ENT_INT
 
             MOVE.L (SP)+, A1
             ADDQ.L #4, SP
             CMP.L #-1, A1
             BEQ .NODW
-            CMP.W #50, ID(A1)
-            BLT .NODW
-            CMP.W #70, ID(A1)
-            BGE .NODW
+
+            ;CMP.W #50, ID(A1)
+            ;BLT .NODW
+            ;CMP.W #70, ID(A1)
+            ;BGE .NODW
+
             MOVE.L A1, -(SP)
             MOVE.L AD_INTER(A1), A1
             JSR (A1)

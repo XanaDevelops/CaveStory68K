@@ -14,14 +14,12 @@ CARTEL_START:
     MOVE.W 30(SP), XPOS(A0)
 
     MOVE.W 32(SP), INTERACT_ID(A0)
-    
-    RTS
+
 CARTEL_UPDATE:
-    RTS
 CARTEL_PAINT:
-    RTS
 CARTEL_INTERACT:
     RTS
+
 
 CARTEL:
     DC.W 50                                         ;ID

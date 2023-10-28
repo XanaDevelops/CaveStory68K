@@ -11,14 +11,20 @@ BLT_PS_START:
     ;40(SP) YPOS
     ;42(SP) XPOS
     MOVEM.L D0/A1, -(SP)
-    
+    CMP.B #MAX_BLT_ONSCR, (BULLET_POLARSTAR+BLT_ONSCREEN)
+    BLE .NOAB
+    MOVE.L A0, -(SP)
+    BSR DESTROY_ENTITY
+    ADDQ.L #4, SP
+    BRA .ENDS
+    .NOAB:
+    ADDQ.B #1, (BULLET_POLARSTAR+BLT_ONSCREEN)
+
     MOVE.W 42(SP), XPOS(A0)
     MOVE.W 40(SP), YPOS(A0)
 
     BSET.B #2, STATUS+1(A0) ;DISABLE GRAV
     
-    
-
     LEA PSTAR_BULLETS, A1
 
     MOVE.W 38(SP), D0
@@ -47,7 +53,7 @@ BLT_PS_START:
         MOVE.W #64, COLISION_BOX+6(A0)
     .ENDIR:
 
-
+    .ENDS:
     MOVEM.L (SP)+, A1/D0
     RTS
 
@@ -58,6 +64,7 @@ BLT_PS_UPDATE:
     CMP.B #0, MAX_T_SCREEN(A0)
     BGE .NOTUP
     MOVE.L A0, -(SP)
+    SUBQ.B #1, (BULLET_POLARSTAR+BLT_ONSCREEN)
     BSR DESTROY_ENTITY
     ADDA.L #4, SP
     BRA .ENDBLTPSUP
@@ -74,14 +81,14 @@ BLT_PS_UPDATE:
     
     ;MOVE.L #-1, -(SP)
     SUBQ.L #4, SP
-    BSR COLLISION_ENTITY
+    BSR COLLISION_ENT_ENM
 
     MOVE.L (SP)+, A1
     CMP.L #-1, A1       ;CHECK COLI
     BEQ .NOCOLIE
 
-    CMP.W #0, (A1)      ;CHECK ENEMIGO
-    BGE .NOCOLIE
+    ;CMP.W #0, (A1)      ;CHECK ENEMIGO
+    ;BGE .NOCOLIE
     
     MOVE.W DAMAGE(A0), -(SP)
     MOVE.L A1, -(SP)
@@ -89,6 +96,8 @@ BLT_PS_UPDATE:
     JSR (A1)
     ADDQ.L #6, SP
 
+    ;SE QUEDA EN SP A0
+    SUBQ.B #1, (BULLET_POLARSTAR+BLT_ONSCREEN)
     BSR DESTROY_ENTITY
     
     ADDA.L #4, SP
@@ -101,6 +110,7 @@ BLT_PS_UPDATE:
     ANDI.B #%11110000, D0
     CMP.B #0, D0
     BEQ .NOHIT
+        SUBQ.B #1, (BULLET_POLARSTAR+BLT_ONSCREEN)
         BSR DESTROY_ENTITY
     .NOHIT:
 
@@ -130,19 +140,21 @@ BULLET_POLARSTAR:
     DC.L PSTAR_BULLET_1                             ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DS.L 4                                          ;46.B (level) 012
-    DS.W 1                                          ;47.B (max onscreen)
-                                                    ;48.W (max traveldistance)
+    DS.W 1                                          ;47.B (time onscreen)
+                                                    ;48.W (traveldistance)
                                                     ;49.B (dir) 0123 LRUD
                                                     
 
 
-DAMAGE          EQU HP
-LEVELPOWER      EQU AUX_DATA
-MAX_T_SCREEN      EQU AUX_DATA+1
-MAX_TRVL_DIST   EQU AUX_DATA+2
-TRAVEL_DIR      EQU AUX_DATA+4
+DAMAGE              EQU HP
 
+LEVELPOWER          EQU AUX_DATA   ;B
+MAX_T_SCREEN        EQU AUX_DATA+1 ;B
+MAX_TRVL_DIST       EQU AUX_DATA+2 ;W
+TRAVEL_DIR          EQU AUX_DATA+4 ;B
+BLT_ONSCREEN        EQU AUX_DATA+5 ;B
 
+MAX_BLT_ONSCR       EQU 5
 
 
 

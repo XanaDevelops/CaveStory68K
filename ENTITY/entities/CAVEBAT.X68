@@ -72,12 +72,14 @@ BAT_UPDATE:
     BSR UPDATE_PHYSICS
     
     SUBQ.L #4, -(SP)
-    BSR COLLISION_ENTITY
+    BSR COLLISION_ENT_PLR
     MOVE.L (SP)+, A1
     CMP.L #-1, A1
     BEQ .NOCOLIE
-    CMP.W #1, ID(A1)
-    BNE .NOCOLIE
+
+    ;CMP.W #1, ID(A1)
+    ;BNE .NOCOLIE
+    
     MOVE.W #BATATK, -(SP)
     MOVE.L A1, -(SP)
     MOVE.L AD_DODAM(A1), A1
