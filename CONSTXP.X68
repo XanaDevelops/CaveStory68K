@@ -52,7 +52,8 @@ DRTANMSPD   EQU 2
 
 
 ;?
-M_KCFW      EQU 30
+M_KCFW      EQU 40
+
 
 
 *~Font name~Courier New~
