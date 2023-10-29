@@ -54,7 +54,7 @@ KC_SEC  DC.B KEYM_UP, KEYM_UP, KEYM_DOWN, KEYM_DOWN, KEYM_DOWN
         DS.W 0
 
 M_KCC       EQU 11
-M_KCFW      EQU 20
+
 
 
 

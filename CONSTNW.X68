@@ -45,6 +45,12 @@ HRTANMSPD   EQU 3
 ;DORITO
 DRTANMSPD   EQU 1
 
+
+
+
+
+;?
+M_KCFW      EQU 20
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~
