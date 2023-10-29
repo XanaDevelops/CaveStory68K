@@ -5,10 +5,14 @@
 * Description:
 *-----------------------------------------------------------
 
-ENTINSTADA  DC.L .EIDAT1 
+ENTINSTADA  DC.L .TSCR, .TMAP1
         ;WORDS-1
         ;XY @ENTITY
-.EIDAT1 DC.W 3
+.TSCR   DC.W 3
+            DC.L $00800080, PLAYER>>16|PLAYER<<16
+        DC.W -1
+
+.TMAP1  DC.W 3
             DC.L $01200380, BAT>>16|BAT<<16
         DC.W 3
             DC.L $02200380, BAT>>16|BAT<<16

@@ -21,9 +21,9 @@ INIT:                  ; first instruction of program
     MOVE.W #0, SCR_SPEED_X
     MOVE.W #0, SCR_SPEED_Y
 
-    MOVE.W #0, -(SP)
-
     JSR ENTSTCSTART
+
+    MOVE.W #0, -(SP)    ;ID MAPA
     BSR LOAD_MAP
 
     ADDQ.L #2, SP

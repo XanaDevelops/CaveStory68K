@@ -20,7 +20,8 @@ LOAD_MAP:
 
     BSR GENERATE_COLIMAP
 
-    MOVE.W #41, -(SP)       ;MUSICA
+    ;MUSICA
+    MOVE.W #41, -(SP)       
     JSR SEND_BGM
     ADDQ.L #2, SP
 
