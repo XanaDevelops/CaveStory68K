@@ -10,6 +10,9 @@ ENTINSTADA  DC.L .TSCR, .TMAP1
         ;XY @ENTITY
 .TSCR   DC.W 3
             DC.L $00800080, PLAYER>>16|PLAYER<<16
+        DC.W 5
+            DC.L PLAYER>>16|PLAYER<<16
+            DC.L $00000000, CAMERA>>16|CAMERA<<16
         DC.W -1
 
 .TMAP1  DC.W 3
@@ -28,7 +31,6 @@ ENTINSTADA  DC.L .TSCR, .TMAP1
             DC.L $036003D0, BAT>>16|BAT<<16
         DC.W 3
             DC.L $03A003D0, BAT>>16|BAT<<16
-
         DC.W 4
             DC.W 0
             DC.L $01400400, CARTEL>>16|CARTEL<<16
