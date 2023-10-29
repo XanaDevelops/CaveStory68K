@@ -9,8 +9,6 @@
     INCLUDE "CONST.X68"
 
 INIT:                  ; first instruction of program
-    ;test xp
-    
     BSR SYSTEM_INIT
     
     JSR KC_INIT
@@ -37,7 +35,11 @@ INIT:                  ; first instruction of program
 	;TRAP		#15
 	;MOVE.L D1, -(SP) ;LO GUARDA PARA MÁS ADELANTE
 
-    
+    ;GAMEFLAGS
+    ;7 UPDATE
+    ;6 END DBOX
+    ;5 LINE DBOX
+    ;4 SHOW HUD
 MAINLOOP:
     ;UPDATE RNG
     TRAP #14
@@ -76,7 +78,10 @@ MAINLOOP:
     BSR DRAW_MAP
     ADDQ.L #4, SP
     
+    BTST.B #4, (GAMEFLAGS)
+    BNE .NOHUD
     BSR HUD_DRAW
+    .NOHUD:
     
     BSR DRAW_DBOX
     .FSKIP:
