@@ -12,6 +12,7 @@
     INCLUDE "ENTITY/entities/HEART.x68"
     INCLUDE "ENTITY/entities/DORITO.X68"
     INCLUDE "ENTITY/entities/TITLESCREEN.X68"
+    INCLUDE "ENTITY/entities/CLOUD.X68"
 
 
 

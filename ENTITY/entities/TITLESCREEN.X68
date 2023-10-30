@@ -5,8 +5,29 @@
 * Description:
 *-----------------------------------------------------------
 TS_START:
+    MOVEM.W D1/D7, -(SP)
+
     BSET.B #4, (GAMEFLAGS)
-    CLR.W AUX_DATA(A0)
+    ;INSTANCIAR NUBES
+    SUBA.L #10, SP
+    MOVE.W #3, D7
+    MOVE.W #236, D1
+    MOVE.L #CLOUD, (SP)
+    .DLOOP:
+    MOVE.W D7, 8(SP)
+    MOVE.W #0, 6(SP)
+    MOVE.W D1, 4(SP)
+    JSR INSTANCE_ENTITY
+
+    ADD.W #CLOUDXSIZE, 6(SP)
+    JSR INSTANCE_ENTITY
+
+    ADD.W #50, D1
+    DBRA D7, .DLOOP
+
+    
+    ADDA.L #10, SP
+    MOVEM.W (SP)+, D7/D1
     RTS
 TS_UPDATE:
     ;ESPERA Z
@@ -18,19 +39,15 @@ TS_UPDATE:
     ADDQ.L #2, SP
     ;MUESTRA HUD
     BCLR.B #4, (GAMEFLAGS)
-    BRA .END:
+    BRA .END
     .NOSTART:
-    SUBQ.W #1, AUX_DATA(A0)
 
-    .END
+
+    .END:
     RTS
 
 TS_DRAW:
-    MOVE.L #NUBE0, -(SP)
-    MOVE.W #386, -(SP) ;Y
-    MOVE.W #0, -(SP) ;X
-    JSR FASTSPRITE
-    ADDQ.L #8, SP
+    
     RTS
 
 TITLESCREEN:
@@ -46,6 +63,10 @@ TITLESCREEN:
     DC.L 0                                          ;SPRITEINDEX
     DS.L 4                                          
     DS.W 1   
+
+
+
+
 
 
 
