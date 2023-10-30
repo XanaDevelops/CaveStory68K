@@ -16,7 +16,13 @@ TS_UPDATE:
     BCLR.B #4, (GAMEFLAGS)
     .NOSTART:
     RTS
-
+TS_DRAW:
+    MOVE.L #NUBE0, -(SP)
+    MOVE.W #0, -(SP)
+    MOVE.W #0, -(SP)
+    JSR FASTSPRITE
+    ADDQ.L #8, SP
+    RTS
 
 TITLESCREEN:
     DC.W 91                                         ;ID
@@ -25,7 +31,7 @@ TITLESCREEN:
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,0, 0,0                                   ;COLISION_BOX 44
-    DC.L TS_START, TS_UPDATE, DEFAULT_RTS           ;@
+    DC.L TS_START, TS_UPDATE, TS_DRAW           ;@
     DC.L DEFAULT_RTS                                ;@
     DC.L -1                                         ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
