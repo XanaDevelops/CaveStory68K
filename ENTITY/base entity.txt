@@ -25,5 +25,5 @@ ENEMY:      -1*X
 BULLETQ:    1X
 BULLETK:    2X
 NPC:        3X
-INTERACT:   5X
-COLECT:     7X
+INTERACT:   50-69
+COLECT:     70-89

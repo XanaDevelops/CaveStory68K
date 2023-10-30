@@ -19,6 +19,8 @@ INIT:                  ; first instruction of program
     MOVE.W #0, SCR_SPEED_X
     MOVE.W #0, SCR_SPEED_Y
 
+    CLR.B (GAMEFLAGS)
+
     JSR ENTSTCSTART
 
     MOVE.W #0, -(SP)    ;ID MAPA
@@ -26,7 +28,7 @@ INIT:                  ; first instruction of program
 
     ADDQ.L #2, SP
 
-    CLR.B (GAMEFLAGS)
+    
 
     CLRSCREEN
 

@@ -8,11 +8,11 @@
 ENTINSTADA  DC.L .TSCR, .TMAP1
         ;WORDS-1
         ;XY @ENTITY
-.TSCR   DC.W 3
-            DC.L $00800080, PLAYER>>16|PLAYER<<16
-        DC.W 5
+.TSCR   DC.W 5
             DC.L -1
             DC.L $00000000, CAMERA>>16|CAMERA<<16
+        DC.W 3
+            DC.L $00000000, TITLESCREEN>>16|TITLESCREEN<<16
         DC.W -1
 
 .TMAP1  DC.W 3

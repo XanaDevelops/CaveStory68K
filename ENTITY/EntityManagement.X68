@@ -184,6 +184,8 @@ IS_OUT_DISPLAY:
     MOVEM.L (SP)+, A0/D6-D0
     RTS
 
+DEFAULT_RTS:
+    RTS
 
 *~Font name~Courier New~
 *~Font size~10~
