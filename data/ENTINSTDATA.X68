@@ -45,6 +45,9 @@ ENTINSTADA  DC.L .TSCR, .TMAP1
         DC.W 4
             DC.W 1
             DC.L $018003A0, DORITO>>16|DORITO<<16
+        DC.W 5
+            DC.L PLAYER>>16|PLAYER<<16
+            DC.L $00000000, CAMERA>>16|CAMERA<<16
         DC.W -1
 
 *~Font name~Courier New~

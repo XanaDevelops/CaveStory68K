@@ -21,7 +21,7 @@ INIT:                  ; first instruction of program
 
     JSR ENTSTCSTART
 
-    MOVE.W #0, -(SP)    ;ID MAPA
+    MOVE.W #1, -(SP)    ;ID MAPA
     BSR LOAD_MAP
 
     ADDQ.L #2, SP
