@@ -11,7 +11,7 @@ ENTINSTADA  DC.L .TSCR, .TMAP1
 .TSCR   DC.W 3
             DC.L $00800080, PLAYER>>16|PLAYER<<16
         DC.W 5
-            DC.L PLAYER>>16|PLAYER<<16
+            DC.L -1
             DC.L $00000000, CAMERA>>16|CAMERA<<16
         DC.W -1
 
