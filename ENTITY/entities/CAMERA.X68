@@ -38,6 +38,8 @@ CAMERA_START:
     RTS
 
 CAMERA_UPDATE:
+    ;RTS
+
     MOVEM.L D0-D1/A1, -(SP)
 
     MOVE.L ENTFOCUS(A0), A1
@@ -69,7 +71,7 @@ CAMERA_UPDATE:
     MOVE.W XPOS(A1), D0
     SUB.W (SCREEN_X), D0
     
-    CMP.B #0, LOOKDIRLR(A0)                    ;Scroll horizontal
+    CMP.B #0, LOOKDIRLR(A1)                    ;Scroll horizontal
     BEQ .PNLEFT
         SUB.W #130-TILESIZE, D0
         ASR.W #3, D0
