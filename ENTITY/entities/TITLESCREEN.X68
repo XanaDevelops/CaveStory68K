@@ -60,7 +60,12 @@ TS_UPDATE:
     RTS
 
 TS_DRAW:
+    MOVE.L #TITLE, -(SP)
+    MOVE.W #100, -(SP)
+    MOVE.W #100, -(SP)
     
+    JSR FASTSPRITE
+    ADDA.L #8, SP
     RTS
 
 TITLESCREEN:

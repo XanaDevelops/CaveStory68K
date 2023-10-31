@@ -11,6 +11,7 @@ import numpy as np
 class Conversor():
 
     dirSprites  = "./svg/"
+    dirSprBMP   = "./BMP/"
     dirMapas    = "./mapas/"
     dirSFX      = "./SFX/"
     dirBGM      = "./BGM/"
@@ -28,7 +29,7 @@ class Conversor():
         while(not salir):
             print("Selecciona una opción:")
             print("     [1] ConvertAll")
-            print("     [2] ConvertSprites (SVG)")
+            print("     [2] ConvertSprites (SVG)+(BMP)")
             print("     [3] ConvertMapas (BMP)")
             print("     [4] ConvertSingle")
             print("     [5] Convertir Coords")  
@@ -70,9 +71,14 @@ class Conversor():
             fsprite.flush()
             os.fsync(fsprite)
         self.RecursiveConverter(self.dirSprites)
+        
 
             #fsprite.writelines(f"\nSPRITEV DC.L {', '.join(names)}\n")
         with open(self.pathSprites, "+a") as fsprite:
+            for x in os.listdir(self.dirSprBMP):
+                if(".bmp" in x):
+                    fsprite.writelines(self.ConvertSprite(self.dirSprBMP+"/"+x)[0])
+
             fsprite.writelines("\n\n\n*~Font name~Courier New~\n")
             fsprite.writelines("*~Font size~10~\n")
             fsprite.writelines("*~Tab type~1~\n")
@@ -96,6 +102,49 @@ class Conversor():
 
         subprocess.run(f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py {path} {self.pathSprites} {path}".split())
         
+    def ConvertSprite(self, path:str, verb:bool = False) -> list:
+        img = Image.open(path)
+        bmpName = path.split("/")[-1].split(".")[0].upper()
+
+        pix = np.array(img).reshape(img.height, img.width, 4).tolist()
+
+        colorText = f"Color{bmpName}:\n"
+        sizeText = f"Size{bmpName}:\n"
+
+        colors = []
+        sizes = []
+        for y in range(img.height):
+            actualColor =self.ToBGR(pix[y][0])
+            l = 0
+            for x in range(img.width):
+                clr = self.ToBGR(pix[y][x])
+                if actualColor!=clr:
+                    if actualColor != "$00000000":
+                        actualColor = actualColor.replace("$FF","$00")
+                        colors.append(actualColor)
+                        [sizes.append(z) for z in[l,2*y, 2*x-1,2*y+1]]
+                    l=2*x
+                    actualColor = clr
+
+            print("y:",y,sizes,"l:",l, file=sys.stdout)
+            
+            if l<img.width*2:
+                if actualColor != "$00000000":
+                    actualColor = actualColor.replace("$FF","$00")
+                    colors.append(actualColor)
+                    [sizes.append(z) for z in[l,2*y, img.width*2-1,2*y+1]]
+
+
+            #colorText += "\tDC.L "+", ".join(colors)+"\n"
+            colorText += self.truncateText(colors, "DC.L")
+            sizesT = [str(z) for z in sizes]
+            sizeText  += self.truncateText(sizesT, "DC.W")
+            colors.clear()
+            sizes.clear()
+
+        retText = f"{colorText}\tDC.L -1\n{sizeText}\n\n{bmpName} DC.L Color{bmpName}, Size{bmpName}\n"
+        #print(retText)
+        return [retText, bmpName]
 
     def ConvertAllMapas(self):
         print("\nConvirtiendo Mapas")

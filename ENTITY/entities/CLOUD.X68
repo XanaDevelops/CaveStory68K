@@ -21,6 +21,7 @@ CLOUD_START:
 
 CLOUD_UPDATE:
     MOVE.W D0, -(SP)
+    
     MOVE.W XPOS(A0), D0
 
     SUBQ.W #STARTVEL, D0
