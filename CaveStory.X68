@@ -95,7 +95,7 @@ MAINLOOP:
     
 .PINTARFPS:
     MOVE.B #11, D0      ;COLOCAR CURSOR
-    MOVE.W #35<<8, D1
+    MOVE.W #45<<8, D1
     TRAP #15
 
     MOVE.B #81, D0      ;FONDO NEGRO
