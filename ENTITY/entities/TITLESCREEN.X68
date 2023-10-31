@@ -29,11 +29,19 @@ TS_START:
     ADD.W #50, D1
 
     DBRA D7, .DLOOP
-
-    
     ADDA.L #10, SP
+    
+    MOVE.L #.TEXTD, -(SP)
+    MOVE.W #SCREEN_WIDTH/2-80, -(SP)
+    MOVE.W #SCREEN_HEIGHT*3/4, -(SP)
+    MOVE.L #TEXTDISP, -(SP)
+    JSR INSTANCE_ENTITY
+    ADDA.L #12, SP
+
     MOVEM.W (SP)+, D7/D1
     RTS
+
+    .TEXTD: DC.B 'PRESS Z TO PLAY',0
 TS_UPDATE:
     ;ESPERA Z
     BTST.B #KEYM_Z, (KEY_PRESS_PLAYER)
@@ -68,6 +76,7 @@ TITLESCREEN:
     DC.L 0                                          ;SPRITEINDEX
     DS.L 4                                          
     DS.W 1   
+
 
 
 
