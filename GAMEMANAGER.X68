@@ -5,14 +5,14 @@
 * Description:
 *-----------------------------------------------------------
 LOAD_MAP:
-    ; (SP).W ID MAP
-    MOVEM.L D0/A0, -(SP)
+    ; 16(SP).W ID MAP
+    MOVEM.L D0-D1/A0, -(SP)
 
     MOVE.W #-1, (CURRENTTXTID) ;QUITA DBOX
 
     JSR SLASHKILLA
     
-    MOVE.W 12(SP), D0
+    MOVE.W 16(SP), D0
     MOVE.W D0, CURRENTMAPID
     LEA MAPAS, A0
     ASL.W #2, D0                ;MULU #4
@@ -21,9 +21,14 @@ LOAD_MAP:
     BSR GENERATE_COLIMAP
 
     ;MUSICA
-    MOVE.W #41, -(SP)       
+    LEA BGMMUS, A0
+    ASR.W #2, D0
+    CLR.L D1
+    MOVE.B (A0, D0), D1 
+    MOVE.W D1, -(SP)       
     JSR SEND_BGM
     ADDQ.L #2, SP
+    ASL.W #2, D0
 
     LEA ENTINSTADA, A0      ;CARGAR ENTIDADES A
     MOVE.L (A0, D0.W), A0   ;INSTANCIAR
@@ -45,7 +50,7 @@ LOAD_MAP:
     BRA .INSTMLOOP
 
 .ENDINSTS:
-    MOVEM.L (SP)+, A0/D0
+    MOVEM.L (SP)+, A0/D1-D0
     RTS
 
 GM_UPDATE:
