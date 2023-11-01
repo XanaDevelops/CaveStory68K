@@ -9,17 +9,18 @@
     INCLUDE "CONST.X68"
 
 INIT:                  ; first instruction of program
+    CLR.B (GAMEFLAGS)
     BSR SYSTEM_INIT
     
     JSR KC_INIT
+
+    
 
     MOVE.W #0, SCREEN_X
     MOVE.W #TILESIZE*0, SCREEN_Y
     
     MOVE.W #0, SCR_SPEED_X
     MOVE.W #0, SCR_SPEED_Y
-
-    CLR.B (GAMEFLAGS)
 
     JSR ENTSTCSTART
 

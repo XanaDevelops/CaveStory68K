@@ -4,6 +4,20 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
+LOAD_SAVE:
+    ;PLACEHOLDER
+    MOVE.W #0,  (PLOTID)
+    MOVE.W #1,  (CURRENTMAPID)
+    MOVE.W #5,  (PACTHP)
+    MOVE.W #10, (PMAXHP)
+    MOVE.W #$0300, (ARMS_STS+0)
+    MOVE.W #0,  (INVI_STS)
+    
+    RTS
+
+GAME_SAVE:
+    RTS
+
 LOAD_MAP:
     ; 16(SP).W ID MAP
     MOVEM.L D0-D1/A0, -(SP)
@@ -62,12 +76,6 @@ GM_UPDATE:
 
     BSET.B #7, (GAMEFLAGS)
 
-    ;MOVE.B #11, D0
-    ;MOVE.W #$1005, D1
-    ;TRAP #15
-    ;MOVE.B #14, D0
-    ;LEA GOVERTEXT, A1
-    ;TRAP #15
     CMP.W #-1, (CURRENTTXTID)
     BNE .NOBTXT
     MOVE.W #1, -(SP)
@@ -106,7 +114,14 @@ GM_PLYRDED:
 PLAYERREF   DS.L 1
 PLYERDED    DC.B 0
 WAITDED     DC.B 0
-GOVERTEXT  DC.B 'GAME OVER: PULSA Z PARA CONTINUAR',0
+            DS.W 0
+GAMEDATA:
+    PLOTID:         DS.W 1 
+    CURRENTMAPID:   DS.W 1
+    PACTHP:         DS.W 1
+    PMAXHP:         DS.W 1
+    ARMS_STS:       DCB.B 10,0 ;(NIVEL).B(XP).B * 10 ARMAS (si las hago todas...)
+    INVI_STS:       DS.W 1
 
 
 

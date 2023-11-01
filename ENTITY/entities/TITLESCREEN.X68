@@ -46,12 +46,15 @@ TS_UPDATE:
     ;ESPERA Z
     BTST.B #KEYM_Z, (KEY_PRESS_PLAYER)
     BEQ .NOSTART
+    ;CARGA SAVE
+    JSR LOAD_SAVE
     ;CARGA MAPA
-    MOVE.W #1, -(SP) ;TODO PARTIDA GUARDADA
+    MOVE.W (CURRENTMAPID), -(SP) ;TODO PARTIDA GUARDADA
     JSR LOAD_MAP
     ADDQ.L #2, SP
     ;MUESTRA HUD
     BCLR.B #4, (GAMEFLAGS)
+    
     BRA .END
     .NOSTART:
 
@@ -81,6 +84,7 @@ TITLESCREEN:
     DC.L 0                                          ;SPRITEINDEX
     DS.L 4                                          
     DS.W 1   
+
 
 
 

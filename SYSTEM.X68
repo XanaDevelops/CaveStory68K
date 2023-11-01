@@ -41,7 +41,7 @@ SYSTEM_INIT:
     ;ESTABLECE LA SEMILLA
     MOVE.B #8, D0
     TRAP #15
-    MOVE.L D1, (RNGSEED)
+    MOVE.L D1, (RNGVAL)
 
     JSR START_CLIENT
 
@@ -52,11 +52,11 @@ SYSTEM_INIT:
     RTE
 
 UPDRNG:
-    ;ACTUALIZA RNGSEED 
+    ;ACTUALIZA RNGVAL 
     ;TRAP #14
     MOVEM.L D0-D2, -(SP)
 
-    MOVE.L (RNGSEED), D0
+    MOVE.L (RNGVAL), D0
     MOVE.L D0, D1
     
     MOVE.L D0, D2
@@ -77,7 +77,7 @@ UPDRNG:
     BEQ .SB
     BSET.L #31, D0
     .SB:  
-    MOVE.L D0, (RNGSEED)
+    MOVE.L D0, (RNGVAL)
     
     MOVEM.L (SP)+, D2-D0
     RTE

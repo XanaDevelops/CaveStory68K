@@ -30,7 +30,7 @@ BAT_UPDATE:
         MOVE.W YPOS(A0), -(SP)
 
         TRAP #14
-        MOVE.L (RNGSEED), D1
+        MOVE.L (RNGVAL), D1
         ANDI.L #$FF, D1
         CMP.B #$7F, D1
         BHI .NOHEART
