@@ -12,6 +12,7 @@ LOAD_SAVE:
     MOVE.W #10, (PMAXHP)
     MOVE.W #$0300, (ARMS_STS+0)
     MOVE.W #0,  (INVI_STS)
+    MOVE.B #0,  (EQUIPARM)
     
     RTS
 
@@ -78,24 +79,32 @@ GM_UPDATE:
 
     CMP.W #-1, (CURRENTTXTID)
     BNE .NOBTXT
+    ;MUESTRA MENSAJE MUERTE
     MOVE.W #1, -(SP)
     BSR START_DBOX
     ADDQ.W #2, SP
 
     .NOBTXT:    
+    ;ESPERA Z PLAYER
     BTST.B #KEYM_Z, (KEY_PRESS_PLAYER)
     BEQ .NOZ
-    MOVE.W CURRENTMAPID, D0
+    ;REVIVE JUGADOR
+    ;CARGA PARTIDA GUARDADA
+    JSR LOAD_SAVE
+    ;CARGA MAPA
+    MOVE.W (CURRENTMAPID), D0
     MOVE.W D0, -(SP)
     BSR LOAD_MAP
     ADDQ.L #2, SP
     BCLR.B #7, (GAMEFLAGS)
     .NOZ:
-
     BRA .ALIVE
+    
     .WAIT:
+    ;ESPERA PARA SFX MUERTE
     CMP.B #0, (WAITDED)
     BNE .ALIVE
+    ;REPRODUCE SFX
     MOVE.W #9, -(SP)
     JSR SEND_BGM
     ADDQ.L #2, SP
@@ -122,7 +131,8 @@ GAMEDATA:
     PMAXHP:         DS.W 1
     ARMS_STS:       DCB.B 10,0 ;(NIVEL).B(XP).B * 10 ARMAS (si las hago todas...)
     INVI_STS:       DS.W 1
-
+    EQUIPARM:       DS.B 1
+                    DS.W 0
 
 
 

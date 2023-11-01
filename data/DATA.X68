@@ -64,7 +64,7 @@ MAPAS   DC.L CAVIDAD, TESTMAP
 BGMMUS  DC.B 4, 41
         DS.W 0
 
-
+ALLARMS DC.L BULLET_POLARSTAR
 
 *~Font name~Courier New~
 *~Font size~10~
