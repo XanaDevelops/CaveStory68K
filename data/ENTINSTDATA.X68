@@ -38,6 +38,8 @@ ENTINSTADA  DC.L .TSCR, .TMAP1
             DC.W 2
             DC.L $01C00400, CARTEL>>16|CARTEL<<16
         DC.W 3
+            DC.L $02C00400, SAVER>>16|SAVER<<16
+        DC.W 3
             DC.L $008003A0, PLAYER>>16|PLAYER<<16
         DC.W 4
             DC.W 0
