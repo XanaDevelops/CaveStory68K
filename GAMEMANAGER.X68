@@ -133,7 +133,8 @@ GAMEDATA:
     INVI_STS:       DS.W 1
     EQUIPARM:       DS.B 1
                     DS.W 0
-
+    .ENDGAMEDATA:
+GAMEDATASIZE    EQU .ENDGAMEDATA-PLOTID
 
 
 
