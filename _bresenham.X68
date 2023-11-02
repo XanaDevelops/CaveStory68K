@@ -98,13 +98,6 @@ BRESENHAM:
             ADD.W D3, 8(SP)
         _NO_IF_2:
         
-        ;SUB.W #1, (TEST)
-        ;CMP.W #0, (TEST)
-        ;BNE _TEST
-        ;MOVE.W 8(SP), D7
-        ;MOVE.W D7, 4(SP)
-        ;BRA BRESENHAM
-        ;_TEST:
         BRA _BRESENLOOP
 
     _EXIT_BRESENHAM:
