@@ -52,8 +52,8 @@ BAT_FLY_L       DC.L 3
 CARTELS         DC.L 1
                 DC.L SPR_CARTEL
 
-SAVER_SPR       DC.L 3
-                DC.L SPR_SAVE_0, SPR_SAVE_1, SPR_SAVE_2
+DISKQ_SPR       DC.L 6
+                DC.L SPR_SAVE_0, SPR_SAVE_1, SPR_SAVE_2, SPR_SAVE_3, SPR_SAVE_4, SPR_SAVE_5
 
 HEART_SM        DC.L 2
                 DC.L HEART_SM_0, HEART_SM_1
