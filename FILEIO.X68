@@ -4,35 +4,70 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-READ_SD:
-    ; (SP).W RET VALUE -1 ERR, 0 OK
-    ;OPEN FILE
-    MOVE.B #51, d0
-    LEA .SAVEFPTH, A1
+
+
+OPEN_READ:
+    ; 16(SP).L @ARCHIVO A LEER -> FDESC (-1 ERR)
+    MOVEM.L D0-D1/A1, -(SP)
+
+    MOVE.B #51, D0
+    BRA OPEN
+OPEN_WRITE:
+    ; 16(SP).L @ARCHIVO A LEER -> FDESC (-1 ERR)
+    MOVEM.L D0-D1/A1, -(SP)
+    MOVE.B #52, D0
+    BRA OPEN
+OPEN:
+    ;ENTRE ABRIR L/S SOLO CAMBIA D0
+    MOVE.L 16(SP), A1
     TRAP #15
-    ;CHECK ERR
-    CMP #0, D1
+    CMP.L #0, D0
     BEQ .NOERR
-    ;RET ERR
-    MOVE.W #-1, (SP)
+    ;ERROR
+    MOVE.L #-1, 16(SP)
     BRA .END
     .NOERR:
-    MOVE.L D1, (.FDESC)
-    ;READ FILE 
-    ;CHECK MAGIKN
-    MOVE.B #53, D0
-    LEA .IOBUF, A1
-    MOVE.L #2, D2
-    TRAP #15
+    MOVE.L D1, 16(SP)
+    
     .END:
+    MOVEM.L (SP)+, A1/D1-D0
     RTS
-WRITE_SD:
+READ_FILE:
+    ; (SP).L FDESC
+    ; (SP).L BUFF
+    ; (SP).W BYTES -> -1 SI ERR
+    MOVEM.L D0-D2/A1, -(SP)    
+    
+    MOVE.B #53, D0
+    BRA RW_FILE
+WRITE_FILE:
+    ; 26(SP).L FDESC
+    ; 22(SP).L BUFF
+    ; 20(SP).W BYTES -> -1 SI ERR
+    MOVEM.L D0-D2/A1, -(SP)
+
+    MOVE.B #54, D0
+    BRA RW_FILE
+
+RW_FILE:
+    MOVE.L 26(SP), D1
+    MOVE.L 22(SP), A1
+    MOVE.W 20(SP), D2
+    TRAP #15
+
+
     RTS
 
-.SAVEFPTH   DC.B 'SAVE.DAT',0
-.IOBUF      DS.L 1
-.FDESC      DS.L 1
-MAGIKN  EQU $0901
+CLOSE:
+    RTS
+
+
+IOFILEW DS.L 1
+
+
+
+
+
 
 
 *~Font name~Courier New~

@@ -5,7 +5,40 @@
 * Description:
 *-----------------------------------------------------------
 LOAD_SAVE:
-    ;PLACEHOLDER
+    ;CARGA LA PARTIDA GUARDADA, SI EXISTE
+    MOVE.L (SAVEFPTH), -(SP)
+    JSR OPEN_READ
+    MOVE.L (SP)+, D0
+    CMP.L #0, D0
+    BNE .DEFAULT_SAVE
+    ;LEER MAGIKN
+    MOVE.L D0, -(SP)
+    MOVE.L #IOFILEW, -(SP)
+    MOVE.W #2, -(SP)
+    JSR READ_FILE
+    MOVE.W (SP)+, D1
+    CMP.W #0, D1
+    BEQ .NOERR
+    .ERR:
+    ;ERROR LECTURA
+    ADDQ.L #8, SP
+    BRA .DEFAULT_SAVE
+    .NOERR:
+    MOVE.W (IOFILEW), D1
+    CMP.W #MAGIKN, D1
+    BNE .ERR
+    ;LEER PARTIDA GUARDADA
+    MOVE.L #GAMEDATA, (SP)
+    MOVE.W #GAMEDATASIZE, -(SP)
+    JSR READ_FILE
+    MOVE.W (SP)+, D1
+    CMP.W #0, D1
+    BNE .ERR
+    ADDQ.L #8, SP
+    JSR CLOSE
+
+    BRA .END
+    .DEFAULT_SAVE:
     MOVE.W #0,  (PLOTID)
     MOVE.W #1,  (CURRENTMAPID)
     MOVE.W #5,  (PACTHP)
@@ -13,7 +46,8 @@ LOAD_SAVE:
     MOVE.W #$0300, (ARMS_STS+0)
     MOVE.W #0,  (INVI_STS)
     MOVE.B #0,  (EQUIPARM)
-    
+   
+    .END:
     RTS
 
 GAME_SAVE:
@@ -123,6 +157,7 @@ GM_PLYRDED:
 PLAYERREF   DS.L 1
 PLYERDED    DC.B 0
 WAITDED     DC.B 0
+SAVEFPTH    DC.B 'SAVE.DAT',0
             DS.W 0
 GAMEDATA:
     PLOTID:         DS.W 1 
