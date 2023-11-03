@@ -25,11 +25,11 @@
      inkscape:document-units="px"
      showgrid="true"
      inkscape:zoom="17.765625"
-     inkscape:cx="17.562005"
-     inkscape:cy="18.828496"
-     inkscape:window-width="1278"
-     inkscape:window-height="1341"
-     inkscape:window-x="1264"
+     inkscape:cx="16.436236"
+     inkscape:cy="17.562005"
+     inkscape:window-width="958"
+     inkscape:window-height="1000"
+     inkscape:window-x="2873"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1">
@@ -120,40 +120,19 @@
        x="8"
        y="10" />
     <rect
-       style="display:inline;fill:#f36b6b;fill-opacity:1;stroke-width:12.4515"
-       id="rect1-6-7-5-9-29-8"
-       width="4"
-       height="28"
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke-width:2.35313"
+       id="rect1-6-7-5-9-29-8-8-9-0-2"
+       width="2"
+       height="2"
+       x="4"
+       y="14" />
+    <rect
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke-width:2.35313"
+       id="rect1-6-7-5-9-29-8-8-9-0-2-5"
+       width="2"
+       height="2"
        x="14"
        y="2" />
-    <rect
-       style="display:inline;fill:#f36b6b;fill-opacity:1;stroke-width:15.6088"
-       id="rect1-6-7-5-9-29-8-8"
-       width="8"
-       height="22"
-       x="12"
-       y="4" />
-    <rect
-       style="display:inline;fill:#f36b6b;fill-opacity:1;stroke-width:16.3028"
-       id="rect1-6-7-5-9-29-8-8-9"
-       width="12"
-       height="16"
-       x="10"
-       y="8" />
-    <rect
-       style="display:inline;fill:#f36b6b;fill-opacity:1;stroke-width:16.3029"
-       id="rect1-6-7-5-9-29-8-8-9-0"
-       width="16"
-       height="12"
-       x="8"
-       y="10" />
-    <rect
-       style="display:inline;fill:#f36b6b;fill-opacity:1;stroke-width:12.8886"
-       id="rect1-6-7-5-9-29-8-8-9-0-2"
-       width="20"
-       height="6"
-       x="6"
-       y="12" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -162,35 +141,35 @@
      style="display:inline"
      transform="matrix(1,0,0,-1,0,34)">
     <rect
-       style="fill:#8c8194;fill-opacity:1;stroke-width:5.76392"
+       style="fill:#42293a;fill-opacity:1;stroke-width:7.05933"
        id="rect1-6-7-5-9-29-5"
        width="6"
-       height="4"
+       height="6"
        x="8"
        y="16" />
     <rect
-       style="fill:#8c8194;fill-opacity:1;stroke-width:8.15141"
+       style="fill:#42293a;fill-opacity:1;stroke-width:7.05933"
        id="rect1-6-7-5-9-29-5-6"
-       width="8"
-       height="6"
-       x="8"
-       y="20" />
-    <rect
-       style="fill:#8c8194;fill-opacity:1;stroke-width:8.15141"
-       id="rect1-6-7-5-9-29-5-6-7"
-       width="8"
+       width="6"
        height="6"
        x="10"
-       y="22" />
+       y="20" />
     <rect
-       style="fill:#8c8194;fill-opacity:1;stroke-width:5.76392"
-       id="rect1-6-7-5-9-29-5-6-8"
-       width="4"
+       style="fill:#42293a;fill-opacity:1;stroke-width:7.05933"
+       id="rect1-6-7-5-9-29-5-6-7"
+       width="6"
        height="6"
        x="12"
-       y="24" />
+       y="22" />
     <rect
-       style="fill:#8c8194;fill-opacity:1;stroke-width:2.35311"
+       style="fill:#42293a;fill-opacity:1;stroke-width:2.35311"
+       id="rect1-6-7-5-9-29-5-6-8"
+       width="2"
+       height="2"
+       x="14"
+       y="28" />
+    <rect
+       style="fill:#42293a;fill-opacity:1;stroke-width:2.35311"
        id="rect1-6-7-5-9-29-5-6-8-6"
        width="2"
        height="2"
@@ -204,17 +183,31 @@
        x="6"
        y="20" />
     <rect
-       style="fill:#8c8194;fill-opacity:1;stroke-width:2.35311"
+       style="display:inline;fill:#8c8194;fill-opacity:1;stroke-width:2.35311"
+       id="rect1-6-7-5-9-29-5-6-8-6-4-1"
+       width="2"
+       height="2"
+       x="10"
+       y="26" />
+    <rect
+       style="display:inline;fill:#8c8194;fill-opacity:1;stroke-width:3.3278"
+       id="rect1-6-7-5-9-29-5-6-8-6-4-6"
+       width="2"
+       height="4"
+       x="8"
+       y="22" />
+    <rect
+       style="fill:#42293a;fill-opacity:1;stroke-width:2.35311"
        id="rect1-6-7-5-9-29-5-6-8-6-5"
        width="2"
        height="2"
        x="10"
        y="14" />
     <rect
-       style="display:inline;fill:#8c8194;fill-opacity:1;stroke-width:3.3278"
+       style="display:inline;fill:#8c8194;fill-opacity:1;stroke-width:2.35311"
        id="rect1-6-7-5-9-29-5-6-8-6-5-3"
        width="2"
-       height="4"
+       height="2"
        x="18"
        y="4" />
     <rect
@@ -225,10 +218,10 @@
        x="20"
        y="6" />
     <rect
-       style="display:inline;fill:#8c8194;fill-opacity:1;stroke-width:3.3278"
+       style="display:inline;fill:#8c8194;fill-opacity:1;stroke-width:2.35311"
        id="rect1-6-7-5-9-29-5-6-8-6-5-3-7"
        width="2"
-       height="4"
+       height="2"
        x="22"
        y="10" />
     <rect
@@ -238,5 +231,12 @@
        height="4"
        x="24"
        y="12" />
+    <rect
+       style="display:inline;fill:#8c8194;fill-opacity:1;stroke-width:2.35311"
+       id="rect1-6-7-5-9-29-5-6-8-6-4-7"
+       width="2"
+       height="2"
+       x="12"
+       y="28" />
   </g>
 </svg>
