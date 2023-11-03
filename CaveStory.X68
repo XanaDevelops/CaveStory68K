@@ -29,7 +29,9 @@ INIT:                  ; first instruction of program
 
     ADDQ.L #2, SP
 
-    
+    ;MOVE.B #92, D0 ;don comedia, no apto fotosensibles
+    ;MOVE.W #15, D1 ;el 12 no mola
+    ;TRAP #15
 
     CLRSCREEN
 

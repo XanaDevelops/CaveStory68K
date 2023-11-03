@@ -84,15 +84,18 @@ DORITO_PAINT:
 DORITO_INTERACT:
     MOVEM.L D0/A0, -(SP)
 
-    MOVE.L 12(SP), A0
-    MOVE.W 16(SP), D0
+    MOVE.W HP(A0), -(SP)
+    JSR GM_UPD_BLTXP
+    ADDQ.L #2, SP
+    ;MOVE.L 12(SP), A0
+    ;MOVE.W 16(SP), D0
     
-    ADD.W HP(A0), D0
-    CMP.W MAXHEALTH(A0), D0
-    BLE .NOOV
-    MOVE.W MAXHEALTH(A0), D0
-    .NOOV:
-    MOVE.W D0, HP(A0)
+    ;ADD.W HP(A0), D0
+    ;CMP.W MAXHEALTH(A0), D0
+    ;BLE .NOOV
+    ;MOVE.W MAXHEALTH(A0), D0
+    ;.NOOV:
+    ;MOVE.W D0, HP(A0)
 
     MOVEM.L (SP)+, A0/D0
     RTS

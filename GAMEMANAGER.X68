@@ -195,6 +195,57 @@ GM_UPDATE:
 
     RTS
 
+GM_UPD_BLTXP:
+    MOVEM.L D0-D3/A0, -(SP)
+    ; (SP).W XP A ACTUALIZAR
+    ; SOBRE ARMA ACTUAL    
+    MOVE.W 24(SP), D0
+
+    ;OBTENER XP, ARMA ACTUAL
+    LEA ARMS_STS, A0
+    CLR.L D1    ;ID ARMA
+    CLR.L D2    ;XP
+    CLR.L D3    ;LVL
+    MOVE.B (EQUIPARM), D1
+    MOVE.B D1, D3
+    MOVE.W (A0, D1), D3
+    MOVE.B D3, D2
+    LSR.W #8, D3
+
+    ;TODO DIFERENTES XP PARA SUBIR DE NIVEL
+    ;AHORA SOLO SUMAR XP CAP 20 -> LVL UP
+    ADD.W D0, D2
+    BLT .LVLDOWN
+    CMP.W #20, D2
+    BLT .NOLVLUP
+    ;SUBIR DE NIVEL, XP=0, LVL++ CAP.3
+    ADDQ.W #1, D3
+    CMP.W #3, D3
+    BLT .NOMAXLVL
+    MOVE.W #3, D3
+    MOVE.W #20, D2
+    BRA .END
+    .NOMAXLVL:
+    CLR.L D2
+    .NOLVLUP:
+    BRA .END
+
+    .LVLDOWN:
+    SUBQ.W #1, D3
+    CMP.W #1, D3
+    BGE .NOLVLZ
+    MOVE.W #1, D3
+    CLR.W D2
+    BRA .END
+    .NOLVLZ:
+    ADD.W #20, D2
+    .END:
+    MOVE.B D2, 1(A0, D1)
+    MOVE.B D3, (A0, D1)
+
+    MOVEM.L (SP)+, A0/D3-D0
+    RTS
+
 GM_PLYRDED:
     MOVE.B #1, (PLYERDED)
     MOVE.B #WAITDEDT, (WAITDED)
@@ -222,6 +273,8 @@ GAMEDATA:
                     DS.W 0
     .ENDGAMEDATA:
 GAMEDATASIZE    EQU .ENDGAMEDATA-PLOTID
+
+
 
 
 
