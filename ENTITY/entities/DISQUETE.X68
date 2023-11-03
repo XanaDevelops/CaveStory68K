@@ -37,6 +37,8 @@ DISKQ_UPDATE:
     RTS
 
 DISKQ_INTERACT:
+    JSR GAME_SAVE
+    
     MOVE.W #4, -(SP)
     JSR START_DBOX
     ADDQ.L #2, SP

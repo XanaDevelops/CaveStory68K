@@ -57,7 +57,7 @@ MAINLOOP:
     JSR KC_UPD
 
     JSR GM_UPDATE
-    BSR UPDATE_DBOX
+    JSR UPDATE_DBOX
 
     BTST.B #7, (GAMEFLAGS)
     BNE .NOUPD
@@ -150,6 +150,7 @@ ENDTESTLOOP:
     INCLUDE "data/sprites.x68"
     INCLUDE "data/maps.x68"
     INCLUDE "data/Dialogs.x68"
+
 
 
 

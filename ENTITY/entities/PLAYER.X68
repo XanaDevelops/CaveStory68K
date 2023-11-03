@@ -31,7 +31,7 @@ PLAYER_UPDATE:
     MOVEM.L D0-D1, -(SP)
 
     CMP.W #0, HP(A0)        ;KILL?
-    BNE .LIVE
+    BGT .LIVE
         BSR GM_PLYRDED
         MOVE.W #66, -(SP)
         MOVE.W #1, -(SP)

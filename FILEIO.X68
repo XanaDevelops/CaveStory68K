@@ -54,15 +54,30 @@ RW_FILE:
     MOVE.L 22(SP), A1
     MOVE.W 20(SP), D2
     TRAP #15
+    CMP.W #0, D0
+    BEQ .NOERR
+    MOVE.W #-1, D0
+    .NOERR:
+    MOVE.W D0, 20(SP)
 
     MOVEM.L (SP)+, A1/D2-D0
     RTS
 
 CLOSE:
+    ; 12(SP) FDESC
+    MOVEM.L D0-D1, -(SP)
+
+    MOVE.B #56, D0
+    MOVE.L 12(SP), D1
+    TRAP #15
+    
+    MOVEM.L (SP)+, D1-D0
     RTS
 
 
 IOFILEW DS.L 1
+
+
 
 
 

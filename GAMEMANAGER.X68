@@ -6,6 +6,8 @@
 *-----------------------------------------------------------
 LOAD_SAVE:
     ;CARGA LA PARTIDA GUARDADA, SI EXISTE
+    MOVEM.L D0-D1, -(SP)
+
     MOVE.L #SAVEFPTH, -(SP)
     JSR OPEN_READ
     MOVE.L (SP)+, D0
@@ -21,7 +23,9 @@ LOAD_SAVE:
     BEQ .NOERR
     .ERR:
     ;ERROR LECTURA
-    ADDQ.L #8, SP
+    ADDQ.L #4, SP
+    JSR CLOSE
+    ADDQ.L #4, SP
     BRA .DEFAULT_SAVE
     .NOERR:
     MOVE.W (IOFILEW), D1
@@ -34,8 +38,9 @@ LOAD_SAVE:
     MOVE.W (SP)+, D1
     CMP.W #0, D1
     BNE .ERR
-    ADDQ.L #8, SP
+    ADDQ.L #4, SP
     JSR CLOSE
+    ADDQ.L #4, SP
 
     BRA .END
     .DEFAULT_SAVE:
@@ -48,9 +53,47 @@ LOAD_SAVE:
     MOVE.B #0,  (EQUIPARM)
    
     .END:
+    MOVEM.L (SP)+, D1-D0
     RTS
 
 GAME_SAVE:
+    MOVEM.L D0-D1/A0, -(SP)
+
+    ;GUARDA VALORES EN GAMEDATA
+    MOVE.L (PLAYERREF), A0
+    MOVE.W HP(A0), PACTHP
+
+    ;ABRE ARCHIVO PARTIDA GUARDADA
+    ;O LO CREA
+    MOVE.L #SAVEFPTH, -(SP)
+    JSR OPEN_WRITE
+    MOVE.L (SP)+, D0
+    CMP.L #0, D0
+    BNE .ERR
+    ;ESCRIBIR  MAGIKN
+    MOVE.L D0, -(SP)
+    MOVE.W #MAGIKN, (IOFILEW)
+    MOVE.L #IOFILEW, -(SP)
+    MOVE.W #2, -(SP)
+    JSR WRITE_FILE
+    MOVE.W (SP)+, D1
+    CMP.W #0, D1
+    BNE .ERR
+    MOVE.L #GAMEDATA, (SP)
+    MOVE.W #GAMEDATASIZE, -(SP)
+    JSR WRITE_FILE
+    MOVE.W (SP)+, D1
+    CMP.W #0, D1
+    BNE .ERR
+    BRA .CLOSE
+    .ERR:
+    
+    .CLOSE:
+    ADDQ.L #4, SP
+    JSR CLOSE
+    ADDQ.L #4, SP
+
+    MOVEM.L (SP)+, A0/D1-D0
     RTS
 
 LOAD_MAP:
@@ -170,6 +213,7 @@ GAMEDATA:
                     DS.W 0
     .ENDGAMEDATA:
 GAMEDATASIZE    EQU .ENDGAMEDATA-PLOTID
+
 
 
 
