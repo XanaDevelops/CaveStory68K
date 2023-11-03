@@ -86,7 +86,7 @@ MAINLOOP:
     BSR HUD_DRAW
     .NOHUD:
     
-    BSR DRAW_DBOX
+    JSR DRAW_DBOX
     .FSKIP:
 
 
@@ -150,6 +150,7 @@ ENDTESTLOOP:
     INCLUDE "data/sprites.x68"
     INCLUDE "data/maps.x68"
     INCLUDE "data/Dialogs.x68"
+
 
 
 

@@ -55,7 +55,7 @@ RW_FILE:
     MOVE.W 20(SP), D2
     TRAP #15
 
-
+    MOVEM.L (SP)+, A1/D2-D0
     RTS
 
 CLOSE:

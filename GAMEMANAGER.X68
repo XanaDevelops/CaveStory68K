@@ -6,7 +6,7 @@
 *-----------------------------------------------------------
 LOAD_SAVE:
     ;CARGA LA PARTIDA GUARDADA, SI EXISTE
-    MOVE.L (SAVEFPTH), -(SP)
+    MOVE.L #SAVEFPTH, -(SP)
     JSR OPEN_READ
     MOVE.L (SP)+, D0
     CMP.L #0, D0
