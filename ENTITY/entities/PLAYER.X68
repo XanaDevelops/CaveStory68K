@@ -278,16 +278,22 @@ PLAYER_DAMAGE:
     RTS
 
 BULLET_SHOT:
-    MOVEM.L D0/A1, -(SP)
+    MOVEM.L D0-D2/A1, -(SP)
     CLR.L D0
 
     LEA ALLARMS, A1
+    LEA ARMS_STS, A2
     CLR.L D1
+    CLR.L D2
     MOVE.B (EQUIPARM), D1
     MOVE.L (A1, D1), A1
+    MOVE.W (A2, D1), D2 ;NIVEL,XP
     MOVE.B MAX_BLT_ONSCR(A1), D1
     CMP.B BLT_ONSCREEN(A1), D1
     BLE .ENDBS
+    ;EXTRAER NIVEL D2
+    LSR.W #8, D2
+    SUBQ.W #1, D2
 
     ;DEPENDE ARMA/NIVEL
     MOVE.W #62, -(SP)
@@ -304,7 +310,7 @@ BULLET_SHOT:
         ADD.W #40, 2(SP)
     .NOXOF:
 
-    MOVE.W #2, -(SP)    ;NIVEL
+    MOVE.W D2, -(SP)    ;NIVEL
     
     CMP.B #0, LOOKDIRUD(A0)
     BEQ .NOUD
@@ -322,7 +328,7 @@ BULLET_SHOT:
     BSR INSTANCE_ENTITY
     ADDA.L #12, SP
     .ENDBS:
-    MOVEM.L (SP)+, A1/D0
+    MOVEM.L (SP)+, A1/D2-D0
     RTS
 
 CAMERA_MOVE:

@@ -46,9 +46,11 @@ LOAD_SAVE:
     .DEFAULT_SAVE:
     MOVE.W #0,  (PLOTID)
     MOVE.W #1,  (CURRENTMAPID)
+    MOVE.W #$80, (SPAWNX)   ;TODO
+    MOVE.W #$3A0,(SPAWNY)   ;TODO
     MOVE.W #5,  (PACTHP)
     MOVE.W #10, (PMAXHP)
-    MOVE.W #$0300, (ARMS_STS+0)
+    MOVE.W #$0100, (ARMS_STS+0)
     MOVE.W #0,  (INVI_STS)
     MOVE.B #0,  (EQUIPARM)
    
@@ -210,9 +212,11 @@ SAVEFPTH    DC.B 'SAVE.DAT',0
 GAMEDATA:
     PLOTID:         DS.W 1 
     CURRENTMAPID:   DS.W 1
+    SPAWNX:         DS.W 1
+    SPAWNY:         DS.W 1
     PACTHP:         DS.W 1
     PMAXHP:         DS.W 1
-    ARMS_STS:       DCB.B 10,0 ;(NIVEL).B(XP).B * 10 ARMAS (si las hago todas...)
+    ARMS_STS:       DCB.B 10,0 ;(NIVEL).B(XP).B * 10 ARMAS lvl=0 BLOCK
     INVI_STS:       DS.W 1
     EQUIPARM:       DS.B 1
                     DS.W 0
