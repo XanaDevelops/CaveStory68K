@@ -7,7 +7,7 @@
 READ_SD:
     ; (SP).W RET VALUE -1 ERR, 0 OK
     ;OPEN FILE
-    MOVE.B #51
+    MOVE.B #51, d0
     LEA .SAVEFPTH, A1
     TRAP #15
     ;CHECK ERR
@@ -33,6 +33,8 @@ WRITE_SD:
 .IOBUF      DS.L 1
 .FDESC      DS.L 1
 MAGIKN  EQU $0901
+
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~
