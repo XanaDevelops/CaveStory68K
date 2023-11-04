@@ -6,6 +6,61 @@
 *-----------------------------------------------------------
 
 UPDATE_PHYSICS:
+    ; ACTUALIZA LA POSICION ACORDE A LA VELOCIDAD Y 
+    ; AL MAPA DE COLISIONES
+    ; NO RESTA VELOCIDAD, PERO SI 0 SI COLI
+    ; (SP).L @ENT
+    MOVEM.L D0-D7/A0-A2, -(SP)
+
+    ;CARGA DIRECCIONES
+    MOVE.L X(SP), A0
+    MOVE.L (CURRENTMAPDIR), A1
+    LEA INTERACT_MAP, A2
+
+    ;BAJAR FLAGS COLISION
+    ANDI.B #%00000111, STATUS+1(A0)
+
+    CLR.L D7    ;INTERNAL FLAGS
+                ;XXXX (UP)(DOWN)(LEFT)(RIGHT) XX  !XV+?.B !YV+?.B
+    ;POS FUTURA
+    MOVE.W XSPEED(A0), D5
+    CMP.W #0, D5
+    SGE.B D7
+    ASL.L #8, D7
+    MOVE.W YSPEED(A0), D6
+    CMP.W #0, D6
+    SGE.B D7
+    ADD.W XPOS(A0), D5
+    ADD.W YPOS(A0), D6
+
+    ;OBTENER HBOX
+    ADDA.L COLISION_BOX, A0
+    MOVEM.L (A0)+, D1-D4    ;X1,Y1 X2,Y2
+    ADD.W D5, D1
+    ADD.W D5, D3
+    ADD.W D6, D2
+    ADD.W D6, D4
+    SUBA.L AD_START, A0
+
+    ;COMPROBAR Y
+    SUBQ.W #1, D2
+    ADDQ.W #1, D4
+
+    ;OBTENER INDICES COLIMAP
+    COLIMAPD1D4
+
+    ;TOPLEFT
+    MOVE.W D1, D0
+    ADD.W D2, D0
+    CMP.B #0, (A2, D0)
+    BEQ .NOTPL
+    BSET.L #15, D7
+    ;continuar aqui
+    .NOTPL:
+
+    MOVEM.L (SP)+, A1-A0/D7-D0
+    RTS
+UPDATE_PHYSICS_OLD:
     ; (SP) @ENT
     ; fisicas de colision por hitbox continuas por implementación
     ; del algoritmo de bresenham
