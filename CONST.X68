@@ -107,6 +107,10 @@ ESC             EQU $1B
 LF              EQU $0A
 CR              EQU $0D
 
+;NUMERIC VALUES
+MAXBP           EQU $00000007F
+MAXWP           EQU $000007FFF
+MAXLP           EQU $7FFFFFFF
 
 
 

@@ -9,38 +9,43 @@ UPDATE_PHYSICS:
     ; ACTUALIZA LA POSICION ACORDE A LA VELOCIDAD Y 
     ; AL MAPA DE COLISIONES
     ; NO RESTA VELOCIDAD, PERO SI 0 SI COLI
-    ; (SP).L @ENT
+    ; 48(SP).L @ENT
     MOVEM.L D0-D7/A0-A2, -(SP)
 
     ;CARGA DIRECCIONES
-    MOVE.L X(SP), A0
+    MOVE.L 48(SP), A0
     MOVE.L (CURRENTMAPDIR), A1
     LEA INTERACT_MAP, A2
 
-    ;BAJAR FLAGS COLISION
-    ANDI.B #%00000111, STATUS+1(A0)
+    ;OBTENER Y BAJAR FLAGS COLISION
+    MOVE.B STATUS+1(A0), D7
+    ANDI.L #%00000111, D7
 
-    CLR.L D7    ;INTERNAL FLAGS
-                ;XXXX (UP)(DOWN)(LEFT)(RIGHT) XX  !XV+?.B !YV+?.B
+     ;GRAVEDAD
+    BTST.L #2, D7
+    BNE .NOGRAV
+        ADDQ.W #G, YSPEED(A0)                  
+        CMP.W #MAX_FALL_SPEED, YSPEED(A0)
+        BLE .NOMXSPED
+            MOVE.W #MAX_FALL_SPEED, YSPEED(A0)
+        .NOMXSPED:
+    .NOGRAV:
+
     ;POS FUTURA
     MOVE.W XSPEED(A0), D5
-    CMP.W #0, D5
-    SGE.B D7
-    ASL.L #8, D7
     MOVE.W YSPEED(A0), D6
-    CMP.W #0, D6
-    SGE.B D7
     ADD.W XPOS(A0), D5
     ADD.W YPOS(A0), D6
 
+
     ;OBTENER HBOX
-    ADDA.L COLISION_BOX, A0
-    MOVEM.L (A0)+, D1-D4    ;X1,Y1 X2,Y2
+    ADDA.L #COLISION_BOX, A0
+    MOVEM.W (A0)+, D1-D4    ;X1,Y1 X2,Y2
     ADD.W D5, D1
     ADD.W D5, D3
     ADD.W D6, D2
     ADD.W D6, D4
-    SUBA.L AD_START, A0
+    SUBA.L #AD_START, A0
 
     ;COMPROBAR Y
     SUBQ.W #1, D2
@@ -54,11 +59,109 @@ UPDATE_PHYSICS:
     ADD.W D2, D0
     CMP.B #0, (A2, D0)
     BEQ .NOTPL
-    BSET.L #15, D7
-    ;continuar aqui
+    BSET.L #7, D7
     .NOTPL:
+    ;TOPRIGHT
+    MOVE.W D3, D0
+    ADD.W D2, D0
+    CMP.B #0, (A2, D0)
+    BEQ .NOTPR
+    BSET.L #7, D7
+    .NOTPR:
+    ;DOWNLEFT
+    MOVE.W D1, D0
+    ADD.W D4, D0
+    CMP.B #0, (A2, D0)
+    BEQ .NODWL
+    BSET.L #6, D7
+    .NODWL:
+    ;DOWNRIGHT
+    MOVE.W D3, D0
+    ADD.W D4, D0
+    CMP.B #0, (A2, D0)
+    BEQ .NODWR
+    BSET.L #6, D7
+    .NODWR:
+    ;AJUSTAR POS
+    BTST.L #7, D7
+    BEQ .NOUP
+    ANDI.W #MAXWP-$3F, D6 ;MOD 64
+    ADD.W #TILESIZE, D6
+    CLR.W YSPEED(A0)
+    .NOUP:
+    BTST.L #6, D7
+    BEQ .NODOWN
+    ANDI.W #MAXWP-$3F, D6 ;MOD 64
+    BSET.L #3, D7
+    CLR.W YSPEED(A0)
+    .NODOWN:
 
-    MOVEM.L (SP)+, A1-A0/D7-D0
+    ;COMPROBAR X (BUCLE, MACRO?)
+    ;OBTENER HBOX
+    ADDA.L #COLISION_BOX, A0
+    MOVEM.W (A0)+, D1-D4    ;X1,Y1 X2,Y2
+    ADD.W D5, D1
+    ADD.W D5, D3
+    ADD.W D6, D2
+    ADD.W D6, D4
+    SUBA.L #AD_START, A0
+
+    ;DESHACER Y POR SI ACASO
+    ADDQ.W #1, D2
+    SUBQ.W #1, D4
+    ;COMPROBAR X
+    SUBQ.W #1, D1
+    ADDQ.W #1, D3
+
+    ;OBTENER INDICES COLIMAP
+    COLIMAPD1D4
+
+    ;TOPLEFT
+    MOVE.W D1, D0
+    ADD.W D2, D0
+    CMP.B #0, (A2, D0)
+    BEQ .NOTPL2
+    BSET.L #5, D7
+    .NOTPL2:
+    ;TOPRIGHT
+    MOVE.W D3, D0
+    ADD.W D2, D0
+    CMP.B #0, (A2, D0)
+    BEQ .NOTPR2
+    BSET.L #5, D7
+    .NOTPR2:
+    ;DOWNLEFT
+    MOVE.W D1, D0
+    ADD.W D4, D0
+    CMP.B #0, (A2, D0)
+    BEQ .NODWL2
+    BSET.L #4, D7
+    .NODWL2:
+    ;DOWNRIGHT
+    MOVE.W D3, D0
+    ADD.W D4, D0
+    CMP.B #0, (A2, D0)
+    BEQ .NODWR2
+    BSET.L #4, D7
+    .NODWR2:
+    ;AJUSTAR POS
+    BTST.L #5, D7
+    BEQ .NOUP2
+    ANDI.W #MAXWP-$3F, D5 ;MOD 64
+    ADD.W #TILESIZE, D5
+    CLR.W XSPEED(A0)
+    .NOUP2:
+    BTST.L #4, D7
+    BEQ .NODOWN2
+    ANDI.W #MAXWP-$3F, D5 ;MOD 64
+    CLR.W XSPEED(A0)
+    .NODOWN2:
+
+    MOVE.W D5, XPOS(A0)
+    MOVE.W D6, YPOS(A0)
+    MOVE.B D7, STATUS+1(A0)
+
+    MOVEM.L (SP)+, A2-A0/D7-D0
     RTS
 UPDATE_PHYSICS_OLD:
     ; (SP) @ENT
@@ -359,9 +462,11 @@ COLLISION_ENTITY:
     MOVEM.L (SP)+, A0/D7-D0
 
     MOVE.W #$8000, (MINCHK)
-    MOVE.W #$7FFF, (MAXCHK)
+    MOVE.W #MAXWP, (MAXCHK)
 
     RTS
+
+
 
 
 
