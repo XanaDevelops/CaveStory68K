@@ -106,7 +106,7 @@ DORITO:
     DC.W 0                                          ;HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
-    DC.W 10,12, 52,64                               ;COLISION_BOX 44
+    DC.W 12,16, 54,64                               ;COLISION_BOX 44
     DC.L DORITO_START, DORITO_UPDATE, DEFAULT_PAINT ;@
     DC.L DORITO_INTERACT                            ;@
     DC.L DORITO_M                                   ;@SPRITE DEFECTO

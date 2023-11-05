@@ -88,7 +88,7 @@ HEART:
     DC.W 0                                          ;HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00UDLR(!AIRBONE)(!GRAV)--
-    DC.W 6,6, 50,50                                 ;COLISION_BOX 44
+    DC.W 8,10, 52,52                                 ;COLISION_BOX 44
     DC.L HEART_START, HEART_UPDATE, DEFAULT_PAINT   ;@
     DC.L HEART_INTERACT                             ;@
     DC.L HEART_SM                                   ;@SPRITE DEFECTO

@@ -122,6 +122,7 @@ PLAYER_UPDATE:
         MOVE.W  #-MAX_PLYR_SPEED, XSPEED(A0)
     .NOMMAX:
 
+    ;SALTO
     BTST.B  #3, STATUS+1(A0)
     BEQ .NOS
         MOVE.B  #22, TIMERJUMP(A0)
@@ -129,7 +130,7 @@ PLAYER_UPDATE:
     BTST.L  #KEYM_Z, D1                 ;SALTO BASE
     BEQ     .NOZ
     BTST.B  #7, STATUS+1(A0)
-    BNE .SIZ
+    BEQ .SIZ
     CLR.B   TIMERJUMP(A0)
     BRA     .ENDJ
     .SIZ:
