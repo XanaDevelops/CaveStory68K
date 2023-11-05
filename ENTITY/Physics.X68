@@ -35,14 +35,7 @@ UPDATE_PHYSICS:
     MOVE.W  YPOS(A0), D6
     ADD.W   YSPEED(A0), D6
 
-    ;OBTENER HBOX
-    ADDA.L  #COLISION_BOX, A0
-    MOVEM.W (A0)+, D1-D4    ;X1,Y1 X2,Y2
-    ADD.W   D5, D1    ;X1
-    ADD.W   D5, D3    ;X2
-    ADD.W   D6, D2    ;Y1
-    ADD.W   D6, D4    ;Y2
-    SUBA.L  #AD_START, A0
+    UPDPHGETHB
 
     ;MINIOFFSET
     ADDQ.W  #1, D1
@@ -51,7 +44,9 @@ UPDATE_PHYSICS:
     COLIMAPD1D4
 
     IFNE DEBUG
+    IFNE DGB_ADV_HB
         DBG_HBOXP
+    ENDC
     ENDC
 
     ;TOPLEFT
@@ -60,17 +55,17 @@ UPDATE_PHYSICS:
     CMP.B   #0, (A2, D0)
     BEQ     .NOTPL
     BSET.L  #7, D7
+    BRA     .COLIUP
     .NOTPL:
     ;TOPRIGHT
     MOVE.W  D3, D0
     ADD.W   D2, D0
     CMP.B   #0, (A2, D0)
-    BEQ     .NOTPR
-    BSET.L  #7, D7
-    .NOTPR:
-    ;AJUSTAR POS
-    BTST.L  #7, D7
     BEQ     .NOUP
+    BSET.L  #7, D7
+    BRA     .COLIUP
+    ;AJUSTAR POS
+    .COLIUP:
     ANDI.W  #MAXWP-$3F, D6 ;MOD 64
     ADD.W   #TILESIZE, D6
     SUB.W   COLISION_BOX+2(A0), D6
@@ -102,27 +97,19 @@ UPDATE_PHYSICS:
     .NODOWN:
 
     ;POS FUTURA SOLO X
-    ;MOVE.W  XPOS(A0), D5
-    ;MOVE.W  YPOS(A0), D6
     ADD.W   XSPEED(A0), D5
 
+    UPDPHGETHB
 
-    ;OBTENER HBOX
-    ADDA.L  #COLISION_BOX, A0
-    MOVEM.W (A0)+, D1-D4    ;X1,Y1 X2,Y2
-    ADD.W   D5, D1    ;X1
-    ADD.W   D5, D3    ;X2
-    ADD.W   D6, D2    ;Y1
-    ADD.W   D6, D4    ;Y2
-    SUBA.L  #AD_START, A0
+    IFNE DEBUG
+    IFNE DGB_ADV_HB
+        DBG_HBOXP
+    ENDC
+    ENDC
 
     ;MINIOFFSET
     ADDQ.W  #1, D2
     SUBQ.W  #1, D4
-
-    IFNE DEBUG
-        DBG_HBOXP
-    ENDC
 
     COLIMAPD1D4
 

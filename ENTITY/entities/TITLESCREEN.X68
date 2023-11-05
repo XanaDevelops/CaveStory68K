@@ -49,8 +49,8 @@ TS_UPDATE:
     ;CARGA SAVE
     JSR LOAD_SAVE
     ;CARGA MAPA
-    ;MOVE.W (CURRENTMAPID), -(SP) 
-    MOVE.W #2, -(SP)
+    MOVE.W (CURRENTMAPID), -(SP) 
+    ;MOVE.W #2, -(SP)
     JSR LOAD_MAP
     ADDQ.L #2, SP
     ;MUESTRA HUD

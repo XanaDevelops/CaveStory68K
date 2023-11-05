@@ -5,9 +5,10 @@
 * Description:
 *-----------------------------------------------------------
 DEBUG           EQU 1
+DGB_ADV_HB      EQU 0 ;MUESTRA POS FUTURA
 
 NUM_ENT         EQU 75
-ENT_SIZE_L      EQU 64  ;MULTIPLO 4
+ENT_SIZE_L      EQU 64  ;MULTIPLO 4 
 
 INTBASE         EQU $60 ;ES $64, PERO -4
 TRAPBASE        EQU $80

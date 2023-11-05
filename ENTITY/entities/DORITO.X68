@@ -27,56 +27,56 @@ DORITO_START:
 
 DORITO_UPDATE:
     ;MIRAR SI INTERACTUA ALGO
-    MOVE.L A0, -(SP)
-    SUBQ.L #4, SP
-    BSR COLLISION_ENT_PLR
+    MOVE.L  A0, -(SP)
+    SUBQ.L  #4, SP
+    BSR     COLLISION_ENT_PLR
 
-    MOVE.L (SP)+, A1
-    ADDQ.L #4, SP
-    CMP.L #-1, A1
+    MOVE.L  (SP)+, A1
+    ADDQ.L  #4, SP
+    CMP.L   #-1, A1
     BEQ .NODW
 
     ;CMP.W #1, ID(A1)
     ;BNE .NODW
 
-    MOVE.W HP(A0), -(SP)
-    MOVE.L A1, -(SP)
-    BSR DORITO_INTERACT
-    ADDQ.L #6, SP
+    MOVE.W  HP(A0), -(SP)
+    MOVE.L  A1, -(SP)
+    BSR     DORITO_INTERACT
+    ADDQ.L  #6, SP
 
-    MOVE.L A0, -(SP)
-    JSR DESTROY_ENTITY
-    ADDQ.L #4, SP
-    BRA .ENDUPDATE
+    MOVE.L  A0, -(SP)
+    JSR     DESTROY_ENTITY
+    ADDQ.L  #4, SP
+    BRA     .ENDUPDATE
     .NODW: 
 
-    BCLR.B #3, STATUS+1(A0)
+    BCLR.B  #3, STATUS+1(A0)
 
-    MOVE.L A0, -(SP)
-    BSR UPDATE_PHYSICS
-    ADDQ.L #4, SP
+    MOVE.L  A0, -(SP)
+    BSR     UPDATE_PHYSICS
+    ADDQ.L  #4, SP
 
     ;COMPROBAR SUELO
-    CLR.L D0
-    BTST.B #3, STATUS+1(A0)
+    CLR.L   D0
+    BTST.B  #3, STATUS+1(A0)
     BEQ .NOHIT
         MOVE.W #-10, YSPEED(A0)
     .NOHIT:
 
-    MOVE.L SPRITE_INDEX(A0), D1                   ;ANIM_INDEX
-        MOVE.W TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO
-        SUBQ.W #1, D2
-        BNE .NOTIMER
-            MOVE.W #DRTANMSPD, D2
-            ADDQ.L #1, D1
-            MOVE.L AD_SPRITE(A0), A1
-            CMP.L (A1), D1
-            BLT .NOOF
-            MOVE.L #0, D1
+    MOVE.L  SPRITE_INDEX(A0), D1                   ;ANIM_INDEX
+        MOVE.W  TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO
+        SUBQ.W  #1, D2
+        BNE     .NOTIMER
+            MOVE.W  #DRTANMSPD, D2
+            ADDQ.L  #1, D1
+            MOVE.L  AD_SPRITE(A0), A1
+            CMP.L   (A1), D1
+            BLT     .NOOF
+            MOVE.L  #0, D1
             .NOOF:
-            MOVE.L D1, SPRITE_INDEX(A0)
+            MOVE.L  D1, SPRITE_INDEX(A0)
         .NOTIMER:
-        MOVE.W D2, TIMERSPRITE(A0)
+        MOVE.W  D2, TIMERSPRITE(A0)
     .ENDUPDATE:    
     RTS
 DORITO_PAINT:
@@ -84,9 +84,9 @@ DORITO_PAINT:
 DORITO_INTERACT:
     MOVEM.L D0/A0, -(SP)
 
-    MOVE.W HP(A0), -(SP)
-    JSR GM_UPD_BLTXP
-    ADDQ.L #2, SP
+    MOVE.W  HP(A0), -(SP)
+    JSR     GM_UPD_BLTXP
+    ADDQ.L  #2, SP
     ;MOVE.L 12(SP), A0
     ;MOVE.W 16(SP), D0
     
@@ -106,7 +106,7 @@ DORITO:
     DC.W 0                                          ;HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
-    DC.W 6,6, 50,64                                 ;COLISION_BOX 44
+    DC.W 10,12, 52,64                               ;COLISION_BOX 44
     DC.L DORITO_START, DORITO_UPDATE, DEFAULT_PAINT ;@
     DC.L DORITO_INTERACT                            ;@
     DC.L DORITO_M                                   ;@SPRITE DEFECTO

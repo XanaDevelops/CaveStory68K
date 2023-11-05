@@ -19,6 +19,18 @@ CLRSCREEN MACRO
 
     ENDM
 
+UPDPHGETHB  MACRO
+    ;OBTENER HBOX
+    ADDA.L  #COLISION_BOX, A0
+    MOVEM.W (A0)+, D1-D4    ;X1,Y1 X2,Y2
+    ADD.W   D5, D1    ;X1
+    ADD.W   D5, D3    ;X2
+    ADD.W   D6, D2    ;Y1
+    ADD.W   D6, D4    ;Y2
+    SUBA.L  #AD_START, A0
+
+    ENDM
+
 COLIMAPD1D4 MACRO
     ;DIV 64
     ASR.W #6, D1
