@@ -8,7 +8,7 @@
 START:                  ; first instruction of program
 
     INCLUDE 'CaveStory.X68'
-    JMP INIT        
+    JMP     INIT        
 
     SIMHALT             ; halt simulator
 

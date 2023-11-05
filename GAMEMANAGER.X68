@@ -8,39 +8,39 @@ LOAD_SAVE:
     ;CARGA LA PARTIDA GUARDADA, SI EXISTE
     MOVEM.L D0-D1, -(SP)
 
-    MOVE.L #SAVEFPTH, -(SP)
-    JSR OPEN_READ
-    MOVE.L (SP)+, D0
-    CMP.L #0, D0
-    BNE .DEFAULT_SAVE
+    MOVE.L  #SAVEFPTH, -(SP)
+    JSR     OPEN_READ
+    MOVE.L  (SP)+, D0
+    CMP.L   #0, D0
+    BNE     .DEFAULT_SAVE
     ;LEER MAGIKN
-    MOVE.L D0, -(SP)
-    MOVE.L #IOFILEW, -(SP)
-    MOVE.W #2, -(SP)
-    JSR READ_FILE
-    MOVE.W (SP)+, D1
-    CMP.W #0, D1
-    BEQ .NOERR
+    MOVE.L  D0, -(SP)
+    MOVE.L  #IOFILEW, -(SP)
+    MOVE.W  #2, -(SP)
+    JSR     READ_FILE
+    MOVE.W  (SP)+, D1
+    CMP.W   #0, D1
+    BEQ     .NOERR
     .ERR:
     ;ERROR LECTURA
-    ADDQ.L #4, SP
-    JSR CLOSE
-    ADDQ.L #4, SP
-    BRA .DEFAULT_SAVE
+    ADDQ.L  #4, SP
+    JSR     CLOSEFILE
+    ADDQ.L  #4, SP
+    BRA     .DEFAULT_SAVE
     .NOERR:
-    MOVE.W (IOFILEW), D1
-    CMP.W #MAGIKN, D1
-    BNE .ERR
+    MOVE.W  (IOFILEW), D1
+    CMP.W   #MAGIKN, D1
+    BNE     .ERR
     ;LEER PARTIDA GUARDADA
-    MOVE.L #GAMEDATA, (SP)
-    MOVE.W #GAMEDATASIZE, -(SP)
-    JSR READ_FILE
-    MOVE.W (SP)+, D1
-    CMP.W #0, D1
-    BNE .ERR
-    ADDQ.L #4, SP
-    JSR CLOSE
-    ADDQ.L #4, SP
+    MOVE.L  #GAMEDATA, (SP)
+    MOVE.W  #GAMEDATASIZE, -(SP)
+    JSR     READ_FILE
+    MOVE.W  (SP)+, D1
+    CMP.W   #0, D1
+    BNE     .ERR
+    ADDQ.L  #4, SP
+    JSR     CLOSEFILE
+    ADDQ.L  #4, SP
 
     BRA .END
     .DEFAULT_SAVE:
@@ -92,7 +92,7 @@ GAME_SAVE:
     
     .CLOSE:
     ADDQ.L #4, SP
-    JSR CLOSE
+    JSR CLOSEFILE
     ADDQ.L #4, SP
 
     MOVEM.L (SP)+, A0/D1-D0

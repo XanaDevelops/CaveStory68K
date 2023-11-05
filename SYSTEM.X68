@@ -6,49 +6,49 @@
 *-----------------------------------------------------------
 SYSTEM_INIT:
     ;CONFIGURE SCREEN
-    MOVE.B #33, D0
-    MOVE.L #SCREEN_WIDTH*$10000+SCREEN_HEIGHT, D1
-    TRAP #15
-
-    MOVE.B #92, D0  ;dbuf
-    MOVE.B #17, D1
-    TRAP #15  
-
+    MOVE.B  #33, D0
+    MOVE.L  #SCREEN_WIDTH*$10000+SCREEN_HEIGHT, D1
+    TRAP    #15
+    IFEQ DGB_NODBUF
+        MOVE.B  #92, D0  ;dbuf
+        MOVE.B  #17, D1
+        TRAP    #15  
+    ENDC
     BSR SET_SCROLL_TEXT
 
     ;INT OFF
-    ORI.W  #%0000011100000000, SR
+    ORI.W   #%0000011100000000, SR
     ;INSTALL
-    MOVE.L #UPDATE_KEYS, (TRAPBASE)
-    MOVE.L #UPDRNG, (TRAPBASE+(4*14))
-    MOVE.L #ISRSCREEN, (INTBASE+(4*7))
-    MOVE.L #EXCADDRES, ($0C)
-    MOVE.L #IRQTRACE, ($24)
+    MOVE.L  #UPDATE_KEYS, (TRAPBASE)
+    MOVE.L  #UPDRNG, (TRAPBASE+(4*14))
+    MOVE.L  #ISRSCREEN, (INTBASE+(4*7))
+    MOVE.L  #EXCADDRES, ($0C)
+    MOVE.L  #IRQTRACE, ($24)
     ;CONFIGURE
-    MOVE.B #32, D0
-    MOVE.B #6, D1
-    MOVE.B #$87, D2
-    MOVE.L #SCREEN_UPTIME, D3
-    TRAP #15
+    MOVE.B  #32, D0
+    MOVE.B  #6, D1
+    MOVE.B  #$87, D2
+    MOVE.L  #SCREEN_UPTIME, D3
+    TRAP    #15
     ;INT ON
     ;ORI.W  #$8000, SR ;TRACE
-    ANDI.W #%1111100011111111, SR
+    ANDI.W  #%1111100011111111, SR
     ;ENABLE
-    MOVE.B #32, D0
-    MOVE.B #5, D1
-    TRAP #15
+    MOVE.B  #32, D0
+    MOVE.B  #5, D1
+    TRAP    #15
 
     ;ESTABLECE LA SEMILLA
-    MOVE.B #8, D0
-    TRAP #15
-    MOVE.L D1, (RNGVAL)
+    MOVE.B  #8, D0
+    TRAP    #15
+    MOVE.L  D1, (RNGVAL)
 
-    JSR START_CLIENT
+    JSR     START_CLIENT
 
-    MOVE.W #-1, (CURRENTTXTID)
+    MOVE.W  #-1, (CURRENTTXTID)
 
-    MOVE.W SR, -(SP)    ;PASA A USUARIO
-    ANDI.W #$DFFF, (SP) ;D8FF
+    MOVE.W  SR, -(SP)    ;PASA A USUARIO
+    ANDI.W  #$DFFF, (SP) ;D8FF
     RTE
 
 UPDRNG:
@@ -56,28 +56,28 @@ UPDRNG:
     ;TRAP #14
     MOVEM.L D0-D2, -(SP)
 
-    MOVE.L (RNGVAL), D0
-    MOVE.L D0, D1
+    MOVE.L  (RNGVAL), D0
+    MOVE.L  D0, D1
     
-    MOVE.L D0, D2
-    LSR.L #2, D2
-    EOR.L D2, D1
+    MOVE.L  D0, D2
+    LSR.L   #2, D2
+    EOR.L   D2, D1
 
-    MOVE.L D0, D2
-    LSR.L #3, D2
-    EOR.L D2, D1
+    MOVE.L  D0, D2
+    LSR.L   #3, D2
+    EOR.L   D2, D1
 
-    MOVE.L D0, D2
-    LSR.L #5, D2
-    EOR.L D2, D1
+    MOVE.L  D0, D2
+    LSR.L   #5, D2
+    EOR.L   D2, D1
 
-    LSR.L #1, D0
+    LSR.L   #1, D0
 
-    BTST.L #0, D1
-    BEQ .SB
-    BSET.L #31, D0
+    BTST.L  #0, D1
+    BEQ     .SB
+    BSET.L  #31, D0
     .SB:  
-    MOVE.L D0, (RNGVAL)
+    MOVE.L  D0, (RNGVAL)
     
     MOVEM.L (SP)+, D2-D0
     RTE
@@ -85,11 +85,11 @@ UPDRNG:
 SET_SCROLL_TEXT:
     MOVEM.L D0-D2, -(SP)
 
-    MOVE.B #21, D0
-    MOVE.L #WHITE, D1
+    MOVE.B  #21, D0
+    MOVE.L  #WHITE, D1
     ;MOVE.L #$04060000, D2   ;Example: D2.L = $01090005 is Fixedsys, 9 point, Bold Underline 8px
-    MOVE.L #$04100000, D2
-    TRAP #15
+    MOVE.L  #$04100000, D2
+    TRAP    #15
 
     MOVEM.L (SP)+, D2-D0
     RTS
@@ -98,60 +98,59 @@ SET_SCROLL_TEXT:
 EXCADDRES:
     MOVEM.L A7-D0, -(SP)
     ;CLS
-    MOVE.B #11, D0
-    MOVE.W #$FF00, D0
-    TRAP #15
+    MOVE.B  #11, D0
+    MOVE.W  #$FF00, D0
+    TRAP    #15
 
-    MOVE.B #94, D0
-    TRAP #15
+    MOVE.B  #94, D0
+    TRAP    #15
 
-    LEA .EXCADDRESTXT, A0
-    MOVE.B #13, D0
-    MOVE.L (A0)+, A1
-    TRAP #15
+    LEA     .EXCADDRESTXT, A0
+    MOVE.B  #13, D0
+    MOVE.L  (A0)+, A1
+    TRAP    #15
 
-    MOVE.B #94, D0
-    TRAP #15
+    MOVE.B  #94, D0
+    TRAP    #15
 
-    MOVE.B #23, D0
-    MOVE.L #150, D1
-    TRAP #15
+    MOVE.B  #23, D0
+    MOVE.L  #150, D1
+    TRAP    #15
 
-    MOVE.B #16, D2
-    MOVE.W #15, D7
+    MOVE.B  #16, D2
+    MOVE.W  #15, D7
     .REGLOOP:
-    MOVE.B #14, D0
-    MOVE.L (A0)+, A1
-    TRAP #15
-    ADDQ.B #1, D0
-    MOVE.L (SP)+, D1
-    TRAP #15
-    SUBQ.B #1, D0
-    LEA .LFCR, A1
-    TRAP #15
-    DBRA D7, .REGLOOP
+    MOVE.B  #14, D0
+    MOVE.L  (A0)+, A1
+    TRAP    #15
+    ADDQ.B  #1, D0
+    MOVE.L  (SP)+, D1
+    TRAP    #15
+    SUBQ.B  #1, D0
+    LEA     .LFCR, A1
+    TRAP    #15
+    DBRA    D7, .REGLOOP
     ;SP
-    MOVE.L (A0)+, A1
-    MOVE.L A1, A2
-    MOVE.W #6, D7
+    MOVE.L  (A0)+, A1
+    MOVE.L  A1, A2
+    MOVE.W  #6, D7
     .SPLOOP:
-    MOVE.B #14, D0
-    MOVE.L A2, A1
-    TRAP #15
-    ADDQ.B #1, D0
-    MOVE.W (SP)+, D1
-    EXT.L D1
-    TRAP #15
-    SUBQ.B #1, D0
-    LEA .LFCR, A1
-    TRAP #15
-    DBRA D7, .SPLOOP
+    MOVE.B  #14, D0
+    MOVE.L  A2, A1
+    TRAP    #15
+    ADDQ.B  #1, D0
+    MOVE.W  (SP)+, D1
+    EXT.L   D1
+    TRAP    #15
+    SUBQ.B  #1, D0
+    LEA     .LFCR, A1
+    TRAP    #15
+    DBRA    D7, .SPLOOP
     
-
-
-    MOVE.B #94, D0
-    TRAP #15
+    MOVE.B  #94, D0
+    TRAP    #15
     ;NO HAY NADA QUE PODAMOS HACER
+    ;SI NO ES UNA "BONUS" ROOM...
     SIMHALT
 
     .EXCADDRESTXT:  DC.L .ERR, .D0, .D1, .D2, .D3, .D4, .D5, .D6, .D7

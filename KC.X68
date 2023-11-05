@@ -5,44 +5,44 @@
 * Description:
 *-----------------------------------------------------------
 KC_INIT:    ;POR UNA LINEA...
-    CLR.W (KC_C)
+    CLR.W   (KC_C)
     ;CLR.B (KC_FW)
     RTS
 KC_UPD:
     MOVEM.L D0-D1/A0, -(SP)
     ;CHECK TIMER
-    SUBQ.B #1, (KC_FW)
-    BPL .CANWAIT
-    CLR.W (KC_C)
+    SUBQ.B  #1, (KC_FW)
+    BPL     .CANWAIT
+    CLR.W   (KC_C)
     .CANWAIT:
 
     ;CHECK KEY
-    LEA KC_SEC, A0
-    CLR.L D0
-    MOVE.B (KC_C), D0
-    ADDA.L D0, A0
-    MOVE.B (A0), D1
-    BTST.B D1, (KEY_PRESS_PLAYER)
+    LEA     KC_SEC, A0
+    CLR.L   D0
+    MOVE.B  (KC_C), D0
+    ADDA.L  D0, A0
+    MOVE.B  (A0), D1
+    BTST.B  D1, (KEY_PRESS_PLAYER)
     BEQ .END
     ;OK
-    ADDQ.B #1, D0
-    MOVE.B #M_KCFW, (KC_FW)
+    ADDQ.B  #1, D0
+    MOVE.B  #M_KCFW, (KC_FW)
 
-    CMP.B #M_KCC, D0
-    BNE .END
-    BSR KC_TRIGGER
-    CLR.B D0
+    CMP.B   #M_KCC, D0
+    BNE     .END
+    BSR     KC_TRIGGER
+    CLR.B   D0
     .END:
-    MOVE.B D0, (KC_C)
+    MOVE.B  D0, (KC_C)
 
     MOVEM.L (SP)+, A0/D1-D0
     RTS
 KC_TRIGGER:
-    MOVE.W #KCDIAGCD, -(SP)
-    BSR START_DBOX
-    ADDQ.L #2, SP
+    MOVE.W  #KCDIAGCD, -(SP)
+    BSR     START_DBOX
+    ADDQ.L  #2, SP
 
-    CLR.B (KC_C)
+    CLR.B   (KC_C)
     RTS
 
 KC_C    DC.B 0

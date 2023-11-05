@@ -6,6 +6,7 @@
 *-----------------------------------------------------------
 DEBUG           EQU 1
 DGB_ADV_HB      EQU 0 ;MUESTRA POS FUTURA
+DGB_NODBUF      EQU 0 ;JUST DON'T 
 
 NUM_ENT         EQU 75
 ENT_SIZE_L      EQU 64  ;MULTIPLO 4 

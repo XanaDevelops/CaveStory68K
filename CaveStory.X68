@@ -9,36 +9,29 @@
     INCLUDE "CONST.X68"
 
 INIT:                  ; first instruction of program
-    CLR.B (GAMEFLAGS)
-    BSR SYSTEM_INIT
+    CLR.B   (GAMEFLAGS)
+    BSR     SYSTEM_INIT
     
-    JSR KC_INIT
+    JSR     KC_INIT
 
+    MOVE.W  #0, SCREEN_X
+    MOVE.W  #TILESIZE*0, SCREEN_Y
     
+    MOVE.W  #0, SCR_SPEED_X
+    MOVE.W  #0, SCR_SPEED_Y
 
-    MOVE.W #0, SCREEN_X
-    MOVE.W #TILESIZE*0, SCREEN_Y
-    
-    MOVE.W #0, SCR_SPEED_X
-    MOVE.W #0, SCR_SPEED_Y
+    JSR     ENTSTCSTART
 
-    JSR ENTSTCSTART
+    MOVE.W  #0, -(SP)    ;ID MAPA
+    BSR     LOAD_MAP
 
-    MOVE.W #0, -(SP)    ;ID MAPA
-    BSR LOAD_MAP
-
-    ADDQ.L #2, SP
+    ADDQ.L  #2, SP
 
     ;MOVE.B #92, D0 ;don comedia, no apto fotosensibles
     ;MOVE.W #15, D1 ;el 12 no mola
     ;TRAP #15
 
     CLRSCREEN
-
-
-    ;MOVE.B		#8,D0 ;GET TIEMPO EN CENTS
-	;TRAP		#15
-	;MOVE.L D1, -(SP) ;LO GUARDA PARA MÁS ADELANTE
 
     ;GAMEFLAGS
     ;7 UPDATE
@@ -51,80 +44,78 @@ MAINLOOP:
     ;BSR UPDATE_KEYS
     TRAP #0
     
-    SUBQ.B #1, (FTOSKIP)
-    MOVE.B (FTOSKIP), D0
+    SUBQ.B  #1, (FTOSKIP)
+    MOVE.B  (FTOSKIP), D0
     .UPDATE:
-    MOVE.B D0, (FTOSKIP)
+    MOVE.B  D0, (FTOSKIP)
 
-    JSR KC_UPD
+    JSR     KC_UPD
 
-    JSR GM_UPDATE
-    JSR UPDATE_DBOX
+    JSR     GM_UPDATE
+    JSR     UPDATE_DBOX
 
-    BTST.B #7, (GAMEFLAGS)
-    BNE .NOUPD
-    JSR UPDATE_ALL_ENT
+    BTST.B  #7, (GAMEFLAGS)
+    BNE     .NOUPD
+    JSR     UPDATE_ALL_ENT
     
-    MOVE.B (FTOSKIP), D0
-    EXT.W D0
-    DBRA D0, .UPDATE
+    MOVE.B  (FTOSKIP), D0
+    EXT.W   D0
+    DBRA    D0, .UPDATE
     
     .NOUPD:
-    BTST.B #0, (SCREEN_ST)
-    BNE .FSKIP
-    CLR.B (FTOSKIP)
+    BTST.B  #0, (SCREEN_ST)
+    BNE     .FSKIP
+    CLR.B   (FTOSKIP)
 
     REPAINT
     CLRSCREEN
 
-    JSR DRAW_ALL_ENT
+    JSR     DRAW_ALL_ENT
 
-    MOVE.L CURRENTMAPDIR, -(SP)
-    BSR DRAW_MAP
-    ADDQ.L #4, SP
+    MOVE.L  CURRENTMAPDIR, -(SP)
+    BSR     DRAW_MAP
+    ADDQ.L  #4, SP
     
-    BTST.B #4, (GAMEFLAGS)
-    BNE .NOHUD
-    BSR HUD_DRAW
+    BTST.B  #4, (GAMEFLAGS)
+    BNE     .NOHUD
+    BSR     HUD_DRAW
     .NOHUD:
     
-    JSR DRAW_DBOX
+    JSR     DRAW_DBOX
     .FSKIP:
 
 
     ;BCLR.B #0, (SCREEN_ST)
 
-    
-    
 .PINTARFPS:
-    MOVE.B #11, D0      ;COLOCAR CURSOR
-    MOVE.W #45<<8, D1
-    TRAP #15
+    MOVE.B  #11, D0      ;COLOCAR CURSOR
+    MOVE.W  #45<<8, D1
+    TRAP    #15
 
-    MOVE.B #81, D0      ;FONDO NEGRO
-    MOVE.L #BLACK, D1
-    TRAP #15
+    MOVE.B  #81, D0      ;FONDO NEGRO
+    MOVE.L  #BLACK, D1
+    TRAP    #15
 
-ENDTESTLOOP:
-    MOVE.B #3, D0
-    CLR.L D1
-    MOVE.B (FTOSKIP), D1
-    TRAP #15
+ENDMAINLOOP:
+    MOVE.B  #3, D0
+    CLR.L   D1
+    MOVE.B  (FTOSKIP), D1
+    TRAP    #15
 
     .WAIT_REFRESH:
-    CMP.B #0, (FTOSKIP)
-    BEQ .WAIT_REFRESH
-    CMP.B #1, (FTOSKIP)
-    BGT .DOFSKIP
-        BCLR.B #0, (SCREEN_ST)
-        BRA MAINLOOP
+    CMP.B   #0, (FTOSKIP)
+    BEQ     .WAIT_REFRESH
+    CMP.B   #1, (FTOSKIP)
+    BGT     .DOFSKIP
+        BCLR.B  #0, (SCREEN_ST)
+        BRA     MAINLOOP
     .DOFSKIP:
-    BSET.B #0, (SCREEN_ST)
-    CMP.B #MAXFSKIP, (FTOSKIP)
-    BLE MAINLOOP
-    MOVE.B #MAXFSKIP, (FTOSKIP)
-    BCLR.B #0, (SCREEN_ST)
-    BRA MAINLOOP
+    BSET.B  #0, (SCREEN_ST)
+    CMP.B   #MAXFSKIP, (FTOSKIP)
+    BLE     MAINLOOP
+    MOVE.B  #MAXFSKIP, (FTOSKIP)
+    BCLR.B  #0, (SCREEN_ST)
+    BRA     MAINLOOP
 
 
 
@@ -152,6 +143,7 @@ ENDTESTLOOP:
     INCLUDE "data/sprites.x68"
     INCLUDE "data/maps.x68"
     INCLUDE "data/Dialogs.x68"
+    INCLUDE "data/sounds.x68"
 
 
 
