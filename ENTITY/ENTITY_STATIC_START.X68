@@ -5,14 +5,14 @@
 * Description:
 *-----------------------------------------------------------
 ENTSTCSTART:
-    MOVE.L A0, -(SP)
+    MOVE.L  A0, -(SP)
 
-    LEA BULLET_POLARSTAR, A0
-    CLR.B BLT_ONSCREEN(A0)
-    MOVE.B #2, MAX_BLT_ONSCR(A0)
+    LEA     BULLET_POLARSTAR, A0
+    CLR.B   BLT_ONSCREEN(A0)
+    MOVE.B  #2, MAX_BLT_ONSCR(A0)
 
 
-    MOVE.L (SP)+, A0
+    MOVE.L  (SP)+, A0
     RTS
 
 

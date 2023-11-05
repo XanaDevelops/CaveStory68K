@@ -10,16 +10,10 @@ CARTEL_START:
     ;30(SP) XPOS
     ;32(SP) INTEACT_ID
 
-    MOVE.W 28(SP), YPOS(A0)
-    MOVE.W 30(SP), XPOS(A0)
+    MOVE.W  28(SP), YPOS(A0)
+    MOVE.W  30(SP), XPOS(A0)
 
-    MOVE.W 32(SP), INTERACT_ID(A0)
-
-CARTEL_UPDATE:
-CARTEL_PAINT:
-CARTEL_INTERACT:
-    RTS
-
+    MOVE.W  32(SP), INTERACT_ID(A0)
 
 CARTEL:
     DC.W 50                                         ;ID
@@ -28,8 +22,8 @@ CARTEL:
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00UDLR(!AIRBONE)(!GRAV)--
     DC.W 4,2, 60,64                                 ;COLISION_BOX
-    DC.L CARTEL_START, CARTEL_UPDATE, DEFAULT_PAINT ;@
-    DC.L DEFAULT_INTERACTION                        ;@
+    DC.L CARTEL_START, DEFAULT_RTS, DEFAULT_PAINT   ;@
+    DC.L DEFAULT_RTS                                ;@
     DC.L CARTELS                                    ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DS.L 4                                          

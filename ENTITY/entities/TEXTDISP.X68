@@ -9,20 +9,20 @@ TEXTDISP_START:
     ;30(SP) XPOS
     ;32(SP) @TEXT
 
-    MOVE.W 28(SP), YPOS(A0)
-    MOVE.W 30(SP), XPOS(A0)
+    MOVE.W  28(SP), YPOS(A0)
+    MOVE.W  30(SP), XPOS(A0)
 
-    MOVE.L 32(SP), AD_TEXTO(A0)
+    MOVE.L  32(SP), AD_TEXTO(A0)
     RTS
 
 TEXTDISP_DRAW:
     MOVEM.L D0-D2/A1, -(SP)
 
-    MOVE.B #95, D0
-    MOVE.W XPOS(A0), D1
-    MOVE.W YPOS(A0), D2
-    MOVE.L AD_TEXTO(A0), A1
-    TRAP #15
+    MOVE.B  #95, D0
+    MOVE.W  XPOS(A0), D1
+    MOVE.W  YPOS(A0), D2
+    MOVE.L  AD_TEXTO(A0), A1
+    TRAP    #15
 
     MOVEM.L (SP)+, A1/D2-D0
     RTS

@@ -9,38 +9,40 @@ CLOUD_START:
     ;30(SP) XPOS
     ;32(SP) TYPE
 
-    MOVE.W 28(SP), YPOS(A0)
-    MOVE.W 30(SP), XPOS(A0)
+    MOVE.W  28(SP), YPOS(A0)
+    MOVE.W  30(SP), XPOS(A0)
 
-    MOVE.W 32(SP), D0
-    ASL.W #1, D0
-    MOVE.W D0, TYPE(A0)
-    ASL.W #1, D0
-    LEA CLOUDS, A1
-    MOVE.L (A1, D0.W), AD_SPRITE(A0)
+    MOVE.W  32(SP), D0
+    ASL.W   #1, D0
+    MOVE.W  D0, TYPE(A0)
+    ASL.W   #1, D0
+    LEA     CLOUDS, A1
+    MOVE.L  (A1, D0.W), AD_SPRITE(A0)
+
+    RTS
 
 CLOUD_UPDATE:
-    MOVE.W D0, -(SP)
+    MOVE.W  D0, -(SP)
     
-    MOVE.W XPOS(A0), D0
+    MOVE.W  XPOS(A0), D0
 
-    SUBQ.W #STARTVEL, D0
-    ADD.W TYPE(A0), D0
-    CMP.W #-CLOUDXSIZE, D0
-    BGT .NOPAR
-    MOVE.W #CLOUDXSIZE+XPMODE*CLOUDXSIZE, D0
+    SUBQ.W  #STARTVEL, D0
+    ADD.W   TYPE(A0), D0
+    CMP.W   #-CLOUDXSIZE, D0
+    BGT     .NOPAR
+    MOVE.W  #CLOUDXSIZE+XPMODE*CLOUDXSIZE, D0
     .NOPAR:
-    MOVE.W D0, XPOS(A0)
+    MOVE.W  D0, XPOS(A0)
 
-    MOVE.W (SP)+, D0
+    MOVE.W  (SP)+, D0
     RTS
 
 CLOUD_PAINT:
-    MOVE.L AD_SPRITE(A0), -(SP)
-    MOVE.W YPOS(A0), -(SP) ;Y
-    MOVE.W XPOS(A0), -(SP) ;X
-    JSR FASTSPRITE
-    ADDQ.L #8, SP
+    MOVE.L  AD_SPRITE(A0), -(SP)
+    MOVE.W  YPOS(A0), -(SP) ;Y
+    MOVE.W  XPOS(A0), -(SP) ;X
+    JSR     FASTSPRITE
+    ADDQ.L  #8, SP
     RTS
     
 CLOUD:
