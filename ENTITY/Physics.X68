@@ -4,7 +4,6 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-
 UPDATE_PHYSICS:
     ; ACTUALIZA LA POSICION ACORDE A LA VELOCIDAD Y 
     ; AL MAPA DE COLISIONES
@@ -13,13 +12,13 @@ UPDATE_PHYSICS:
     MOVEM.L D0-D7/A0-A2, -(SP)
 
     ;CARGA DIRECCIONES
-    MOVE.L 48(SP), A0
-    MOVE.L (CURRENTMAPDIR), A1
-    LEA INTERACT_MAP, A2
+    MOVE.L  48(SP), A0
+    MOVE.L  (CURRENTMAPDIR), A1
+    LEA     INTERACT_MAP, A2
 
     ;OBTENER Y BAJAR FLAGS COLISION
-    MOVE.B STATUS+1(A0), D7
-    ANDI.L #%00000111, D7
+    MOVE.B  STATUS+1(A0), D7
+    ANDI.L  #%00000111, D7
 
      ;GRAVEDAD
     BTST.L #2, D7
@@ -31,356 +30,154 @@ UPDATE_PHYSICS:
         .NOMXSPED:
     .NOGRAV:
 
-    ;POS FUTURA
-    MOVE.W XSPEED(A0), D5
-    MOVE.W YSPEED(A0), D6
-    ADD.W XPOS(A0), D5
-    ADD.W YPOS(A0), D6
-
+    ;POS FUTURA SOLO Y
+    MOVE.W  XPOS(A0), D5
+    MOVE.W  YPOS(A0), D6
+    ADD.W   YSPEED(A0), D6
 
     ;OBTENER HBOX
-    ADDA.L #COLISION_BOX, A0
+    ADDA.L  #COLISION_BOX, A0
     MOVEM.W (A0)+, D1-D4    ;X1,Y1 X2,Y2
-    ADD.W D5, D1
-    ADD.W D5, D3
-    ADD.W D6, D2
-    ADD.W D6, D4
-    SUBA.L #AD_START, A0
+    ADD.W   D5, D1    ;X1
+    ADD.W   D5, D3    ;X2
+    ADD.W   D6, D2    ;Y1
+    ADD.W   D6, D4    ;Y2
+    SUBA.L  #AD_START, A0
 
-    ;COMPROBAR Y
-    SUBQ.W #1, D2
-    ADDQ.W #1, D4
+    ;MINIOFFSET
+    ADDQ.W  #1, D1
+    SUBQ.W  #1, D3
 
-    ;OBTENER INDICES COLIMAP
     COLIMAPD1D4
 
+    IFNE DEBUG
+        DBG_HBOXP
+    ENDC
+
     ;TOPLEFT
-    MOVE.W D1, D0
-    ADD.W D2, D0
-    CMP.B #0, (A2, D0)
-    BEQ .NOTPL
-    BSET.L #7, D7
+    MOVE.W  D1, D0
+    ADD.W   D2, D0
+    CMP.B   #0, (A2, D0)
+    BEQ     .NOTPL
+    BSET.L  #7, D7
     .NOTPL:
     ;TOPRIGHT
-    MOVE.W D3, D0
-    ADD.W D2, D0
-    CMP.B #0, (A2, D0)
-    BEQ .NOTPR
-    BSET.L #7, D7
+    MOVE.W  D3, D0
+    ADD.W   D2, D0
+    CMP.B   #0, (A2, D0)
+    BEQ     .NOTPR
+    BSET.L  #7, D7
     .NOTPR:
+    ;AJUSTAR POS
+    BTST.L  #7, D7
+    BEQ     .NOUP
+    ANDI.W  #MAXWP-$3F, D6 ;MOD 64
+    ADD.W   #TILESIZE, D6
+    SUB.W   COLISION_BOX+2(A0), D6
+    CLR.W   YSPEED(A0)
+    .NOUP:
+
     ;DOWNLEFT
-    MOVE.W D1, D0
-    ADD.W D4, D0
-    CMP.B #0, (A2, D0)
-    BEQ .NODWL
-    BSET.L #6, D7
+    MOVE.W  D1, D0
+    ADD.W   D4, D0
+    CMP.B   #0, (A2, D0)
+    BEQ     .NODWL
+    BSET.L  #6, D7
     .NODWL:
     ;DOWNRIGHT
-    MOVE.W D3, D0
-    ADD.W D4, D0
-    CMP.B #0, (A2, D0)
-    BEQ .NODWR
-    BSET.L #6, D7
+    MOVE.W  D3, D0
+    ADD.W   D4, D0
+    CMP.B   #0, (A2, D0)
+    BEQ     .NODWR
+    BSET.L  #6, D7
     .NODWR:
     ;AJUSTAR POS
-    BTST.L #7, D7
-    BEQ .NOUP
-    ANDI.W #MAXWP-$3F, D6 ;MOD 64
+    BTST.L  #6, D7
+    BEQ     .NODOWN
+    ANDI.W  #MAXWP-$3F, D6 ;MOD 64
     ADD.W #TILESIZE, D6
-    CLR.W YSPEED(A0)
-    .NOUP:
-    BTST.L #6, D7
-    BEQ .NODOWN
-    ANDI.W #MAXWP-$3F, D6 ;MOD 64
-    BSET.L #3, D7
-    CLR.W YSPEED(A0)
+    SUB.W COLISION_BOX+6(A0), D6
+    BSET.L  #3, D7
+    CLR.W   YSPEED(A0)
     .NODOWN:
 
-    ;COMPROBAR X (BUCLE, MACRO?)
+    ;POS FUTURA SOLO X
+    ;MOVE.W  XPOS(A0), D5
+    ;MOVE.W  YPOS(A0), D6
+    ADD.W   XSPEED(A0), D5
+
+
     ;OBTENER HBOX
-    ADDA.L #COLISION_BOX, A0
+    ADDA.L  #COLISION_BOX, A0
     MOVEM.W (A0)+, D1-D4    ;X1,Y1 X2,Y2
-    ADD.W D5, D1
-    ADD.W D5, D3
-    ADD.W D6, D2
-    ADD.W D6, D4
-    SUBA.L #AD_START, A0
+    ADD.W   D5, D1    ;X1
+    ADD.W   D5, D3    ;X2
+    ADD.W   D6, D2    ;Y1
+    ADD.W   D6, D4    ;Y2
+    SUBA.L  #AD_START, A0
 
-    ;DESHACER Y POR SI ACASO
-    ADDQ.W #1, D2
-    SUBQ.W #1, D4
-    ;COMPROBAR X
-    SUBQ.W #1, D1
-    ADDQ.W #1, D3
+    ;MINIOFFSET
+    ADDQ.W  #1, D2
+    SUBQ.W  #1, D4
 
-    ;OBTENER INDICES COLIMAP
+    IFNE DEBUG
+        DBG_HBOXP
+    ENDC
+
     COLIMAPD1D4
 
     ;TOPLEFT
-    MOVE.W D1, D0
-    ADD.W D2, D0
-    CMP.B #0, (A2, D0)
-    BEQ .NOTPL2
-    BSET.L #5, D7
+    MOVE.W  D1, D0
+    ADD.W   D2, D0
+    CMP.B   #0, (A2, D0)
+    BEQ     .NOTPL2
+    BSET.L  #5, D7
     .NOTPL2:
-    ;TOPRIGHT
-    MOVE.W D3, D0
-    ADD.W D2, D0
-    CMP.B #0, (A2, D0)
-    BEQ .NOTPR2
-    BSET.L #5, D7
-    .NOTPR2:
     ;DOWNLEFT
-    MOVE.W D1, D0
-    ADD.W D4, D0
-    CMP.B #0, (A2, D0)
-    BEQ .NODWL2
-    BSET.L #4, D7
+    MOVE.W  D1, D0
+    ADD.W   D4, D0
+    CMP.B   #0, (A2, D0)
+    BEQ     .NODWL2
+    BSET.L  #5, D7
     .NODWL2:
-    ;DOWNRIGHT
-    MOVE.W D3, D0
-    ADD.W D4, D0
-    CMP.B #0, (A2, D0)
-    BEQ .NODWR2
-    BSET.L #4, D7
-    .NODWR2:
     ;AJUSTAR POS
-    BTST.L #5, D7
-    BEQ .NOUP2
-    ANDI.W #MAXWP-$3F, D5 ;MOD 64
-    ADD.W #TILESIZE, D5
-    CLR.W XSPEED(A0)
+    BTST.L  #5, D7
+    BEQ     .NOUP2
+    ANDI.W  #MAXWP-$3F, D5 ;MOD 64
+    ADD.W   #TILESIZE, D5
+    ;TENER EN CUENTA HBOX
+    SUB.W   COLISION_BOX(A0), D5
+    CLR.W   XSPEED(A0)
     .NOUP2:
-    BTST.L #4, D7
-    BEQ .NODOWN2
-    ANDI.W #MAXWP-$3F, D5 ;MOD 64
-    CLR.W XSPEED(A0)
+
+    ;TOPRIGHT
+    MOVE.W  D3, D0
+    ADD.W   D2, D0
+    CMP.B   #0, (A2, D0)
+    BEQ     .NOTPR2
+    BSET.L #4, D7
+    .NOTPR2:
+    ;DOWNRIGHT
+    MOVE.W  D3, D0
+    ADD.W   D4, D0
+    CMP.B   #0, (A2, D0)
+    BEQ     .NODWR2
+    BSET.L  #4, D7
+    .NODWR2:
+    BTST.L  #4, D7
+    BEQ     .NODOWN2
+    ANDI.W  #MAXWP-$3F, D5 ;MOD 64
+    ADD.W   #TILESIZE, D5
+    SUB.W   COLISION_BOX+4(A0), D5
+    CLR.W   XSPEED(A0)
     .NODOWN2:
 
-    MOVE.W D5, XPOS(A0)
-    MOVE.W D6, YPOS(A0)
-    MOVE.B D7, STATUS+1(A0)
+    MOVE.W  D5, XPOS(A0)
+    MOVE.W  D6, YPOS(A0)
+    MOVE.B  D7, STATUS+1(A0)
 
     MOVEM.L (SP)+, A2-A0/D7-D0
     RTS
-UPDATE_PHYSICS_OLD:
-    ; (SP) @ENT
-    ; fisicas de colision por hitbox continuas por implementación
-    ; del algoritmo de bresenham
-    MOVEM.L D0-D7/A1-A2, -(SP)
-
-    MOVE.L 44(SP), A0
-    LEA INTERACT_MAP, A2
-    MOVE.L CURRENTMAPDIR, A1
-    
-    AND.B #%00001111, STATUS+1(A0)
-
-    BTST.B #2, STATUS+1(A0)
-    BNE .NOGRAV
-        ADDQ.W #G, YSPEED(A0)                   ;GRAVEDAD
-        CMP.W #MAX_FALL_SPEED, YSPEED(A0)
-        BLE .NOMXSPED
-            MOVE.W #MAX_FALL_SPEED, YSPEED(A0)
-        .NOMXSPED:
-    .NOGRAV:
-    
-    MOVE.W XPOS(A0), D0
-    ADD.W XSPEED(A0), D0
-    MOVE.W D0, -(SP)
-
-    MOVE.W YPOS(A0), D0
-    ADD.W YSPEED(A0), D0
-    MOVE.W D0, -(SP)
-
-.BRESENHAM:
-    ;XPOS(A0)  X0
-    ;YPOS(A0)  Y0
-    ;2(SP)  X1 -> 6(SP)
-    ;0(SP)  Y1 -> 4(SP)
-    ;D0     DX
-    ;D1     DY
-    ;D2     SX
-    ;D3     SY
-    ;D4     E1
-    ;D5     E2
-    MOVE.W XPOS(A0), D0
-    SUB.W 2(SP), D0
-    BPL .NO_ABS
-        NEG D0
-    .NO_ABS:
-    MOVE.W YPOS(A0), D1
-    SUB.W 0(SP), D1
-    BMI .SI_ABS  ;-ABS
-        NEG D1
-    .SI_ABS:
-    MOVE.W #-1, D2
-    MOVE.W 2(SP), D6
-    CMP.W XPOS(A0), D6
-    BLE .NO_SX
-        MOVE.W #1, D2
-    .NO_SX:
-    MOVE.W #-1, D3
-    MOVE.W 0(SP), D6
-    CMP.W YPOS(A0), D6
-    BLE .NO_SY
-        MOVE.W #1, D3
-    .NO_SY:
-
-    MOVE.W D0, D4
-    ADD.W D1, D4
-
-    SUBA.L #4, SP ;ESPACIO WORDS 0(SP) DESPX, 2(SP) DESPY
-
-    _BRESENLOOP:
-        MOVE.W XPOS(A0), D6
-        MOVE.W YPOS(A0), D7
-
-        CLR.L (SP)
-
-        CMP.W 6(SP), D6
-        BNE _NO_EQ_1
-            CMP.W 4(SP), D7
-            BNE _NO_EQ_1
-                BRA _EXIT_BRESENHAM
-        _NO_EQ_1:
-
-        MOVE.W D4, D5
-        LSL.W #1, D5
-
-
-        CMP.W D5, D0
-        BLT _NO_IF_2
-            CMP.W 4(SP), D7
-            BEQ _EXIT_BRESENHAM
-            ADD.W D0, D4
-            ADD.W D3, YPOS(A0)         
-            MOVE.W D3, 2(SP)
-            BSR COLICHECK
-            BRA _BRESENLOOP
-        _NO_IF_2:
-        CMP.W D5, D1
-        BGT _NO_IF_1
-            CMP.W 6(SP), D6
-            BEQ _EXIT_BRESENHAM
-            ADD.W D1, D4
-            ADD.W D2, XPOS(A0)         ;X
-            MOVE.W D2, 0(SP)
-            BSR COLICHECK
-            BRA _BRESENLOOP
-        _NO_IF_1:
-        
-
-    ;BSR COLICHECK
-    
-    BRA _BRESENLOOP
-
-    _EXIT_BRESENHAM:
-    ADDQ.L #8, SP
-
-    .ENDPHSC:
-    MOVEM.L (SP)+, A2-A1/D7-D0
-    RTS
-
-
-COLICHECK:
-    ;PENSAR
-    ;COLISION LATERAL, PUNTOS SUPERIORES SI SUELO
-    ;SINO TAMBIEN
-    MOVEM.L D0-D4/D6-D7, -(SP)
-
-    ADDA.L #14, A0
-    MOVEM.W (A0)+, D1-D4
-    SUBA.L #22, A0
-
-    ADD.W XPOS(A0), D1
-    ADD.W XPOS(A0), D3
-    
-    ADD.W YPOS(A0), D2
-    ADD.W YPOS(A0), D4
-
-    ;TEST
-    ADDQ.W #1, D1
-    ADDQ.W #1, D3
-    SUBQ.W #1, D2
-    SUBQ.W #1, D4
-
-    LSR.W #6, D1  ;DIVU.W #64, D1
-    LSR.W #6, D2
-    LSR.W #6, D3
-    LSR.W #6, D4
-
-    MULU.W 4(A1), D2
-    MULU.W 4(A1), D4
-
-    CLR.W D7
-
-    MOVE.W D1, D0
-    ADD.W D2, D0
-
-    CMP.B #-1, (A2, D0)
-    BNE .NO_COLI_UPL
-    BSET.L #7, D7
-    .NO_COLI_UPL:
-
-    MOVE.W D3, D0
-    ADD.W D2, D0
-
-    CMP.B #-1, (A2,D0)
-    BNE .NO_COLI_UPR
-    BSET.L #6, D7
-    .NO_COLI_UPR:
-
-    MOVE.W D1, D0
-    ADD.W D4, D0
-
-    CMP.B #-1, (A2,D0)
-    BNE .NO_COLI_DWL
-    BSET.L #5, D7
-    .NO_COLI_DWL:
-
-    MOVE.W D3, D0
-    ADD.W D4, D0
-
-    CMP.B #-1, (A2,D0)
-    BNE .NO_COLI_DWR
-    BSET.L #4, D7
-    .NO_COLI_DWR:
-
-    ;MOVE.W D7, 32(SP)   ;CAMBIAR 32(SP), 
-    ;Poc
-    OR.B D7, STATUS+1(A0)
-    ;BCLR.B #3, STATUS+1(A0)
-    CMP.W #0, D7
-    BEQ .NOCOLI
-        
-        CMP.W #0, 34(SP)
-        BEQ .NOYMOVE
-            MOVE.W 34(SP), D6
-            SUB.W D6, YPOS(A0)
-            MOVE.W #0, YSPEED(A0)
-            MOVE.W YPOS(A0), D6
-            MOVE.W D6, 36(SP)
-            BTST #5, D7
-            BNE .SETGROUND
-            BTST #4, D7
-            BNE .SETGROUND
-            BRA .NOYMOVE
-            .SETGROUND:
-                BSET.B #3, STATUS+1(A0)
-        .NOYMOVE:
-        CMP.W #0, 32(SP)
-        BEQ .NOXMOVE
-            MOVE.W 32(SP), D6
-            SUB.W D6, XPOS(A0)
-            MOVE.W #0, XSPEED(A0)
-            MOVE.W XPOS(A0), D6
-            MOVE.W D6, 38(SP)
-        .NOXMOVE:
-    .NOCOLI:
-
-    MOVEM.L (SP)+, D7-D6/D4-D0
-    RTS
-
 
 COLLISION_ENT_PLR:
     MOVE.W #1, (MINCHK)

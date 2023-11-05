@@ -45,23 +45,23 @@ DRAW_MAP:
     MOVE.W D4, 2(SP)
 
     MOVE.W #SCREEN_YTILE, D6
-    _LOOPDMY:
+    .LOOPDMY:
         MOVE.W D3, 0(SP)
         MOVE.W #SCREEN_XTILE, D5
-        _LOOPDMX:
+        .LOOPDMX:
             MOVE.B 0(A1, D1), D0
             LEA SPRITES, A2
             MOVE.L (A2, D0), 4(SP)
             BSR FASTSPRITE
             
             
-            ADD.W #64, 0(SP)
+            ADD.W #TILESIZE, 0(SP)
             ADDQ.W #1, D1
-            DBRA D5, _LOOPDMX
-        ADD.W #64, 2(SP)
+            DBRA D5, .LOOPDMX
+        ADD.W #TILESIZE, 2(SP)
         ADD.W 4(A0), D1
         SUB.W #SCREEN_XTILE+1, D1
-        DBRA D6, _LOOPDMY
+        DBRA D6, .LOOPDMY
     
     ADDQ.L #8, SP
 

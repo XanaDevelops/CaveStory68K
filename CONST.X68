@@ -108,8 +108,8 @@ LF              EQU $0A
 CR              EQU $0D
 
 ;NUMERIC VALUES
-MAXBP           EQU $00000007F
-MAXWP           EQU $000007FFF
+MAXBP           EQU $0000007F
+MAXWP           EQU $00007FFF
 MAXLP           EQU $7FFFFFFF
 
 

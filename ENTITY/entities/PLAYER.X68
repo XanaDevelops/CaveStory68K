@@ -244,6 +244,22 @@ PLAYER_PAINT:
 
     ADDQ.L #8, SP
 
+    IFNE DEBUG
+        MOVE.B #90, D0
+        ADDA.L #COLISION_BOX, A0
+        MOVEM.W (A0)+, D1-D4
+        SUBA.L #AD_START, A0
+        ADD.W XPOS(A0), D1
+        ADD.W XPOS(A0), D3
+        ADD.W YPOS(A0), D2
+        ADD.W YPOS(A0), D4
+        SUB.W SCREEN_X, D1
+        SUB.W SCREEN_X, D3
+        SUB.W SCREEN_Y, D2
+        SUB.W SCREEN_Y, D4
+        TRAP #15
+    ENDC
+
     MOVEM.L (SP)+, A2-A1/D2-D0
     .SKIPDP:
     RTS

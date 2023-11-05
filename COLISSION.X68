@@ -16,27 +16,28 @@ GENERATE_COLIMAP:
 
     MOVE.W 6(A0), D7
     SUBQ.W #1, D7
-    _GENERATE_LOOP_Y:
+    .GENERATE_LOOP_Y:
         MOVE.W 4(A0), D6
         SUBQ.W #1, D6
-        _GENERATE_LOOP_X:
+        .GENERATE_LOOP_X:
             MOVE.B (A2)+, D0
             MOVE.B #0, D2
             LEA SOLID_ID, A3
-            _SOLID_ID_LOOP:
+            .SOLID_ID_LOOP:
                 MOVE.B (A3)+, D1
                 CMP.B #-1, D1
-                BEQ _EXIT_SOLID_ID_LOOP
+                BEQ .EXIT_SOLID_ID
                 CMP.B D0, D1
-                BNE _SOLID_ID_LOOP
+                BNE .SOLID_ID_LOOP
                 MOVE.B #-1, D2
-            _EXIT_SOLID_ID_LOOP:
+            .EXIT_SOLID_ID:
             MOVE.B D2, (A1)+
-        DBRA D6, _GENERATE_LOOP_X
-    DBRA D7, _GENERATE_LOOP_Y
+        DBRA D6, .GENERATE_LOOP_X
+    DBRA D7, .GENERATE_LOOP_Y
 
     MOVEM.L (SP)+, A2-A0/D7-D6/D2-D0
     RTS
+
 
 *~Font name~Courier New~
 *~Font size~10~
