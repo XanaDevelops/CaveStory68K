@@ -4,7 +4,6 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-
 PLAYER_START:
     ;28(SP) YPOS 
     ;30(SP) XPOS
@@ -16,8 +15,6 @@ PLAYER_START:
     MOVE.W  28(SP), YPOS(A0)
 
     MOVE.W  (PMAXHP), MAXHEALTH(A0) 
-
-    ;BSR     PREVENT_SCREEN_OOB
     
     MOVE.W  #ANIMSPEED, TIMERSPRITE(A0)
     MOVE.W  (PACTHP), HP(A0) 
