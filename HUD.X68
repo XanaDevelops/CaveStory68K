@@ -29,15 +29,33 @@ HUD_DRAW:
     TRAP    #15
 
     ;ARMA LVL XP
-    MOVE.B  #15, D0
+    MOVE.B  #3, D0
     LEA     ARMS_STS, A0
     MOVE.W  (A0, D2), D1
     EXT.L   D1
-    MOVE.B  #16, D2
+    CLR.L D2
+    MOVE.B  D1, D2 ;GUARDA XP
+    ASR.L #8, D1
     TRAP    #15
+
+    ;XP VBAR
+    MOVE.W  #HBX, -(SP)
+    MOVE.W  #HBY-20, -(SP)
+    MOVE.W  #HBL, -(SP)
+    MOVE.W  #HBW, -(SP)
+    MOVE.W  D2, -(SP)
+    MOVE.W  #20, -(SP)
+    MOVE.L  #YELLOW, -(SP)
+    BSR     VALUEBAR
+    ADDA.L  #16, SP
 
     MOVE.B  #11, D0
     MOVE.W  #$0205, D1
+    TRAP    #15
+
+    ;COLOR FONDO
+    MOVE.B  #81, D0
+    MOVE.L  #BLACK, D1
     TRAP    #15
 
     MOVE.B  #14, D0
@@ -50,11 +68,11 @@ HUD_DRAW:
     MOVE.W  HP(A0), D1
     TRAP    #15
 
-    ;TEST VBAR
-    MOVE.W  #95, -(SP)
-    MOVE.W  #105, -(SP)
-    MOVE.W  #150, -(SP)
-    MOVE.W  #20, -(SP)
+    ;HEALTH VBAR
+    MOVE.W  #HBX, -(SP)
+    MOVE.W  #HBY, -(SP)
+    MOVE.W  #HBL, -(SP)
+    MOVE.W  #HBW, -(SP)
     MOVE.W  HP(A0), -(SP)
     MOVE.W  (PMAXHP), -(SP)
     MOVE.L  #RED, -(SP)
