@@ -219,13 +219,13 @@ GM_UPD_BLTXP:
     CMP.W #20, D2
     BLT .NOLVLUP
     ;SUBIR DE NIVEL, XP=0, LVL++ CAP.3
-    ADDQ.W #1, D3
     CMP.W #3, D3
     BLT .NOMAXLVL
-    MOVE.W #3, D3
+    ;MOVE.W #3, D3
     MOVE.W #20, D2
     BRA .END
     .NOMAXLVL:
+    ADDQ.W #1, D3
     CLR.L D2
     .NOLVLUP:
     BRA .END

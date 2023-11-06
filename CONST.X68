@@ -35,7 +35,7 @@ MAX_SCRLL_SPEEDY EQU 22
 ;HEALTHBAR
 HBX             EQU 95
 HBY             EQU 105
-HBL             EQU 150
+HBL             EQU 140
 HBW             EQU 20
 
 ;ENTITY

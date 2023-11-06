@@ -89,7 +89,7 @@ VALUEBAR:
     ;MUESTRA UNA BARRA HORIZONTAL
     ; 38(SP).W XPOS
     ; 36(SP).W YPOS
-    ; 34(SP).W LENGTH (PX)
+    ; 34(SP).W LENGTH (PX) (multiplo vMAx)
     ; 32(SP).W WIDTH
     ; 30(SP).W VALUE
     ; 28(SP).W MAXVALUE
