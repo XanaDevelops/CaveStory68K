@@ -32,7 +32,7 @@ BAT_UPDATE:
         TRAP    #14
         MOVE.L  (RNGVAL), D1
         ANDI.L  #$FF, D1
-        CMP.B   #$7F, D1
+        CMP.B   #$2F, D1
         BHI     .NOHEART
         MOVE.W  #0, 4(SP) ;TEST
         MOVE.L  #HEART, -(SP)
