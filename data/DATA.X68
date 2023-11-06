@@ -54,6 +54,8 @@ CARTELS         DC.L 1
 
 DISKQ_SPR       DC.L 8
                 DC.L SPR_SAVE_0, SPR_SAVE_1, SPR_SAVE_2, SPR_SAVE_3, SPR_SAVE_4, SPR_SAVE_5, SPR_SAVE_6, SPR_SAVE_7
+HEALER_SPR      DC.L 2
+                DC.L SPR_HEALER_0, SPR_HEALER_1
 
 HEART_SM        DC.L 2
                 DC.L HEART_SM_0, HEART_SM_1
