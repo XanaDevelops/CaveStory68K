@@ -83,10 +83,11 @@ PLAYER_UPDATE:
             CMP.L   #-1, A1
             BEQ     .NODW
 
+            MOVE.L  A0, -(SP)
             MOVE.L  A1, -(SP)
             MOVE.L  AD_INTER(A1), A1
             JSR     (A1)
-            ADDQ.L  #4, SP
+            ADDQ.L  #8, SP
             BRA     .NODW
     .LKOBK:
             MOVE.W  #24, D0

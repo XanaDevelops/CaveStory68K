@@ -10,15 +10,35 @@ HEALER_START:
 
     MOVE.W  28(SP), YPOS(A0)
     MOVE.W  30(SP), XPOS(A0)
+
+    CLR.L SPRITE_INDEX(A0)
+
     RTS
 
 HEALER_UPDATE:
+    MOVE.L  D0, -(SP)
+    
+    TRAP    #14
+    MOVE.L  (RNGVAL), D0
+    ANDI.L  #1, D0
+    MOVE.L  D0, SPRITE_INDEX(A0)
+    
+    MOVE.L (SP)+, D0
     RTS
 
-HEALER_DRAW:
-    RTS
 
 HEALER_INTERACT:
+    MOVEM.L D0/A0, -(SP)
+
+    ;CURAR JUGADOR
+    MOVE.L  16(SP), A0
+    MOVE.W  MAXHEALTH(A0), HP(A0)
+
+    MOVE.W #5, -(SP)
+    JSR START_DBOX
+    ADDQ.L #2, SP
+
+    MOVEM.L (SP)+, A0/D0
     RTS
 
 HEALER:
@@ -27,10 +47,10 @@ HEALER:
     DC.W 0                                          ;HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
-    DC.W 0,0 64,64                                  ;COLISION_BOX 44
-    DC.L HEALER_START, HEALER_UPDATE, HEALER_DRAW      ;@
-    DC.L HEALER_INTERACT                             ;@
-    DC.L -1                                         ;@SPRITE DEFECTO
+    DC.W 0,0, 64,64                                  ;COLISION_BOX 44
+    DC.L HEALER_START, HEALER_UPDATE, DEFAULT_PAINT ;@
+    DC.L HEALER_INTERACT                            ;@
+    DC.L HEALER_SPR                                 ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DS.L 4                                          
     DS.W 1   

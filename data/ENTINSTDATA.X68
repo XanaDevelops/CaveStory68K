@@ -40,6 +40,8 @@ ENTINSTADA  DC.L .TSCR, .TMAP1, .TSALA
         DC.W 3
             DC.L $02C00400, DISQUETE>>16|DISQUETE<<16
         DC.W 3
+            DC.L $03400400, HEALER>>16|HEALER<<16
+        DC.W 3
             DC.L $008003A0, PLAYER>>16|PLAYER<<16
         DC.W 4
             DC.W 0
