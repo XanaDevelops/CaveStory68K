@@ -25,7 +25,7 @@ BLT_PS_START:
 
     BSET.B  #2, STATUS+1(A0) ;DISABLE GRAV
     
-    LEA     PSTAR_BULLETS, A1
+    
 
     MOVE.W  38(SP), D0
     MOVE.B  D0, LEVELPOWER(A0)
@@ -33,29 +33,41 @@ BLT_PS_START:
     ;SEGUN NIVEL, 
     MOVE.B  #10, MAX_T_SCREEN(A0)
     ;AQUI SE MIRARIA EL DAÑO POR NIVEL, MIENTRAS...
-    MOVE.W  #4, DAMAGE(A0)
+    LEA     .DAMAGES, A1
+    ASL.W   #1, D0
+    MOVE.W  (A1, D0), DAMAGE(A0)
     
     ;CAJA DE COLISION
     ;TODO
-    ASL.W   #2, D0
+    ASL.W   #1, D0  ;POR ASL.W #1 DE ANTES!
+    LEA     PSTAR_BULLETS, A1
     MOVE.L  (A1, D0), AD_SPRITE(A0) ;LOAD SPRITE
     
+    LEA     .HBOXS, A1
+    MOVE.L  (A1, D0), A1
     MOVE.W  36(SP), D0
     MOVE.B  D0, TRAVEL_DIR(A0)
 
     CMP.B   #2, D0
     BGE .NOV
         MOVE.L  #0, SPRITE_INDEX(A0)
+        MOVE.W 0(A1), COLISION_BOX+4(A0)
+        MOVE.W 2(A1), COLISION_BOX+6(A0)
         BRA     .ENDIR
     .NOV:
         MOVE.L  #1, SPRITE_INDEX(A0)
-        MOVE.W  #4, COLISION_BOX+4(A0)   ;HBOX DEPENDIENTE NIVEL
-        MOVE.W  #64, COLISION_BOX+6(A0)
+        MOVE.W  2(A1), COLISION_BOX+4(A0)   ;HBOX DEPENDIENTE NIVEL
+        MOVE.W  0(A1), COLISION_BOX+6(A0)
     .ENDIR:
 
     .ENDS:
     MOVEM.L (SP)+, A1/D0
     RTS
+    .DAMAGES:   DC.W 1,2,4
+    .HBOXS:     DC.L .HBOX1, .HBOX2, .HBOX3
+    .HBOX1:     DC.W 64,4
+    .HBOX2:     DC.W 64,16
+    .HBOX3:     DC.W 64,34
 
 BLT_PS_UPDATE:
     MOVEM.L D0/A1, -(SP)
@@ -145,6 +157,8 @@ MAX_TRVL_DIST       EQU AUX_DATA+2 ;W
 TRAVEL_DIR          EQU AUX_DATA+4 ;B
 BLT_ONSCREEN        EQU AUX_DATA+5 ;B
 MAX_BLT_ONSCR       EQU AUX_DATA+6 ;B
+
+
 
 
 

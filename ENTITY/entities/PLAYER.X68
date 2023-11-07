@@ -324,7 +324,7 @@ BULLET_SHOT:
     MOVE.W  XPOS(A0), -(SP)
     MOVE.W  YPOS(A0), -(SP)
 
-    ADD.W   #32, (SP)     ;OFFSET Y
+    ADD.W   #24, (SP)     ;OFFSET Y
     CMP.B   #0, LOOKDIRLR(A0)
     BEQ     .NOXOF
         ADD.W   #40, 2(SP)
@@ -335,7 +335,7 @@ BULLET_SHOT:
     CMP.B   #0, LOOKDIRUD(A0)
     BEQ     .NOUD
     MOVE.B  LOOKDIRUD(A0), D0
-    SUB.W   #32, 2(SP)    ;DES OF Y
+    SUB.W   #24, 2(SP)    ;DES OF Y
     BRA     .ENDDIR
     .NOUD:
     MOVE.B  LOOKDIRLR(A0), D0

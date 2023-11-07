@@ -25,7 +25,7 @@ BAT_UPDATE:
     CMP.W   #0, HP(A0)
     BGT     .NOKILL
         ;DROP
-        SUBQ.L  #2, SP ;TIPO
+        SUBQ.L  #2, SP ;RESERVA TIPO
         MOVE.W  XPOS(A0), -(SP)
         MOVE.W  YPOS(A0), -(SP)
 
