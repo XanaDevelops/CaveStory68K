@@ -32,10 +32,10 @@ ENTINSTADA  DC.L .TSCR, .TMAP1, .TSALA
         DC.W 3
             DC.L $03A003D0, BAT>>16|BAT<<16
         DC.W 4
-            DC.W 0
+            DC.W ITESTDIAG
             DC.L $01400400, CARTEL>>16|CARTEL<<16
         DC.W 4
-            DC.W 2
+            DC.W ICOLORDIAG
             DC.L $01C00400, CARTEL>>16|CARTEL<<16
         DC.W 3
             DC.L $02C00400, DISQUETE>>16|DISQUETE<<16

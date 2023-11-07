@@ -93,8 +93,17 @@ SET_SCROLL_TEXT:
 
     MOVEM.L (SP)+, D2-D0
     RTS
+SET_COLOR_TEXT:
+    ; 16(SP).L COLOR
+    MOVEM.L D0-D2, -(SP)
 
+    MOVE.B #21, D0
+    MOVE.L 16(SP), D1
+    MOVE.L  #$04100000, D2
+    TRAP #15
 
+    MOVEM.L (SP)+, D2-D0
+    RTS
 EXCADDRES:
     MOVEM.L A7-D0, -(SP)
     ;CLS

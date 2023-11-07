@@ -15,6 +15,7 @@ HUD_DRAW:
 
     BSR     FASTSPRITE
     ADDA.L  #8, SP 
+
     ;MOVER CURSOR
     MOVE.B  #11, D0
     MOVE.W  #$0204, D1
@@ -24,6 +25,8 @@ HUD_DRAW:
     MOVE.L  #BLACK, D1
     TRAP    #15
     
+    BSR SET_SCROLL_TEXT
+
     MOVE.B  #14, D0
     LEA     .TEXTLVL, A1
     TRAP    #15
