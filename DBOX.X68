@@ -75,10 +75,13 @@ DRAW_DBOX:
     MOVEM.L D0-D4, -(SP)
 
     CMP.W   #-1, (CURRENTTXTID)
-    BEQ     .END_DBOX
+    BEQ     .END
 
-    ;FONDO NEGRO
-    MOVE.B  #81, D0
+    ;COLORES RECUADRO
+    MOVE.B  #80, D0
+    MOVE.L  #WHITE, D1
+    TRAP    #15
+    ADDQ.B  #1, D0
     MOVE.L  #BLACK, D1
     TRAP    #15
 
@@ -100,7 +103,7 @@ DRAW_DBOX:
     MOVE.L  (A6, D1), A6
 
     MOVE.W  (MORELINES), D4
-    SUBQ.W  #1, D4
+    ;SUBQ.W  #1, D4
 
     MOVE.W  (DIAGINDEX), D2  ;FRASE INICIAL
     LSL.W   #2, D2
@@ -113,14 +116,49 @@ DRAW_DBOX:
     ;FRASE A ESCRIBIR
     MOVE.L  (A6, D2.W), A1
     CMP.L   #-1, A1
-    BEQ .END
+    BEQ     .ENDF
+    CMP.W   #0, D4
+    BEQ     .LASTLINEA
+    MOVE.W   #40, D5  ;MAX CARACTERS -1
+    BRA     .LOOPFRASE
+    .LASTLINEA:
+    ;CARACTERS DE LA LINEA FINAL
+    MOVE.W  (TXTINDEX), D5
+    ;SUBQ.W  #1, D5
     .LOOPFRASE:
-    ;NO TOCAR D2, D3, D4
+    ;NO TOCAR D2, D3, D4, D5
+    CLR.L   D1
+    MOVE.B  (A1), D1 ;SIGUENTE CARACTER
+    CMP.B   #CDBCCOL, D1
+    BGT     .NOCODE
+    MOVE.W  D1, -(SP)
+    BSR     DBCODES
+    ADDQ.L  #2, SP
+    ADDQ.W  #1, D5 ;POR CONSUMIR CODIGO
+    DBRA    D5, .LOOPFRASE
+    .NOCODE:
+    CMP.B #0, D1
+    BNE .NOENDL
+    ;MARCA SIGUIENTE LINEA
+    CLR.W   D5 ;FORZAR SALTO LINEA
+    CMP.W   #0, D4  ;SOLO MARCAR NUEVA LINEA SI ULTIMA LINEA
+    BNE     .NOENDL
+    BSET.B  #5, (GAMEFLAGS)
+    .NOENDL:
+    ;PINTAR CARACTER
+    MOVE.B  #1, D0
+    MOVE.W  #1, D1
+    TRAP    #15
+    ADDQ.L  #1, A1
+    DBRA    D5, .LOOPFRASE
 
-    BRA .LOOPFRASE
     ADDQ.W  #1, D3          ;BAJAR LINEA
     ADDQ.L  #4, D2          ;SIGUIENTE LINEA AD
     DBRA    D4, .LOOPDBOX   ;SIGUIENTE LINEA
+    BRA     .END
+    .ENDF:
+    ;MARCA FINAL
+    BSET.B  #6, (GAMEFLAGS)
     .END:
     MOVEM.L (SP)+, D4-D0
     RTS
@@ -232,16 +270,13 @@ DBCODES:
     
     MOVEM.L D0/D2/D7, -(SP)
 
-    ;PINTA LA LINEA ACTUAL HASTA AHORA
-    MOVE.B  #1, D0
-    TRAP    #15
+    ;AVANZA A1
+    ADDQ.L  #1, A1
 
     ;OBTIENE ID
     MOVE.W  16(SP), D0
-    ;EVITAR LEER 2 VECES CODE
-    ADDQ.W  #1, D1           
-    ADDQ.L  #1, A1
-    ADDQ.W  #1, (TXTINDEXOFF)
+     
+
 
     ;COMPRUEBA CDBCCOL
     CMP.W   #CDBCCOL, D0
@@ -249,7 +284,7 @@ DBCODES:
     ;LEE COLOR EN D2, CAMBIA COLOR
     BSR     .READLD2
     MOVE.L  D2, -(SP)
-    BSR     SET_COLOR_TEXT
+    JSR     SET_COLOR_TEXT
     ADDQ.L  #4, SP
     BRA     .END
     .NOCCOL:
@@ -264,7 +299,7 @@ DBCODES:
     .NODIAG:
 
     .END:
-    MOVE.W  D1, (TXTINDEX)
+
     MOVEM.L (SP)+, D7/D2/D0
     RTS
 
@@ -298,6 +333,7 @@ MORELINES       DS.W 1
 TXTDELAYV       DS.W 1
 
 TXTDELAY        EQU 1
+
 
 
 
