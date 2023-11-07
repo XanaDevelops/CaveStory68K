@@ -13,10 +13,10 @@ START_DBOX:
     BSET.B  #7, (GAMEFLAGS)
     CLR.W   (HASPORTTR)
     CLR.W   (TXTINDEX)
-    CLR.W   (TXTINDEXOFF)
     CLR.W   (DIAGINDEX)
     CLR.W   (MORELINES)
     CLR.W   (CDBSINGLE)
+    CLR.W   (SPOFFSET)
 
     BSR SET_SCROLL_TEXT
 
@@ -57,7 +57,6 @@ UPDATE_DBOX:
     .SILINE:
     ;AVANZA LINEA
     CLR.W   (TXTINDEX)
-    CLR.W   (TXTINDEXOFF)
     BCLR.B  #5, (GAMEFLAGS)
     ;COMPRUEBA SI SCROLL
     CMP.W   #MAXLINES-1, (MORELINES)
@@ -129,11 +128,15 @@ DRAW_DBOX:
     ;NO TOCAR D2, D3, D4, D5
     CLR.L   D1
     MOVE.B  (A1), D1 ;SIGUENTE CARACTER
-    CMP.B   #CDBCCOL, D1
-    BGT     .NOCODE
+    CMP.W   #CDBCCOL, D1 ;COMPARACIONES EN W
+    BLT     .NOCODE
+    ;EJECUTA DBCODE
     MOVE.W  D1, -(SP)
     BSR     DBCODES
-    ADDQ.L  #2, SP
+    MOVE.W  (SP)+, D1
+    ;FORZAR SALIDA? CDBDIAG O SIMILAR?
+    CMP.W #0, D1
+    BEQ .END
     ADDQ.W  #1, D5 ;POR CONSUMIR CODIGO
     DBRA    D5, .LOOPFRASE
     .NOCODE:
@@ -168,116 +171,23 @@ DRAW_DBOX:
 .DBOXY1          EQU (SCREEN_HEIGHT/2)+80
 .DBOXY2          EQU SCREEN_HEIGHT-20
 
-DRAW_DBOX_OLD:
-    MOVEM.L D0-D4, -(SP)
-
-    CMP.W   #-1, (CURRENTTXTID)
-    BEQ     .END_DBOX
-
-    MOVE.B  #80, D0
-    MOVE.L  #WHITE, D1
-    TRAP    #15
-    ADDQ.B  #1, D0
-    MOVE.L  #BLACK, D1
-    TRAP    #15
-
-    ADDQ.B  #6, D0           ;Recuadro
-    MOVE.W  #.DBOXX1, D1
-    MOVE.W  #.DBOXY1, D2
-    MOVE.W  #.DBOXX2, D3
-    MOVE.W  #.DBOXY2, D4
-    TRAP    #15
-
-    MOVE.W  #DBOXTS, D3
-
-    MOVE.B  #81, D0
-    MOVE.L  #BLACK, D1
-    TRAP    #15
-
-    CLR.L   D1                    ;CARGA FRASES DIALOGO
-    MOVE.W  (CURRENTTXTID), D1
-    LSL.W   #2, D1
-
-    LEA     ALLDIALOGS, A6
-    MOVE.L  (A6, D1), A6
-
-    MOVE.W  (MORELINES), D4
-
-    MOVE.W  (DIAGINDEX), D2  ;FRASE
-    LSL.W   #2, D2
-
-    .LOOPDBOX:
-    MOVE.B  #11, D0          ;POS PROVISIONAL
-    MOVE.W  D3, D1 ;081B
-    TRAP    #15
-
-    ;SELECCIONA FRASE
-    MOVE.L  (A6, D2.W), A1
-    ADDA.W  (TXTINDEXOFF), A1    ;DESPLAZAMIENTO POR DCCODES
-    ;COMPRUEBA FINAL
-    CMP.L   #-1, A1
-    BNE     .NOEND
-    ;MARCA FLAG FINAL
-    BSET.B  #6, (GAMEFLAGS)
-    BRA     .END_DBOX
-    .NOEND:
-    CMP.W   #0, D4    
-    BEQ     .LASTLINEA
-    ;IMPRIME TODA LA LINEA, AVANZA SIGUIENTE
-    MOVE.W  #255, D1
-    ADDQ.W  #4, D2
-    BRA     .PAINTLINEA 
-    .LASTLINEA: 
-    ;COMPRUEBA DBCODES
-    MOVE.W  (TXTINDEX), D1
-    SUB.W   (TXTINDEXOFF), D1 ;CORRIGE AVANCE A1
-    CLR.L   D0
-    CMP.B   #CDBCCOL, (A1, D1)
-    BGT     .NOCODE
-    ;EJECUTA CODIGO
-    MOVE.B  (A1, D1), D0
-    MOVE.W  D0, -(SP)
-    BSR     DBCODES
-    ADDQ.L #2, SP
-    .NOCODE:
-    ;COMPRUEBA \0
-    CMP.B   #0, (A1, D1)
-    BNE     .PAINTLINEA
-    ;MARCA SIGUIENTE LINEA
-    BSET.B  #5, (GAMEFLAGS)
-    .PAINTLINEA:       
-    MOVE.B  #1, D0
-    
-    TRAP    #15
-    
-    ADDQ.W  #1, D3 ;BAJA LINEA
-    SUBQ.W  #1, D4 ;Nº LINEAS
-    BGE     .LOOPDBOX
-    .END_DBOX:
-
-    MOVEM.L (SP)+, D4-D0
-    RTS
-
-.DBOXX1          EQU 20
-.DBOXX2          EQU SCREEN_WIDTH-20
-.DBOXY1          EQU (SCREEN_HEIGHT/2)+80
-.DBOXY2          EQU SCREEN_HEIGHT-20
-
 DBCODES:
     ;EJECUTA LOS DIFERENTES DB CODES
-    ; (SP) ID DB CODE >=$A0
-    ; MODIFICA A1, D1, TXTINDEX, TXTINDEXOFF
+    ; (SP) ID DB CODE >=$A0 -> 0 SI SALIDA DRAW_DBOX
+    ; MODIFICA A1, D1
     
-    MOVEM.L D0/D2/D7, -(SP)
-
+    MOVEM.L D0/D2/D7/A0, -(SP)
+    
     ;AVANZA A1
     ADDQ.L  #1, A1
 
     ;OBTIENE ID
-    MOVE.W  16(SP), D0
-     
-
-
+    MOVE.W  20(SP), D0
+    BRA     .DECODE
+    
+    .NEXTCODE:
+    MOVE.B (A1)+, D0
+    .DECODE:
     ;COMPRUEBA CDBCCOL
     CMP.W   #CDBCCOL, D0
     BNE     .NOCCOL
@@ -290,29 +200,51 @@ DBCODES:
     .NOCCOL:
     ;COMPRUEBA COLORES PREFIJADOS
     CMP.W   #CDBDIAG, D0
-    BGE     .NOPCOL
-
+    BGT     .NOPCOL
+    SUB.W   #$A1, D0
+    ASL.W   #2, D0
+    LEA     .CDBCOLORS, A0
+    MOVE.L  (A0, D0), -(SP)
+    JSR     SET_COLOR_TEXT
+    ADDQ.L  #4, SP
+    BRA     .END
     .NOPCOL:
-    ;COMPRUEBA CDBDIAG
-    BNE     .NODIAG
 
-    .NODIAG:
+    ;SALTO $BX
+    SUB.W   #$B0, D0
+    ASL.W   #2, D0
+    LEA     .JMPTABLE, A0
+    MOVE.L  (A0, D0), A0
+    JMP     (A0)
 
+    .CDIAG:
+    BRA     .END
+    .CEXE:
+    BSR     .READLD2
+    MOVE.L  D2, A0
+    JSR     (A0)
+    ADD.W   (SPOFFSET), SP
+    CLR.W   (SPOFFSET)
+    BRA     .END
+    .CPUSHNW:
+    ;PUSH WORD A SP
+    ADDQ.W  #2, (SPOFFSET)
+    BSR     .READWD2
+    MOVE.W  D2, -(SP)
+    BRA     .NEXTCODE ;MODIFICADA LA PILA, NO RTS!
     .END:
 
-    MOVEM.L (SP)+, D7/D2/D0
+    MOVEM.L (SP)+, A0/D7/D2/D0
     RTS
 
     ;LEER BYTE A BYTE POR PARIDAD
     .READWD2:
         MOVE.W  #1, D7
         ADDQ.W  #2, D1
-        ADDQ.W  #2, (TXTINDEXOFF)
         BRA     .READD2
     .READLD2:
         MOVE.W  #3, D7
         ADDQ.W  #4, D1
-        ADDQ.W  #4, (TXTINDEXOFF)
     .READD2:
         CLR.L   D2
         .READLP:
@@ -321,18 +253,20 @@ DBCODES:
         DBRA    D7, .READLP
         RTS
 
-    .CDBCOLORS:  DC.L RED, BLACK, WHITE
-
+    .CDBCOLORS:     DC.L RED, BLACK, WHITE
+    .JMPTABLE:      DC.L .CDIAG, .CEXE, .CPUSHNW
 CURRENTTXTID    DS.W 1
 HASPORTTR       DS.W 1
 TXTINDEX        DS.W 1
-TXTINDEXOFF     DS.W 1
 DIAGINDEX       DS.W 1
 CDBSINGLE       DS.W 1
 MORELINES       DS.W 1
 TXTDELAYV       DS.W 1
-
+SPOFFSET        DS.W 1
 TXTDELAY        EQU 1
+
+
+
 
 
 
