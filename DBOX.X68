@@ -77,6 +77,65 @@ DRAW_DBOX:
     CMP.W   #-1, (CURRENTTXTID)
     BEQ     .END_DBOX
 
+    ;FONDO NEGRO
+    MOVE.B  #81, D0
+    MOVE.L  #BLACK, D1
+    TRAP    #15
+
+    ADDQ.B  #6, D0           ;Recuadro
+    MOVE.W  #.DBOXX1, D1
+    MOVE.W  #.DBOXY1, D2
+    MOVE.W  #.DBOXX2, D3
+    MOVE.W  #.DBOXY2, D4
+    TRAP    #15
+
+    ;POSICION INICIAL TEXTO
+    MOVE.W  #DBOXTS, D3
+
+    CLR.L   D1                    ;CARGA FRASES DIALOGO
+    MOVE.W  (CURRENTTXTID), D1
+    LSL.W   #2, D1
+
+    LEA     ALLDIALOGS, A6
+    MOVE.L  (A6, D1), A6
+
+    MOVE.W  (MORELINES), D4
+    SUBQ.W  #1, D4
+
+    MOVE.W  (DIAGINDEX), D2  ;FRASE INICIAL
+    LSL.W   #2, D2
+
+    .LOOPDBOX:
+    MOVE.B  #11, D0          ;POS INICIAL
+    MOVE.W  D3, D1 ;081B  (COL|FILA)
+    TRAP    #15
+
+    ;FRASE A ESCRIBIR
+    MOVE.L  (A6, D2.W), A1
+    CMP.L   #-1, A1
+    BEQ .END
+    .LOOPFRASE:
+    ;NO TOCAR D2, D3, D4
+
+    BRA .LOOPFRASE
+    ADDQ.W  #1, D3          ;BAJAR LINEA
+    ADDQ.L  #4, D2          ;SIGUIENTE LINEA AD
+    DBRA    D4, .LOOPDBOX   ;SIGUIENTE LINEA
+    .END:
+    MOVEM.L (SP)+, D4-D0
+    RTS
+
+.DBOXX1          EQU 20
+.DBOXX2          EQU SCREEN_WIDTH-20
+.DBOXY1          EQU (SCREEN_HEIGHT/2)+80
+.DBOXY2          EQU SCREEN_HEIGHT-20
+
+DRAW_DBOX_OLD:
+    MOVEM.L D0-D4, -(SP)
+
+    CMP.W   #-1, (CURRENTTXTID)
+    BEQ     .END_DBOX
+
     MOVE.B  #80, D0
     MOVE.L  #WHITE, D1
     TRAP    #15
@@ -153,8 +212,8 @@ DRAW_DBOX:
     
     TRAP    #15
     
-    ADDQ.W  #1, D3
-    SUBQ.W  #1, D4
+    ADDQ.W  #1, D3 ;BAJA LINEA
+    SUBQ.W  #1, D4 ;Nº LINEAS
     BGE     .LOOPDBOX
     .END_DBOX:
 
@@ -174,15 +233,15 @@ DBCODES:
     MOVEM.L D0/D2/D7, -(SP)
 
     ;PINTA LA LINEA ACTUAL HASTA AHORA
-    MOVE.B #1, D0
-    TRAP #15
+    MOVE.B  #1, D0
+    TRAP    #15
 
     ;OBTIENE ID
     MOVE.W  16(SP), D0
     ;EVITAR LEER 2 VECES CODE
-    ADDQ.W #1, D1           
-    ADDQ.L #1, A1
-    ADDQ.W #1, (TXTINDEXOFF)
+    ADDQ.W  #1, D1           
+    ADDQ.L  #1, A1
+    ADDQ.W  #1, (TXTINDEXOFF)
 
     ;COMPRUEBA CDBCCOL
     CMP.W   #CDBCCOL, D0
@@ -205,25 +264,25 @@ DBCODES:
     .NODIAG:
 
     .END:
-    MOVE.W D1, (TXTINDEX)
+    MOVE.W  D1, (TXTINDEX)
     MOVEM.L (SP)+, D7/D2/D0
     RTS
 
     ;LEER BYTE A BYTE POR PARIDAD
     .READWD2:
-        MOVE.W #1, D7
-        ADDQ.W #2, D1
-        ADDQ.W #2, (TXTINDEXOFF)
-        BRA .READD2
+        MOVE.W  #1, D7
+        ADDQ.W  #2, D1
+        ADDQ.W  #2, (TXTINDEXOFF)
+        BRA     .READD2
     .READLD2:
-        MOVE.W #3, D7
-        ADDQ.W #4, D1
-        ADDQ.W #4, (TXTINDEXOFF)
+        MOVE.W  #3, D7
+        ADDQ.W  #4, D1
+        ADDQ.W  #4, (TXTINDEXOFF)
     .READD2:
         CLR.L   D2
         .READLP:
-        ASL.L #8, D2
-        MOVE.B (A1)+, D2
+        ASL.L   #8, D2
+        MOVE.B  (A1)+, D2
         DBRA    D7, .READLP
         RTS
 
