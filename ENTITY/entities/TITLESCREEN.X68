@@ -67,6 +67,7 @@ TS_UPDATE:
 TS_DRAW:
     MOVE.L  #TITLE, -(SP)
     MOVE.W  #75, -(SP) ;Y
+    
     MOVE.W  #SCREEN_WIDTH/2-275, -(SP) ;X
     
     JSR     FASTSPRITE

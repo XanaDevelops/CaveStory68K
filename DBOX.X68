@@ -39,6 +39,13 @@ UPDATE_DBOX:
     BCLR.B  #KEYM_Z, (KEY_HOLD_PLAYER)
     RTS                 ;A VER QUE TAL RTS AHÍ, POR SI LUEGO MUEVO REGISTROS
     .NOEND:
+    ;COMPRUEBA ESPERA Z
+    BTST.B  #3, (GAMEFLAGS)
+    BEQ     .NOWZ
+    BTST.B  #KEYM_Z, (KEY_PRESS_PLAYER)
+    BEQ     .NONLINE
+    BCLR.B  #3, (GAMEFLAGS)
+    .NOWZ:
     ;AVANCE RAPIDO
     BTST.B  #KEYM_X, (KEY_HOLD_PLAYER)
     BNE     .SITIM
@@ -184,7 +191,7 @@ DBCODES:
     ;OBTIENE ID
     MOVE.W  20(SP), D0
     BRA     .DECODE
-    
+
     .NEXTCODE:
     MOVE.B (A1)+, D0
     .DECODE:
@@ -217,21 +224,52 @@ DBCODES:
     MOVE.L  (A0, D0), A0
     JMP     (A0)
 
-    .CDIAG:
+.CDIAG:
     BRA     .END
-    .CEXE:
+.CEXE:
     BSR     .READLD2
     MOVE.L  D2, A0
     JSR     (A0)
     ADD.W   (SPOFFSET), SP
     CLR.W   (SPOFFSET)
     BRA     .END
-    .CPUSHNW:
+.CPUSHNW:
     ;PUSH WORD A SP
     ADDQ.W  #2, (SPOFFSET)
     BSR     .READWD2
     MOVE.W  D2, -(SP)
     BRA     .NEXTCODE ;MODIFICADA LA PILA, NO RTS!
+.CPUSHDW:
+    ;
+    ADDQ.W  #2, (SPOFFSET)
+    BSR     .READLD2
+    MOVE.L  D2, A0
+    MOVE.W  (A0), -(SP)
+    BRA     .NEXTCODE
+.CSINGLE:
+    ;
+    CLR.W D2
+    MOVE.B  (A1)+, D2
+    CMP.W   (CDBSINGLE), D2
+    BGT     .SISIN
+    ;YA SE HA EJECUTADO
+    ;AVANZAR HASTA CDBSINGEND
+    .NOLOOP:
+    MOVE.B  (A1)+, D0
+    CMP.B   #CDBDSINGEND, D0
+    BNE     .NOLOOP
+    BRA     .END
+    .SISIN:
+    MOVE.W  D2, (CDBSINGLE)
+    BRA     .END
+.CSINGLEN:
+    BRA     .END
+.CWAITZ:
+    BSET.B  #3, (GAMEFLAGS)
+    MOVE.W  #0, 20(SP) ;QUEREMOS SALIR 
+    BRA     .END
+
+
     .END:
 
     MOVEM.L (SP)+, A0/D7/D2/D0
@@ -254,7 +292,8 @@ DBCODES:
         RTS
 
     .CDBCOLORS:     DC.L RED, BLACK, WHITE
-    .JMPTABLE:      DC.L .CDIAG, .CEXE, .CPUSHNW
+    .JMPTABLE:      DC.L .CDIAG, .CEXE, .CPUSHNW, .CPUSHDW, .CSINGLE, .CSINGLEN, .CWAITZ
+
 CURRENTTXTID    DS.W 1
 HASPORTTR       DS.W 1
 TXTINDEX        DS.W 1
@@ -264,6 +303,7 @@ MORELINES       DS.W 1
 TXTDELAYV       DS.W 1
 SPOFFSET        DS.W 1
 TXTDELAY        EQU 1
+
 
 
 

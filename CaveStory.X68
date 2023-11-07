@@ -38,6 +38,7 @@ INIT:                  ; first instruction of program
     ;6 END DBOX
     ;5 LINE DBOX
     ;4 SHOW HUD
+    ;3 WAIT Z DBOX
 MAINLOOP:
     ;UPDATE RNG
     TRAP #14
