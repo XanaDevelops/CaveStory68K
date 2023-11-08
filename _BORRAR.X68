@@ -10,11 +10,17 @@ START:                  ; first instruction of program
     
 * Put program code here
 
-    CLR.L D0
-    MOVE.L #0, D1
-    .A:
-    ADDQ.W #1, D0
-    DBRA D1, .A
+    MOVE.L #0, D0
+    MOVE.L #1, D1
+    MOVE.L #2, D2
+    MOVE.L #3, D3
+    MOVE.L #4, D4
+    MOVE.L #5, A1
+    MOVE.L #5, A2
+    
+    MOVEM.L D0-D4/A1-A2, -(SP)
+    NOP
+    MOVEM.L (SP)+, A2-A1/D4-D0 
     
     
     
@@ -24,6 +30,7 @@ START:                  ; first instruction of program
 
 
     END    START        ; last line of source
+
 
 
 

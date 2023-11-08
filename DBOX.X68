@@ -9,14 +9,16 @@ START_DBOX:
     ; 4(SP).W ID
     MOVE.W  4(SP), (CURRENTTXTID) 
 
-    ANDI.B  #%00011111, (GAMEFLAGS)
+    ANDI.B  #%00010111, (GAMEFLAGS)
     BSET.B  #7, (GAMEFLAGS)
     CLR.W   (HASPORTTR)
     CLR.W   (TXTINDEX)
     CLR.W   (DIAGINDEX)
     CLR.W   (MORELINES)
-    CLR.W   (CDBSINGLE)
     CLR.W   (SPOFFSET)
+    CLR.B   (CSINGLE)
+    CLR.W   (SINRQ)     ;W PARA SINGR
+    CLR.B   (TWAIT)
 
     BSR SET_SCROLL_TEXT
 
@@ -32,19 +34,15 @@ UPDATE_DBOX:
     BTST.B  #KEYM_Z, (KEY_PRESS_PLAYER)
     BEQ     .NONLINE
     ;ESTABLECE FLAGS
-    
     MOVE.W  #-1, (CURRENTTXTID)
     BCLR.B  #7, (GAMEFLAGS)
     BCLR.B  #KEYM_Z, (KEY_PRESS_PLAYER)  ;BUG SALTO SALIR DBOX
     BCLR.B  #KEYM_Z, (KEY_HOLD_PLAYER)
     RTS                 ;A VER QUE TAL RTS AHÍ, POR SI LUEGO MUEVO REGISTROS
     .NOEND:
-    ;COMPRUEBA ESPERA Z
+    ;SKIP UPDATE?
     BTST.B  #3, (GAMEFLAGS)
-    BEQ     .NOWZ
-    BTST.B  #KEYM_Z, (KEY_PRESS_PLAYER)
-    BEQ     .NONLINE
-    BCLR.B  #3, (GAMEFLAGS)
+    BNE     .NONLINE
     .NOWZ:
     ;AVANCE RAPIDO
     BTST.B  #KEYM_X, (KEY_HOLD_PLAYER)
@@ -82,6 +80,9 @@ DRAW_DBOX:
 
     CMP.W   #-1, (CURRENTTXTID)
     BEQ     .END
+
+    ;COM SINGLE
+    CLR.B   (CSINGLE)
 
     ;COLORES RECUADRO
     MOVE.B  #80, D0
@@ -183,13 +184,13 @@ DBCODES:
     ; (SP) ID DB CODE >=$A0 -> 0 SI SALIDA DRAW_DBOX
     ; MODIFICA A1, D1
     
-    MOVEM.L D0/D2/D7/A0, -(SP)
+    MOVEM.L D0/D2-D3/D7/A0, -(SP)
     
     ;AVANZA A1
     ADDQ.L  #1, A1
 
     ;OBTIENE ID
-    MOVE.W  20(SP), D0
+    MOVE.W  24(SP), D0
     BRA     .DECODE
 
     .NEXTCODE:
@@ -247,32 +248,95 @@ DBCODES:
     MOVE.W  (A0), -(SP)
     BRA     .NEXTCODE
 .CSINGLE:
-    ;
-    CLR.W D2
-    MOVE.B  (A1)+, D2
-    CMP.W   (CDBSINGLE), D2
-    BGT     .SISIN
+    ; MARCA LA EJECUCION UNICA HASTA CDBSINGEND
+    MOVE.B  (CSINGLE), D0
+    MOVE.B  (SINRQ), D2
+    MOVE.B  (SINGR), D3
+
+    CMP.B   D0, D2
+    BEQ     .SISIN
     ;YA SE HA EJECUTADO
     ;AVANZAR HASTA CDBSINGEND
+    CMP.B   D0, D3
+    BNE     .NOLOOP
+    ADDQ.B  #1, D3
     .NOLOOP:
     MOVE.B  (A1)+, D0
     CMP.B   #CDBDSINGEND, D0
     BNE     .NOLOOP
     BRA     .END
     .SISIN:
-    MOVE.W  D2, (CDBSINGLE)
+    ADDQ.B  #1, D2
+
+    .ENDCSG:
+    ADDQ.B  #1, D0
+    MOVE.B  (CSINGLE), D0
+    MOVE.B  (SINRQ), D2
+    MOVE.B  (SINGR), D3
+
     BRA     .END
 .CSINGLEN:
+    ;CODIGO MARCADOR, NO HACE NADA
     BRA     .END
 .CWAITZ:
+    MOVE.B  (CSINGLE), D0
+    MOVE.B  (SINRQ), D2
+    MOVE.B  (SINGR), D3
+    CMP.B   D0, D2
+    BEQ     .WAIT
+    CMP.B   D0, D3
+    BNE     .PREEND
+    BTST.B  #KEYM_Z, (KEY_PRESS_PLAYER)
+    BEQ     .DEXIT
+    ADDQ.B  #1, D3
+    BCLR.B  #3, (GAMEFLAGS)
+    BRA     .PREEND
+    .WAIT:
+    ;ACTIVAR ESPERA
+    ADDQ.B  #1, D2
     BSET.B  #3, (GAMEFLAGS)
-    MOVE.W  #0, 20(SP) ;QUEREMOS SALIR 
+    .DEXIT:
+    CLR.W  24(SP) ;QUEREMOS SALIR 
+    .PREEND:
+    ADDQ.B  #1, D0
+    MOVE.B  D0, (CSINGLE)
+    MOVE.B  D2, (SINRQ)
+    MOVE.B  D3, (SINGR)
     BRA     .END
+.CWAITT:
+    MOVE.B  (CSINGLE), D0
+    MOVE.B  (SINRQ), D2
+    MOVE.B  (SINGR), D3
+    MOVE.B  (TWAIT), D7
+    CMP.B   D0, D2
+    BEQ     .SWAIT
+    ;BAJAR FRAME **MIRAR XPMODE
+    CMP.B   D0, D3
+    BNE     .ENDWT
+    SUBQ.B  #1, D7
+    BMI     .ENDWAIT
+    CLR.W   24(SP)
+    BRA     .ENDWT
+    .ENDWAIT:
+    CLR.B   D7
+    BCLR.B  #3, (GAMEFLAGS)
+    ADDQ.B  #1, D3
+    BRA     .ENDWT
+    .SWAIT:
+    ;REALIZAR ESPERA
+    MOVE.B  (A1)+, D7
+    ADDQ.B  #1, D2
+    BSET.B  #3, (GAMEFLAGS)
+    .ENDWT:
+    MOVE.B  D7, (TWAIT)
 
-
-    .END:
-
-    MOVEM.L (SP)+, A0/D7/D2/D0
+    ADDQ.B  #1, D0
+    MOVE.B  D0, (CSINGLE)
+    MOVE.B  D2, (SINRQ)
+    MOVE.B  D3, (SINGR)
+    BRA     .END
+.END:
+    MOVEM.L (SP)+, A0/D7/D3-D2/D0
     RTS
 
     ;LEER BYTE A BYTE POR PARIDAD
@@ -284,6 +348,12 @@ DBCODES:
         MOVE.W  #3, D7
         ADDQ.W  #4, D1
     .READD2:
+        MOVE.L  A1, D2
+        ;A1 DEBERIA SER PAR
+        BTST.L  #0, D2
+        BEQ     .PAR
+        ADDQ.L #1, A1
+        .PAR:
         CLR.L   D2
         .READLP:
         ASL.L   #8, D2
@@ -292,17 +362,25 @@ DBCODES:
         RTS
 
     .CDBCOLORS:     DC.L RED, BLACK, WHITE
-    .JMPTABLE:      DC.L .CDIAG, .CEXE, .CPUSHNW, .CPUSHDW, .CSINGLE, .CSINGLEN, .CWAITZ
+    .JMPTABLE:      DC.L .CDIAG, .CEXE, .CPUSHNW, .CPUSHDW, .CSINGLE, .CSINGLEN, .CWAITZ, .CWAITT
 
 CURRENTTXTID    DS.W 1
 HASPORTTR       DS.W 1
 TXTINDEX        DS.W 1
 DIAGINDEX       DS.W 1
-CDBSINGLE       DS.W 1
 MORELINES       DS.W 1
 TXTDELAYV       DS.W 1
 SPOFFSET        DS.W 1
+SINRQ           DS.B 1  ;QUE SE DEBEN EJECUTAR
+SINGR           DS.B 1  ;UNA VEZ
+CSINGLE         DS.B 1  ;CONTROLA CODIGOS 
+TWAIT           DS.B 1
+                DS.W 0
+
 TXTDELAY        EQU 1
+
+
+
 
 
 
