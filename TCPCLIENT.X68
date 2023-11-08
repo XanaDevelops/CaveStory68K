@@ -145,7 +145,7 @@ SEND_DATA:
 
     MOVE.W  D0, 20(SP)
 
-    MOVEM.L (SP)+, A2-A1/D2-D1
+    MOVEM.L (SP)+, A2-A1/D1-D0
     RTS
 
 RETRIES     EQU 2

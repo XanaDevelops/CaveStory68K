@@ -161,38 +161,14 @@ GM_UPDATE:
     BSET.B  #7, (GAMEFLAGS)
 
     CMP.W   #-1, (CURRENTTXTID)
-    BNE     .NOBTXT
+    BNE     .ALIVE
     ;MUESTRA MENSAJE MUERTE
     MOVE.W  #1, -(SP)
     BSR     START_DBOX
     ADDQ.W  #2, SP
-
-    .NOBTXT:    
-    ;ESPERA Z PLAYER
-    ;BTST.B  #KEYM_Z, (KEY_PRESS_PLAYER)
-    ;BEQ     .NOZ
-    ;ESPERA FIN DBOX
-    ;BTST.B  #6, (GAMEFLAGS)
-    ;BEQ     .NOZ
-    ;REVIVE JUGADOR
-    ;CARGA PARTIDA GUARDADA
-    ;JSR     LOAD_SAVE
-    ;CARGA MAPA
-    ;MOVE.W  (CURRENTMAPID), D0
-    ;MOVE.W  D0, -(SP)
-    ;BSR     LOAD_MAP
-    ;ADDQ.L  #2, SP
-    .NOZ:
     BRA     .ALIVE
     
-    .WAIT:
-    ;ESPERA PARA SFX MUERTE
-    CMP.B   #0, (WAITDED)
-    BNE     .ALIVE
-    ;REPRODUCE SFX
-    ;MOVE.W  #9, -(SP)
-    ;JSR     SEND_BGM
-    ;ADDQ.L  #2, SP
+    .WAIT:  ;LO DEJO POR SI ACASO...
     .ALIVE:
 
     RTS

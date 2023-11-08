@@ -183,6 +183,7 @@ DRAW_DBOX:
     .ENDF:
     ;MARCA FINAL
     BSET.B  #6, (GAMEFLAGS)
+    BSET.B  #3, (GAMEFLAGS)
     .END:
     MOVEM.L (SP)+, D4-D0
     RTS
@@ -194,6 +195,9 @@ DRAW_DBOX:
 
 DBCODES:
     ;EJECUTA LOS DIFERENTES DB CODES
+    ;NOTAS:
+    ;   TODO OPTIMIZAR VALORES SINGLE
+    ;   SIGLE CON PARAMETROS DESPLAZAR A1 IGUALMENTE
     ; (SP) ID DB CODE >=$A0 -> 0 SI SALIDA DRAW_DBOX
     ; MODIFICA A1, D1
     
@@ -203,14 +207,14 @@ DBCODES:
     ADDQ.L  #1, A1
 
     ;OBTIENE ID
-    MOVE.W  24(SP), D0
+    MOVE.W  24(SP), D7
     BRA     .DECODE
 
     .NEXTCODE:
-    MOVE.B (A1)+, D0
+    MOVE.B (A1)+, D7
     .DECODE:
     ;COMPRUEBA CDBCCOL
-    CMP.W   #CDBCCOL, D0
+    CMP.W   #CDBCCOL, D7
     BNE     .NOCCOL
     ;LEE COLOR EN D2, CAMBIA COLOR
     BSR     .READLD2
@@ -220,45 +224,99 @@ DBCODES:
     BRA     .END
     .NOCCOL:
     ;COMPRUEBA COLORES PREFIJADOS
-    CMP.W   #CDBDIAG, D0
+    CMP.W   #CDBDIAG, D7
     BGT     .NOPCOL
-    SUB.W   #$A1, D0
-    ASL.W   #2, D0
+    SUB.W   #$A1, D7
+    ASL.W   #2, D7
     LEA     .CDBCOLORS, A0
-    MOVE.L  (A0, D0), -(SP)
+    MOVE.L  (A0, D7), -(SP)
     JSR     SET_COLOR_TEXT
     ADDQ.L  #4, SP
     BRA     .END
     .NOPCOL:
 
     ;SALTO $BX
-    SUB.W   #$B0, D0
-    ASL.W   #2, D0
+    SUB.W   #$B0, D7
+    ASL.W   #2, D7
     LEA     .JMPTABLE, A0
-    MOVE.L  (A0, D0), A0
+    MOVE.L  (A0, D7), A0
     JMP     (A0)
 
 .CDIAG:
+    ;
     BRA     .END
 .CEXE:
+    ;SALTA SUBR -> @.L
+    MOVE.B  (CSINGLE), D0
+    MOVE.B  (SINRQ), D7
+    MOVE.B  (SINGR), D3
+    CMP.B   D0, D7
+    BNE     .NOEXEC
+    ;EXEC
+    ADDQ.B  #1, D7
+    ADDQ.B  #1, D3
+
     BSR     .READLD2
     MOVE.L  D2, A0
     JSR     (A0)
     ADD.W   (SPOFFSET), SP
     CLR.W   (SPOFFSET)
+    BRA     .ENDEXE
+    .NOEXEC:
+    ADDQ.L  #4, A1
+    .ENDEXE:
+    ADDQ.B  #1, D0
+    MOVE.B  D0, (CSINGLE)
+    MOVE.B  D7, (SINRQ)
+    MOVE.B  D3, (SINGR)
+
     BRA     .END
 .CPUSHNW:
-    ;PUSH WORD A SP
+    ;PUSH WORD A SP -> N.W
+    MOVE.B  (CSINGLE), D0
+    MOVE.B  (SINRQ), D7
+    MOVE.B  (SINGR), D3
+    CMP.B   D0, D7
+    BNE     .NOPUSHNW
+    ADDQ.B  #1, D7
+    ADDQ.B  #1, D3
+
     ADDQ.W  #2, (SPOFFSET)
     BSR     .READWD2
     MOVE.W  D2, -(SP)
+    BRA     .ENDPSHNW
+    .NOPUSHNW:
+    ADDQ.L  #2, A1
+    .ENDPSHNW:
+    ADDQ.B  #1, D0
+    MOVE.B  D0, (CSINGLE)
+    MOVE.B  D7, (SINRQ)
+    MOVE.B  D3, (SINGR)
+
     BRA     .NEXTCODE ;MODIFICADA LA PILA, NO RTS!
 .CPUSHDW:
-    ;
+    ;PUSH SP WORD EN @, -> (@.L).W
+    MOVE.B  (CSINGLE), D0
+    MOVE.B  (SINRQ), D7
+    MOVE.B  (SINGR), D3
+
+    CMP.B   D0, D7
+    BNE     .NOPUSHDW
+    ADDQ.B  #1, D7
+    ADDQ.B  #1, D3
+
     ADDQ.W  #2, (SPOFFSET)
     BSR     .READLD2
     MOVE.L  D2, A0
     MOVE.W  (A0), -(SP)
+    BRA     .ENDPSHDW
+    .NOPUSHDW:
+    ADDQ.L  #4, A1
+    .ENDPSHDW:
+    ADDQ.B  #1, D0
+    MOVE.B  D0, (CSINGLE)
+    MOVE.B  D7, (SINRQ)
+    MOVE.B  D3, (SINGR)
     BRA     .NEXTCODE
 .CSINGLE:
     ; MARCA LA EJECUCION UNICA HASTA CDBSINGEND
@@ -274,8 +332,8 @@ DBCODES:
     BNE     .NOLOOP
     ADDQ.B  #1, D3
     .NOLOOP:
-    MOVE.B  (A1)+, D0
-    CMP.B   #CDBDSINGEND, D0
+    MOVE.B  (A1)+, D7
+    CMP.B   #CDBDSINGEND, D7
     BNE     .NOLOOP
     BRA     .END
     .SISIN:
@@ -283,9 +341,9 @@ DBCODES:
 
     .ENDCSG:
     ADDQ.B  #1, D0
-    MOVE.B  (CSINGLE), D0
-    MOVE.B  (SINRQ), D2
-    MOVE.B  (SINGR), D3
+    MOVE.B  D0, (CSINGLE)
+    MOVE.B  D2, (SINRQ)
+    MOVE.B  D3, (SINGR)
 
     BRA     .END
 .CSINGLEN:
@@ -295,6 +353,7 @@ DBCODES:
     MOVE.B  (CSINGLE), D0
     MOVE.B  (SINRQ), D2
     MOVE.B  (SINGR), D3
+
     CMP.B   D0, D2
     BEQ     .WAIT
     CMP.B   D0, D3
@@ -317,32 +376,66 @@ DBCODES:
     MOVE.B  D3, (SINGR)
     BRA     .END
 .CWAITT:
+    ;ESPERA FRAMES -> N.B
     MOVE.B  (CSINGLE), D0
     MOVE.B  (SINRQ), D2
     MOVE.B  (SINGR), D3
     MOVE.B  (TWAIT), D7
+
     CMP.B   D0, D2
     BEQ     .SWAIT
     ;BAJAR FRAME **MIRAR XPMODE
     CMP.B   D0, D3
-    BNE     .ENDWT
+    BNE     .WAITTS
     SUBQ.B  #1, D7
     BMI     .ENDWAIT
     CLR.W   24(SP)
-    BRA     .ENDWT
+    BRA     .WAITTS
     .ENDWAIT:
     CLR.B   D7
     BCLR.B  #3, (GAMEFLAGS)
     ADDQ.B  #1, D3
-    BRA     .ENDWT
+    BRA     .WAITTS
     .SWAIT:
     ;REALIZAR ESPERA
     MOVE.B  (A1)+, D7
     ADDQ.B  #1, D2
     BSET.B  #3, (GAMEFLAGS)
+    BRA     .ENDWT
+    .WAITTS:
+    ADDQ.L  #1, A1
     .ENDWT:
     MOVE.B  D7, (TWAIT)
 
+    ADDQ.B  #1, D0
+    MOVE.B  D0, (CSINGLE)
+    MOVE.B  D2, (SINRQ)
+    MOVE.B  D3, (SINGR)
+    BRA     .END
+.CASKYN:
+    BRA     .END
+.CSFX:
+    BRA     .END
+.CBGM:
+    ;REPRODUCE BGM -> ID.B
+    MOVE.B  (CSINGLE), D0
+    MOVE.B  (SINRQ), D2
+    MOVE.B  (SINGR), D3
+    CMP.B   D0, D2
+    BNE     .NOBGM
+
+    ADDQ.B  #1, D2
+    ADDQ.B  #1, D3
+    
+    CLR.L D7
+    MOVE.B  (A1)+, D7
+    MOVE.W  D7, -(SP)
+    JSR     SEND_BGM
+    ADDQ.L  #2, SP
+    BRA     .ENDBGM
+    .NOBGM:
+    ADDQ.L  #1, A1  ;DESPLAZAR IGUALMENTE
+    .ENDBGM:
     ADDQ.B  #1, D0
     MOVE.B  D0, (CSINGLE)
     MOVE.B  D2, (SINRQ)
@@ -354,10 +447,12 @@ DBCODES:
 
     ;LEER BYTE A BYTE POR PARIDAD
     .READWD2:
+        MOVE.W  D7, -(SP)
         MOVE.W  #1, D7
         ADDQ.W  #2, D1
         BRA     .READD2
     .READLD2:
+        MOVE.W  D7, -(SP)
         MOVE.W  #3, D7
         ADDQ.W  #4, D1
     .READD2:
@@ -372,11 +467,12 @@ DBCODES:
         ASL.L   #8, D2
         MOVE.B  (A1)+, D2
         DBRA    D7, .READLP
+        MOVE.W (SP)+, D7
         RTS
 
     .CDBCOLORS:     DC.L RED, BLACK, WHITE
     .JMPTABLE:      DC.L .CDIAG, .CEXE, .CPUSHNW, .CPUSHDW, .CSINGLE, .CSINGLEN, .CWAITZ, .CWAITT
-
+                    DC.L .CASKYN, .CSFX, .CBGM
 CURRENTTXTID    DS.W 1
 HASPORTTR       DS.W 1
 TXTINDEX        DS.W 1
@@ -391,6 +487,8 @@ TWAIT           DS.B 1
                 DS.W 0
 
 TXTDELAY        EQU 1
+
+
 
 
 
