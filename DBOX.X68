@@ -161,6 +161,19 @@ DRAW_DBOX:
     MOVE.W  #1, D1
     TRAP    #15
     ADDQ.L  #1, A1
+
+    ;NO SND SI PAUSA
+    BTST.B  #3, (GAMEFLAGS)
+    BNE     .NOSND
+    ;SONIDO TEXTO
+    MOVE.L  A1, D1
+    BTST.L  #0, D1
+    BEQ     .NOSND
+    MOVE.W  #6, -(SP)
+    MOVE.W  #0, -(SP)
+    JSR     PLAY_SFX
+    ADDQ.L  #4, SP
+    .NOSND:
     DBRA    D5, .LOOPFRASE
 
     ADDQ.W  #1, D3          ;BAJAR LINEA
@@ -378,6 +391,7 @@ TWAIT           DS.B 1
                 DS.W 0
 
 TXTDELAY        EQU 1
+
 
 
 
