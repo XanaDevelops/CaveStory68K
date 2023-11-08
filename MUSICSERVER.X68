@@ -50,8 +50,11 @@ START:                  ; first instruction of program
 
     INCLUDE "TCPCLIENT.X68"
     INCLUDE "MUSIC.X68"
+    INCLUDE "DATA/SOUNDS.X68"
 
     END    START        ; last line of source
+
+
 
 
 
