@@ -152,8 +152,10 @@ LOAD_MAP:
 GM_UPDATE:
     CMP.B   #0, (PLYERDED)
     BEQ     .ALIVE
+    ;JUGADOR MUERTO
     SUB.B   #1, (WAITDED)
     BPL     .WAIT
+    ;FIN ESPERA MUERTE
     CLR.B   (WAITDED)
 
     BSET.B  #7, (GAMEFLAGS)
@@ -167,20 +169,19 @@ GM_UPDATE:
 
     .NOBTXT:    
     ;ESPERA Z PLAYER
-    BTST.B  #KEYM_Z, (KEY_PRESS_PLAYER)
-    BEQ     .NOZ
+    ;BTST.B  #KEYM_Z, (KEY_PRESS_PLAYER)
+    ;BEQ     .NOZ
     ;ESPERA FIN DBOX
-    BTST.B  #6, (GAMEFLAGS)
-    BEQ     .NOZ
+    ;BTST.B  #6, (GAMEFLAGS)
+    ;BEQ     .NOZ
     ;REVIVE JUGADOR
     ;CARGA PARTIDA GUARDADA
-    JSR     LOAD_SAVE
+    ;JSR     LOAD_SAVE
     ;CARGA MAPA
-    MOVE.W  (CURRENTMAPID), D0
-    MOVE.W  D0, -(SP)
-    BSR     LOAD_MAP
-    ADDQ.L  #2, SP
-    BCLR.B  #7, (GAMEFLAGS)
+    ;MOVE.W  (CURRENTMAPID), D0
+    ;MOVE.W  D0, -(SP)
+    ;BSR     LOAD_MAP
+    ;ADDQ.L  #2, SP
     .NOZ:
     BRA     .ALIVE
     
@@ -189,9 +190,9 @@ GM_UPDATE:
     CMP.B   #0, (WAITDED)
     BNE     .ALIVE
     ;REPRODUCE SFX
-    MOVE.W  #9, -(SP)
-    JSR     SEND_BGM
-    ADDQ.L  #2, SP
+    ;MOVE.W  #9, -(SP)
+    ;JSR     SEND_BGM
+    ;ADDQ.L  #2, SP
     .ALIVE:
 
     RTS
