@@ -16,7 +16,7 @@ START_DBOX:
     CLR.W   (DIAGINDEX)
     CLR.W   (MORELINES)
     CLR.W   (SPOFFSET)
-    CLR.B   (CSINGLE)
+    CLR.B   (CUNIC)
     CLR.W   (SINRQ)     ;W PARA SINGR
     CLR.B   (TWAIT)
 
@@ -82,7 +82,7 @@ DRAW_DBOX:
     BEQ     .END
 
     ;COM SINGLE
-    CLR.B   (CSINGLE)
+    CLR.B   (CUNIC)
 
     ;COLORES RECUADRO
     MOVE.B  #80, D0
@@ -212,6 +212,10 @@ DBCODES:
 
     .NEXTCODE:
     MOVE.B (A1)+, D7
+    ;NECESARIO ACTUALIZAR LOS VALORES
+    MOVE.B  D0, (CUNIC)
+    MOVE.B  D2, (SINRQ)
+    MOVE.B  D3, (SINGR)
     .DECODE:
     ;COMPRUEBA CDBCCOL
     CMP.W   #CDBCCOL, D7
@@ -221,7 +225,7 @@ DBCODES:
     MOVE.L  D2, -(SP)
     JSR     SET_COLOR_TEXT
     ADDQ.L  #4, SP
-    BRA     .END
+    BRA     .ENDCLR
     .NOCCOL:
     ;COMPRUEBA COLORES PREFIJADOS
     CMP.W   #CDBDIAG, D7
@@ -232,7 +236,7 @@ DBCODES:
     MOVE.L  (A0, D7), -(SP)
     JSR     SET_COLOR_TEXT
     ADDQ.L  #4, SP
-    BRA     .END
+    BRA     .ENDCLR
     .NOPCOL:
 
     ;SALTO $BX
@@ -240,16 +244,25 @@ DBCODES:
     ASL.W   #2, D7
     LEA     .JMPTABLE, A0
     MOVE.L  (A0, D7), A0
+    ;VALORES SINGLE
+    MOVE.B  (CUNIC), D0
+    MOVE.B  (SINRQ), D2
+    MOVE.B  (SINGR), D3
     JMP     (A0)
+.END:
+    MOVE.B  D0, (CUNIC)
+    MOVE.B  D2, (SINRQ)
+    MOVE.B  D3, (SINGR)
+.ENDCLR:
+    MOVEM.L (SP)+, A0/D7/D3-D2/D0
+    RTS
 
 .CDIAG:
     ;
     BRA     .END
 .CEXE:
     ;SALTA SUBR -> @.L
-    MOVE.B  (CSINGLE), D0
-    MOVE.B  (SINRQ), D7
-    MOVE.B  (SINGR), D3
+    MOVE.B  D2, D7
     CMP.B   D0, D7
     BNE     .NOEXEC
     ;EXEC
@@ -266,16 +279,13 @@ DBCODES:
     ADDQ.L  #4, A1
     .ENDEXE:
     ADDQ.B  #1, D0
-    MOVE.B  D0, (CSINGLE)
-    MOVE.B  D7, (SINRQ)
-    MOVE.B  D3, (SINGR)
+    MOVE.B  D7, D2
 
     BRA     .END
 .CPUSHNW:
     ;PUSH WORD A SP -> N.W
-    MOVE.B  (CSINGLE), D0
-    MOVE.B  (SINRQ), D7
-    MOVE.B  (SINGR), D3
+    MOVE.B  D2, D7
+
     CMP.B   D0, D7
     BNE     .NOPUSHNW
     ADDQ.B  #1, D7
@@ -289,16 +299,11 @@ DBCODES:
     ADDQ.L  #2, A1
     .ENDPSHNW:
     ADDQ.B  #1, D0
-    MOVE.B  D0, (CSINGLE)
-    MOVE.B  D7, (SINRQ)
-    MOVE.B  D3, (SINGR)
-
+    MOVE.B  D7, D2
     BRA     .NEXTCODE ;MODIFICADA LA PILA, NO RTS!
 .CPUSHDW:
     ;PUSH SP WORD EN @, -> (@.L).W
-    MOVE.B  (CSINGLE), D0
-    MOVE.B  (SINRQ), D7
-    MOVE.B  (SINGR), D3
+    MOVE.B  D2, D7
 
     CMP.B   D0, D7
     BNE     .NOPUSHDW
@@ -314,16 +319,10 @@ DBCODES:
     ADDQ.L  #4, A1
     .ENDPSHDW:
     ADDQ.B  #1, D0
-    MOVE.B  D0, (CSINGLE)
-    MOVE.B  D7, (SINRQ)
-    MOVE.B  D3, (SINGR)
+    MOVE.B  D7, D2
     BRA     .NEXTCODE
 .CSINGLE:
     ; MARCA LA EJECUCION UNICA HASTA CDBSINGEND
-    MOVE.B  (CSINGLE), D0
-    MOVE.B  (SINRQ), D2
-    MOVE.B  (SINGR), D3
-
     CMP.B   D0, D2
     BEQ     .SISIN
     ;YA SE HA EJECUTADO
@@ -341,19 +340,13 @@ DBCODES:
 
     .ENDCSG:
     ADDQ.B  #1, D0
-    MOVE.B  D0, (CSINGLE)
-    MOVE.B  D2, (SINRQ)
-    MOVE.B  D3, (SINGR)
-
+    
     BRA     .END
 .CSINGLEN:
     ;CODIGO MARCADOR, NO HACE NADA
     BRA     .END
 .CWAITZ:
-    MOVE.B  (CSINGLE), D0
-    MOVE.B  (SINRQ), D2
-    MOVE.B  (SINGR), D3
-
+    ;
     CMP.B   D0, D2
     BEQ     .WAIT
     CMP.B   D0, D3
@@ -371,15 +364,9 @@ DBCODES:
     CLR.W  24(SP) ;QUEREMOS SALIR 
     .PREEND:
     ADDQ.B  #1, D0
-    MOVE.B  D0, (CSINGLE)
-    MOVE.B  D2, (SINRQ)
-    MOVE.B  D3, (SINGR)
     BRA     .END
 .CWAITT:
     ;ESPERA FRAMES -> N.B
-    MOVE.B  (CSINGLE), D0
-    MOVE.B  (SINRQ), D2
-    MOVE.B  (SINGR), D3
     MOVE.B  (TWAIT), D7
 
     CMP.B   D0, D2
@@ -408,9 +395,6 @@ DBCODES:
     MOVE.B  D7, (TWAIT)
 
     ADDQ.B  #1, D0
-    MOVE.B  D0, (CSINGLE)
-    MOVE.B  D2, (SINRQ)
-    MOVE.B  D3, (SINGR)
     BRA     .END
 .CASKYN:
     BRA     .END
@@ -418,9 +402,6 @@ DBCODES:
     BRA     .END
 .CBGM:
     ;REPRODUCE BGM -> ID.B
-    MOVE.B  (CSINGLE), D0
-    MOVE.B  (SINRQ), D2
-    MOVE.B  (SINGR), D3
     CMP.B   D0, D2
     BNE     .NOBGM
 
@@ -437,14 +418,13 @@ DBCODES:
     ADDQ.L  #1, A1  ;DESPLAZAR IGUALMENTE
     .ENDBGM:
     ADDQ.B  #1, D0
-    MOVE.B  D0, (CSINGLE)
-    MOVE.B  D2, (SINRQ)
-    MOVE.B  D3, (SINGR)
     BRA     .END
-.END:
-    MOVEM.L (SP)+, A0/D7/D3-D2/D0
-    RTS
+.CHPM:
+    ;CURA AL JUGADOR AL MAXIMO
 
+    BRA     .END
+
+    ;-- COMANDOS AUXILIARES ---;
     ;LEER BYTE A BYTE POR PARIDAD
     .READWD2:
         MOVE.W  D7, -(SP)
@@ -482,7 +462,7 @@ TXTDELAYV       DS.W 1
 SPOFFSET        DS.W 1
 SINRQ           DS.B 1  ;QUE SE DEBEN EJECUTAR
 SINGR           DS.B 1  ;UNA VEZ
-CSINGLE         DS.B 1  ;CONTROLA CODIGOS 
+CUNIC         DS.B 1  ;CONTROLA CODIGOS 
 TWAIT           DS.B 1
                 DS.W 0
 
