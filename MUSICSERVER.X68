@@ -11,7 +11,8 @@
     ORG    $1000
 START:                  ; first instruction of program
 
-* Put program code here
+    ;INT OFF
+    ORI.W   #%0000011100000000, SR
 
     BSR     START_SERVER
     MOVE.B  #13, D0
@@ -41,9 +42,9 @@ START:                  ; first instruction of program
     CMP.W   #CMDSTOP, D0
     BNE     .CMDLOOP
     BSR     STOP_SFX
-
+    ;AQUI COMANDO
     BRA     .CMDLOOP
-
+EXIT:
     SIMHALT             ; halt simulator
 
 * Put variables and constants here
@@ -54,6 +55,17 @@ START:                  ; first instruction of program
 
     END    START        ; last line of source
 
+GETHBEAT    DC.B 0
+CHECKHBEAT:
+    CMP.B   #0, (GETHBEAT)
+    BNE     .REV
+    BSR     STOP_SFX
+    BRA     EXIT
+    .REV:
+    CLR.B   (GETHBEAT)
+    RTE
+
+CHECKRATE   EQU     HBEATRATE<<1
 
 
 

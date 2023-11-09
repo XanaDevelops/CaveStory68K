@@ -5,7 +5,8 @@
 * Description:
 *-----------------------------------------------------------
 START_TCP_CLIENT:
-    MOVEM.L     D0-D1/D7/A1-A2, -(SP)
+    ; 24(SP) -1 SI ERROR
+    MOVEM.L D0-D1/D7/A1-A2, -(SP)
 
     MOVE.B  #14, D0
     LEA     TXTINIT, A1
@@ -39,6 +40,7 @@ START_TCP_CLIENT:
         MOVE.B  #13, D0
         LEA     TXTFAIL, A1
         TRAP    #15
+        MOVE.W  #-1, 24(SP)
     BRA .ENDTCPC
     
     .NOERR:
@@ -52,7 +54,7 @@ START_TCP_CLIENT:
     CMP.W   #0, D0
     BNE     .FAILC
 
-    ADDQ.L  #2, SP
+    SUBQ.L  #2, SP
     BSR     READ_DATA
     MOVE.W  (SP)+, D0
 
@@ -68,7 +70,7 @@ START_TCP_CLIENT:
     REPAINT
 
     MOVE.B  #23, D0  ;WAIT
-    MOVE.L  #300, D1
+    MOVE.L  #150, D1
     TRAP    #15
 
     

@@ -5,12 +5,17 @@
 * Description:
 *-----------------------------------------------------------
 START_CLIENT:
+    CLR.B   (HASBGMSRV)
     LEA     SFX_V, A0           ;SETUP LOAD SONGS
     MOVE.W  #NUMSFX-1, D7
     BSR     LDR_MUS
-
+    SUBQ.L  #2, SP
     JSR     START_TCP_CLIENT
-
+    MOVE.W  (SP)+, D0
+    CMP.W   #-1, D0
+    BNE     .HAYBGM
+    MOVE.B  #-1, (HASBGMSRV)
+    .HAYBGM:
     RTS
 
     
@@ -102,10 +107,12 @@ LDR_MUS:
     RTS
 
     
-
+HASBGMSRV       DC.B 0 ;0 SI, -1, NO
+CURRPRIO        DC.B 0
 
 CMDPBGM     EQU $1010
 CMDSTOP     EQU $7676
+CDMHBEAT    EQU $ACBD
 
 
 

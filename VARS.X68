@@ -8,6 +8,8 @@
 GAMEFLAGS       DC.B 0 ;(UPD_ENT)(END_DBOX)(CR_DBOX)-----
 FTOSKIP         DC.B 0
 
+
+
 SCREEN_X        DS.W 1
 SCREEN_Y        DS.W 1
 SCR_SPEED_X     DC.W 0
@@ -23,7 +25,7 @@ SCRBGCOLOR      DC.L $00202020
 
 CURRENTMAPDIR   DS.L 1
 
-
+;COLISION ENTIDADES
 MINCHK          DC.W $8000
 MAXCHK          DC.W MAXWP
                 DS.W 0
