@@ -421,7 +421,15 @@ DBCODES:
     BRA     .END
 .CHPM:
     ;CURA AL JUGADOR AL MAXIMO
+    CMP.B   D0, D2
+    BNE     .ENDHPM
+    ADDQ.B  #1, D2
+    ADDQ.B  #1, D3
+    MOVE.L  (PLAYERREF), A0
+    MOVE.W  MAXHEALTH(A0), HP(A0)
 
+    .ENDHPM:
+    ADDQ.B  #1, D0
     BRA     .END
 
     ;-- COMANDOS AUXILIARES ---;
@@ -452,7 +460,7 @@ DBCODES:
 
     .CDBCOLORS:     DC.L RED, BLACK, WHITE
     .JMPTABLE:      DC.L .CDIAG, .CEXE, .CPUSHNW, .CPUSHDW, .CSINGLE, .CSINGLEN, .CWAITZ, .CWAITT
-                    DC.L .CASKYN, .CSFX, .CBGM
+                    DC.L .CASKYN, .CSFX, .CBGM, .CHPM
 CURRENTTXTID    DS.W 1
 HASPORTTR       DS.W 1
 TXTINDEX        DS.W 1
