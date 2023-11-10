@@ -10,14 +10,36 @@
 
     ORG    $1000
 START:                  ; first instruction of program
-
+; -- PARTE SISTEMA --- ;
+    ;CARGAR CANCIONES PRIMERO
+    BRA     .CFGSERVER
+.CFGINT:
+    ;CONFIGURAR INTERRUPCIONS
     ;INT OFF
     ORI.W   #%0000011100000000, SR
-
+    ;INSTALL
+    MOVE.L  #CHECKHBEAT, (INTBASE+(4*7))
+    ;CONFIGURE
+    ;CHECKRATE
+    MOVE.B  #32, D0
+    MOVE.B  #6, D1
+    MOVE.B  #$87, D2
+    MOVE.L  #CHECKRATE, D3
+    TRAP    #15
+    ;SET SR
+    ANDI.W  #%1111100011111111, SR
+    ;ENABLE
+    MOVE.B  #32, D0
+    MOVE.B  #5, D1
+    TRAP    #15
+    BRA     .CMDLOOP
+; -- SERVIROR COMO TAL ---;
+.CFGSERVER:
     BSR     START_SERVER
     MOVE.B  #13, D0
     LEA     TXTOK, A1
     TRAP    #15
+    BRA     .CFGINT
     .CMDLOOP:
     SUBQ.L  #2, SP
     BSR     READ_DATA
@@ -40,22 +62,20 @@ START:                  ; first instruction of program
     
     .NOPLAY:
     CMP.W   #CMDSTOP, D0
-    BNE     .CMDLOOP
+    BNE     .NOSTOP
     BSR     STOP_SFX
-    ;AQUI COMANDO
+    
+    .NOSTOP:
+    CMP.W   #CDMHBEAT, D0
+    BNE     .CMDLOOP
+    MOVE.B #1, (GETHBEAT)
     BRA     .CMDLOOP
 EXIT:
     SIMHALT             ; halt simulator
 
-* Put variables and constants here
-
-    INCLUDE "TCPCLIENT.X68"
-    INCLUDE "MUSIC.X68"
-    INCLUDE "DATA/SOUNDS.X68"
-
-    END    START        ; last line of source
 
 GETHBEAT    DC.B 0
+            DS.W 0
 CHECKHBEAT:
     CMP.B   #0, (GETHBEAT)
     BNE     .REV
@@ -65,7 +85,12 @@ CHECKHBEAT:
     CLR.B   (GETHBEAT)
     RTE
 
-CHECKRATE   EQU     HBEATRATE<<1
+    INCLUDE "TCPCLIENT.X68"
+    INCLUDE "MUSIC.X68"
+    INCLUDE "DATA/SOUNDS.X68"
+
+
+    END    START        ; last line of source
 
 
 

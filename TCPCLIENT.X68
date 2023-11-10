@@ -78,6 +78,8 @@ START_TCP_CLIENT:
     RTS
 
 START_TCP_SERVER:
+    MOVEM.L D0-D1/A1-A2, -(SP)
+
     MOVE.B  #14, D0
     LEA     TXTINIT, A1
     TRAP    #15
@@ -110,6 +112,7 @@ START_TCP_SERVER:
     CMP.W   #0, D0
     BNE     .ERR
 
+    MOVEM.L (SP)+, A2-A1/D1-D0
     RTS
 
 READ_DATA:
