@@ -5,7 +5,7 @@
 * Description:
 *-----------------------------------------------------------
 
-SPRITES DC.L NULL, TILE_CUEVA_0, TILE_CUEVA_1
+SPRITES DC.L NULL, NULL, TILE_CUEVA_0, TILE_CUEVA_1
 
 
 QUOTE_WALK_LN   DC.L 4
@@ -64,12 +64,12 @@ DORITO_M        DC.L 5
 
 
 CLOUDS          DC.L NUBE0, NUBE1, NUBE2, NUBE3
-MAPAS   DC.L CAVIDAD, TESTMAP, SALA
 
 BGMMUS  DC.B 4, 41
         DS.W 0
 
 ALLARMS DC.L BULLET_POLARSTAR
+
 
 *~Font name~Courier New~
 *~Font size~10~

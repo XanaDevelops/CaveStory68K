@@ -3,49 +3,139 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx",
+    "activeFile": "tiledtest.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
+        "00_TITLESCREEN.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 7.833333333333343,
+                "y": 23.66666666666667
+            }
+        },
+        "01_tiledtest.tmx": {
+            "scale": 3.4872916666666667,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.00716888703029,
+                "y": 120.15054662763606
+            }
+        },
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx": {
             "scale": 0.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 963,
-                "y": 742
+                "x": 959,
+                "y": 736
             }
         },
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx#TILES": {
             "scaleInDock": 1
         },
+        "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/TITLESCREEN.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 102.75,
+                "y": 109
+            }
+        },
+        "CAMARA.tsx": {
+            "dynamicWrapping": true
+        },
+        "CUEVA.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 4
+        },
+        "MyChar.tsx": {
+            "dynamicWrapping": false
+        },
+        "NpcCemet.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 4
+        },
+        "NpcSym.tsx": {
+            "dynamicWrapping": false
+        },
         "PrtCave.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 2,
             "scaleInEditor": 4
         },
-        "sin nombre.tmx": {
-            "scale": 8,
+        "TITLESCREEN.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 3.7363839285714286,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 132.125,
-                "y": 127.8125
+                "x": 112.00669096122826,
+                "y": 88.05304976402414
+            }
+        },
+        "sin nombre.tmx": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 187.75,
+                "y": 139.5
+            }
+        },
+        "tiledtest.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 39.83333333333333,
+                "y": 135
+            }
+        },
+        "tilledtest.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 150.83333333333331,
+                "y": 71
             }
         }
     },
-    "last.imagePath": "D:/UIB/2n/CaveStory/CVSource",
-    "map.fixedSize": false,
+    "frame.defaultDuration": 220,
+    "last.imagePath": "D:/UIB/2n/CaveStory/Tiled",
+    "last.objectTemplatePath": "D:/UIB/2n/CaveStory/Tiled",
+    "map.fixedSize": true,
+    "map.height": 11,
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 16,
-    "map.tileWidth": 16,
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 14,
     "openFiles": [
-        "sin nombre.tmx",
+        "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx",
         "PrtCave.tsx",
-        "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx"
+        "NpcCemet.tsx",
+        "tiledtest.tmx"
     ],
     "project": "sin nombre.tiled-project",
+    "property.type": "int",
     "recentFiles": [
-        "sin nombre.tmx",
+        "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx",
+        "TITLESCREEN.tmx",
+        "tiledtest.tmx",
+        "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/TITLESCREEN.tmx",
         "PrtCave.tsx",
-        "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx"
+        "NpcCemet.tsx",
+        "tilledtest.tmx",
+        "CUEVA.tsx",
+        "sin nombre.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
@@ -53,5 +143,6 @@
         "width": 16
     },
     "tileset.transparentColor": "#000000",
+    "tileset.type": 0,
     "tileset.useTransparentColor": true
 }

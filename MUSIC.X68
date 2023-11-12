@@ -30,6 +30,8 @@ START_SERVER:
 
 SEND_BGM:
     ; 10(SP) ID BGM
+    CMP.B   #0, (HASBGMSRV)
+    BNE     LOCALBGM
     MOVE.L  D0, -(SP)
     MOVE.W  #CMDPBGM, -(SP)
     JSR     SEND_DATA
@@ -38,6 +40,9 @@ SEND_BGM:
     ADDQ.L  #2, SP
 
     MOVE.L  (SP)+, D0
+    RTS
+
+LOCALBGM:
     RTS
 
 PLAY_BGM:

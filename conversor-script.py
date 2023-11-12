@@ -6,6 +6,7 @@ from io import TextIOWrapper
 import sys, os, subprocess
 from PIL import Image
 import numpy as np
+import tmx
 
 
 class Conversor():
@@ -15,9 +16,11 @@ class Conversor():
     dirMapas    = "./mapas/"
     dirSFX      = "./SFX/"
     dirBGM      = "./BGM/"
+    dirTiled    = "./Tiled/"
 
     pathSprites = "./data/sprites.x68"
-    pathMaps    = "./data/maps.x68"
+    pathMaps    = "./data/newMaps.x68"
+    pathEntity  = "./data/newEntsData.x68"
     pathSI      = "./data/sounds.x68"
 
     def __init__(self):
@@ -31,9 +34,10 @@ class Conversor():
             print("     [1] ConvertAll")
             print("     [2] ConvertSprites (SVG)+(BMP)")
             print("     [3] ConvertMapas (BMP)")
-            print("     [4] ConvertSingle")
-            print("     [5] Convertir Coords")  
-            print("     [6] Importar sonidos")                  
+            print("     [4] ConvertMapas (TMX)")
+            print("     [5] ConvertSingle")
+            print("     [6] Convertir Coords (TODO)")  
+            print("     [7] Importar sonidos")                  
             print("     [0] Exit")
 
             r = input("?: ")
@@ -45,10 +49,12 @@ class Conversor():
                     case 2:
                         self.ConvertAllSprites()
                     case 3:
-                        self.ConvertAllMapas()
+                        self.ConvertAllMapsBMP()
                     case 4:
+                        self.ConvertAllMapsTmx()
+                    case 5:
                         self.ConvertSpriteSVG(input("Path: "))
-                    case 6:
+                    case 7:
                         self.SoundImport()
                     case 0:
                         salir = True
@@ -145,29 +151,7 @@ class Conversor():
         retText = f"{colorText}\tDC.L -1\n{sizeText}\n\n{bmpName} DC.L Color{bmpName}, Size{bmpName}\n"
         #print(retText)
         return [retText, bmpName]
-
-    def ConvertAllMapas(self):
-        print("\nConvirtiendo Mapas")
-        with open(self.pathMaps, "w") as fmap:
-            fmap.writelines("*-----------------------------------------------------------\n")
-            fmap.writelines("* Title      : MapData\n")
-            fmap.writelines("* Written by : Xana\n")
-            fmap.writelines("* Date       :\n")
-            fmap.writelines("* Description: Generado automaticamente por pyconverterU.py\n")
-            fmap.writelines("*-----------------------------------------------------------\n")
-            
-            for x in os.listdir(self.dirMapas):
-                if x.endswith(".bmp"):
-                    data, name, x,y = self.ConvertMapa(self.dirMapas+x)
-                    fmap.writelines(data+"\n")
-                    fmap.writelines(f"{name} DC.L {name}_DATA\n\t\t\tDC.W {x}, {y}\n")
-
-
-            fmap.writelines("\n\n\n*~Font name~Courier New~\n")
-            fmap.writelines("*~Font size~10~\n")
-            fmap.writelines("*~Tab type~1~\n")
-            fmap.writelines("*~Tab size~4~\n")
-
+    
     def ConvertMapa(self, path:str, verb:bool=False):
         img = Image.open(path)
         bmpName = path.split("/")[-1].split(".")[0].upper()
@@ -210,7 +194,102 @@ class Conversor():
 
         #print(retText)
         return [retText, bmpName, img.width, img.height]
-    
+
+    def ConvertAllMapsBMP(self):
+        print("\nConvirtiendo Mapas")
+        with open(self.pathMaps, "w") as fmap:
+            fmap.writelines("*-----------------------------------------------------------\n")
+            fmap.writelines("* Title      : MapData\n")
+            fmap.writelines("* Written by : Xana\n")
+            fmap.writelines("* Date       :\n")
+            fmap.writelines("* Description: Generado automaticamente por pyconverterU.py\n")
+            fmap.writelines("*-----------------------------------------------------------\n")
+            
+            for x in os.listdir(self.dirMapas):
+                if x.endswith(".bmp"):
+                    data, name, x,y = self.ConvertMapa(self.dirMapas+x)
+                    fmap.writelines(data+"\n")
+                    fmap.writelines(f"{name} DC.L {name}_DATA\n\t\t\tDC.W {x}, {y}\n")
+
+
+            fmap.writelines("\n\n\n*~Font name~Courier New~\n")
+            fmap.writelines("*~Font size~10~\n")
+            fmap.writelines("*~Tab type~1~\n")
+            fmap.writelines("*~Tab size~4~\n")
+
+    def ConvertAllMapsTmx(self):
+        print("\nConvirtiendo Mapas Tmx")
+        with open(self.pathMaps, "w") as fmap:
+            with open(self.pathEntity, "w") as fent:
+                fmap.writelines("*-----------------------------------------------------------\n")
+                fmap.writelines("* Title      : MapData\n")
+                fmap.writelines("* Written by : Xana\n")
+                fmap.writelines("* Date       :\n")
+                fmap.writelines("* Description: Generado automaticamente por conversor-script.py\n")
+                fmap.writelines("*-----------------------------------------------------------\n")
+
+                fent.writelines("*-----------------------------------------------------------\n")
+                fent.writelines("* Title      : EntityData\n")
+                fent.writelines("* Written by : Xana\n")
+                fent.writelines("* Date       :\n")
+                fent.writelines("* Description: Generado automaticamente por conversor-script.py\n")
+                fent.writelines("*-----------------------------------------------------------\n")
+
+                names  = []
+                mdata  = []
+                edata  = []
+
+                for x in os.listdir(self.dirTiled):
+                    if x.endswith(".tmx"):
+                        fname, w,h, tData, oData = self.ConvertMapaTiled(self.dirTiled+x)
+                        #fmap.writelines(f"{fname} DC.L .{fname}_DATA\n\t\tDC.W {w}, {h}\n")
+                        #fmap.writelines(f".{fname}_DATA:\n{tData}\n")
+                        names.append(fname)
+                        mdata.append(f".{fname} DC.L .{fname}_DATA\n\t\tDC.W {w}, {h}\n.{fname}_DATA:\n{tData}\n")
+                        edata.append(f"{oData}\n")
+                
+                fmap.writelines(f"MAPS\tDC.L {', '.join([f'.{x}' for x in names])}\n")
+                fmap.writelines("\n".join(mdata))
+                fent.writelines(f"ENTINSTDATA\tDC.L {', '.join([f'.{x}' for x in names])}\n")
+                fent.writelines("\n".join(edata))
+
+    def ConvertMapaTiled(self, path:str) -> list:
+        tmxF = tmx.TileMap.load(path)
+        #importante orden dentro de Tiled
+        tileLayer, objLayer = tmxF.layers
+
+        tmxName = path.split("/")[-1].split(".")[0].upper()
+        tileData = ""
+        objData  = "."+tmxName+"\n"
+
+        w,h = [tmxF.width, tmxF.height]
+        for y in range(h):
+            auxTile = []
+            for x in range(w):
+                auxTile.append(str(tileLayer.tiles[x+y*w].gid))
+            tileData += f"\tDC.B {','.join(auxTile)}\n"
+
+        for obj in objLayer.objects:
+            objWSize = 3
+            objName = obj.name.upper()
+            objProp = ""
+            for prop in obj.properties:
+                if "W" in prop.name:
+                    objWSize+=1
+                    objProp+=f"\t\t\tDC.W {prop.value}\n"
+                if "L" in prop.name:
+                    objWSize+=2
+                    if type(prop.value)==str:
+                        objProp+=f"\t\t\tDC.L {prop.value}>>16|{prop.value}<<16\n"
+                    else:
+                        objProp+=f"\t\t\tDC.L {prop.value}\n"
+            objData += f"\t\tDC.W {objWSize}\n" 
+            objData += objProp
+            # pos*4, restar 16 a y por tiled
+            objData += f"\t\t\tDC.L {self.ToHexXY(obj.x*4, (obj.y-16)*4)}, {objName}>>16|{objName}<<16\n"
+        
+        objData+="\t\tDC.W -1"
+        return tmxName, w,h, tileData, objData
     def SoundImport(self):
         print("\nImportando Canciones y SFX")
         with open(self.pathSI, "+w") as fsound:
@@ -285,5 +364,8 @@ class Conversor():
         retText+= f"\t{dataSize} {', '.join(text[aux:])}\n"
 
         return retText
+
+    def ToHexXY(self, x, y) -> str:
+        return "$"+hex(x)[2:].upper().zfill(4)+hex(y)[2:].upper().zfill(4)
 
 Conversor()

@@ -50,6 +50,7 @@ DRAW_MAP:
         MOVE.W  #SCREEN_XTILE, D5
         .LOOPDMX:
             MOVE.B  0(A1, D1), D0
+            ASL.L   #2, D0
             LEA     SPRITES, A2
             MOVE.L  (A2, D0), 4(SP)
             BSR     FASTSPRITE

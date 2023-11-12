@@ -5,7 +5,7 @@
 * Description:
 *-----------------------------------------------------------
 
-ENTINSTADA  DC.L .TSCR, .TMAP1, .TSALA
+ENTINSTDATA  DC.L .TSCR, .TMAP1, .TSALA
         ;WORDS-1
         ;XY @ENTITY
 .TSCR   DC.W 5
