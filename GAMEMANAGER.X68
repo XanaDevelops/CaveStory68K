@@ -17,7 +17,7 @@ LOAD_SAVE:
     MOVE.L  D0, -(SP)
     MOVE.L  #IOFILEW, -(SP)
     MOVE.W  #2, -(SP)
-    JSR     READ_FILE
+    JSR     READ_FILE       ;BUG SI MUSIC SERVER
     MOVE.W  (SP)+, D1
     CMP.W   #0, D1
     BEQ     .NOERR
