@@ -95,8 +95,8 @@ START_TCP_SERVER:
     MOVE.B  #13, D0
     LEA     TXTFAIL, A1
     TRAP    #15
-
-    ILLEGAL
+    ;ERROR
+    
     .NOERRS:
 
     SUBQ.L  #2, SP
@@ -130,7 +130,7 @@ READ_DATA:
     TRAP    #15
     CMP.W   #0, D0
     BEQ     .NOERRRD
-        ILLEGAL
+        ILLEGAL 
     .NOERRRD:
     CMP.W   #0, D1
     BEQ     .NODATA

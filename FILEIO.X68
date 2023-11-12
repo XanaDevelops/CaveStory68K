@@ -74,6 +74,14 @@ CLOSEFILE:
     MOVEM.L (SP)+, D1-D0
     RTS
 
+CLOSEFILES:
+    MOVE.W D0, -(SP)
+
+    MOVE.B  #50, D0
+    TRAP #15
+
+    MOVE.W (SP)+, D0
+    RTS
 
 IOFILEW DS.L 1
 
