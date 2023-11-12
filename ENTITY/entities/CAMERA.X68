@@ -12,6 +12,7 @@ CAMERA_START:
     ;SCREEN_X Y SCREEN_Y
     MOVE.W  38(SP), (SCREEN_X)
     MOVE.W  36(SP), (SCREEN_Y)
+    CLR.L   SPRITEINDEX(A0)
 
     BSR     PREVENT_SCREEN_OOB
 
@@ -114,7 +115,40 @@ CAMERA_UPDATE:
     MOVE.W  D1, SCR_SPEED_Y
 
     CMENDUP:
+    ;CONTROLAR TRANS
+    BTST.B  #0, TRANS_STATUS(A0) ;SI 0 O 2
+    BEQ     .NOTRANS
+
+    MOVE.L  SPRITE_INDEX(A0), D1                   ;ANIM_INDEX
+    MOVE.W  TIMERSPRITE(A0), D2                   
+    SUBQ.W  #1, D2
+    BNE     .NOTIMER
+    MOVE.W  #ANIMSPEED, D2
+    
+    BTST.B  #1, TRANS_STATUS(A0)
+    ;SI 1 O 3 
+    ADDQ.L  #1, D1
+    MOVE.L  AD_SPRITE(A0), A1
+    CMP.L   (A1), D1
+    BLT     .NOOF
+    MOVE.L  #0, D1
+    .NOOF:
+    MOVE.L  D1, SPRITE_INDEX(A0)
+
+    .NOTIMER:
+    MOVE.W  D2, TIMERSPRITE(A0)
+
+
+    .NOTRANS:
     MOVEM.L (SP)+, A1/D1-D0
+    RTS
+
+TRANS_DRAW:
+    CMP.B   #0, TRANS_STATUS(A0)
+    BEQ     .END
+    ;DIBUJAR EFECTO TRANSICION
+
+    .END:
     RTS
 
 CAMERA:
@@ -124,15 +158,16 @@ CAMERA:
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,0, 0,0                                   ;COLISION_BOX 44
-    DC.L CAMERA_START, CAMERA_UPDATE, DEFAULT_RTS   ;@
+    DC.L CAMERA_START, CAMERA_UPDATE, TRANS_DRAW    ;@
     DC.L DEFAULT_RTS                                ;@
-    DC.L -1                                         ;@SPRITE DEFECTO
+    DC.L SQR_TRANS                                  ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DS.L 4                                          
     DS.W 1
 
-ENTFOCUS    EQU AUX_DATA
-
+ENTFOCUS        EQU AUX_DATA   ;L
+INDEX_TRANS     EQU AUX_DATA+4 ;B
+TRANS_STATUS    EQU AUX_DATA+5 ;B 0:NO 1:DO 2:DONE 3:UNDO->0
 
 
 

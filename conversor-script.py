@@ -33,7 +33,7 @@ class Conversor():
             print("Selecciona una opción:")
             print("     [1] ConvertAll")
             print("     [2] ConvertSprites (SVG)+(BMP)")
-            print("     [3] ConvertMapas (BMP)")
+            print("     [3] DEPREC ConvertMapas (BMP) DEPREC")
             print("     [4] ConvertMapas (TMX)")
             print("     [5] ConvertSingle")
             print("     [6] Convertir Coords (TODO)")  

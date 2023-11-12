@@ -3,12 +3,15 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "tiledtest.tmx",
+    "activeFile": "01_tiledtest.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "fileStates": {
         "00_TITLESCREEN.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
@@ -47,7 +50,9 @@
             }
         },
         "CAMARA.tsx": {
-            "dynamicWrapping": true
+            "dynamicWrapping": true,
+            "scaleInDock": 4,
+            "scaleInEditor": 5.5
         },
         "CUEVA.tsx": {
             "dynamicWrapping": true,
@@ -55,15 +60,19 @@
             "scaleInEditor": 4
         },
         "MyChar.tsx": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 3,
+            "scaleInEditor": 5.5
         },
         "NpcCemet.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 1,
+            "scaleInDock": 2,
             "scaleInEditor": 4
         },
         "NpcSym.tsx": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 3,
+            "scaleInEditor": 3
         },
         "PrtCave.tsx": {
             "dynamicWrapping": false,
@@ -119,23 +128,29 @@
     "map.tileWidth": 64,
     "map.width": 14,
     "openFiles": [
-        "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx",
         "PrtCave.tsx",
         "NpcCemet.tsx",
-        "tiledtest.tmx"
+        "NpcSym.tsx",
+        "CAMARA.tsx",
+        "MyChar.tsx",
+        "00_TITLESCREEN.tmx",
+        "01_tiledtest.tmx"
     ],
     "project": "sin nombre.tiled-project",
     "property.type": "int",
     "recentFiles": [
+        "PrtCave.tsx",
+        "NpcCemet.tsx",
+        "NpcSym.tsx",
+        "CAMARA.tsx",
+        "MyChar.tsx",
+        "00_TITLESCREEN.tmx",
+        "01_tiledtest.tmx",
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx",
         "TITLESCREEN.tmx",
         "tiledtest.tmx",
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/TITLESCREEN.tmx",
-        "PrtCave.tsx",
-        "NpcCemet.tsx",
-        "tilledtest.tmx",
-        "CUEVA.tsx",
-        "sin nombre.tmx"
+        "tilledtest.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
