@@ -5,17 +5,6 @@
 * Description:
 *-----------------------------------------------------------
 SYSTEM_INIT:
-    ;CONFIGURE SCREEN
-    MOVE.B  #33, D0
-    MOVE.L  #SCREEN_WIDTH*$10000+SCREEN_HEIGHT, D1
-    TRAP    #15
-    IFEQ DGB_NODBUF
-        MOVE.B  #92, D0  ;dbuf
-        MOVE.B  #17, D1
-        TRAP    #15  
-    ENDC
-    BSR SET_SCROLL_TEXT
-
     ;INT OFF
     ORI.W   #%0000011100000000, SR
     ;INSTALL
@@ -59,6 +48,23 @@ SYSTEM_INIT:
     MOVE.B  #8, D0
     TRAP    #15
     MOVE.L  D1, (RNGVAL)
+
+    ;CONFIGURE SCREEN
+    MOVE.B  #33, D0
+    MOVE.L  #SCREEN_WIDTH*$10000+SCREEN_HEIGHT, D1
+    TRAP    #15
+    IFEQ DGB_NODBUF
+        MOVE.B  #92, D0  ;dbuf
+        MOVE.B  #17, D1
+        TRAP    #15  
+    ENDC
+
+    BSR SET_SCROLL_TEXT
+
+    ;TEST FULLSCREEN
+    MOVE.B  #33, D0
+    MOVE.L  #2, D1
+    TRAP    #15
 
     JSR     START_CLIENT
 
