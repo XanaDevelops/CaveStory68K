@@ -61,11 +61,6 @@ SYSTEM_INIT:
 
     BSR SET_SCROLL_TEXT
 
-    ;TEST FULLSCREEN
-    MOVE.B  #33, D0
-    MOVE.L  #2, D1
-    TRAP    #15
-
     JSR     START_CLIENT
 
     MOVE.W  #-1, (CURRENTTXTID)

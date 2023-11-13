@@ -40,12 +40,30 @@ INIT:                  ; first instruction of program
     ;5 LINE DBOX
     ;4 SHOW HUD
     ;3 WAIT Z DBOX
+    ;0 FULLSCREEN TOGGLE
 MAINLOOP:
     ;UPDATE RNG
     TRAP #14
     ;BSR UPDATE_KEYS
     TRAP #0
     
+    ;CHECK FULLSCREEN (F11)
+    BTST.B  #KEYM_F11, (KEY_PRESS_MENU)
+    BEQ     .NOFS
+    MOVE.B  #33, D0
+    BCHG.B  #0, (GAMEFLAGS)
+    BEQ     .TOGGLE
+    ;WINDOWED
+    MOVE.L  #1, D1
+    BRA     .FSET
+    .TOGGLE:
+    ;FULLLSCREEN
+    MOVE.L  #2, D1
+    .FSET:
+    TRAP    #15
+
+    .NOFS:
+
     SUBQ.B  #1, (FTOSKIP)
     MOVE.B  (FTOSKIP), D0
     .UPDATE:
@@ -151,6 +169,7 @@ ENDMAINLOOP:
     INCLUDE "data/newMaps.x68"
     INCLUDE "data/Dialogs.x68"
     INCLUDE "data/sounds.x68"
+
 
 
 
