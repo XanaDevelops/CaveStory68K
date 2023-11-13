@@ -366,6 +366,6 @@ class Conversor():
         return retText
 
     def ToHexXY(self, x, y) -> str:
-        return "$"+hex(x)[2:].upper().zfill(4)+hex(y)[2:].upper().zfill(4)
+        return "$"+hex(round(x))[2:].upper().zfill(4)+hex(round(y))[2:].upper().zfill(4)
 
 Conversor()
