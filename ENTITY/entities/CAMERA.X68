@@ -122,11 +122,6 @@ CAMERA_UPDATE:
     BEQ     .NOTRANS
 
     MOVE.L  SPRITE_INDEX(A0), D1                   ;ANIM_INDEX
-    MOVE.W  TIMERSPRITE(A0), D2                   
-    SUBQ.W  #1, D2
-    BNE     .NOTIMER
-    MOVE.W  #ANIMSPEED, D2
-    
     BTST.B  #1, TRANS_STATUS(A0)
     BNE     .UNDO
     ;AVANZAR TRANS
@@ -147,10 +142,6 @@ CAMERA_UPDATE:
     .NOOF2:
     .ENDDIR:
     MOVE.L  D1, SPRITE_INDEX(A0)
-
-    .NOTIMER:
-    MOVE.W  D2, TIMERSPRITE(A0)
-
 
     .NOTRANS:
     MOVEM.L (SP)+, A1/D1-D0
