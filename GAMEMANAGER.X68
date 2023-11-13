@@ -103,10 +103,13 @@ LOAD_MAP:
     MOVE.W  4(SP), (LOAD_MAP_ID)
     MOVE.B  #1, (LOAD_MAP_ST)
     BSET.B  #7, (GAMEFLAGS)
-    
+    IFNE    FLG_TRANS
     ;ACTIVAR TRANS
     MOVE.B  #1, (TRANS_STATUS)
-
+    ENDC
+    IFEQ    FLG_TRANS
+    BSR DO_LOAD_MAP
+    ENDC
     RTS
 
 DO_LOAD_MAP:
