@@ -25,7 +25,7 @@ HUD_DRAW:
     MOVE.L  #BLACK, D1
     TRAP    #15
     
-    BSR SET_SCROLL_TEXT
+    BSR     SET_SCROLL_TEXT
 
     MOVE.B  #14, D0
     LEA     .TEXTLVL, A1
@@ -36,9 +36,9 @@ HUD_DRAW:
     LEA     ARMS_STS, A0
     MOVE.W  (A0, D2), D1
     EXT.L   D1
-    CLR.L D2
+    CLR.L   D2
     MOVE.B  D1, D2 ;GUARDA XP
-    ASR.L #8, D1
+    ASR.L   #8, D1
     TRAP    #15
 
     ;XP VBAR
@@ -65,18 +65,23 @@ HUD_DRAW:
     LEA     .TEXTHP, A1
     TRAP    #15
 
-    MOVE.B  #3, D0
-    MOVE.L  (PLAYERREF), A0  ;COMPROBAR QUE EXISTA!
     CLR.L   D1
+    MOVE.L  (PLAYERREF), A0  ;COMPROBAR QUE EXISTA!
+    CMP.L   #-1, A0
+    BEQ     .NOPL
     MOVE.W  HP(A0), D1
+    BRA     .DRAWHB
+    .NOPL:
+    MOVE.W  #0, D1
+    .DRAWHB:
+    MOVE.B  #3, D0
     TRAP    #15
-
     ;HEALTH VBAR
     MOVE.W  #HBX, -(SP)
     MOVE.W  #HBY, -(SP)
     MOVE.W  #HBL, -(SP)
     MOVE.W  #HBW, -(SP)
-    MOVE.W  HP(A0), -(SP)
+    MOVE.W  D1, -(SP)
     MOVE.W  (PMAXHP), -(SP)
     MOVE.L  #RED, -(SP)
     BSR     VALUEBAR

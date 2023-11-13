@@ -34,6 +34,9 @@ PLAYER_UPDATE:
         MOVE.L  A0, -(SP)
         BSR     DESTROY_ENTITY
         ADDQ.L  #8, SP
+
+        ;QUITAR REF
+        MOVE.L  #-1, (PLAYERREF)
         BRA     .ENDUPDATE
     .LIVE:
 

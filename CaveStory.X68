@@ -10,6 +10,7 @@
 
 INIT:                  ; first instruction of program
     CLR.B   (GAMEFLAGS)
+    BSET.B  #4, (GAMEFLAGS)
     BSR     SYSTEM_INIT
     
     JSR     KC_INIT
@@ -22,10 +23,13 @@ INIT:                  ; first instruction of program
 
     JSR     ENTSTCSTART
 
-    MOVE.W  #0, -(SP)    ;ID MAPA
-    BSR     LOAD_MAP
-
-    ADDQ.L  #2, SP
+    ;MOVE.W  #0, -(SP)    ;ID MAPA
+    ;BSR     LOAD_MAP
+    ;ADDQ.L  #2, SP
+    ;MANUALMENTE CARGAR MAPA
+    MOVE.W  #0, (LOAD_MAP_ID)
+    BSR     DO_LOAD_MAP
+    
 
     ;MOVE.B #92, D0 ;don comedia, no apto fotosensibles
     ;MOVE.W #15, D1 ;el 12 no mola

@@ -54,8 +54,6 @@ TS_UPDATE:
     ;MOVE.W #2, -(SP)
     JSR     LOAD_MAP
     ADDQ.L  #2, SP
-    ;MUESTRA HUD
-    BCLR.B  #4, (GAMEFLAGS)
     
     BRA     .END
     .NOSTART:

@@ -99,15 +99,28 @@ GAME_SAVE:
     RTS
 
 LOAD_MAP:
+    ; (SP).W ID MAP
+    MOVE.W  4(SP), (LOAD_MAP_ID)
+    MOVE.B  #1, (LOAD_MAP_ST)
+    BSET.B  #7, (GAMEFLAGS)
+    
+    ;ACTIVAR TRANS
+    MOVE.B  #1, (TRANS_STATUS)
+
+    RTS
+
+DO_LOAD_MAP:
     ; 16(SP).W ID MAP
     MOVEM.L D0-D1/A0, -(SP)
 
     MOVE.W  #-1, (CURRENTTXTID) ;QUITA DBOX
     BCLR.B   #7, (GAMEFLAGS)
 
+    CLR.B   (LOAD_MAP_ST)
+
     JSR     SLASHKILLA
     
-    MOVE.W  16(SP), D0
+    MOVE.W  (LOAD_MAP_ID), D0
     MOVE.W  D0, CURRENTMAPID
     LEA     MAPS, A0
     ASL.W   #2, D0                ;MULU #4
@@ -130,6 +143,9 @@ LOAD_MAP:
     
     CLR.L   D1    ;MAS DE DOS HORAS CON TRACE PARA SABER QUE FALLABA ESTO, CAGONTO
     
+    ;MUESTRA HUD, ANTES DE ENTIDAD POR SI DESABILITAN
+    BCLR.B  #4, (GAMEFLAGS)
+
     .INSTMLOOP:
     MOVE.W  (A0)+, D0
     MOVE.W  D0, D1
@@ -144,12 +160,23 @@ LOAD_MAP:
     ADD.L   D1, SP
     BRA     .INSTMLOOP
 
-
 .ENDINSTS:
+    
+
     MOVEM.L     (SP)+, A0/D1-D0
     RTS
 
 GM_UPDATE:
+    CMP.B   #1, (LOAD_MAP_ST)
+    BNE     .NOLMAP
+    CMP.B   #2, (TRANS_STATUS)
+    BNE     .NOLMAP
+    MOVE.B  #3, (TRANS_STATUS)
+    CLR.B   (LOAD_MAP_ST)
+    BSR     DO_LOAD_MAP
+    .NOLMAP:
+
+
     CMP.B   #0, (PLYERDED)
     BEQ     .ALIVE
     ;JUGADOR MUERTO
@@ -236,6 +263,9 @@ GM_PLYRDED:
 PLAYERREF   DS.L 1
 PLYERDED    DC.B 0
 WAITDED     DC.B 0
+LOAD_MAP_ST DC.B 0 ;0: NADA, 1: ESPERA TRANS
+            DS.W 0
+LOAD_MAP_ID DC.W 0 ;ID A CARGAR
 SAVEFPTH    DC.B 'SAVE.DAT',0
             DS.W 0
 GAMEDATA:
