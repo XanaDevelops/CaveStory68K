@@ -6,11 +6,11 @@
 *-----------------------------------------------------------
 
 ;SCREEN CONST
-SCREEN_WIDTH    EQU 800
-SCREEN_HEIGHT   EQU 600
+SCREEN_WIDTH    EQU 640 ;800 prevent screen tearing
+SCREEN_HEIGHT   EQU 512 ;600
 
-SCREEN_XTILE    EQU 13
-SCREEN_YTILE    EQU 10
+SCREEN_XTILE    EQU 10 ;13
+SCREEN_YTILE    EQU 8 ;10
 
 SCREEN_MAXVX    EQU 6
 
@@ -21,8 +21,8 @@ SCREEN_UPTIME   EQU 1000/TARGETFPS ;4
 WAITDEDT        EQU 40
 
 ;DBOX
-DBOXTS          EQU $0A13
-MAXLINES        EQU 8
+DBOXTS          EQU $0411 ;$0A13
+MAXLINES        EQU 6     ;8
 
 ;PLAYER
 ANIMSPEED       EQU 4
@@ -56,6 +56,7 @@ DRTANMSPD   EQU 2
 
 ;?
 M_KCFW      EQU 40
+
 
 
 
