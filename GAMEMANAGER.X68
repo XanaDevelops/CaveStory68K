@@ -46,8 +46,8 @@ LOAD_SAVE:
     .DEFAULT_SAVE:
     MOVE.W #0,  (PLOTID)
     MOVE.W #1,  (CURRENTMAPID)
-    MOVE.W #$80, (SPAWNX)   ;TODO
-    MOVE.W #$3A0,(SPAWNY)   ;TODO
+    MOVE.W #-1, (SPAWNX)   ;TODO
+    MOVE.W #-1, (SPAWNY)   ;TODO
     MOVE.W #5,  (PACTHP)
     MOVE.W #10, (PMAXHP)
     MOVE.W #$0100, (ARMS_STS+0)
