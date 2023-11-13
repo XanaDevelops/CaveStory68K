@@ -43,13 +43,13 @@
   </object>
   <object id="14" name="DISQUETE" type="UTIL" gid="247" x="48" y="192" width="16" height="16"/>
   <object id="15" name="HEALER" type="UTIL" gid="239" x="80" y="192" width="16" height="16"/>
+  <object id="20" name="HEALER" type="UTIL" gid="239" x="32" y="80" width="16" height="16"/>
+  <object id="21" name="DISQUETE" type="UTIL" gid="247" x="48" y="48" width="16" height="16"/>
   <object id="18" name="PLAYER" type="PLAYER" gid="535" x="32" y="128" width="16" height="16"/>
   <object id="16" name="CAMERA" type="CAMERA" gid="521" x="0" y="16" width="16" height="16">
    <properties>
     <property name="L_SEEK" value="PLAYER"/>
    </properties>
   </object>
-  <object id="20" name="HEALER" type="UTIL" gid="239" x="32" y="80" width="16" height="16"/>
-  <object id="21" name="DISQUETE" type="UTIL" gid="247" x="48" y="48" width="16" height="16"/>
  </objectgroup>
 </map>

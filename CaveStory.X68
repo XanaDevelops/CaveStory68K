@@ -54,6 +54,7 @@ MAINLOOP:
 
     JSR     GM_UPDATE
     JSR     UPDATE_DBOX
+    JSR     TRANS_CONTROL
 
     BTST.B  #7, (GAMEFLAGS)
     BNE     .NOUPD
@@ -83,6 +84,7 @@ MAINLOOP:
     .NOHUD:
     
     JSR     DRAW_DBOX
+    JSR     TRANS_DRAW
     .FSKIP:
 
 
@@ -134,6 +136,7 @@ ENDMAINLOOP:
     INCLUDE "HUD.X68"
     INCLUDE "VARS.X68"
     INCLUDE "DBOX.X68"
+    INCLUDE "TRANSITIONS.X68"
     INCLUDE "KC.X68"
     INCLUDE "ENTITY/EntityIncluder.x68"
     INCLUDE "ENTITY/EntityManagement.x68"
@@ -141,11 +144,9 @@ ENDMAINLOOP:
     INCLUDE "ENTITY/Physics.X68"
     INCLUDE "ENTITY/Interactor.x68"
     INCLUDE "MUSIC.X68"
-    ;INCLUDE "data/ENTINSTDATA.X68"
     INCLUDE "data/newEntsData.x68"
     INCLUDE "data/DATA.x68"
     INCLUDE "data/sprites.x68"
-    ;INCLUDE "data/maps.x68"
     INCLUDE "data/newMaps.x68"
     INCLUDE "data/Dialogs.x68"
     INCLUDE "data/sounds.x68"

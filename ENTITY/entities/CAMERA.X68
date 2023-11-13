@@ -117,69 +117,11 @@ CAMERA_UPDATE:
     MOVE.W  D1, SCR_SPEED_Y
 
     CMENDUP:
-    ;CONTROLAR TRANS
-    BTST.B  #0, TRANS_STATUS(A0) ;SI 0 O 2
-    BEQ     .NOTRANS
-
-    MOVE.L  SPRITE_INDEX(A0), D1                   ;ANIM_INDEX
-    BTST.B  #1, TRANS_STATUS(A0)
-    BNE     .UNDO
-    ;AVANZAR TRANS
-    ADDQ.L  #1, D1
-    MOVE.L  AD_SPRITE(A0), A1
-    CMP.L   (A1), D1
-    BLT     .NOOF
-    SUBQ.L  #1, D1
-    MOVE.B  #2, TRANS_STATUS(A0)
-    .NOOF:
-    BRA     .ENDDIR
-    .UNDO:
-    ;RETROCEDER
-    SUBQ.L  #1, D1
-    BPL     .NOOF2
-    CLR.L   D1
-    MOVE.B  #0, TRANS_STATUS(A0)
-    .NOOF2:
-    .ENDDIR:
-    MOVE.L  D1, SPRITE_INDEX(A0)
-
-    .NOTRANS:
+    
     MOVEM.L (SP)+, A1/D1-D0
     RTS
 
-TRANS_DRAW:
-    CMP.B   #0, TRANS_STATUS(A0)
-    BEQ     .END
-    MOVEM.L D1-D3/D6-D7/A0-A1, -(SP)
-    ;DIBUJAR EFECTO TRANSICION
-    MOVE.L  AD_SPRITE(A0), A1
-    MOVE.L  SPRITE_INDEX(A0), D1
 
-    ;OBTENER SPRITE
-    ASL.L   #2, D1
-    MOVE.L  4(A1, D1), A1
-
-    ;PINTAR
-    CLR.W   D3 ;Y
-    MOVE.W  #SCREEN_YTILE-1, D7
-    .LOOPY:
-    CLR.W   D2 ;X
-    MOVE.W  #SCREEN_XTILE-1, D6
-    .LOOPX:
-    MOVE.L  A1, -(SP)
-    MOVE.W  D3, -(SP)
-    MOVE.W  D2, -(SP)
-    JSR FASTSPRITE
-    ADDQ.L #8, SP
-
-    ADD.W   #TILESIZE, D2
-    DBRA    D6, .LOOPX
-    ADD.W   #TILESIZE, D3
-    DBRA    D7, .LOOPY  
-
-    MOVEM.L (SP)+, A1-A0/D7-D6/D3-D1
-    .END:
-    RTS
 
 CAMERA:
     DC.W 2                                          ;ID
@@ -188,7 +130,7 @@ CAMERA:
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,0, 0,0                                   ;COLISION_BOX 44
-    DC.L CAMERA_START, CAMERA_UPDATE, TRANS_DRAW    ;@
+    DC.L CAMERA_START, CAMERA_UPDATE, DEFAULT_RTS   ;@
     DC.L DEFAULT_RTS                                ;@
     DC.L SQR_TRANS                                  ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
@@ -196,8 +138,7 @@ CAMERA:
     DS.W 1
 
 ENTFOCUS        EQU AUX_DATA+2   ;L
-INDEX_TRANS     EQU AUX_DATA+6 ;B
-TRANS_STATUS    EQU AUX_DATA+7 ;B 0:NO 1:DO 2:DONE 3:UNDO->0
+
 
 
 
