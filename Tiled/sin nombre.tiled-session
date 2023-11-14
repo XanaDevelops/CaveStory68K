@@ -20,11 +20,14 @@
             }
         },
         "01_STARTCAVE.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 7.833333333333343,
-                "y": 23.833333333333314
+                "x": 129.83333333333334,
+                "y": 72.49999999999999
             }
         },
         "01_tiledtest.tmx": {
@@ -32,10 +35,21 @@
                 2
             ],
             "scale": 3.4872916666666667,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 103.37535097676087,
-                "y": 134.63169842881894
+                "x": 140.94031901547288,
+                "y": 130.04361072943428
+            }
+        },
+        "02_FIRSTCAVE.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 434.5,
+                "y": 388.5
             }
         },
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx": {
@@ -133,11 +147,11 @@
     "last.imagePath": "D:/UIB/2n/CaveStory/Tiled",
     "last.objectTemplatePath": "D:/UIB/2n/CaveStory/Tiled",
     "map.fixedSize": true,
-    "map.height": 11,
+    "map.height": 60,
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 64,
-    "map.tileWidth": 64,
-    "map.width": 14,
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 60,
     "openFiles": [
         "PrtCave.tsx",
         "NpcCemet.tsx",
