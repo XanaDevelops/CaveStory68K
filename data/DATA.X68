@@ -4,9 +4,17 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-
-SPRITES DC.L NULL, NULL, TILE_CUEVA_0, TILE_CUEVA_1
-
+                     ;0    ;1    ;2    ;3    ;4    ;5    ;6    ;7    ;8    ;9 TODO
+SPRITES         DC.L NULL, NULL, TILE_CUEVA_0, TILE_CUEVA_1, NULL, NULL, NULL, NULL, NULL, NULL
+                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+                DC.L NULL, NULL, NULL, NULL, T094_TILESAVE, NULL, NULL, NULL, NULL, NULL
 
 QUOTE_WALK_LN   DC.L 4
                 DC.L QUOTE_L_N_0, QUOTE_L_N_1, QUOTE_L_N_0, QUOTE_L_N_2

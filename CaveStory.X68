@@ -101,9 +101,9 @@ MAINLOOP:
     BNE     .NOHUD
     BSR     HUD_DRAW
     .NOHUD:
-    
-    JSR     DRAW_DBOX
+
     JSR     TRANS_DRAW
+    JSR     DRAW_DBOX
     .FSKIP:
 
 
