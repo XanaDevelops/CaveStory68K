@@ -17,11 +17,13 @@ class Conversor():
     dirSFX      = "./SFX/"
     dirBGM      = "./BGM/"
     dirTiled    = "./Tiled/"
+    dirTiles    = "./svg/TILES"
 
     pathSprites = "./data/sprites.x68"
     pathMaps    = "./data/newMaps.x68"
     pathEntity  = "./data/newEntsData.x68"
     pathSI      = "./data/sounds.x68"
+    pathSpriteV = "./data/SPRITEVECTOR.x68"
 
     def __init__(self):
         self.PrintMenu()
@@ -90,16 +92,47 @@ class Conversor():
             fsprite.writelines("*~Tab type~1~\n")
             fsprite.writelines("*~Tab size~4~\n")
 
-    def RecursiveConverter(self, path:str):
+    def RecursiveConverter(self, path:str, tiles:bool=False):
+        fSV:TextIOWrapper
+        maxN:int
+        tilesD:dict
+        if(tiles):
+            fSV = open(self.pathSpriteV, "w")
+            fSV.writelines("*-----------------------------------------------------------\n")
+            fSV.writelines("* Title      : SpriteVector\n")
+            fSV.writelines("* Written by : Xana\n")
+            fSV.writelines("* Date       :\n")
+            fSV.writelines("* Description: Generado automaticamente por pyconverterU.py\n")
+            fSV.writelines("*-----------------------------------------------------------\n")
+            maxN=0
+            tilesD = dict()
         for x in os.listdir(path):
             #print("###############\n############")
             ###print("COMPROBANDO",path+"/"+x,os.path.isdir(path+"/"+x))
             #print("###############\n############")
-            if(os.path.isdir(path+"/"+x)):
-                self.RecursiveConverter(path+"/"+x)
+            #input(path+x)
+            if(os.path.isdir(path+x)):
+                if((path+x) == self.dirTiles):
+                    self.RecursiveConverter(path+x+"/",True)
+                else:
+                    self.RecursiveConverter(path+x+"/")
             if(".svg" in x):
                 self.ConvertSpriteSVG(path+"/"+x)
-
+                if(tiles):
+                    indexT = int(x.split("_")[0][1:])
+                    tilesD.update({indexT:x})
+                    maxN  = max(maxN, indexT)
+        if(tiles):
+            fSV.writelines("SPRITES\n")
+            listTile = ["NULL"]*(maxN+1)
+            for k,v in zip(tilesD.keys(), tilesD.values()):
+                listTile[k]=v.split(".")[0]
+            fSV.writelines(self.truncateText(listTile, "DC.L"))
+            fSV.writelines("\n\n\n*~Font name~Courier New~\n")
+            fSV.writelines("*~Font size~10~\n")
+            fSV.writelines("*~Tab type~1~\n")
+            fSV.writelines("*~Tab size~4~\n")
+            fSV.close()
     def ConvertSpriteSVG(self, path:str, verb:bool = False) -> list:
 
         #os.popen(f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py .\sprites\dibujo.svg")
@@ -267,7 +300,7 @@ class Conversor():
             auxTile = []
             for x in range(w):
                 auxTile.append(str(tileLayer.tiles[x+y*w].gid))
-            tileData += f"\tDC.B {','.join(auxTile)}\n"
+            tileData += f"\tDC.W {','.join(auxTile)}\n"
 
         for obj in objLayer.objects:
             objWSize = 3

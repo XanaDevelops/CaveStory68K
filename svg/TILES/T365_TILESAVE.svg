@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
-   sodipodi:docname="094_TILESAVE.svg"
+   sodipodi:docname="T365_TILESAVE.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,12 +24,12 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      showgrid="true"
-     inkscape:zoom="10.131514"
-     inkscape:cx="14.607885"
-     inkscape:cy="23.343006"
-     inkscape:window-width="1278"
-     inkscape:window-height="1341"
-     inkscape:window-x="1272"
+     inkscape:zoom="14.328125"
+     inkscape:cx="17.343512"
+     inkscape:cy="16.750273"
+     inkscape:window-width="958"
+     inkscape:window-height="1000"
+     inkscape:window-x="2873"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1">
@@ -77,53 +77,53 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#fffff3;stroke-width:1.01779;fill-opacity:1"
+       style="fill:#fffff3;fill-opacity:1;stroke-width:0.890566"
        id="rect1"
-       width="32"
-       height="32"
-       x="0"
-       y="0" />
-    <rect
-       style="fill:#42293a;fill-opacity:1;stroke-width:0.890566"
-       id="rect1-9"
        width="28"
        height="28"
        x="2"
        y="2" />
     <rect
-       style="fill:#ff0000;fill-opacity:1;stroke-width:0.763342"
-       id="rect1-9-4"
+       style="fill:#42293a;fill-opacity:1;stroke-width:0.763342"
+       id="rect1-9"
        width="24"
        height="24"
        x="4"
        y="4" />
     <rect
+       style="fill:#ff0000;fill-opacity:1;stroke-width:0.636118"
+       id="rect1-9-4"
+       width="20"
+       height="20"
+       x="6"
+       y="6" />
+    <rect
        style="fill:#42293a;fill-opacity:1;stroke-width:0.0636119"
        id="rect1-9-8"
        width="2"
        height="2"
-       x="26"
-       y="4" />
+       x="24"
+       y="6" />
     <rect
-       style="fill:#675567;fill-opacity:1;stroke-width:0.359843"
+       style="fill:#675567;fill-opacity:1;stroke-width:0.311633"
        id="rect1-9-8-2"
-       width="16"
+       width="12"
        height="8"
-       x="8"
-       y="4" />
+       x="10"
+       y="6" />
     <rect
-       style="fill:#b1adc1;fill-opacity:1;stroke-width:0.402317"
+       style="fill:#b1adc1;fill-opacity:1;stroke-width:0.348417"
        id="rect1-9-8-2-3"
-       width="16"
+       width="12"
        height="10"
-       x="8"
-       y="18" />
+       x="10"
+       y="16" />
     <rect
        style="fill:#ff0000;fill-opacity:1;stroke-width:0.155817"
        id="rect1-9-4-8"
        width="4"
        height="6"
-       x="10"
-       y="4" />
+       x="12"
+       y="6" />
   </g>
 </svg>
