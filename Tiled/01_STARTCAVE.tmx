@@ -26,7 +26,7 @@
   <object id="1" name="DISQUETE" gid="107" x="208" y="144" width="16" height="16"/>
   <object id="2" name="HEALER" gid="99" x="192" y="144" width="16" height="16"/>
   <object id="3" name="PLAYER" gid="393" x="112" y="128" width="16" height="16"/>
-  <object id="4" name="CAMERA" gid="429" x="112" y="112" width="16" height="16">
+  <object id="4" name="CAMERA" gid="429" x="0" y="16" width="16" height="16">
    <properties>
     <property name="L_SEEK" value="PLAYER"/>
    </properties>
