@@ -276,7 +276,8 @@ DBCODES:
     CLR.W   (SPOFFSET)
     BRA     .ENDEXE
     .NOEXEC:
-    ADDQ.L  #4, A1
+    ;ADDQ.L  #4, A1
+    BSR     .READLD2  ;PONER PARIDAD PARCHE
     .ENDEXE:
     ADDQ.B  #1, D0
     MOVE.B  D7, D2
@@ -296,7 +297,8 @@ DBCODES:
     MOVE.W  D2, -(SP)
     BRA     .ENDPSHNW
     .NOPUSHNW:
-    ADDQ.L  #2, A1
+    ;ADDQ.L  #2, A1
+    BSR     .READWD2  ;PONER PARIDAD PARCHE
     .ENDPSHNW:
     ADDQ.B  #1, D0
     MOVE.B  D7, D2
@@ -316,7 +318,8 @@ DBCODES:
     MOVE.W  (A0), -(SP)
     BRA     .ENDPSHDW
     .NOPUSHDW:
-    ADDQ.L  #4, A1
+    ;ADDQ.L  #4, A1
+    BSR     .READLD2  ;PONER PARIDAD PARCHE
     .ENDPSHDW:
     ADDQ.B  #1, D0
     MOVE.B  D7, D2
@@ -433,7 +436,7 @@ DBCODES:
     BRA     .END
 
     ;-- COMANDOS AUXILIARES ---;
-    ;LEER BYTE A BYTE POR PARIDAD
+    ;LEER BYTE A BYTE POR PARIDAD, REHACER POR NO USAR DC.B
     .READWD2:
         MOVE.W  D7, -(SP)
         MOVE.W  #1, D7
