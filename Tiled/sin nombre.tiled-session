@@ -19,12 +19,20 @@
                 "y": 82.16666666666666
             }
         },
+        "01_STARTCAVE.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 7.833333333333343,
+                "y": 23.833333333333314
+            }
+        },
         "01_tiledtest.tmx": {
             "expandedObjectLayers": [
                 2
             ],
             "scale": 3.4872916666666667,
-            "selectedLayer": 1,
+            "selectedLayer": 0,
             "viewCenter": {
                 "x": 103.37535097676087,
                 "y": 134.63169842881894
@@ -140,7 +148,7 @@
         "01_tiledtest.tmx"
     ],
     "project": "sin nombre.tiled-project",
-    "property.type": "int",
+    "property.type": "string",
     "recentFiles": [
         "PrtCave.tsx",
         "NpcCemet.tsx",
