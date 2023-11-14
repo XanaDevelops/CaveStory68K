@@ -74,6 +74,6 @@
   <object id="15" name="BAT" gid="173" x="704" y="128" width="16" height="16"/>
   <object id="16" name="BAT" gid="173" x="736" y="128" width="16" height="16"/>
   <object id="1" name="PLAYER" gid="93" x="448" y="224" width="16" height="16"/>
-  <object id="17" name="CAMERA" gid="129" x="400" y="192" width="16" height="16"/>
+  <object id="17" name="CAMERA" gid="129" x="0" y="16" width="16" height="16"/>
  </objectgroup>
 </map>
