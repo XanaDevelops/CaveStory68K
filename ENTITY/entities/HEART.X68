@@ -14,7 +14,7 @@ HEART_START:
 
     MOVE.W  #HRTANMSPD, TIMERSPRITE(A0)
     
-    CMP.W   #0, 32(SP)
+    TST.W   32(SP)
     BEQ     .TPEQ
     MOVE.W  #BGHEART, HP(A0)
     BRA     .ENDHSTART

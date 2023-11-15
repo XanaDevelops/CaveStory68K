@@ -63,7 +63,7 @@ UPDATE_ALL_ENT:
     LEA     ENTITY_MEM, A0
     MOVE.W  #NUM_ENT-1, D7
     .UPDATE_ALL_LOOP:
-        CMP.W   #0, (A0)
+        TST.W   (A0)
         BEQ .ES_0_UPDLP
             MOVE.L  26(A0), A1
             JSR     (A1)
@@ -79,7 +79,7 @@ DRAW_ALL_ENT:
     LEA     ENTITY_MEM, A0
     MOVE.W  #NUM_ENT-1, D7
     .DRAW_ALL_LOOP:
-        CMP.W   #0, (A0)
+        TST.W   (A0)
         BEQ     .ES_0_DRWLP
             MOVE.L  30(A0), A1
             JSR     (A1)
@@ -119,7 +119,7 @@ DEFAULT_PAINT:
     
     BSR     IS_OUT_DISPLAY
     ADDA.L  #6, SP
-    CMP.W   #0, -6(SP)
+    TST.W   -6(SP)
     BNE     .SKIPDP
 
     MOVEM.L D0-D1/A1-A2, -(SP)
@@ -186,7 +186,7 @@ IS_OUT_DISPLAY:
     BGT     .OD
     MOVE.W  D0, D6
     ADD.W   D4, D6
-    CMP.W   #0, D6
+    TST.W   D6
     BLT     .OD
     MOVE.W  D1, D6
     ADD.W   D3, D6
@@ -194,7 +194,7 @@ IS_OUT_DISPLAY:
     BGT     .OD
     MOVE.W  D1, D6
     ADD.W   D5, D6
-    CMP.W   #0, D6
+    TST.W   D6
     BGE     .ENDOD
     .OD:
     MOVE.W  #1, 36(SP)

@@ -54,7 +54,7 @@ RW_FILE:
     MOVE.L  22(SP), A1
     MOVE.W  20(SP), D2
     TRAP    #15
-    CMP.W   #0, D0
+    TST.W   D0
     BEQ     .NOERR
     MOVE.W  #-1, D0
     .NOERR:

@@ -30,7 +30,7 @@ PLAYER_START:
 PLAYER_UPDATE:
     MOVEM.L D0-D1, -(SP)
 
-    CMP.W   #0, HP(A0)        ;KILL?
+    TST.W   HP(A0)        ;KILL?
     BGT     .LIVE
         CLR.W   HP(A0)
         BSR     GM_PLYRDED
@@ -76,7 +76,7 @@ PLAYER_UPDATE:
     .SIDW:
     BTST.B  #3, STATUS+1(A0)
     BEQ     .LKOBK
-        CMP.W   #0, XSPEED(A0)
+        TST.W   XSPEED(A0)
         BNE     .NODW
             MOVE.W  #16, D0                  ;16 BACK 24 LKDOWN
             MOVE.B  #12, LOOKDIRUD(A0)
@@ -108,7 +108,7 @@ PLAYER_UPDATE:
     ADD.B   LOOKDIRLR(A0), D0
     MOVE.L  (A1, D0.W), AD_SPRITE(A0)
 
-    CMP.W   #0, XSPEED(A0)
+    TST.W   XSPEED(A0)
     BEQ     .ESZERO
     BMI     .ESNEG
         SUBQ.W  #1, XSPEED(A0)
@@ -168,7 +168,7 @@ PLAYER_UPDATE:
     BSR     BULLET_SHOT
     .NOX:
 
-    CMP.W   #0, XSPEED(A0)
+    TST.W   XSPEED(A0)
     BEQ     .NOANIM
         MOVE.L  SPRITE_INDEX(A0), D1                   ;ANIM_INDEX
         MOVE.W  TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO

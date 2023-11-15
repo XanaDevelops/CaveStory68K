@@ -62,7 +62,7 @@ REDUCE_SCRLL_SPEED MACRO
         FAIL ERROR REDUCE_SCRLL_SPEED, NO DATAREG
         MEXIT
     ENDC
-    CMP.W   #0, \1
+    TST.W   \1
     BGT     MSPEED\@
     BLT     PSPEED\@
     BRA     ENDSPEED\@

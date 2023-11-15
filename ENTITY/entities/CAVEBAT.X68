@@ -22,7 +22,7 @@ BAT_START:
 BAT_UPDATE:
     MOVEM.L D1-D2/A1, -(SP)
 
-    CMP.W   #0, HP(A0)
+    TST.W   HP(A0)
     BGT     .NOKILL
         ;DROP
         SUBQ.L  #2, SP ;RESERVA TIPO
@@ -50,7 +50,7 @@ BAT_UPDATE:
         BRA     .ENDUPDATE
     .NOKILL:
 
-    CMP.W   #0, YSPEED(A0)
+    TST.W   YSPEED(A0)
     BNE     .NOIMP
     NOT.B   VELDIR(A0)
     BMI     .ESNEG
@@ -60,7 +60,7 @@ BAT_UPDATE:
         SUB.W   #BATMY, YSPEED(A0)
     .NOIMP:
 
-    CMP.W   #0, YSPEED(A0)
+    TST.W   YSPEED(A0)
     BMI     .ESNEG2
         SUBQ.W  #1, YSPEED(A0)
         BRA     .ESZERO

@@ -78,7 +78,7 @@ PLAY_SFX:
     MOVEM.L D0-D2/A0, -(SP)
 
     MOVE.B  #76, D0
-    CMP.W   #0, 20(SP)
+    TST.W   20(SP)
     BEQ     .NOSTOP
     MOVE.L  #3, D2
     TRAP    #15

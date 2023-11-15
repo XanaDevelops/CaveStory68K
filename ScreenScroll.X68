@@ -11,7 +11,7 @@ ISRSCREEN:
 PREVENT_SCREEN_OOB:
     MOVEM.L D2-D4/A0, -(SP)
 
-    CMP.W   #0, D1
+    TST.W   D1
     BGE     .NO_OOB_UP
         CMP.W   #MAX_SCRLL_SPEEDY, SCREEN_Y
         BGE     .NO_OOB_UP
@@ -25,7 +25,7 @@ PREVENT_SCREEN_OOB:
                 BCLR.B  #KEYM_UP, SCREEN_ST
     .NO_OOB_UP:
 
-    CMP.W   #0, D1                            ;DEJAR MARGEN 1px BAJO/DERECHA
+    TST.W   D1                            ;DEJAR MARGEN 1px BAJO/DERECHA
     BLE     .NO_OOB_DOWN
         MOVE.W  SCREEN_Y, D4
         ADDI.W  #SCREEN_YTILE*(TILESIZE), D4
@@ -45,7 +45,7 @@ PREVENT_SCREEN_OOB:
                 BCLR.B  #KEYM_DOWN, SCREEN_ST
     .NO_OOB_DOWN:
 
-    CMP.W   #0, D0
+    TST.W   D0
     BGE     .NO_OOB_LEFT
         CMP.W   #MAX_SCRLL_SPEEDX, SCREEN_X
         BGE     .NO_OOB_LEFT
@@ -59,7 +59,7 @@ PREVENT_SCREEN_OOB:
                 BCLR.B  #KEYM_LEFT, SCREEN_ST
     .NO_OOB_LEFT:
 
-    CMP.W   #0, D0                            ;DEJAR MARGEN 1px BAJO/DERECHA
+    TST.W   D0                            ;DEJAR MARGEN 1px BAJO/DERECHA
     BLE     .NO_OOB_RIGHT
         MOVE.W  SCREEN_X, D4
         ADDI.W  #SCREEN_XTILE*TILESIZE, D4

@@ -51,7 +51,7 @@ START_TCP_CLIENT:
     BSR     SEND_DATA
     MOVE.W  (SP)+, D0
 
-    CMP.W   #0, D0
+    TST.W   D0
     BNE     .FAILC
 
     SUBQ.L  #2, SP
@@ -89,7 +89,7 @@ START_TCP_SERVER:
     LEA     DEFIP, A2
     TRAP    #15
 
-    CMP.W   #0, D0
+    TST.W   D0
     BEQ     .NOERRS
     .ERR:
     MOVE.B  #13, D0
@@ -109,7 +109,7 @@ START_TCP_SERVER:
     BSR     SEND_DATA
     MOVE.W  (SP)+, D0
 
-    CMP.W   #0, D0
+    TST.W   D0
     BNE     .ERR
 
     MOVEM.L (SP)+, A2-A1/D1-D0
@@ -128,11 +128,11 @@ READ_DATA:
     MOVE.B  #107, D0
     MOVE.L  #(TCPPORT<<16+4), D1
     TRAP    #15
-    CMP.W   #0, D0
+    TST.W   D0
     BEQ     .NOERRRD
         ILLEGAL 
     .NOERRRD:
-    CMP.W   #0, D1
+    TST.W   D1
     BEQ     .NODATA
     MOVE.W  (A1), 20(SP)
 

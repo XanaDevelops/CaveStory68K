@@ -19,7 +19,7 @@ LOAD_SAVE:
     MOVE.W  #2, -(SP)
     JSR     READ_FILE       ;BUG SI MUSIC SERVER
     MOVE.W  (SP)+, D1
-    CMP.W   #0, D1
+    TST.W   D1
     BEQ     .NOERR
     .ERR:
     ;ERROR LECTURA
@@ -36,7 +36,7 @@ LOAD_SAVE:
     MOVE.W  #GAMEDATASIZE, -(SP)
     JSR     READ_FILE
     MOVE.W  (SP)+, D1
-    CMP.W   #0, D1
+    TST.W   D1
     BNE     .ERR
     ADDQ.L  #4, SP
     JSR     CLOSEFILE
