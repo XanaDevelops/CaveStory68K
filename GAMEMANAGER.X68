@@ -7,7 +7,7 @@
 LOAD_SAVE:
     ;CARGA LA PARTIDA GUARDADA, SI EXISTE
     MOVEM.L D0-D1, -(SP)
-
+    .RETRY:
     MOVE.L  #SAVEFPTH, -(SP)
     JSR     OPEN_READ
     MOVE.L  (SP)+, D0
@@ -26,6 +26,8 @@ LOAD_SAVE:
     ADDQ.L  #4, SP
     JSR     CLOSEFILE
     ADDQ.L  #4, SP
+    ;TST.B   (HASBGMSRV)  ni idea de por que pasa.....
+    ;BEQ     .RETRY       saquen Easy68K 6.0
     BRA     .DEFAULT_SAVE
     .NOERR:
     MOVE.W  (IOFILEW), D1
@@ -45,7 +47,7 @@ LOAD_SAVE:
     BRA .END
     .DEFAULT_SAVE:
     MOVE.W #0,  (PLOTID)
-    MOVE.W #1,  (CURRENTMAPID)
+    MOVE.W #1,  (SAVEMAPID)
     MOVE.W #-1, (SPAWNX)   ;TODO
     MOVE.W #-1, (SPAWNY)   ;TODO
     MOVE.W #5,  (PACTHP)
@@ -62,8 +64,9 @@ GAME_SAVE:
     MOVEM.L D0-D1/A0, -(SP)
 
     ;GUARDA VALORES EN GAMEDATA
-    MOVE.L (PLAYERREF), A0
-    MOVE.W HP(A0), PACTHP
+    MOVE.L  (PLAYERREF), A0
+    MOVE.W  HP(A0), PACTHP
+    MOVE.W  (CURRENTMAPID), (SAVEMAPID)
 
     ;ABRE ARCHIVO PARTIDA GUARDADA
     ;O LO CREA
@@ -134,10 +137,10 @@ DO_LOAD_MAP:
     MOVE.L  #-1, (PLAYERREF)
     
     MOVE.W  (LOAD_MAP_ID), D0
-    MOVE.W  D0, CURRENTMAPID
+    MOVE.W  D0, (CURRENTMAPID)
     LEA     MAPS, A0
     ASL.W   #2, D0                ;MULU #4
-    MOVE.L  (A0, D0), CURRENTMAPDIR
+    MOVE.L  (A0, D0), (CURRENTMAPDIR)
 
     BSR     GENERATE_COLIMAP
 
@@ -273,17 +276,18 @@ GM_PLYRDED:
     RTS
 
 
-PLAYERREF   DS.L 1
-PLYERDED    DC.B 0
-WAITDED     DC.B 0
-LOAD_MAP_ST DC.B 0 ;0: NADA, 1: ESPERA TRANS
-            DS.W 0
-LOAD_MAP_ID DC.W 0 ;ID A CARGAR
-SAVEFPTH    DC.B 'SAVE.DAT',0
-            DS.W 0
+PLAYERREF       DS.L 1
+PLYERDED        DC.B 0
+WAITDED         DC.B 0
+LOAD_MAP_ST     DC.B 0 ;0: NADA, 1: ESPERA TRANS
+                DS.W 0
+LOAD_MAP_ID     DC.W 0 ;ID A CARGAR
+CURRENTMAPID    DS.W 1
+SAVEFPTH        DC.B 'SAVE.DAT',0
+                DS.W 0
 GAMEDATA:
     PLOTID:         DS.W 1 
-    CURRENTMAPID:   DS.W 1
+    SAVEMAPID:      DS.W 1
     SPAWNX:         DS.W 1
     SPAWNY:         DS.W 1
     PACTHP:         DS.W 1
