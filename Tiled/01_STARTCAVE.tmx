@@ -38,7 +38,7 @@
     <property name="L_SEEK" value="PLAYER"/>
    </properties>
   </object>
-  <object id="7" gid="173" x="128" y="128" width="16" height="16">
+  <object id="7" name="CARTEL" gid="173" x="128" y="128" width="16" height="16">
    <properties>
     <property name="W_DIAG" value="ICOLORDIAG"/>
    </properties>
