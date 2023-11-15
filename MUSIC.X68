@@ -52,6 +52,7 @@ SEND_BGM:
     RTS
 
 LOCALBGM:
+    MOVE.W  (SP)+, D0
     RTS
 
 PLAY_BGM:
