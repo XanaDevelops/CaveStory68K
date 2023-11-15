@@ -366,7 +366,7 @@ PLAYER:
     DC.W 0                                          ;HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00UDLR(!AIRBONE)(!GRAV)--
-    DC.W 8,2, 58,64                                 ;COLISION_BOX
+    DC.W 8,4, 58,64                                 ;COLISION_BOX
     DC.L PLAYER_START, PLAYER_UPDATE, PLAYER_PAINT  ;@
     DC.L PLAYER_DAMAGE                              ;@
     DC.L QUOTE_WALK_RN                              ;@SPRITE DEFECTO
