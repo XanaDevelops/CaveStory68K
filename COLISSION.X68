@@ -4,8 +4,8 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-SOLID_ID    DC.B 2, 3, -1
-            DS.W 0
+SOLID_ID    DC.W 2, 3, -1
+
 
 GENERATE_COLIMAP:
     MOVEM.L D0-D2/D6-D7/A0-A2, -(SP)
@@ -20,14 +20,14 @@ GENERATE_COLIMAP:
         MOVE.W  4(A0), D6
         SUBQ.W  #1, D6
         .GENERATE_LOOP_X:
-            MOVE.B  (A2)+, D0
+            MOVE.W  (A2)+, D0
             MOVE.B  #0, D2
             LEA SOLID_ID, A3
             .SOLID_ID_LOOP:
-                MOVE.B  (A3)+, D1
-                CMP.B   #-1, D1
+                MOVE.W  (A3)+, D1
+                CMP.W   #-1, D1
                 BEQ     .EXIT_SOLID_ID
-                CMP.B   D0, D1
+                CMP.W   D0, D1
                 BNE     .SOLID_ID_LOOP
                 MOVE.B  #-1, D2
             .EXIT_SOLID_ID:

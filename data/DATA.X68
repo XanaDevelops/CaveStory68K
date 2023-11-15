@@ -4,17 +4,7 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-                     ;0    ;1    ;2    ;3    ;4    ;5    ;6    ;7    ;8    ;9 TODO
-SPRITES         DC.L NULL, NULL, TILE_CUEVA_0, TILE_CUEVA_1, NULL, NULL, NULL, NULL, NULL, NULL
-                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
-                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
-                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
-                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
-                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
-                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
-                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
-                DC.L NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
-                DC.L NULL, NULL, NULL, NULL, T094_TILESAVE, NULL, NULL, NULL, NULL, NULL
+        INCLUDE "DATA/SPRITEVECTOR.X68"
 
 QUOTE_WALK_LN   DC.L 4
                 DC.L QUOTE_L_N_0, QUOTE_L_N_1, QUOTE_L_N_0, QUOTE_L_N_2
@@ -77,10 +67,11 @@ SQR_TRANS       DC.L 16
                 DC.L NULL, SQR_TRANS_1, SQR_TRANS_2, SQR_TRANS_3, SQR_TRANS_4, SQR_TRANS_5, SQR_TRANS_6, SQR_TRANS_7, SQR_TRANS_8
                 DC.L SQR_TRANS_9, SQR_TRANS_10, SQR_TRANS_11, SQR_TRANS_12, SQR_TRANS_13, SQR_TRANS_14, SQR_TRANS_15
 
-BGMMUS  DC.B 4, 41
+BGMMUS  DC.B 4, 41, 41
         DS.W 0
 
 ALLARMS DC.L BULLET_POLARSTAR
+
 
 
 *~Font name~Courier New~

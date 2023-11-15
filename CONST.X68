@@ -4,7 +4,7 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-DEBUG           EQU 1
+DEBUG           EQU 0
 DGB_ADV_HB      EQU 0 ;MUESTRA POS FUTURA
 DGB_NODBUF      EQU 0 ;JUST DON'T 
 

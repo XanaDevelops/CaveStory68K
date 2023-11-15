@@ -37,7 +37,7 @@ DRAW_MAP:
     MULU.W  4(A0), D2
 
     ADD.W   D2, D1
-
+    ASL.W   #1, D1
 
     SUBQ.L  #8, SP
     MOVE.L  #0, (SP)
@@ -49,19 +49,19 @@ DRAW_MAP:
         MOVE.W  D3, 0(SP)
         MOVE.W  #SCREEN_XTILE, D5
         .LOOPDMX:
-            MOVE.B  0(A1, D1), D0
+            MOVE.W  0(A1, D1), D0
             ASL.L   #2, D0
             LEA     SPRITES, A2
             MOVE.L  (A2, D0), 4(SP)
             BSR     FASTSPRITE
             
-            
             ADD.W   #TILESIZE, 0(SP)
-            ADDQ.W  #1, D1
+            ADDQ.W  #2, D1
             DBRA    D5, .LOOPDMX
         ADD.W   #TILESIZE, 2(SP)
+        ADD.W   4(A0), D1 ;POR WORD
         ADD.W   4(A0), D1
-        SUB.W   #SCREEN_XTILE+1, D1
+        SUB.W   #(SCREEN_XTILE+1)<<1, D1
         DBRA    D6, .LOOPDMY
     
     ADDQ.L  #8, SP
