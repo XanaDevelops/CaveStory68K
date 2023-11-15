@@ -186,7 +186,7 @@ GM_UPDATE:
     .NOLMAP:
 
 
-    CMP.B   #0, (PLYERDED)
+    TST.B   (PLYERDED)
     BEQ     .ALIVE
     ;JUGADOR MUERTO
     SUB.B   #1, (WAITDED)

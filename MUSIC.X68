@@ -38,7 +38,7 @@ SEND_BGM:
     BEQ     .NOREP
     
     MOVE.W  D0, (CBGM)
-    CMP.B   #0, (HASBGMSRV)
+    TST.B   (HASBGMSRV)
     BNE     LOCALBGM
     
     MOVE.W  #CMDPBGM, -(SP)

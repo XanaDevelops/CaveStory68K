@@ -143,7 +143,7 @@ PLAYER_UPDATE:
     .SIZ:
     BTST.B  #3, STATUS+1(A0)
     BNE     .SIS
-    CMP.B   #0, TIMERJUMP(A0)
+    TST.B   TIMERJUMP(A0)
     BLE     .ENDZ
     .SIS:
     CMP.W   #22, TIMERJUMP(A0)
@@ -275,7 +275,7 @@ PLAYER_DAMAGE:
     MOVEM.L D0/A0, -(SP)
     MOVE.L  12(SP), A0
     ;COMPROBAR INVENCIBILIDAD
-    CMP.B   #0, TIMERINVI(A0)
+    TST.B   TIMERINVI(A0)
     BNE     .CNTDAMG
 
     ;RESTAR XP ARMA
@@ -334,14 +334,14 @@ BULLET_SHOT:
     MOVE.W  YPOS(A0), -(SP)
 
     ADD.W   #24, (SP)     ;OFFSET Y
-    CMP.B   #0, LOOKDIRLR(A0)
+    TST.B   LOOKDIRLR(A0)
     BEQ     .NOXOF
         ADD.W   #40, 2(SP)
     .NOXOF:
 
     MOVE.W  D2, -(SP)    ;NIVEL
     
-    CMP.B   #0, LOOKDIRUD(A0)
+    TST.B   LOOKDIRUD(A0)
     BEQ     .NOUD
     MOVE.B  LOOKDIRUD(A0), D0
     SUB.W   #24, 2(SP)    ;DES OF Y

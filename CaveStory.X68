@@ -127,7 +127,7 @@ ENDMAINLOOP:
     TRAP    #15
 
     .WAIT_REFRESH:
-    CMP.B   #0, (FTOSKIP)
+    TST.B   (FTOSKIP)
     BEQ     .WAIT_REFRESH
     CMP.B   #1, (FTOSKIP)
     BGT     .DOFSKIP

@@ -52,7 +52,7 @@ UPDATE_PHYSICS:
     ;TOPLEFT
     MOVE.W  D1, D0
     ADD.W   D2, D0
-    CMP.B   #0, (A2, D0)
+    TST.B   (A2, D0)
     BEQ     .NOTPL
     BSET.L  #7, D7
     BRA     .COLIUP
@@ -60,7 +60,7 @@ UPDATE_PHYSICS:
     ;TOPRIGHT
     MOVE.W  D3, D0
     ADD.W   D2, D0
-    CMP.B   #0, (A2, D0)
+    TST.B   (A2, D0)
     BEQ     .NOUP
     BSET.L  #7, D7
     BRA     .COLIUP
@@ -75,14 +75,14 @@ UPDATE_PHYSICS:
     ;DOWNLEFT
     MOVE.W  D1, D0
     ADD.W   D4, D0
-    CMP.B   #0, (A2, D0)
+    TST.B   (A2, D0)
     BEQ     .NODWL
     BSET.L  #6, D7
     .NODWL:
     ;DOWNRIGHT
     MOVE.W  D3, D0
     ADD.W   D4, D0
-    CMP.B   #0, (A2, D0)
+    TST.B   (A2, D0)
     BEQ     .NODWR
     BSET.L  #6, D7
     .NODWR:
@@ -116,14 +116,14 @@ UPDATE_PHYSICS:
     ;TOPLEFT
     MOVE.W  D1, D0
     ADD.W   D2, D0
-    CMP.B   #0, (A2, D0)
+    TST.B   (A2, D0)
     BEQ     .NOTPL2
     BSET.L  #5, D7
     .NOTPL2:
     ;DOWNLEFT
     MOVE.W  D1, D0
     ADD.W   D4, D0
-    CMP.B   #0, (A2, D0)
+    TST.B   (A2, D0)
     BEQ     .NODWL2
     BSET.L  #5, D7
     .NODWL2:
@@ -140,14 +140,14 @@ UPDATE_PHYSICS:
     ;TOPRIGHT
     MOVE.W  D3, D0
     ADD.W   D2, D0
-    CMP.B   #0, (A2, D0)
+    TST.B   (A2, D0)
     BEQ     .NOTPR2
     BSET.L #4, D7
     .NOTPR2:
     ;DOWNRIGHT
     MOVE.W  D3, D0
     ADD.W   D4, D0
-    CMP.B   #0, (A2, D0)
+    TST.B   (A2, D0)
     BEQ     .NODWR2
     BSET.L  #4, D7
     .NODWR2:

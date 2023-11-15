@@ -83,7 +83,7 @@ GETHBEAT    DC.B 0
 CHECKHBEAT:
     CMP.B   #2, (GETHBEAT)
     BEQ     .WAITC
-    CMP.B   #0, (GETHBEAT)
+    TST.B   (GETHBEAT)
     BNE     .REV
     
     BRA     EXIT

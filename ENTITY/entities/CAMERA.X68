@@ -76,7 +76,7 @@ CAMERA_UPDATE:
     MOVE.W  XPOS(A1), D0
     SUB.W   (SCREEN_X), D0
     
-    CMP.B   #0, LOOKDIRLR(A1)                    ;Scroll horizontal
+    TST.B   LOOKDIRLR(A1)                    ;Scroll horizontal
     BEQ     .PNLEFT
         SUB.W   #130-TILESIZE, D0
         ASR.W   #3, D0
