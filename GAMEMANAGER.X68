@@ -11,7 +11,7 @@ LOAD_SAVE:
     MOVE.L  #SAVEFPTH, -(SP)
     JSR     OPEN_READ
     MOVE.L  (SP)+, D0
-    CMP.L   #0, D0
+    TST.L   D0
     BNE     .DEFAULT_SAVE
     ;LEER MAGIKN
     MOVE.L  D0, -(SP)

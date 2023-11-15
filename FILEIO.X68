@@ -21,7 +21,7 @@ OPEN:
     ;ENTRE ABRIR L/S SOLO CAMBIA D0
     MOVE.L  16(SP), A1
     TRAP    #15
-    CMP.L   #0, D0
+    TST.L   D0
     BEQ     .NOERR
     ;ERROR
     MOVE.L  #-1, 16(SP)

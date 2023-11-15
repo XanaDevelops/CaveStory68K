@@ -21,7 +21,7 @@ START_TCP_CLIENT:
     LEA     DEFIP, A2
     TRAP    #15
     
-    CMP.L   #0, D0
+    TST.L   D0
     BEQ     .NOERR
 
     MOVE.B  #14, D0
