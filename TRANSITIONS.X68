@@ -33,7 +33,8 @@ TRANS_CONTROL:
     MOVE.W  D1, TRANS_INDEX    
 
     .NOTRANS:
-
+    RTS
+    
 TRANS_DRAW:
     TST.B   (TRANS_STATUS)
     BEQ     .END
