@@ -123,8 +123,10 @@ DO_LOAD_MAP:
 
     ;GUARDAR VALORES PLAYER
     MOVE.L  (PLAYERREF), A0
+    CMP.L   #0, A0
+    BMI     .NOPREF
     MOVE.W  HP(A0), (PACTHP)
-
+    .NOPREF:
     JSR     SLASHKILLA
     
     MOVE.W  (LOAD_MAP_ID), D0

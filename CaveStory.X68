@@ -91,11 +91,11 @@ MAINLOOP:
     REPAINT
     CLRSCREEN
 
-    JSR     DRAW_ALL_ENT
-
     MOVE.L  CURRENTMAPDIR, -(SP)
     BSR     DRAW_MAP
     ADDQ.L  #4, SP
+
+    JSR     DRAW_ALL_ENT
     
     BTST.B  #4, (GAMEFLAGS)
     BNE     .NOHUD
