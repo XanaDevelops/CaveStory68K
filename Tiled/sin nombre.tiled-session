@@ -45,11 +45,19 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 4,
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 558.3333333333333,
+                "y": 400.33333333333337
+            }
+        },
+        "99_tiledtest.tmx": {
+            "scale": 4.39375,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 455.375,
-                "y": 231.375
+                "x": 136.21621621621622,
+                "y": 128.02275960170698
             }
         },
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx": {
