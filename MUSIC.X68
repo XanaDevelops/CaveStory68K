@@ -29,17 +29,26 @@ START_SERVER:
     RTS
 
 SEND_BGM:
-    ; 10(SP) ID BGM
+    ; 6(SP) ID BGM
+    MOVE.W  D0, -(SP)
+    
+    MOVE.W  6(SP), D0
+    ;SI YA SUENA, NO REINICIAR
+    CMP.W   (CBGM), D0
+    BEQ     .NOREP
+    
+    MOVE.W  D0, (CBGM)
     CMP.B   #0, (HASBGMSRV)
     BNE     LOCALBGM
-    MOVE.L  D0, -(SP)
+    
     MOVE.W  #CMDPBGM, -(SP)
     JSR     SEND_DATA
-    MOVE.W  10(SP), (SP)
+    MOVE.W  D0, (SP)
     JSR     SEND_DATA
     ADDQ.L  #2, SP
 
-    MOVE.L  (SP)+, D0
+    .NOREP:
+    MOVE.W  (SP)+, D0
     RTS
 
 LOCALBGM:
@@ -114,6 +123,8 @@ LDR_MUS:
     
 HASBGMSRV       DC.B 0 ;0 SI, -1, NO
 CURRPRIO        DC.B 0
+
+CBGM            DC.W -1
 
 CMDPBGM     EQU $1010
 CMDSTOP     EQU $7676
