@@ -48,16 +48,8 @@
             "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 558.3333333333333,
-                "y": 400.33333333333337
-            }
-        },
-        "99_tiledtest.tmx": {
-            "scale": 4.39375,
-            "selectedLayer": 1,
-            "viewCenter": {
-                "x": 136.21621621621622,
-                "y": 128.02275960170698
+                "x": 242.33333333333331,
+                "y": 412
             }
         },
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx": {
@@ -104,7 +96,7 @@
         },
         "NpcSym.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 2,
+            "scaleInDock": 3,
             "scaleInEditor": 3
         },
         "PrtCave.tsx": {
@@ -167,9 +159,7 @@
         "CAMARA.tsx",
         "MyChar.tsx",
         "00_TITLESCREEN.tmx",
-        "01_tiledtest.tmx",
-        "01_STARTCAVE.tmx",
-        "02_FIRSTCAVE.tmx"
+        "01_tiledtest.tmx"
     ],
     "project": "sin nombre.tiled-project",
     "property.type": "int",
@@ -180,6 +170,8 @@
         "CAMARA.tsx",
         "MyChar.tsx",
         "00_TITLESCREEN.tmx",
+        "01_STARTCAVE.tmx",
+        "02_FIRSTCAVE.tmx",
         "01_tiledtest.tmx",
         "01_STARTCAVE.tmx",
         "02_FIRSTCAVE.tmx",
