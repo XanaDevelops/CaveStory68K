@@ -15,8 +15,8 @@
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 169.16666666666666,
-                "y": 133.33333333333334
+                "x": 168.83333333333334,
+                "y": 133.16666666666666
             }
         },
         "01_STARTCAVE.tmx": {
@@ -24,10 +24,10 @@
                 2
             ],
             "scale": 3,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 138.83333333333331,
-                "y": 107.33333333333334
+                "x": 138.5,
+                "y": 107.16666666666666
             }
         },
         "01_tiledtest.tmx": {
@@ -45,11 +45,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 1.5,
-            "selectedLayer": 0,
+            "scale": 4,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 242.33333333333331,
-                "y": 412
+                "x": 455.375,
+                "y": 231.375
             }
         },
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx": {
@@ -164,7 +164,7 @@
         "02_FIRSTCAVE.tmx"
     ],
     "project": "sin nombre.tiled-project",
-    "property.type": "string",
+    "property.type": "int",
     "recentFiles": [
         "PrtCave.tsx",
         "NpcCemet.tsx",

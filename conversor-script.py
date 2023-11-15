@@ -307,15 +307,18 @@ class Conversor():
             objName = obj.name.upper()
             objProp = ""
             for prop in obj.properties:
+                mulu = 1
+                if "_M_" in prop.name: #solo en int
+                    mulu=4
                 if "W" in prop.name:
                     objWSize+=1
-                    objProp+=f"\t\t\tDC.W {prop.value}\n"
+                    objProp+=f"\t\t\tDC.W {prop.value*mulu}\n"
                 if "L" in prop.name:
                     objWSize+=2
                     if type(prop.value)==str:
-                        objProp+=f"\t\t\tDC.L {prop.value}>>16|{prop.value}<<16\n"
+                        objProp+=f"\t\t\tDC.L {prop.value*mulu}>>16|{prop.value*mulu}<<16\n"
                     else:
-                        objProp+=f"\t\t\tDC.L {prop.value}\n"
+                        objProp+=f"\t\t\tDC.L {prop.value*mulu}\n"
             objData += f"\t\tDC.W {objWSize}\n" 
             objData += objProp
             # pos*4, restar 16 a y por tiled
