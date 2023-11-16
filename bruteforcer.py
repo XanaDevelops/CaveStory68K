@@ -9,22 +9,27 @@ import cv2
 from tqdm import tqdm
 import numpy as np
 
+import time
+
 inp = "【東方】Bad Apple!! ＰＶ【影絵】 [FtutLA63Cp8].webm"
 out = "apple_frames"
 max_width = 283
-threshold = 255 * 0.2
+threshold = 255 *0.5
 
+black   = (0,0,0,0)
 
 def frame_to_boxes(im: Image, name):
     w, h = im.size
     ratio = w / h
 
     # greyscale
-    im = im.convert("L")
+    #im = im.convert("L")
     # resize
-    im = im.resize((max_width, int(max_width / ratio)))
+    #im = im.resize((max_width, int(max_width / ratio)))
+    #print([im.load()[x,y] for x,y in product(range(im.width), range(im.height))])
+    #print(type(im.load()[0,0]))
     # threshold
-    im = im.point(lambda p: 255 if p > threshold else 0)
+    #im = im.point(lambda p: 255 if p > threshold else 0)
     # mono
     #im = im.convert("1")
 
@@ -56,73 +61,90 @@ def frame_to_boxes(im: Image, name):
             "green",
         ]
     )
+    try: 
+        while False in visited:
+            largest: Optional[tuple[int, int, int, int]] = None  # x, y, width, height
 
-    while False in visited:
-        largest: Optional[tuple[int, int, int, int]] = None  # x, y, width, height
+            for x, y in product(range(im.width), range(im.height)):
+                if visited[x, y] or pixels[x, y] == black:
+                    visited[x, y] = True
+                    continue
 
-        for x, y in product(range(im.width), range(im.height)):
-            if visited[x, y] or pixels[x, y] == 0:
-                visited[x, y] = True
-                continue
+                sublargest: Optional[tuple[int, int]] = None
+                widest = im.width - x  # optimise
+                color:tuple = pixels[x,y]
 
-            sublargest: Optional[tuple[int, int]] = None
-            widest = im.width - x  # optimise
+                if widest == 0:
+                    continue
 
-            if widest == 0:
-                continue
+                # row by row
+                for h in range(im.height - y):
+                    # search until black pixel
+                    for w in range(widest + 1):
+                        if (
+                            (w == widest)
+                            or visited[x + w, y + h]
+                            or pixels[x + w, y + h] == black
+                            or pixels[x+w, y+h] != color
+                        ):
+                            break
 
-            # row by row
-            for h in range(im.height - y):
-                # search until black pixel
-                for w in range(widest + 1):
-                    if (
-                        (w == widest)
-                        or visited[x + w, y + h]
-                        or pixels[x + w, y + h] == 0
+                    # tqdm.write(f'tapped out {x} {y} {w} {h} {widest}')
+
+                    widest = min(widest, w)
+                    if sublargest is None or (sublargest[0] * sublargest[1]) < (
+                        (w) * (h + 1)
                     ):
-                        break
+                        sublargest = [w, h + 1]
+                        
 
-                # tqdm.write(f'tapped out {x} {y} {w} {h} {widest}')
-
-                widest = min(widest, w)
-                if sublargest is None or (sublargest[0] * sublargest[1]) < (
-                    (w) * (h + 1)
+                if largest is None or (largest[2] * largest[3]) < (
+                    sublargest[0] * sublargest[1]
                 ):
-                    sublargest = [w, h + 1]
+                    largest = [x, y, *sublargest]
+                    color:tuple = pixels[x,y]
 
-            if largest is None or (largest[2] * largest[3]) < (
-                sublargest[0] * sublargest[1]
-            ):
-                largest = [x, y, *sublargest]
+                # break # debug
+
+            # tqdm.write(f'{largest=}')
+
+            # Generally only occurs when the entire frame is black
+            if largest is None:
+                break
+
+            visited[
+                largest[0] : largest[0] + largest[2], largest[1] : largest[1] + largest[3]
+            ] = True
+
+            
+
+            # [(x0, y0), (x1, y1)] from [x0, y0, w, h], where the bounding box is inclusive
+            box = [
+                (largest[0], largest[1]),
+                (largest[0] + largest[2] - 1, largest[1] + largest[3] - 1),
+            ]
+
+            boxes.append([largest, pixels[box[0][0],box[0][1]]])
+
+            #
+            draw.rectangle(box, fill=pixels[box[0][0],box[0][1]])
+            #draw.rectangle(box, fill=next(fills))
+            
+            #print(box)
+            if(len(boxes)>-1):
+                # work.show() # debug
+                work.save(os.path.join(out, f"{name}.png"))
+                #time.sleep(0.5)
+                #print(box)
+            # exit()
 
             # break # debug
-
-        # tqdm.write(f'{largest=}')
-
-        # Generally only occurs when the entire frame is black
-        if largest is None:
-            break
-
-        visited[
-            largest[0] : largest[0] + largest[2], largest[1] : largest[1] + largest[3]
-        ] = True
-
-        boxes.append(largest)
-
-        # [(x0, y0), (x1, y1)] from [x0, y0, w, h], where the bounding box is inclusive
-        box = [
-            (largest[0], largest[1]),
-            (largest[0] + largest[2] - 1, largest[1] + largest[3] - 1),
-        ]
-        draw.rectangle(box, fill=next(fills))
-        print(box)
-        # work.show() # debug
-        # exit()
-
-        # break # debug
-
+    except KeyboardInterrupt:
+        pass
+    
     tqdm.write(f"{len(boxes)=}")
-
+    with open("log.txt", "w") as log:
+        log.write("\n".join([str(x)+str(y) for x,y in boxes]))
     # im.show()
     # work.show()
 
@@ -155,5 +177,5 @@ finally:
     with open("boxes.json", "w") as f:
         json.dump(all_boxes, f)'''
 
-im = Image.open('Title.bmp')
+im = Image.open('BMP/titlefix.bmp')
 frame_to_boxes(im, 'test')

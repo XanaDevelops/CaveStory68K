@@ -144,7 +144,7 @@ class Conversor():
     def ConvertSprite(self, path:str, verb:bool = False) -> list:
         img = Image.open(path)
         bmpName = path.split("/")[-1].split(".")[0].upper()
-
+        print(path)
         pix = np.array(img).reshape(img.height, img.width, 4).tolist()
 
         colorText = f"Color{bmpName}:\n"

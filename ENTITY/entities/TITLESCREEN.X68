@@ -63,7 +63,7 @@ TS_UPDATE:
     RTS
 
 TS_DRAW:
-    MOVE.L  #TITLE, -(SP)
+    MOVE.L  #TITLEFIX, -(SP)
     MOVE.W  #75, -(SP) ;Y
     
     MOVE.W  #SCREEN_WIDTH/2-275, -(SP) ;X
