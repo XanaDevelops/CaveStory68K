@@ -11,7 +11,7 @@ def ConvertIMGtoSVG():
         out = user_args[0]
 
         #print(f"SIZES TRANSFORM: {sizes}")
-
+        #innecesario si plantilla
         '''canvas.width = 64
         canvas.height = 64
         canvas.true_width = 1
