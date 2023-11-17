@@ -18,7 +18,7 @@ threshold = 255 *0.5
 
 black   = (0,0,0,0)
 
-def frame_to_boxes(im: Image, name):
+def frame_to_boxes(im: Image, name) -> list:
     w, h = im.size
     ratio = w / h
 
@@ -36,15 +36,24 @@ def frame_to_boxes(im: Image, name):
     # find largest region via brute force
     # tqdm.write(f'{im.width=} {im.height=}')
     pixels = im.load()
+    print(f"SIZE {im.size}")
     visited = np.zeros(im.size, dtype=bool)
 
     # visualisation
     boxes = []
+    colors = []
+    sizes = []
+
+    work = im.copy().convert("RGB")
+    draw = ImageDraw.Draw(work)
+
+    
     #work = im.copy().convert("RGB")
     #draw = ImageDraw.Draw(work)
     
     try: 
         while False in visited:
+            color:tuple = None
             largest: Optional[tuple[int, int, int, int]] = None  # x, y, width, height
 
             for x, y in product(range(im.width), range(im.height)):
@@ -107,14 +116,16 @@ def frame_to_boxes(im: Image, name):
             ]
 
             boxes.append([largest, pixels[box[0][0],box[0][1]]])
-
+            colors.append(pixels[box[0][0],box[0][1]])
+            print(pixels[box[0][0],box[0][1]])
+            sizes.append(largest)
             #
             #draw.rectangle(box, fill=pixels[box[0][0],box[0][1]])
             #draw.rectangle(box, fill=next(fills))
             
             #print(box)
 
-                # work.show() # debug
+            #work.show() # debug
                 #work.save(os.path.join(out, f"{name}.png"))
                 #time.sleep(0.5)
                 #print(box)
@@ -129,11 +140,11 @@ def frame_to_boxes(im: Image, name):
     #with open("log.txt", "w") as log:
         #log.write("\n".join([str(x)+str(y) for x,y in boxes]))
     # im.show()
-    # work.show()
+    #work.show()
 
-    work.save(os.path.join(out, f"{name}.png"))
+    #work.save(os.path.join(out, f"{name}.png"))
 
-    return boxes
+    return [sizes, colors]
 
 
 '''image_counter = 0
@@ -159,6 +170,8 @@ try:
 finally:
     with open("boxes.json", "w") as f:
         json.dump(all_boxes, f)'''
-
-im = Image.open('BMP/titlefix.bmp')
-frame_to_boxes(im, 'test')
+if __name__ == "__main__":
+    #BMP/Tiles/PrtCave/PrtCave_2.png
+    # BMP/titlefix.bmp
+    im = Image.open('BMP/Tiles/PrtCave/PrtCave_1.png')
+    frame_to_boxes(im, 'test')
