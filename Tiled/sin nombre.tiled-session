@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "01_STARTCAVE.tmx",
+    "activeFile": "02_FIRSTCAVE.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -45,11 +45,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 1.5,
-            "selectedLayer": 1,
+            "scale": 8,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 353,
-                "y": 272.6666666666667
+                "x": 460.9375,
+                "y": 218.625
             }
         },
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx": {
@@ -96,8 +96,8 @@
         },
         "NpcSym.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 3,
-            "scaleInEditor": 3
+            "scaleInDock": 1.5,
+            "scaleInEditor": 2
         },
         "PrtCave.tsx": {
             "dynamicWrapping": false,
@@ -158,20 +158,20 @@
         "NpcSym.tsx",
         "CAMARA.tsx",
         "MyChar.tsx",
-        "00_TITLESCREEN.tmx",
-        "01_STARTCAVE.tmx"
+        "01_STARTCAVE.tmx",
+        "02_FIRSTCAVE.tmx"
     ],
     "project": "sin nombre.tiled-project",
     "property.type": "int",
     "recentFiles": [
-        "02_FIRSTCAVE.tmx",
-        "01_STARTCAVE.tmx",
-        "00_TITLESCREEN.tmx",
         "PrtCave.tsx",
         "NpcCemet.tsx",
         "NpcSym.tsx",
         "CAMARA.tsx",
         "MyChar.tsx",
+        "01_STARTCAVE.tmx",
+        "02_FIRSTCAVE.tmx",
+        "00_TITLESCREEN.tmx",
         "01_tiledtest.tmx",
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx",
         "TITLESCREEN.tmx"
