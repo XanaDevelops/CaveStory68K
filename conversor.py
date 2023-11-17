@@ -8,8 +8,8 @@ def ConvertSpriteSVG() -> list:
     #print("CONVERSOR", path)
     svgName = path.split("/")[-1].split(".")[0].upper()
 
-    colorText = f"Color{svgName}:\n"
-    sizeText = f"Size{svgName}:\n"
+    colorText = f".Color:\n"
+    sizeText = f".Size:\n"
 
     colors = []
     sizes = []
@@ -37,7 +37,7 @@ def ConvertSpriteSVG() -> list:
     sizeText  += truncateText(sizesT, "DC.W")
         
 
-    retText = f"{colorText}\tDC.L -1\n{sizeText}\n{svgName} DC.L Color{svgName}, Size{svgName}\n\n\n"
+    retText = f"\n{svgName} DC.L .Color, .Size\n{colorText}\tDC.L -1\n{sizeText}\n\n"
     #print("\n###########\nRETTEXT\n"+retText+"##################\n",user_args[0])
     with open(user_args[0], "+a") as sprites:
         sprites.write(retText)
