@@ -125,6 +125,10 @@ class Conversor():
         sizeText = f".Size:\n"
 
         sizes, _colors = frame_to_boxes(img, None)
+        for i in range(len(sizes)):
+            sizes[i]*=self.tileMult
+            if(i%4>=2):
+                sizes[i]-=1
         print(f"SIZES: {sizes}")
         print(f"COLORS {_colors}")
         colors=[]
@@ -351,10 +355,15 @@ class Conversor():
                     print(x)
                     if ".png" not in x:
                         continue
-                    fTile.writelines(self.ConvertTileMap(self.dirTiles+x))
-                    indexT = int(x.split("_")[1].split(".")[0])
-                    tilesD.update({indexT:x})
-                    maxN  = max(maxN, indexT)
+                    retText, names = self.ConvertTileMap(self.dirTiles+x)
+                    print(f"NAMES {names}")
+                    fTile.writelines(retText)
+                    for y in names:
+                        if y=="NULL":
+                            continue
+                        indexT = int(y.split("_")[1].split(".")[0])
+                        tilesD.update({indexT:y})
+                        maxN  = max(maxN, indexT)
 
                 fSV.writelines("SPRITES\n")
                 listTile = ["NULL"]*(maxN+1)
@@ -368,7 +377,7 @@ class Conversor():
                 fSV.writelines("*~Tab type~1~\n")
                 fSV.writelines("*~Tab size~4~\n")
 
-    def ConvertTileMap(self, path:str) -> str:
+    def ConvertTileMap(self, path:str) -> list:
         # separar imagenes
         img = Image.open(path)
         tileMapName = path.split("/")[-1].split(".")[0]
@@ -379,11 +388,17 @@ class Conversor():
 
         split_image(path, img.height//self.tilePixSize, img.width//self.tilePixSize,
                     False, False, output_dir=fulldir)
+        
         #pasar a bmp RGBA normal, no indexado
         #https://stackoverflow.com/questions/68365846/pillow-np-how-to-convert-transparent-mapped-indexed-png-to-rgba-when-transpar
+
+        newNames:list = ["NULL"]
+        listdir = 0
+        print(listdir)
+        input("DEBUG")
         for x in os.listdir(fulldir):
             indexed = Image.open(fulldir+"/"+x)
-
+            
             if indexed.mode == "P":
                 # check if transparent
                 is_transparent = indexed.info.get("transparency", False)
@@ -396,15 +411,21 @@ class Conversor():
                     image = indexed.convert("RGBA")
             elif indexed.mode == 'PA':
                 image = indexed.convert("RGBA")
+            i = int(x.split("_")[1].split(".")[0])+1
+            newName = f"{fulldir}/{tileMapName}_{i:>03}"
+            newNames.append(f"{tileMapName}_{i:>03}")
+            image.save(f"{newName}.png")
+            indexed.close()
+            os.remove(fulldir+"/"+x)
 
-            image.save(fulldir+"/"+x)
-            
+
+
         retText:str = ""
         for x in os.listdir(self.dirOutTiles+tileMapName):
             rText,_ = self.ConvertSpriteBForce(fulldir+"/"+x)
             retText+=rText+"\n"
 
-        return retText
+        return retText, newNames
     def SoundImport(self):
         print("\nImportando Canciones y SFX")
         with open(self.pathSI, "+w") as fsound:
@@ -464,6 +485,7 @@ class Conversor():
         if a!="FF" and a!="00":
             print("Alpha erroneo, no 00 FF", file=sys.stderr)
             ret="00000000"
+        ret = f"00{ret[2:]}"
         return "$"+ret
     
     def truncateText(self, text:list, dataSize:str, tam:int = 16 ) -> str:

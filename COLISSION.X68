@@ -4,7 +4,7 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-SOLID_ID    DC.W 2, 3, -1
+SOLID_ID    DC.W 2, 3, 33, 34, 42, 49, 50, -1
 
 
 GENERATE_COLIMAP:
