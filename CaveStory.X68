@@ -166,7 +166,7 @@ ENDMAINLOOP:
     INCLUDE "data/newEntsData.x68"
     INCLUDE "data/DATA.x68"
     INCLUDE "data/sprites.x68"
-    INCLUDE "data/tiles.X68"
+    ;INCLUDE "data/tiles.X68"
     INCLUDE "data/newMaps.x68"
     INCLUDE "data/Dialogs.x68"
     INCLUDE "data/sounds.x68"

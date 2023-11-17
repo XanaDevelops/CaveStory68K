@@ -2589,6 +2589,7 @@ def save_file(file=None):
 
     # Save the file.
     svg = _simple_top.svg_root
+    #input("test")
     if isinstance(file, str):
         # We were given a file name as a string.
         with open(file, 'w') as w:

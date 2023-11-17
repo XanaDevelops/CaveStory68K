@@ -2,15 +2,33 @@
 * Title      : SpriteVector
 * Written by : Xana
 * Date       :
-* Description: Generado automaticamente por conversor-script.py
+* Description: Generado automaticamente por pyconverterU.py
 *-----------------------------------------------------------
 SPRITES
-	DC.L NULL, PrtCave_001, PrtCave_002, PrtCave_003, PrtCave_004, PrtCave_005, PrtCave_006, PrtCave_007, PrtCave_008, PrtCave_009, PrtCave_010, PrtCave_011, PrtCave_012, PrtCave_013, PrtCave_014, PrtCave_015
+	DC.L NULL, NULL, PrtCave_002, PrtCave_003, PrtCave_004, PrtCave_005, PrtCave_006, PrtCave_007, PrtCave_008, PrtCave_009, PrtCave_010, PrtCave_011, PrtCave_012, PrtCave_013, PrtCave_014, PrtCave_015
 	DC.L PrtCave_016, PrtCave_017, PrtCave_018, PrtCave_019, PrtCave_020, PrtCave_021, PrtCave_022, PrtCave_023, PrtCave_024, PrtCave_025, PrtCave_026, PrtCave_027, PrtCave_028, PrtCave_029, PrtCave_030, PrtCave_031
 	DC.L PrtCave_032, PrtCave_033, PrtCave_034, PrtCave_035, PrtCave_036, PrtCave_037, PrtCave_038, PrtCave_039, PrtCave_040, PrtCave_041, PrtCave_042, PrtCave_043, PrtCave_044, PrtCave_045, PrtCave_046, PrtCave_047
-	DC.L PrtCave_048, PrtCave_049, PrtCave_050, PrtCave_051, PrtCave_052, PrtCave_053, PrtCave_054, PrtCave_055, PrtCave_056, PrtCave_057, PrtCave_058, PrtCave_059, PrtCave_060, PrtCave_061, PrtCave_062, PrtCave_063
-	DC.L PrtCave_064, PrtCave_065, PrtCave_066, PrtCave_067, PrtCave_068, PrtCave_069, PrtCave_070, PrtCave_071, PrtCave_072, PrtCave_073, PrtCave_074, PrtCave_075, PrtCave_076, PrtCave_077, PrtCave_078, PrtCave_079
-	DC.L PrtCave_080
+	DC.L PrtCave_048, PrtCave_049, PrtCave_050, PrtCave_051, PrtCave_052, PrtCave_053, PrtCave_054, PrtCave_055, PrtCave_056, PrtCave_057, PrtCave_058, PrtCave_059, PrtCave_060, PrtCave_061, PrtCave_062, NULL
+	DC.L PrtCave_064, PrtCave_065, PrtCave_066, NULL, PrtCave_068, PrtCave_069, PrtCave_070, PrtCave_071, PrtCave_072, NULL, NULL, NULL, PrtCave_076, PrtCave_077, PrtCave_078, NULL
+	DC.L PrtCave_080, NULL, NpcSym_082, NpcSym_083, NpcSym_084, NpcSym_085, NpcSym_086, NpcSym_087, NpcSym_088, NpcSym_089, NpcSym_090, NpcSym_091, NpcSym_092, NpcSym_093, NpcSym_094, NpcSym_095
+	DC.L NpcSym_096, NpcSym_097, NpcSym_098, NpcSym_099, NpcSym_100, NpcSym_101, NpcSym_102, NpcSym_103, NpcSym_104, NpcSym_105, NpcSym_106, NpcSym_107, NpcSym_108, NpcSym_109, NpcSym_110, NpcSym_111
+	DC.L NpcSym_112, NpcSym_113, NpcSym_114, NpcSym_115, NpcSym_116, NpcSym_117, NpcSym_118, NpcSym_119, NpcSym_120, NpcSym_121, NpcSym_122, NpcSym_123, NpcSym_124, NpcSym_125, NpcSym_126, NpcSym_127
+	DC.L NpcSym_128, NpcSym_129, NULL, NpcSym_131, NpcSym_132, NpcSym_133, NpcSym_134, NpcSym_135, NpcSym_136, NpcSym_137, NpcSym_138, NpcSym_139, NpcSym_140, NpcSym_141, NpcSym_142, NpcSym_143
+	DC.L NpcSym_144, NpcSym_145, NpcSym_146, NpcSym_147, NpcSym_148, NpcSym_149, NpcSym_150, NpcSym_151, NpcSym_152, NpcSym_153, NpcSym_154, NpcSym_155, NpcSym_156, NpcSym_157, NpcSym_158, NpcSym_159
+	DC.L NpcSym_160, NpcSym_161, NpcSym_162, NULL, NULL, NULL, NULL, NpcSym_167, NpcSym_168, NpcSym_169, NpcSym_170, NpcSym_171, NpcSym_172, NpcSym_173, NpcSym_174, NpcSym_175
+	DC.L NpcSym_176, NpcSym_177, NpcSym_178, NpcSym_179, NpcSym_180, NpcSym_181, NpcSym_182, NpcSym_183, NpcSym_184, NpcSym_185, NpcSym_186, NpcSym_187, NpcSym_188, NpcSym_189, NpcSym_190, NpcSym_191
+	DC.L NULL, NpcSym_193, NpcSym_194, NpcSym_195, NpcSym_196, NpcSym_197, NpcSym_198, NpcSym_199, NpcSym_200, NULL, NULL, NpcSym_203, NpcSym_204, NULL, NULL, NpcSym_207
+	DC.L NpcSym_208, NpcSym_209, NpcSym_210, NpcSym_211, NpcSym_212, NpcSym_213, NpcSym_214, NpcSym_215, NpcSym_216, NpcSym_217, NpcSym_218, NpcSym_219, NpcSym_220, NpcSym_221, NpcSym_222, NULL
+	DC.L NULL, NULL, NULL, NpcSym_227, NpcSym_228, NULL, NpcSym_230, NpcSym_231, NpcSym_232, NpcSym_233, NpcSym_234, NpcSym_235, NpcSym_236, NpcSym_237, NpcSym_238, NpcSym_239
+	DC.L NpcSym_240, NpcSym_241, NpcSym_242, NpcSym_243, NpcSym_244, NpcSym_245, NpcSym_246, NpcSym_247, NpcSym_248, NULL, NpcSym_250, NpcSym_251, NpcSym_252, NpcSym_253, NpcSym_254, NpcSym_255
+	DC.L NpcSym_256, NpcSym_257, NpcSym_258, NpcSym_259, NpcSym_260, NpcSym_261, NpcSym_262, NpcSym_263, NpcSym_264, NpcSym_265, NULL, NpcSym_267, NpcSym_268, NULL, NpcSym_270, NpcSym_271
+	DC.L NpcSym_272, NpcSym_273, NULL, NpcSym_275, NpcSym_276, NpcSym_277, NpcSym_278, NpcSym_279, NpcSym_280, NpcSym_281, NpcSym_282, NpcSym_283, NpcSym_284, NpcSym_285, NULL, NpcSym_287
+	DC.L NpcSym_288, NpcSym_289, NpcSym_290, NpcSym_291, NpcSym_292, NpcSym_293, NpcSym_294, NpcSym_295, NpcSym_296, NpcSym_297, NpcSym_298, NpcSym_299, NpcSym_300, NpcSym_301, NpcSym_302, NpcSym_303
+	DC.L NpcSym_304, NpcSym_305, NULL, NpcSym_307, NULL, NpcSym_309, NpcSym_310, NpcSym_311, NpcSym_312, NpcSym_313, NpcSym_314, NpcSym_315, NpcSym_316, NpcSym_317, NpcSym_318, NpcSym_319
+	DC.L NpcSym_320, NpcSym_321, NpcSym_322, NULL, NULL, NULL, NULL, NpcSym_327, NULL, NULL, NpcSym_330, NpcSym_331, NpcSym_332, NpcSym_333, NpcSym_334, NpcSym_335
+	DC.L NpcSym_336, NpcSym_337, NpcSym_338, NpcSym_339, NpcSym_340, NpcSym_341, NpcSym_342, NpcSym_343, NpcSym_344, NULL, NULL, NULL, NULL, NULL, NpcSym_350, NpcSym_351
+	DC.L NpcSym_352, NpcSym_353, NpcSym_354, NpcSym_355, NpcSym_356, NpcSym_357, NpcSym_358, NpcSym_359, NpcSym_360, NpcSym_361, NpcSym_362, NpcSym_363, NpcSym_364, NpcSym_365, NpcSym_366, NpcSym_367
+	DC.L NULL, NULL, NULL, NpcSym_371, NpcSym_372, NpcSym_373, NpcSym_374, NpcSym_375, NpcSym_376, NpcSym_377, NpcSym_378, NpcSym_379, NpcSym_380
 
 
 

@@ -1,8 +1,7 @@
-import PIL.ImageColor
-
 def ConvertIMGtoSVG():
         #convierte de img 
-        print(len(user_args))
+
+        #print(len(user_args))
         #[print(x) for x in user_args]
 
         sizes = user_args[1].split("@")
@@ -21,7 +20,7 @@ def ConvertIMGtoSVG():
 
         for i in range(len(colors)):
             clr = colors[i]
-            print(clr)
+            #print(clr)
             a,b,c,d = [int(x) for x in sizes[4*i:4*i+4]]
             lay1.append(rect((a//2,b//2),((c+1)//2,(d+1)//2),fill=clr, stroke=None))
         

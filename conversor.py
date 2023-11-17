@@ -3,7 +3,7 @@ import sys, inkex, os
 
 def ConvertSpriteSVG() -> list:
     SCALE = 2
-
+    
     path = user_args[1]
     #print("CONVERSOR", path)
     svgName = path.split("/")[-1].split(".")[0].upper()
@@ -128,6 +128,8 @@ def truncateText(text:list, dataSize:str, tam:int = 16 ) -> str:
         retText+= f"\t{dataSize} {', '.join(text[aux:])}\n"
 
         return retText
+
+
 
 if __name__ == "__main__":
     ConvertSpriteSVG()

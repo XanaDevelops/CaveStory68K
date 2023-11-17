@@ -15,6 +15,7 @@ try:
 except NameError:
     print("hey")
     from simpinkscr import *
+import contextlib
 
 class Conversor():
 
@@ -26,6 +27,7 @@ class Conversor():
     dirTiled    = "./Tiled/"
     dirTiles    = "./BMP/tilemaps/"
     dirOutTiles = "./BMP/tiles/"
+    dirTilesSVG = "./svg/TILES/"
 
     pathSprites = "./data/sprites.x68"
     pathTiles   = "./data/tiles.x68"
@@ -67,7 +69,7 @@ class Conversor():
                     case 4:
                         self.ConvertAllTileMaps()
                     case 5:
-                        self.ConvertIMGtoSVG("BMP/Tiles/PrtCave/PrtCave_002.png","a.svg")
+                        self.ConvertIMGtoSVG(input("path: "),input("out: "))
                     case 6:
                         self.ConvertSpriteSVG(input("Path: "))
                     case 7:
@@ -106,23 +108,56 @@ class Conversor():
             fsprite.writelines("*~Tab type~1~\n")
             fsprite.writelines("*~Tab size~4~\n")
 
-    def RecursiveConverter(self, path:str):
+    def RecursiveConverter(self, path:str, tiles:bool=False):
+        fSV:TextIOWrapper
+        maxN:int
+        tilesD:dict
+        if(tiles):
+            fSV = open(self.pathSpriteV, "w")
+            fSV.writelines("*-----------------------------------------------------------\n")
+            fSV.writelines("* Title      : SpriteVector\n")
+            fSV.writelines("* Written by : Xana\n")
+            fSV.writelines("* Date       :\n")
+            fSV.writelines("* Description: Generado automaticamente por pyconverterU.py\n")
+            fSV.writelines("*-----------------------------------------------------------\n")
+            maxN=0
+            tilesD = dict()
         for x in os.listdir(path):
             #print("###############\n############")
             ###print("COMPROBANDO",path+"/"+x,os.path.isdir(path+"/"+x))
             #print("###############\n############")
             #input(path+x)
             if(os.path.isdir(path+x)):
-                self.RecursiveConverter(path+x+"/")
+                print(f"AAAAAAAAAAAAAAAA: {path+x} {self.dirTilesSVG}")
+                if((path+x+"/") == self.dirTilesSVG):
+                    self.RecursiveConverter(path+x+"/",True)
+                else:
+                    self.RecursiveConverter(path+x+"/")
             if(".svg" in x):
                 self.ConvertSpriteSVG(path+"/"+x)
+                if(tiles):
+                    indexT = int(x.split("_")[1].split(".")[0])
+                    tilesD.update({indexT:x})
+                    maxN  = max(maxN, indexT)
+        if(tiles):
+            fSV.writelines("SPRITES\n")
+            listTile = ["NULL"]*(maxN+1)
+            for k,v in zip(tilesD.keys(), tilesD.values()):
+                listTile[k]=v.split(".")[0]
+            fSV.writelines(self.truncateText(listTile, "DC.L"))
+            fSV.writelines("\n\n\n*~Font name~Courier New~\n")
+            fSV.writelines("*~Font size~10~\n")
+            fSV.writelines("*~Tab type~1~\n")
+            fSV.writelines("*~Tab size~4~\n")
+            fSV.close()
   
 
     def ConvertSpriteSVG(self, path:str, verb:bool = False) -> list:
         #os.popen(f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py .\sprites\dibujo.svg")
         #print(retText)
-        subprocess.run(f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py {path} {self.pathSprites} {path}".split())
-        
+        devnull = open(os.devnull, "w")
+        subprocess.run((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py {path} {self.pathSprites} {path}".split()),stdout=devnull)
+        devnull.close()
     def ConvertSpriteBForce(self, path:str, rawData:bool = False, verb:bool = False) -> list:
         img = Image.open(path)
         bmpName = path.split("/")[-1].split(".")[0].upper()
@@ -343,56 +378,37 @@ class Conversor():
         return tmxName, w,h, tileData, objData
     
     def ConvertAllTileMaps(self):
-        with open(self.pathSpriteV, "w") as fSV:
-            with open(self.pathTiles, "w") as fTile:
-                maxN:int = 0
-                tilesD:dict = dict()
-                fSV.writelines("*-----------------------------------------------------------\n")
-                fSV.writelines("* Title      : SpriteVector\n")
-                fSV.writelines("* Written by : Xana\n")
-                fSV.writelines("* Date       :\n")
-                fSV.writelines("* Description: Generado automaticamente por conversor-script.py\n")
-                fSV.writelines("*-----------------------------------------------------------\n")
-
-                fTile.writelines("*-----------------------------------------------------------\n")
-                fTile.writelines("* Title      : Tiles\n")
-                fTile.writelines("* Written by : Xana\n")
-                fTile.writelines("* Date       :\n")
-                fTile.writelines("* Description: Generado automaticamente por conversor-script.py\n")
-                fTile.writelines("*-----------------------------------------------------------\n")
-
-
-                for x in os.listdir(self.dirTiles):
-                    # x es tilemap, formato png
-                    print(x)
-                    if ".png" not in x:
-                        continue
-                    retText, names = self.ConvertTileMap(self.dirTiles+x)
-                    print(f"NAMES {names}")
-                    fTile.writelines(retText)
-                    for y in names:
-                        if y=="NULL":
-                            continue
-                        indexT = int(y.split("_")[1].split(".")[0])
-                        tilesD.update({indexT:y})
-                        maxN  = max(maxN, indexT)
-
-                fSV.writelines("SPRITES\n")
-                listTile = ["NULL"]*(maxN+1)
-                for k,v in zip(tilesD.keys(), tilesD.values()):
-                    listTile[k]=v.split(".")[0]
-                fSV.writelines(self.truncateText(listTile, "DC.L"))
+        #Trocea imagen, convierte a svg para optimizar
+        for x in os.listdir(self.dirTiles):
+            # x es tilemap, formato png
+            print(x)
+            if ".png" not in x:
+                continue
+            #mirar en tmx el valor de tileset, QUE SEA CONSTANTE!!!!!!!
+            '''
+            <tileset firstgid="1" source="PrtCave.tsx"/>
+            <tileset firstgid="81" source="NpcSym.tsx"/>
+            <tileset firstgid="381" source="CAMARA.tsx"/>
+            <tileset firstgid="383" source="NpcCemet.tsx"/>
+            <tileset firstgid="523" source="MyChar.tsx"/>
+            '''
+            offset = int(x.split("_")[1].split(".")[0]) 
+            self.ConvertTileMap(self.dirTiles+x, offset)
 
 
-                fSV.writelines("\n\n\n*~Font name~Courier New~\n")
-                fSV.writelines("*~Font size~10~\n")
-                fSV.writelines("*~Tab type~1~\n")
-                fSV.writelines("*~Tab size~4~\n")
 
-    def ConvertTileMap(self, path:str) -> list:
+
+
+    def ConvertTileMap(self, path:str, offset:int) -> None:
         # separar imagenes
+        tileMapName = path.split("/")[-1].split(".")[0].split("_")[0]
+        print(f"TILENAME: {tileMapName}")
+        if(input(f"Replace {tileMapName}? [Y/N]: ").upper()!="Y"):
+            print("NO reemplazo")
+            return
         img = Image.open(path)
-        tileMapName = path.split("/")[-1].split(".")[0]
+        print(f"PATH:::: {path}")
+        
         fulldir:str = self.dirOutTiles+tileMapName
         if os.path.exists(fulldir):
             shutil.rmtree(fulldir)
@@ -400,15 +416,13 @@ class Conversor():
 
         split_image(path, img.height//self.tilePixSize, img.width//self.tilePixSize,
                     False, False, output_dir=fulldir)
-        
+        img.close()
         #pasar a bmp RGBA normal, no indexado
         #https://stackoverflow.com/questions/68365846/pillow-np-how-to-convert-transparent-mapped-indexed-png-to-rgba-when-transpar
 
-        newNames:list = ["NULL"]
-        listdir = 0
-        print(listdir)
-        input("DEBUG")
-        for x in os.listdir(fulldir):
+        listdir = os.listdir(fulldir)
+        #input(listdir)
+        for x in listdir:
             indexed = Image.open(fulldir+"/"+x)
             
             if indexed.mode == "P":
@@ -417,41 +431,38 @@ class Conversor():
                 
                 if is_transparent is False:
                     # if not transparent, convert indexed image to RGB
-                    image = indexed.convert("RGB")
+                    image = indexed.convert("RGBA")
                 else:
                     # convert indexed image to RGBA
                     image = indexed.convert("RGBA")
             elif indexed.mode == 'PA':
                 image = indexed.convert("RGBA")
-            i = int(x.split("_")[1].split(".")[0])+1
+            i = int(x.split("_")[2].split(".")[0])+1+offset
+
             newName = f"{fulldir}/{tileMapName}_{i:>03}"
-            newNames.append(f"{tileMapName}_{i:>03}")
+            
             image.save(f"{newName}.png")
             indexed.close()
+            print(f"to remove{fulldir}/{x}, saving {newName}.png")
             os.remove(fulldir+"/"+x)
 
 
-
-        retText:str = ""
         for x in os.listdir(self.dirOutTiles+tileMapName):
-            rText,_ = self.ConvertSpriteBForce(fulldir+"/"+x)
-            retText+=rText+"\n"
+            self.ConvertIMGtoSVG(self.dirOutTiles+tileMapName+"/"+x, self.dirTilesSVG+x.replace(".png",".svg"))
 
-        return retText, newNames
     
-    def ConvertIMGtoSVG(self, path:str, out:str, override:bool=False):
+    def ConvertIMGtoSVG(self, path:str, out:str):
         #convierte de img 
         sizes, colors, name = self.ConvertSpriteBForce(path, True)
-        if os.path.exists(out):
-            if not override:
-                override = bool(input(f"reemplazar? {out}"))
-            if override:
-                os.remove(out)
-        print(colors)
-        subprocess.run((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=transform.py svg/PLANTILLA {out} "
+        #print(colors)
+        if(os.path.exists(out)):
+            os.remove(out)
+        #print(colors)
+        devnull = open(os.devnull, "w")
+        subprocess.run(((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=transform.py svg/PLANTILLA {out} "
                        +f"{'@'.join(str(x) for x in sizes)} "
-                       +f"{'@'.join(y for y in ['#'.join([str(x[0]),str(x[1]),str(x[2])]) for x in colors])}").split())
-
+                       +f"{'@'.join(y for y in ['#'.join([str(x[0]),str(x[1]),str(x[2])]) for x in colors])}").split()),stdout=devnull)
+        devnull.close()
     def SoundImport(self):
         print("\nImportando Canciones y SFX")
         with open(self.pathSI, "+w") as fsound:
@@ -531,4 +542,6 @@ class Conversor():
     def ToHexXY(self, x, y) -> str:
         return "$"+hex(round(x))[2:].upper().zfill(4)+hex(round(y))[2:].upper().zfill(4)
 
-Conversor()
+
+if __name__ == "__main__":
+    Conversor()
