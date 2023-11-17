@@ -43,10 +43,6 @@ def frame_to_boxes(im: Image, name) -> list:
     boxes = []
     colors = []
     sizes = []
-
-    work = im.copy().convert("RGB")
-    draw = ImageDraw.Draw(work)
-
     
     #work = im.copy().convert("RGB")
     #draw = ImageDraw.Draw(work)
