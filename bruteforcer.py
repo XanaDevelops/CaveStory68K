@@ -43,10 +43,9 @@ def frame_to_boxes(im: Image, name) -> list:
     boxes = []
     colors = []
     sizes = []
-
+    
     work = im.copy().convert("RGB")
     draw = ImageDraw.Draw(work)
-
     
     try: 
         while False in visited:
@@ -115,7 +114,11 @@ def frame_to_boxes(im: Image, name) -> list:
             boxes.append([largest, pixels[box[0][0],box[0][1]]])
             colors.append(pixels[box[0][0],box[0][1]])
             print(pixels[box[0][0],box[0][1]])
-            sizes.append(largest)
+            tam = []
+            [tam.append(x) for x in largest]
+            tam[2]+=tam[0]
+            tam[3]+=tam[1]
+            [sizes.append(x) for x in tam]
             #
             draw.rectangle(box, fill=pixels[box[0][0],box[0][1]])
             #draw.rectangle(box, fill=next(fills))
@@ -126,6 +129,7 @@ def frame_to_boxes(im: Image, name) -> list:
                 #work.save(os.path.join(out, f"{name}.png"))
                 #time.sleep(0.5)
                 #print(box)
+
             # exit()
 
             # break # debug
