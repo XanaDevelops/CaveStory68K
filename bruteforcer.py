@@ -40,27 +40,9 @@ def frame_to_boxes(im: Image, name):
 
     # visualisation
     boxes = []
-    work = im.copy().convert("RGB")
-    draw = ImageDraw.Draw(work)
-    fills = cycle(
-        [
-            "red",
-            "green",
-            "blue",
-            "orange",
-            "yellow",
-            "purple",
-            "pink",
-            "cyan",
-            "gray",
-            "brown",
-            "maroon",
-            "hotpink",
-            "gold",
-            "chocolate",
-            "green",
-        ]
-    )
+    #work = im.copy().convert("RGB")
+    #draw = ImageDraw.Draw(work)
+    
     try: 
         while False in visited:
             largest: Optional[tuple[int, int, int, int]] = None  # x, y, width, height
@@ -127,15 +109,16 @@ def frame_to_boxes(im: Image, name):
             boxes.append([largest, pixels[box[0][0],box[0][1]]])
 
             #
-            draw.rectangle(box, fill=pixels[box[0][0],box[0][1]])
+            #draw.rectangle(box, fill=pixels[box[0][0],box[0][1]])
             #draw.rectangle(box, fill=next(fills))
             
             #print(box)
-            if(len(boxes)>-1):
+
                 # work.show() # debug
-                work.save(os.path.join(out, f"{name}.png"))
+                #work.save(os.path.join(out, f"{name}.png"))
                 #time.sleep(0.5)
                 #print(box)
+
             # exit()
 
             # break # debug
@@ -143,8 +126,8 @@ def frame_to_boxes(im: Image, name):
         pass
     
     tqdm.write(f"{len(boxes)=}")
-    with open("log.txt", "w") as log:
-        log.write("\n".join([str(x)+str(y) for x,y in boxes]))
+    #with open("log.txt", "w") as log:
+        #log.write("\n".join([str(x)+str(y) for x,y in boxes]))
     # im.show()
     # work.show()
 
