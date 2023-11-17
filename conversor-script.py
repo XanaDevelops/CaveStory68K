@@ -9,7 +9,12 @@ import numpy as np
 import tmx
 from split_image import split_image
 from bruteforcer import frame_to_boxes
-
+import inkex, inkex.command
+try:
+    rect
+except NameError:
+    print("hey")
+    from simpinkscr import *
 
 class Conversor():
 
@@ -44,8 +49,9 @@ class Conversor():
             print("     [2] ConvertSprites (SVG)+(BMP)")
             print("     [3] ConvertMapas (TMX)")
             print("     [4] Convert TileMaps")
-            print("     [4] ConvertSingle") 
-            print("     [5] Importar sonidos")                  
+            print("     [5] ConvertPNG->SVG")
+            print("     [6] ConvertSingle") 
+            print("     [7] Importar sonidos")                  
             print("     [0] Exit")
 
             r = input("?: ")
@@ -61,8 +67,10 @@ class Conversor():
                     case 4:
                         self.ConvertAllTileMaps()
                     case 5:
-                        self.ConvertSpriteSVG(input("Path: "))
+                        self.ConvertIMGtoSVG("BMP/Tiles/PrtCave/PrtCave_002.png","a.svg")
                     case 6:
+                        self.ConvertSpriteSVG(input("Path: "))
+                    case 7:
                         self.SoundImport()
                     case 0:
                         salir = True
@@ -115,7 +123,7 @@ class Conversor():
         #print(retText)
         subprocess.run(f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py {path} {self.pathSprites} {path}".split())
         
-    def ConvertSpriteBForce(self, path:str, verb:bool = False) -> list:
+    def ConvertSpriteBForce(self, path:str, rawData:bool = False, verb:bool = False) -> list:
         img = Image.open(path)
         bmpName = path.split("/")[-1].split(".")[0].upper()
         print(path)
@@ -124,13 +132,14 @@ class Conversor():
         colorText = f".Color:\n"
         sizeText = f".Size:\n"
 
-        sizes, _colors = frame_to_boxes(img, None)
-        for i in range(len(sizes)):
-            sizes[i]*=self.tileMult
+        _sizes, _colors = frame_to_boxes(img, None)
+        sizes = []
+        for i in range(len(_sizes)):
+            sizes.append(_sizes[i]*self.tileMult)
             if(i%4>=2):
                 sizes[i]-=1
-        print(f"SIZES: {sizes}")
-        print(f"COLORS {_colors}")
+        #print(f"SIZES: {sizes}")
+        ##print(f"COLORS {_colors}")
         colors=[]
         for x in _colors:
             colors.append(self.ToBGR(x))
@@ -142,6 +151,9 @@ class Conversor():
 
         retText = f"\n{bmpName} DC.L .Color, .Size\n{colorText}\tDC.L -1\n{sizeText}\n\n"
         #print(retText)
+        if(rawData):
+            return sizes, _colors, bmpName
+        
         return [retText, bmpName]
     
     def ConvertSpriteOld(self, path:str, verb:bool = False) -> list:
@@ -426,6 +438,20 @@ class Conversor():
             retText+=rText+"\n"
 
         return retText, newNames
+    
+    def ConvertIMGtoSVG(self, path:str, out:str, override:bool=False):
+        #convierte de img 
+        sizes, colors, name = self.ConvertSpriteBForce(path, True)
+        if os.path.exists(out):
+            if not override:
+                override = bool(input(f"reemplazar? {out}"))
+            if override:
+                os.remove(out)
+        print(colors)
+        subprocess.run((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=transform.py svg/PLANTILLA {out} "
+                       +f"{'@'.join(str(x) for x in sizes)} "
+                       +f"{'@'.join(y for y in ['#'.join([str(x[0]),str(x[1]),str(x[2])]) for x in colors])}").split())
+
     def SoundImport(self):
         print("\nImportando Canciones y SFX")
         with open(self.pathSI, "+w") as fsound:
