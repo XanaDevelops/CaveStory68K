@@ -48,8 +48,8 @@
             "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 661.5,
-                "y": 309
+                "x": 405.5,
+                "y": 380
             }
         },
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx": {
@@ -101,7 +101,7 @@
         },
         "PrtCave.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 2,
+            "scaleInDock": 8,
             "scaleInEditor": 4
         },
         "TITLESCREEN.tmx": {
