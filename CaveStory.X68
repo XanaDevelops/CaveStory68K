@@ -6,7 +6,9 @@
 *-----------------------------------------------------------
     INCLUDE "XPMODE.X68"
     INCLUDE "MACROS.X68"
+    INCLUDE "CONSTSCR.X68"
     INCLUDE "CONST.X68"
+    
 
 INIT:                  ; first instruction of program
     CLR.B   (GAMEFLAGS)
