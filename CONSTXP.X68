@@ -4,19 +4,6 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-
-;SCREEN CONST
-SCREEN_WIDTH    EQU 640 ;640 800 prevent screen tearing ;1024
-SCREEN_HEIGHT   EQU 480 ;480 600                        ;768
-
-;DEPENDE SCREEN SIZE
-SCREEN_XTILE    EQU 10 ;13 10 ;16
-SCREEN_YTILE    EQU 8 ;10 8  ;12
-
-;DBOX
-DBOXTS          EQU $0410 ;$0410 $0A13
-MAXLINES        EQU 6     ;6      8
-
 SCREEN_MAXVX    EQU 6
 
 TARGETFPS       EQU 60
@@ -24,8 +11,6 @@ SCREEN_UPTIME   EQU 1000/TARGETFPS ;4
 
 ;GAME MANAGER
 WAITDEDT        EQU 40
-
-
 
 ;PLAYER
 ANIMSPEED       EQU 4
