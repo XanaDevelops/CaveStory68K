@@ -4,8 +4,8 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-SOLID_ID    DC.W 2, 3, 33, 34, 42, 49, 50, -1
-
+SOLID_ID    DC.W 2, 33, 34, 42, 49, 50, -1
+SLOPE_ID    DC.W 3,4,5,6, 19,20,21,22
 
 GENERATE_COLIMAP:
     MOVEM.L D0-D2/D6-D7/A0-A2, -(SP)
@@ -22,6 +22,7 @@ GENERATE_COLIMAP:
         .GENERATE_LOOP_X:
             MOVE.W  (A2)+, D0
             MOVE.B  #0, D2
+            ;COMPROBAR BLOQUES SOLIDOS, EN COLIMAP -1
             LEA SOLID_ID, A3
             .SOLID_ID_LOOP:
                 MOVE.W  (A3)+, D1
