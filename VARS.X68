@@ -8,7 +8,8 @@
 GAMEFLAGS       DC.B 0 ;(UPD_ENT)(END_DBOX)(CR_DBOX)-----
 FTOSKIP         DC.B 0
 
-
+FIXFILEBUG      DC.B 0 ;INTENTA ARREGLAR EL BUG DE FICHERO
+                DS.W 0
 
 SCREEN_X        DS.W 1
 SCREEN_Y        DS.W 1

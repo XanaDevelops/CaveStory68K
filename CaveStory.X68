@@ -29,6 +29,8 @@ INIT:                  ; first instruction of program
     MOVE.W  #0, (LOAD_MAP_ID)
     BSR     DO_LOAD_MAP
     
+    ;CLEAR DEL VALOR FIXFILEBUG
+    CLR.B   (FIXFILEBUG)
 
     ;MOVE.B #92, D0 ;don comedia, no apto fotosensibles
     ;MOVE.W #15, D1 ;el 12 no mola
