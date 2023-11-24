@@ -4,12 +4,14 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
+
 UPDATE_PHYSICS:
     ; ACTUALIZA LA POSICION ACORDE A LA VELOCIDAD Y 
     ; AL MAPA DE COLISIONES
     ; NO RESTA VELOCIDAD, PERO SI 0 SI COLI
     ; 48(SP).L @ENT
     MOVEM.L D0-D7/A0-A2, -(SP)
+
 
     ;CARGA DIRECCIONES
     MOVE.L  48(SP), A0
@@ -38,8 +40,8 @@ UPDATE_PHYSICS:
     UPDPHGETHB
 
     ;MINIOFFSET
-    ADDQ.W  #1, D1
-    SUBQ.W  #1, D3
+    ;ADDQ.W  #1, D1
+    ;SUBQ.W  #1, D3
 
     COLIMAPD1D4
 
@@ -52,16 +54,16 @@ UPDATE_PHYSICS:
     ;TOPLEFT
     MOVE.W  D1, D0
     ADD.W   D2, D0
-    TST.B   (A2, D0)
-    BEQ     .NOTPL
+    CMP.B   #-1, (A2, D0)
+    BNE     .NOTPL
     BSET.L  #7, D7
     BRA     .COLIUP
     .NOTPL:
     ;TOPRIGHT
     MOVE.W  D3, D0
     ADD.W   D2, D0
-    TST.B   (A2, D0)
-    BEQ     .NOUP
+    CMP.B   #-1, (A2, D0)
+    BNE     .NOUP
     BSET.L  #7, D7
     BRA     .COLIUP
     ;AJUSTAR POS
@@ -75,15 +77,15 @@ UPDATE_PHYSICS:
     ;DOWNLEFT
     MOVE.W  D1, D0
     ADD.W   D4, D0
-    TST.B   (A2, D0)
-    BEQ     .NODWL
+    CMP.B   #-1, (A2, D0)
+    BNE     .NODWL
     BSET.L  #6, D7
     .NODWL:
     ;DOWNRIGHT
     MOVE.W  D3, D0
     ADD.W   D4, D0
-    TST.B   (A2, D0)
-    BEQ     .NODWR
+    CMP.B   #-1, (A2, D0)
+    BGT     .NODWR
     BSET.L  #6, D7
     .NODWR:
     ;AJUSTAR POS
@@ -94,7 +96,8 @@ UPDATE_PHYSICS:
     SUB.W   COLISION_BOX+6(A0), D6
     BSET.L  #3, D7
     CLR.W   YSPEED(A0)
-    .NODOWN:
+    .NODOWN:    
+
 
     ;POS FUTURA SOLO X
     ADD.W   XSPEED(A0), D5
@@ -116,15 +119,15 @@ UPDATE_PHYSICS:
     ;TOPLEFT
     MOVE.W  D1, D0
     ADD.W   D2, D0
-    TST.B   (A2, D0)
-    BEQ     .NOTPL2
+    CMP.B   #-1, (A2, D0)
+    BNE     .NOTPL2
     BSET.L  #5, D7
     .NOTPL2:
     ;DOWNLEFT
     MOVE.W  D1, D0
     ADD.W   D4, D0
-    TST.B   (A2, D0)
-    BEQ     .NODWL2
+    CMP.B   #-1, (A2, D0)
+    BNE     .NODWL2
     BSET.L  #5, D7
     .NODWL2:
     ;AJUSTAR POS
@@ -140,15 +143,15 @@ UPDATE_PHYSICS:
     ;TOPRIGHT
     MOVE.W  D3, D0
     ADD.W   D2, D0
-    TST.B   (A2, D0)
-    BEQ     .NOTPR2
+    CMP.B   #-1, (A2, D0)
+    BNE     .NOTPR2
     BSET.L #4, D7
     .NOTPR2:
     ;DOWNRIGHT
     MOVE.W  D3, D0
     ADD.W   D4, D0
-    TST.B   (A2, D0)
-    BEQ     .NODWR2
+    CMP.B   #-1, (A2, D0)
+    BNE     .NODWR2
     BSET.L  #4, D7
     .NODWR2:
     BTST.L  #4, D7
@@ -249,6 +252,7 @@ COLLISION_ENTITY:
     MOVE.W #MAXWP, (MAXCHK)
 
     RTS
+
 
 
 

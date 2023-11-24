@@ -8,7 +8,7 @@ SOLID_ID    DC.W 2, 33, 34, 42, 49, 50, -1
 SLOPE_ID    DC.W 3,4,5,6, 19,20,21,22, -1
 
 GENERATE_COLIMAP:
-    MOVEM.L D0-D2/D6-D7/A0-A2, -(SP)
+    MOVEM.L D0-D3/D6-D7/A0-A2, -(SP)
 
     MOVE.L  CURRENTMAPDIR, A0
     LEA     INTERACT_MAP, A1
@@ -23,7 +23,7 @@ GENERATE_COLIMAP:
             MOVE.W  (A2)+, D0
             MOVE.B  #0, D2
             ;COMPROBAR BLOQUES SOLIDOS, EN COLIMAP -1
-            LEA SOLID_ID, A3
+            LEA     SOLID_ID, A3
             .SOLID_ID_LOOP:
                 MOVE.W  (A3)+, D1
                 CMP.W   #-1, D1
@@ -31,13 +31,28 @@ GENERATE_COLIMAP:
                 CMP.W   D0, D1
                 BNE     .SOLID_ID_LOOP
                 MOVE.B  #-1, D2
+                BRA     .END_CHECK
             .EXIT_SOLID_ID:
+            LEA     SLOPE_ID, A3
+            MOVE.B  #-1, D3 
+            .SLOPE_ID_LOOP:
+                SUBQ.B  #1, D3
+                MOVE.W  (A3)+, D1
+                CMP.W   #-1, D1
+                BEQ     .END_CHECK
+                CMP.W   D0, D1
+                BNE     .SLOPE_ID_LOOP
+                MOVE.B  D3, D2 ;CADA RAMPA SU ID
+                BRA     .END_CHECK
+            .END_CHECK:
             MOVE.B  D2, (A1)+
         DBRA    D6, .GENERATE_LOOP_X
     DBRA    D7, .GENERATE_LOOP_Y
 
-    MOVEM.L (SP)+, A2-A0/D7-D6/D2-D0
+    MOVEM.L (SP)+, A2-A0/D7-D6/D3-D0
     RTS
+
+
 
 
 
