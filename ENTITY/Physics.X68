@@ -40,8 +40,8 @@ UPDATE_PHYSICS:
     UPDPHGETHB
 
     ;MINIOFFSET
-    ;ADDQ.W  #1, D1
-    ;SUBQ.W  #1, D3
+    ADDQ.W  #1, D1
+    SUBQ.W  #1, D3
 
     COLIMAPD1D4
 
