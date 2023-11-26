@@ -74,18 +74,19 @@ UPDATE_PHYSICS:
     CLR.W   YSPEED(A0)
     .NOUP:
 
+    
     ;DOWNLEFT
     MOVE.W  D1, D0
     ADD.W   D4, D0
     CMP.B   #-1, (A2, D0)
-    BNE     .NODWL
+    BNE     .NODWL 
     BSET.L  #6, D7
     .NODWL:
     ;DOWNRIGHT
     MOVE.W  D3, D0
     ADD.W   D4, D0
     CMP.B   #-1, (A2, D0)
-    BGT     .NODWR
+    BNE     .NODWR
     BSET.L  #6, D7
     .NODWR:
     ;AJUSTAR POS
@@ -94,6 +95,7 @@ UPDATE_PHYSICS:
     ANDI.W  #MAXWP-$3F, D6 ;MOD 64
     ADD.W   #TILESIZE, D6
     SUB.W   COLISION_BOX+6(A0), D6
+    ;AÑADIR Y SI PENDIENTE
     BSET.L  #3, D7
     CLR.W   YSPEED(A0)
     .NODOWN:    
@@ -127,9 +129,19 @@ UPDATE_PHYSICS:
     MOVE.W  D1, D0
     ADD.W   D4, D0
     CMP.B   #-1, (A2, D0)
-    BNE     .NODWL2
+    BGT     .NODWL2
+    BEQ     .NOS1
+
+    MOVE.W  #0, -(SP)
+    BSR     SLOPECALC
+    ;D1 YA HA CUMPLIDO SU MISION
+    MOVE.W  (SP)+, D1
+    TST.W   D1
+    BMI     .NODWL2
+    .NOS1:
     BSET.L  #5, D7
     .NODWL2:
+
     ;AJUSTAR POS
     BTST.L  #5, D7
     BEQ     .NOUP2
@@ -151,7 +163,16 @@ UPDATE_PHYSICS:
     MOVE.W  D3, D0
     ADD.W   D4, D0
     CMP.B   #-1, (A2, D0)
-    BNE     .NODWR2
+    BGT     .NODWR2
+    BEQ     .NOS2
+
+    MOVE.W  #4, -(SP)
+    BSR     SLOPECALC
+    ;D2 YA HA CUMPLIDO SU MISION
+    MOVE.W  (SP)+, D2
+    TST.W   D2
+    BMI     .NODWR2
+    .NOS2:
     BSET.L  #4, D7
     .NODWR2:
     BTST.L  #4, D7
@@ -167,6 +188,43 @@ UPDATE_PHYSICS:
     MOVE.B  D7, STATUS+1(A0)
 
     MOVEM.L (SP)+, A2-A0/D7-D0
+    RTS
+
+SLOPECALC:
+    ; CALCULA Y RESPECTO X 
+    ; NO TOCAR
+    ; (A2,D0).B -> SLOPE
+    ; D5,D6.W -> X,Y
+    ; D7.B  -> STATUS
+    ; A0.L @ENT
+    ; (SP).W -> PRE:0 IZQ, 4 DER -> RET: NUEVA +Y, -1 NO COLI
+    MOVEM.L D1-D4, -(SP)
+
+    CLR.L   D1
+    MOVE.B  (A2, D0), D1
+
+    CMP.B   #-8, D1     ;TEST
+    BNE     .EXITSLPCALC  
+    MOVE.W  D6, D2 ;Y
+    ADD.W   COLISION_BOX+6(A0), D2
+    
+    ANDI.W  #$3F, D2
+    BNE     .NOADD
+    ADD.W   #64, D2
+    .NOADD:
+    SUB.W   #64, D2
+    NEG.W   D2      ;Y MOD
+
+    TST.W   20(SP)
+    BNE     .DBG
+    MOVE.W  D2, (DBGWORD1)
+    BRA     .EXITSLPCALC
+    .DBG:
+    MOVE.W  D2, (DBGWORD2)
+
+    .EXITSLPCALC:
+    MOVE.W  #-1, 20(SP) ;TEST!!!
+    MOVEM.L (SP)+, D4-D1
     RTS
 
 COLLISION_ENT_PLR:
@@ -252,6 +310,11 @@ COLLISION_ENTITY:
     MOVE.W #MAXWP, (MAXCHK)
 
     RTS
+
+
+
+
+
 
 
 

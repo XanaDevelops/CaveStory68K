@@ -115,7 +115,7 @@ MAINLOOP:
 
 .PINTARFPS:
     MOVE.B  #11, D0      ;COLOCAR CURSOR
-    MOVE.W  #45<<8, D1
+    MOVE.W  #25<<8, D1
     TRAP    #15
 
     MOVE.B  #81, D0      ;FONDO NEGRO
@@ -125,10 +125,29 @@ MAINLOOP:
     BSR SET_SCROLL_TEXT ;COLOR BLANCO
 
 ENDMAINLOOP:
-    MOVE.B  #3, D0
     CLR.L   D1
+    
+    MOVE.B  #3, D0
     MOVE.B  (FTOSKIP), D1
     TRAP    #15
+
+    MOVE.B  #11, D0      ;COLOCAR CURSOR
+    MOVE.W  #32<<8, D1
+    TRAP    #15
+
+    MOVE.B  #3, D0
+    MOVE.W  (DBGWORD1), D1
+    TRAP    #15
+
+    MOVE.B  #11, D0      ;COLOCAR CURSOR
+    MOVE.W  #37<<8, D1
+    TRAP    #15
+
+    MOVE.B  #3, D0
+    MOVE.W  (DBGWORD2), D1
+    TRAP    #15
+
+    MOVE.L  #-1, (DBGWORD1)
 
     .WAIT_REFRESH:
     TST.B   (FTOSKIP)

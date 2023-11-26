@@ -4,8 +4,8 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-DEBUG           EQU 0 ;DEBUG
-DGB_ADV_HB      EQU 0 ;MUESTRA POS FUTURA
+DEBUG           EQU 1 ;DEBUG
+DGB_ADV_HB      EQU 1 ;MUESTRA POS FUTURA
 DGB_NODBUF      EQU 0 ;JUST DON'T 
 DGBTRACE        EQU 0 ;AFECTA ENORMEMENTE EL RENDIMENTO
 
