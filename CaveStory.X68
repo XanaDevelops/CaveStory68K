@@ -132,7 +132,7 @@ ENDMAINLOOP:
     TRAP    #15
 
     MOVE.B  #11, D0      ;COLOCAR CURSOR
-    MOVE.W  #32<<8, D1
+    MOVE.W  #30<<8, D1
     TRAP    #15
 
     MOVE.B  #3, D0
