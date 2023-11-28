@@ -273,38 +273,11 @@ SLOPECALC:
     MOVE.W  #-1, D2
     BRA     .EXITSLPCALC
     .LOWDOWN:  
-    MOVE.W  D6, D2 ;Y
-    ADD.W   COLISION_BOX+6(A0), D2
-    ANDI.W  #$3F, D2 ;Y MOD
-    BNE     .NOADD
-    ADD.W   #64, D2
-    .NOADD:
-    SUB.W   #64, D2
-    NEG.W   D2      ;Y HEIGHT
+    ;EXTRAER Y
+    BSR     .GYRIGHT
 
     ;OBTENER VALOR DE Y RESPECTO X, O COMO SEA
-    MOVE.W  D5, D3  ;MOD X
-    TST.W   24(SP) ;IZQ/DER
-    BNE     .ADDR
-    ;ADD.W   COLISION_BOX(A0), D3
-    MOVE.W  #32, D3 ;PROBAR
-    BRA     .X
-    .ADDR:     
-    ADD.W   COLISION_BOX+4(A0), D3
-    
-
-   
-    ANDI.W  #$3F, D3 ;Y HEIGHT
-    BNE     .NOADD2
-    ;ADD.W   #63, D3 ;mirar
-    .NOADD2:
-    ASR.W   #1, D3  ;DIV 2
-
-    .X:
-    CMP.B   #-9, D1 ;PENDIENTE ALTA
-    BNE     .NOUPS
-    ADD.W   #32, D3
-    .NOUPS:
+    BSR     .FXRIGHT ;VALOR EN D3
 
     CMP.W   D2, D3
     BGT     .UP
@@ -326,6 +299,40 @@ SLOPECALC:
     MOVEM.L (SP)+, D5-D1
     RTS
 
+.GYRIGHT:
+    MOVE.W  D6, D2 ;Y
+    ADD.W   COLISION_BOX+6(A0), D2
+    ANDI.W  #$3F, D2 ;Y MOD
+    BNE     .NOADD
+    ADD.W   #64, D2
+    .NOADD:
+    SUB.W   #64, D2
+    NEG.W   D2      ;Y HEIGHT
+    
+    RTS
+.FXRIGHT:
+    MOVE.W  D5, D3  ;MOD X
+    TST.W   28(SP) ;IZQ/DER
+    BNE     .ADDR
+    ;ADD.W   COLISION_BOX(A0), D3
+    MOVE.W  #32, D3 ;PROBAR
+    BRA     .X
+    .ADDR:     
+    ADD.W   COLISION_BOX+4(A0), D3
+    
+    ANDI.W  #$3F, D3 ;Y HEIGHT
+    BNE     .NOADD2
+    ;ADD.W   #63, D3 ;mirar
+    .NOADD2:
+    ASR.W   #1, D3  ;DIV 2
+
+    .X:
+    CMP.B   #-9, D1 ;PENDIENTE ALTA
+    BNE     .NOUPS
+    ADD.W   #32, D3
+    .NOUPS:
+
+    RTS
 COLLISION_ENT_PLR:
     MOVE.W #1, (MINCHK)
     MOVE.W #1, (MAXCHK)
