@@ -140,20 +140,6 @@ UPDATE_PHYSICS:
     MOVE.W  (SP)+, D1
     TST.W   D1
     BMI     .NODWL2
-    ;AJUSTAR Y
-    ;TODO: MIRAR D1??
-    ;SUBQ.W  #1, D6 ;HACK!?
-    ;ANDI.W  #MAXWP-$3F, D6 ;MOD 64
-    ;ADD.W   #TILESIZE, D6
-    ;SUB.W   COLISION_BOX+6(A0), D6
-    ;AÑADIR Y SI PENDIENTE
-    ;HACK
-    ;SUB.W   #64, D1
-    ;NEG.W   D1
-    ;ADD.W   D1, D6
-    ;BSET.L  #3, D7
-    ;CLR.W   YSPEED(A0)
-
     BRA     .NOUP2
 
     .NOS1:
@@ -163,6 +149,19 @@ UPDATE_PHYSICS:
     ;AJUSTAR POS
     BTST.L  #5, D7
     BEQ     .NOUP2
+
+    ;TEST AYUDA 
+    MOVE.W  D7, -(SP)
+    MOVE.W  D6, D7
+    AND.W   #$3F, D7
+    CMP.W   #1, D7
+    BNE     .NOH2
+    ;SUBQ.W  #1, D6
+    MOVE.W  (SP)+, D7
+    BRA     .NOUP2
+    .NOH2:
+    MOVE.W  (SP)+, D7
+
     ANDI.W  #MAXWP-$3F, D5 ;MOD 64
     ADD.W   #TILESIZE, D5
     ;TENER EN CUENTA HBOX
@@ -259,26 +258,43 @@ SLOPECALC:
     ; D7.B  -> STATUS
     ; A0.L @ENT
     ; (SP).W -> PRE:0 IZQ, 4 DER -> RET: NUEVA +Y, -1 NO COLI
-    MOVEM.L D1-D5, -(SP)
+    MOVEM.L D0-D5, -(SP)
 
     CLR.L   D1
     MOVE.B  (A2, D0), D1
 
+    CMP.B   #-6, D1
+    BEQ     .LEFT
+    CMP.B   #-7, D1
+    BEQ     .LEFT
     CMP.B   #-8, D1     ;TEST
-    BEQ     .LOWDOWN
+    BEQ     .RIGHT
     CMP.B   #-9, D1
-    BEQ     .LOWDOWN
+    BEQ     .RIGHT
     
     ;NOT IMPLEMENTED
     MOVE.W  #-1, D2
     BRA     .EXITSLPCALC
-    .LOWDOWN:  
+    .LEFT:
+    CLR.W   D0  ;IZQ
+    BRA     .EXEC
+    .RIGHT:  
+    MOVE.W   #1, D0 ;DER
+    
+
+    .EXEC: 
     ;EXTRAER Y
     BSR     .GYRIGHT
 
     ;OBTENER VALOR DE Y RESPECTO X, O COMO SEA
+    TST.W   D0
+    BNE     .DOR
+    BSR     .FXLEFT
+    BRA     .ENDOR
+    .DOR:
     BSR     .FXRIGHT ;VALOR EN D3
-
+    .ENDOR:
+    
     CMP.W   D2, D3
     BGT     .UP
     MOVE.W  #-1, D2
@@ -287,16 +303,20 @@ SLOPECALC:
     MOVE.W  D3, D2
     .DBGVAR:
 
-    TST.W   24(SP)
+    TST.W   28(SP)
     BNE     .DBG
     MOVE.W  D2, (DBGWORD1)
     BRA     .EXITSLPCALC
     .DBG:
     MOVE.W  D2, (DBGWORD2)
 
+    ;DBG
+    ;MOVE.W  #-1, D2
+    ;DGB
+
     .EXITSLPCALC:
-    MOVE.W  D2, 24(SP) ;TEST!!!
-    MOVEM.L (SP)+, D5-D1
+    MOVE.W  D2, 28(SP) ;TEST!!!
+    MOVEM.L (SP)+, D5-D0
     RTS
 
 .GYRIGHT:
@@ -310,9 +330,37 @@ SLOPECALC:
     NEG.W   D2      ;Y HEIGHT
     
     RTS
+
+.FXLEFT:
+    MOVE.W  D5, D3  ;MOD X
+    TST.W   32(SP) ;IZQ/DER PUNTO HBOX
+    BEQ     .ADDR2
+    ;ADD.W   COLISION_BOX(A0), D3
+    MOVE.W  #32, D3 ;PROBAR
+    BRA     .X2
+    .ADDR2:     
+    ADD.W   COLISION_BOX(A0), D3
+    
+    ANDI.W  #$3F, D3 ;Y HEIGHT
+    BNE     .NOADD22
+    ;ADD.W   #63, D3 ;mirar
+    .NOADD22:
+    ASR.W   #1, D3  ;DIV 2
+
+    SUB.W   #32, D3
+    NEG.W   D3
+
+    .X2:
+    CMP.B   #-6, D1 ;PENDIENTE ALTA
+    BNE     .NOUPS2
+    ADD.W   #32, D3
+    .NOUPS2:
+
+    RTS
+
 .FXRIGHT:
     MOVE.W  D5, D3  ;MOD X
-    TST.W   28(SP) ;IZQ/DER
+    TST.W   32(SP) ;IZQ/DER PUNTO HBOX
     BNE     .ADDR
     ;ADD.W   COLISION_BOX(A0), D3
     MOVE.W  #32, D3 ;PROBAR
@@ -333,6 +381,7 @@ SLOPECALC:
     .NOUPS:
 
     RTS
+
 COLLISION_ENT_PLR:
     MOVE.W #1, (MINCHK)
     MOVE.W #1, (MAXCHK)

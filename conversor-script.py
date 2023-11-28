@@ -53,7 +53,8 @@ class Conversor():
             print("     [4] Convert TileMaps")
             print("     [5] ConvertPNG->SVG")
             print("     [6] ConvertSingle") 
-            print("     [7] Importar sonidos")                  
+            print("     [7] Importar sonidos")    
+            print("     [8] Convert BMP to 68K Data (single DEPR)")              
             print("     [0] Exit")
 
             r = input("?: ")
@@ -74,6 +75,8 @@ class Conversor():
                         self.ConvertSpriteSVG(input("Path: "))
                     case 7:
                         self.SoundImport()
+                    case 8:
+                        print(self.ConvertSpriteOld(input("path: "))[0], file=open("OUTPUT.x68", "w"))
                     case 0:
                         salir = True
                     case _:
