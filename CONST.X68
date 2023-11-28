@@ -4,7 +4,7 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-DEBUG           EQU 1 ;DEBUG
+DEBUG           EQU 0 ;DEBUG
 DGB_ADV_HB      EQU 1 ;MUESTRA POS FUTURA
 DGB_NODBUF      EQU 0 ;JUST DON'T 
 DGBTRACE        EQU 0 ;AFECTA ENORMEMENTE EL RENDIMENTO
@@ -120,6 +120,7 @@ CR              EQU $0D
 MAXBP           EQU $0000007F
 MAXWP           EQU $00007FFF
 MAXLP           EQU $7FFFFFFF
+
 
 
 
