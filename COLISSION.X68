@@ -5,7 +5,8 @@
 * Description:
 *-----------------------------------------------------------
 SOLID_ID    DC.W 2, 33, 34, 42, 49, 50, -1
-SLOPE_ID    DC.W 3,4, 5,6, 19,20, 21,22, -1
+SLOPE_ID    DC.W 3,-2,4,-2,  5,-2,6,-2,  19,7,-2,20,8,-2,  21,9,-2,22,10,-2 -1
+;-2 SEPARA TIPO RAMPA, -1 FIN
 
 GENERATE_COLIMAP:
     MOVEM.L D0-D3/D6-D7/A0-A2, -(SP)
@@ -34,12 +35,15 @@ GENERATE_COLIMAP:
                 BRA     .END_CHECK
             .EXIT_SOLID_ID:
             LEA     SLOPE_ID, A3
-            MOVE.B  #-1, D3 
+            MOVE.B  #-1, D3
+            .SLADV:
+            SUBQ.B  #1, D3 
             .SLOPE_ID_LOOP:
-                SUBQ.B  #1, D3
                 MOVE.W  (A3)+, D1
                 CMP.W   #-1, D1
                 BEQ     .END_CHECK
+                CMP.W   #-2, D1     ;RESTAR
+                BEQ     .SLADV      ;BLT?
                 CMP.W   D0, D1
                 BNE     .SLOPE_ID_LOOP
                 MOVE.B  D3, D2 ;CADA RAMPA SU ID
@@ -51,6 +55,7 @@ GENERATE_COLIMAP:
 
     MOVEM.L (SP)+, A2-A0/D7-D6/D3-D0
     RTS
+
 
 
 

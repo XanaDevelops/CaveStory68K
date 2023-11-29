@@ -11,12 +11,19 @@ DOOR_START:
     ;36(SP).W NEXTX
     ;33(SP).W NEXTID
 
+    ;38(SP).W HIDDEN MODE
+
     MOVE.W  28(SP), YPOS(A0)
     MOVE.W  30(SP), XPOS(A0)
 
     MOVE.W  34(SP), NEXTY(A0)
     MOVE.W  36(SP), NEXTX(A0)
     MOVE.W  32(SP), NEXTID(A0)
+
+    TST.W   38(SP)
+    BEQ     .NOHID
+    MOVE.L  #DEFAULT_RTS, AD_DRAW(A0)
+    .NOHID:
 
     RTS
 

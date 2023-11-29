@@ -71,7 +71,7 @@ BAT_UPDATE:
     MOVE.L  A0, -(SP)
     BSR     UPDATE_PHYSICS
     
-    SUBQ.L #4, -(SP)
+    SUBQ.L  #4, -(SP)
     BSR     COLLISION_ENT_PLR
     MOVE.L  (SP)+, A1
     
