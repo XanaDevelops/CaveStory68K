@@ -34,7 +34,7 @@ DRAW_MAP:
     SWAP    D1         ;DESP X
     SWAP    D2         ;DESP Y
 
-    MULU.W  4(A0), D2
+    MULU.W  8(A0), D2
 
     ADD.W   D2, D1
     ASL.W   #1, D1
@@ -59,8 +59,8 @@ DRAW_MAP:
             ADDQ.W  #2, D1
             DBRA    D5, .LOOPDMX
         ADD.W   #TILESIZE, 2(SP)
-        ADD.W   4(A0), D1 ;POR WORD
-        ADD.W   4(A0), D1
+        ADD.W   8(A0), D1 ;POR WORD
+        ADD.W   8(A0), D1
         SUB.W   #(SCREEN_XTILE+1)<<1, D1
         DBRA    D6, .LOOPDMY
     

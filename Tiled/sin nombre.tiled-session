@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "98_slopetest.tmx",
+    "activeFile": "02_FIRSTCAVE.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -53,6 +53,9 @@
             }
         },
         "98_slopetest.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
             "expandedObjectLayers": [
                 2
             ],
@@ -165,15 +168,6 @@
             }
         }
     },
-    "frame.defaultDuration": 220,
-    "last.imagePath": "D:/UIB/2n/CaveStory/Tiled",
-    "last.objectTemplatePath": "D:/UIB/2n/CaveStory/Tiled",
-    "map.fixedSize": true,
-    "map.height": 60,
-    "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 16,
-    "map.tileWidth": 16,
-    "map.width": 18,
     "openFiles": [
         "PrtCave.tsx",
         "NpcCemet.tsx",

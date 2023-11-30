@@ -327,11 +327,12 @@ class Conversor():
 
                 for x in os.listdir(self.dirTiled):
                     if x.endswith(".tmx"):
-                        fname, w,h, tData, oData = self.ConvertMapaTiled(self.dirTiled+x)
+                        fname, w,h, tData, bData, oData = self.ConvertMapaTiled(self.dirTiled+x)
                         #fmap.writelines(f"{fname} DC.L .{fname}_DATA\n\t\tDC.W {w}, {h}\n")
                         #fmap.writelines(f".{fname}_DATA:\n{tData}\n")
                         names.append(fname)
-                        mdata.append(f".{fname} DC.L .{fname}_DATA\n\t\tDC.W {w}, {h}\n.{fname}_DATA:\n{tData}\n")
+                        mdata.append(
+                            f".{fname} DC.L .{fname}_LAYER1, .{fname}_LAYER2\n\t\tDC.W {w}, {h}\n.{fname}_LAYER1:\n{tData}\n.{fname}_LAYER2:\n{bData}\n")
                         edata.append(f"{oData}\n")
                 
                 fmap.writelines(f"MAPS\tDC.L {', '.join([f'.{x}' for x in names])}\n")
@@ -342,18 +343,22 @@ class Conversor():
     def ConvertMapaTiled(self, path:str) -> list:
         tmxF = tmx.TileMap.load(path)
         #importante orden dentro de Tiled
-        tileLayer, objLayer = tmxF.layers
+        tileLayer,bgnLayer, objLayer = tmxF.layers
 
         tmxName = path.split("/")[-1].split(".")[0].upper()
-        tileData = ""
+        tileData:str = ""
+        bgnData:str = ""  #realmente bgn se pinta soble entidades, muy background no es...
         objData  = "."+tmxName+"\n"
 
         w,h = [tmxF.width, tmxF.height]
         for y in range(h):
             auxTile = []
+            auxBgn = []
             for x in range(w):
                 auxTile.append(str(tileLayer.tiles[x+y*w].gid))
+                auxBgn.append(str(bgnLayer.tiles[x+y*w].gid))
             tileData += f"\tDC.W {','.join(auxTile)}\n"
+            bgnData += f"\tDC.W {','.join(auxBgn)}\n"
 
         for obj in objLayer.objects:
             objWSize = 3
@@ -378,7 +383,7 @@ class Conversor():
             objData += f"\t\t\tDC.L {self.ToHexXY(obj.x*4, (obj.y-16)*4)}, {objName}>>16|{objName}<<16\n"
         
         objData+="\t\tDC.W -1"
-        return tmxName, w,h, tileData, objData
+        return tmxName, w,h, tileData, bgnData, objData
     
     def ConvertAllTileMaps(self):
         #Trocea imagen, convierte a svg para optimizar

@@ -15,10 +15,10 @@ GENERATE_COLIMAP:
     LEA     INTERACT_MAP, A1
     MOVE.L  (A0), A2
 
-    MOVE.W  6(A0), D7
+    MOVE.W  10(A0), D7
     SUBQ.W  #1, D7
     .GENERATE_LOOP_Y:
-        MOVE.W  4(A0), D6
+        MOVE.W  8(A0), D6
         SUBQ.W  #1, D6
         .GENERATE_LOOP_X:
             MOVE.W  (A2)+, D0

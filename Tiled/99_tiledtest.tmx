@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="17" height="16" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#4c4c4c" nextlayerid="3" nextobjectid="22">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="17" height="16" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#4c4c4c" nextlayerid="4" nextobjectid="22">
  <tileset firstgid="1" source="PrtCave.tsx"/>
- <tileset firstgid="81" source="NpcCemet.tsx"/>
- <tileset firstgid="221" source="NpcSym.tsx"/>
- <tileset firstgid="521" source="CAMARA.tsx"/>
+ <tileset firstgid="81" source="NpcSym.tsx"/>
+ <tileset firstgid="381" source="CAMARA.tsx"/>
+ <tileset firstgid="383" source="NpcCemet.tsx"/>
  <tileset firstgid="523" source="MyChar.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="17" height="16">
   <data encoding="csv">
@@ -23,6 +23,26 @@
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
+</data>
+ </layer>
+ <layer id="3" name="Capa de patrones 2" width="17" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
  <objectgroup id="2" name="Entity">

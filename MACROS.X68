@@ -38,8 +38,8 @@ COLIMAPD1D4 MACRO
     ASR.W   #6, D3
     ASR.W   #6, D4
     ;MIRAR DE CAMBIAR POR ASL
-    MULU.W  4(A1), D2
-    MULU.W  4(A1), D4
+    MULU.W  8(A1), D2
+    MULU.W  8(A1), D4
 
     ENDM
 
