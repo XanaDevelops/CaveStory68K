@@ -30,7 +30,7 @@ PREVENT_SCREEN_OOB:
         MOVE.W  SCREEN_Y, D4
         ADDI.W  #SCREEN_YTILE*(TILESIZE), D4
         MOVE.L  CURRENTMAPDIR, A0
-        MOVE.W  6(A0), D3
+        MOVE.W  10(A0), D3
         SUBQ.W  #1, D3
         ;ADDQ.W #1, D3
 
@@ -64,7 +64,7 @@ PREVENT_SCREEN_OOB:
         MOVE.W  SCREEN_X, D4
         ADDI.W  #SCREEN_XTILE*TILESIZE, D4
         MOVE.L  CURRENTMAPDIR, A0
-        MOVE.W  4(A0), D2
+        MOVE.W  8(A0), D2
         SUBQ.W  #1, D2
         MULU.W  #TILESIZE, D2
         SUB.W   D4, D2
