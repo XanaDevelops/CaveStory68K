@@ -4,7 +4,7 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-SCREEN_MAXVX    EQU 7
+SCREEN_MAXVX    EQU 9
 
 TARGETFPS       EQU 60
 SCREEN_UPTIME   EQU 1000/TARGETFPS ;4
@@ -13,9 +13,9 @@ SCREEN_UPTIME   EQU 1000/TARGETFPS ;4
 WAITDEDT        EQU 40
 
 ;PLAYER
-ANIMSPEED       EQU 4
+ANIMSPEED       EQU 3
 
-MAX_PLYR_SPEED  EQU 5
+MAX_PLYR_SPEED  EQU 8
 MAX_FALL_SPEED  EQU 15
 
 INVTIME         EQU 50
@@ -44,6 +44,7 @@ DRTANMSPD   EQU 2
 
 ;?
 M_KCFW      EQU 40
+
 
 
 
