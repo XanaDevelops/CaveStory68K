@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "02_FIRSTCAVE.tmx",
+    "activeFile": "01_STARTCAVE.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -13,21 +13,21 @@
                 2
             ],
             "scale": 1.5,
-            "selectedLayer": 2,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 183.33333333333331,
-                "y": 202.99999999999997
+                "x": 138.33333333333331,
+                "y": 122.33333333333333
             }
         },
         "01_STARTCAVE.tmx": {
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 5.5,
+            "scale": 4,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 167.27272727272728,
-                "y": 183.1818181818182
+                "x": 167.5,
+                "y": 183.375
             }
         },
         "01_tiledtest.tmx": {
@@ -46,24 +46,21 @@
                 2
             ],
             "scale": 4,
-            "selectedLayer": 2,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 408.25,
-                "y": 216.875
+                "x": 421.875,
+                "y": 397.875
             }
         },
         "98_slopetest.tmx": {
             "expandedObjectLayers": [
                 2
             ],
-            "expandedObjectLayers": [
-                2
-            ],
             "scale": 3,
-            "selectedLayer": 2,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 462,
-                "y": 237.49999999999997
+                "x": 477.16666666666663,
+                "y": 141.16666666666666
             }
         },
         "99_tiledtest.tmx": {
@@ -71,10 +68,10 @@
                 2
             ],
             "scale": 4.4976562499999995,
-            "selectedLayer": 2,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 135.62619419836722,
-                "y": 128.17787041862084
+                "x": 133.95865902379714,
+                "y": 125.95449018586072
             }
         },
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx": {
@@ -176,21 +173,23 @@
         "MyChar.tsx",
         "01_STARTCAVE.tmx",
         "02_FIRSTCAVE.tmx",
-        "98_slopetest.tmx"
+        "98_slopetest.tmx",
+        "99_tiledtest.tmx",
+        "00_TITLESCREEN.tmx"
     ],
     "project": "sin nombre.tiled-project",
     "property.type": "int",
     "recentFiles": [
-        "02_FIRSTCAVE.tmx",
-        "99_tiledtest.tmx",
-        "01_STARTCAVE.tmx",
-        "00_TITLESCREEN.tmx",
-        "98_slopetest.tmx",
         "PrtCave.tsx",
         "NpcCemet.tsx",
         "NpcSym.tsx",
         "CAMARA.tsx",
         "MyChar.tsx",
+        "00_TITLESCREEN.tmx",
+        "99_tiledtest.tmx",
+        "98_slopetest.tmx",
+        "02_FIRSTCAVE.tmx",
+        "01_STARTCAVE.tmx",
         "01_tiledtest.tmx",
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx"
     ],

@@ -132,7 +132,7 @@ PLAYER_UPDATE:
     ;SALTO
     BTST.B  #3, STATUS+1(A0)
     BEQ .NOS
-        MOVE.B  #22, TIMERJUMP(A0)
+        MOVE.B  #JUMPTIME, TIMERJUMP(A0)
     .NOS:
     BTST.L  #KEYM_Z, D1                 ;SALTO BASE
     BEQ     .NOZ
@@ -154,7 +154,7 @@ PLAYER_UPDATE:
     ADDQ.L  #4, SP
 
     .NOSFXJ:
-    MOVE.W  #-9, YSPEED(A0)   ;VEL SALTO
+    MOVE.W  #JUMPSPEED, YSPEED(A0)   ;VEL SALTO
     SUBQ.B  #1, TIMERJUMP(A0)
     BRA     .ENDZ
     .NOZ:
