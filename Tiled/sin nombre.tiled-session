@@ -45,11 +45,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 4,
-            "selectedLayer": 1,
+            "scale": 2,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 424,
-                "y": 399.875
+                "x": 151.5,
+                "y": 535.25
             }
         },
         "98_slopetest.tmx": {
