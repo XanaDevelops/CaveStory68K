@@ -96,10 +96,12 @@ MAINLOOP:
     CLRSCREEN
 
     MOVE.L  CURRENTMAPDIR, -(SP)
-    BSR     DRAW_MAP
-    ADDQ.L  #4, SP
-
+    BSR     DRAW_BG
+    
     JSR     DRAW_ALL_ENT
+
+    BSR     DRAW_FG
+    ADDQ.L  #4, SP
     
     BTST.B  #4, (GAMEFLAGS)
     BNE     .NOHUD

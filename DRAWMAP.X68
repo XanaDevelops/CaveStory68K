@@ -4,8 +4,14 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
+DRAW_FG:
+    MOVEM.L D0-D6/A0-A2, -(SP)
 
-DRAW_MAP:
+    MOVE.L  44(SP), A0
+    MOVE.L  4(A0), A1
+    BRA     DRAW_MAP
+
+DRAW_BG:
     ; (SP) @map -> A0
     ; lee word coords y tile loop
     ; dividir por tilesize
@@ -15,7 +21,9 @@ DRAW_MAP:
 
     MOVE.L  44(SP), A0
     MOVE.L  (A0), A1
+    ;BRA    DRAW_MAP
 
+DRAW_MAP:
     CLR.L   D0
     CLR.L   D1
     CLR.L   D2
