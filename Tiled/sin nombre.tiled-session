@@ -26,8 +26,8 @@
             "scale": 4,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 167.25,
-                "y": 183.125
+                "x": 128,
+                "y": 112.125
             }
         },
         "01_tiledtest.tmx": {
@@ -48,8 +48,8 @@
             "scale": 4,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 295,
-                "y": 527.125
+                "x": 424,
+                "y": 399.875
             }
         },
         "98_slopetest.tmx": {

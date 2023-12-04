@@ -46,6 +46,9 @@ ICONOARMS       DC.L POLARSTARICO
 BAT_FLY_L       DC.L 3
                 DC.L CAVEBAT_F_L_0, CAVEBAT_F_L_1, CAVEBAT_F_L_2
 
+CRITTER_L       DC.L 1
+                DC.L CRITTER_L_0
+
 SPIKE_SPR       DC.L 4
                 DC.L SPIKE_U, SPIKE_D, SPIKE_L, SPIKE_R
                 
