@@ -53,8 +53,9 @@ class Conversor():
             print("     [4] Convert TileMaps")
             print("     [5] ConvertPNG->SVG")
             print("     [6] ConvertSingle") 
-            print("     [7] Importar sonidos")    
-            print("     [8] Convert BMP to 68K Data (single DEPR)")              
+            print("     [7] Split Image")
+            print("     [8] Importar sonidos")    
+            print("     [9] Convert BMP to 68K Data (single DEPR)")              
             print("     [0] Exit")
 
             r = input("?: ")
@@ -74,8 +75,10 @@ class Conversor():
                     case 6:
                         self.ConvertSpriteSVG(input("Path: "))
                     case 7:
-                        self.SoundImport()
+                        self.SplitImage(input("Path: "), input("Out: "), int(input("H: ")), int(input("W: ")))
                     case 8:
+                        self.SoundImport()
+                    case 9:
                         print(self.ConvertSpriteOld(input("path: "))[0], file=open("OUTPUT.x68", "w"))
                     case 0:
                         salir = True
@@ -405,9 +408,10 @@ class Conversor():
 
 
 
-
-
     def ConvertTileMap(self, path:str, offset:int) -> None:
+        self.ConvertTileMap(path, self.dirOutTiles, offset)
+
+    def ConvertTileMap(self, path:str, out:str, offset:int) -> None:
         # separar imagenes
         tileMapName = path.split("/")[-1].split(".")[0].split("_")[0]
         print(f"TILENAME: {tileMapName}")
@@ -417,10 +421,10 @@ class Conversor():
         img = Image.open(path)
         print(f"PATH:::: {path}")
         
-        fulldir:str = self.dirOutTiles+tileMapName
+        fulldir:str = out+tileMapName
         if os.path.exists(fulldir):
             shutil.rmtree(fulldir)
-        os.mkdir(self.dirOutTiles+tileMapName)
+        os.mkdir(out+tileMapName)
 
         split_image(path, img.height//self.tilePixSize, img.width//self.tilePixSize,
                     False, False, output_dir=fulldir)
@@ -458,7 +462,38 @@ class Conversor():
         for x in os.listdir(self.dirOutTiles+tileMapName):
             self.ConvertIMGtoSVG(self.dirOutTiles+tileMapName+"/"+x, self.dirTilesSVG+x.replace(".png",".svg"))
 
-    
+    def SplitImage(self, path:str, out:str, h:int = 16, w:int = 16):
+        img = Image.open(path)
+        split_image(path, img.height//h,img.width//w, False, False, output_dir=out)
+        img.close()
+        tileMapName = os.path.basename(path).split(".")[0]
+        print(tileMapName)
+        listdir = os.listdir(out)
+        #input(listdir)
+        for x in listdir:
+            indexed = Image.open(out+"/"+x)
+            
+            if indexed.mode == "P":
+                # check if transparent
+                is_transparent = indexed.info.get("transparency", False)
+                
+                if is_transparent is False:
+                    # if not transparent, convert indexed image to RGB
+                    image = indexed.convert("RGBA")
+                else:
+                    # convert indexed image to RGBA
+                    image = indexed.convert("RGBA")
+            elif indexed.mode == 'PA':
+                image = indexed.convert("RGBA")
+            i = int(x.split("_")[1].split(".")[0])
+
+            newName = f"{out}/{tileMapName}_{i:>03}"
+            
+            image.save(f"{newName}.png")
+            indexed.close()
+            print(f"to remove{out}/{x}, saving {newName}.png")
+            os.remove(out+"/"+x)
+
     def ConvertIMGtoSVG(self, path:str, out:str):
         #convierte de img 
         sizes, colors, name = self.ConvertSpriteBForce(path, True)
