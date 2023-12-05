@@ -77,20 +77,32 @@ CRITTER_UPDATE:
     BSR     DIST_PLYR
     MOVE.W  (SP)+, D0
     ADDQ.L  #4, SP
-
+    TST.W   D0      ;-1 NO DIST, 
+    BMI     .ENDDIST 
     ;OPERAR ESTADOS
     CMP.W   #AGRO, D0
     BLT     .DOAGRO
     CLR.L   SPRITE_INDEX(A0) ;SLEEP
-    BRA     .ENDDIST
+    BRA     .NOATK
     .DOAGRO:
     MOVE.L  #1, SPRITE_INDEX(A0) ;WARN
     CMP.W   #ATKRANGE, D0
-    BGT     .ENDDIST
+    BGT     .NOATK
     MOVE.L  #2, SPRITE_INDEX(A0) ;ATK
     BTST.B  #3, STATUS+1(A0)
     BEQ     .ENDDIST
     ADD.W   #CRITTER_JS, YSPEED(A0)
+    MOVE.W  #MAX_PLYR_SPEED-2, XSPEED(A0) ;PLACEHOLDER!!!
+    ;MIRAR DIRECCION
+    MOVE.W  XPOS(A0), D0
+    MOVE.L  (PLAYERREF), A1
+    SUB.W   XPOS(A1), D0
+    BMI     .NONEG3
+    NEG.W   XSPEED(A0)
+    .NONEG3:
+    BRA     .ENDDIST
+    .NOATK:
+    CLR.W   XSPEED(A0)
     .ENDDIST:
     .ENDUPDATE:
     RTS
@@ -129,6 +141,7 @@ CRITTER:
 CRTATK      EQU 4
 AGRO        EQU 375
 ATKRANGE    EQU 250
+
 
 
 *~Font name~Courier New~
