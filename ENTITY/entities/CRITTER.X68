@@ -71,12 +71,21 @@ CRITTER_UPDATE:
     .NOCOLIE:
     ADDQ.L  #4, SP
 
+    ;CALCULAR DISTANCIA
     MOVE.L  A0, -(SP)
     SUBQ.W  #2, SP
     BSR     DIST_PLYR
     MOVE.W  (SP)+, D0
     ADDQ.L  #4, SP
 
+    ;OPERAR ESTADOS
+    CMP.W   #AGRO, D0
+    BLT     .DOAGRO
+    CLR.L   SPRITE_INDEX(A0) ;SLEEP
+    BRA     .ENDDIST
+    .DOAGRO:
+    MOVE.L  #1, SPRITE_INDEX(A0) ;WARN
+    .ENDDIST:
     .ENDUPDATE:
     RTS
 
@@ -103,7 +112,7 @@ CRITTER:
     DC.W 10                                          ;HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
-    DC.W 0,0, 64,48                                 ;COLISION_BOX 44
+    DC.W 0,14, 64,64                                 ;COLISION_BOX 44
     DC.L CRITTER_START, CRITTER_UPDATE, DEFAULT_PAINT ;@
     DC.L CRITTER_DAMAGE                             ;@
     DC.L CRITTER_L                                         ;@SPRITE DEFECTO
@@ -111,7 +120,9 @@ CRITTER:
     DS.L 4                                          
     DS.W 1   
 
-CRTATK  EQU 4
+CRTATK      EQU 4
+AGRO        EQU 375
+ATKRANGE    EQU 250
 
 
 *~Font name~Courier New~
