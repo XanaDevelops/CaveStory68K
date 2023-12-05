@@ -113,6 +113,38 @@ FIND_FIRST_ID:
 FIND_ALL_ID:
     RTS
 
+DIST_PLYR:
+    ;DISTANCIA (Manhattan) AL JUGADOR,
+    ;-1 SI NO EXISTE
+    ; 22(SP).L -> @ET
+    ; 20(SP).W DIST^2
+    MOVEM.L D1-D2/A0-A1, -(SP)
+
+    MOVE.W  #-1, 20(SP) ;VALOR DEF
+    TST.L   (PLAYERREF)
+    BMI     .NOPLY
+    MOVE.L  22(SP), A0
+    MOVE.L  (PLAYERREF), A1
+
+    MOVE.W  XPOS(A0), D1
+    MOVE.W  YPOS(A0), D2
+    
+    SUB.W   XPOS(A1), D1
+    BPL     .NONEG1
+    NEG.W   D1
+    .NONEG1:
+    SUB.W   YPOS(A1), D2
+    BPL     .NONEG2
+    NEG.W   D2
+    .NONEG2:
+
+    ADD.W   D1, D2
+    MOVE.W  D2, 20(SP)
+    .NOPLY:
+
+    MOVEM.L (SP)+, A1-A0/D2-D1
+    RTS
+
 DEFAULT_PAINT:
     MOVE.L  A0, -(SP)
     SUBA.L  #2, SP

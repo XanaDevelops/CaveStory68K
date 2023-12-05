@@ -22,6 +22,37 @@ CRITTER_START:
     RTS
 
 CRITTER_UPDATE:
+
+    ;CHECK HP
+    TST.W   HP(A0)
+    BGT     .NOKILL
+        ;DROP
+        SUBQ.L  #2, SP ;RESERVA TIPO
+        MOVE.W  XPOS(A0), -(SP)
+        MOVE.W  YPOS(A0), -(SP)
+
+        TRAP    #14
+        MOVE.L  (RNGVAL), D1
+        ANDI.L  #$FF, D1
+        CMP.B   #$2F, D1
+        BHI     .NOHEART
+        MOVE.W  #0, 4(SP) ;TEST
+        MOVE.L  #HEART, -(SP)
+        BRA     .ENDDROP
+        .NOHEART:
+        MOVE.W  #1, 4(SP) ;TEST
+        MOVE.L  #DORITO, -(SP)
+        .ENDDROP:
+        JSR     INSTANCE_ENTITY
+        ADDA.L  #10, SP
+        
+        MOVE.L  A0, -(SP)
+        BSR     DESTROY_ENTITY
+        ADDQ.L  #4, SP
+        BRA     .ENDUPDATE
+    .NOKILL:
+
+
     MOVE.L  A0, -(SP)
     BSR     UPDATE_PHYSICS
 
@@ -40,6 +71,13 @@ CRITTER_UPDATE:
     .NOCOLIE:
     ADDQ.L  #4, SP
 
+    MOVE.L  A0, -(SP)
+    SUBQ.W  #2, SP
+    BSR     DIST_PLYR
+    MOVE.W  (SP)+, D0
+    ADDQ.L  #4, SP
+
+    .ENDUPDATE:
     RTS
 
 CRITTER_DAMAGE:
@@ -74,6 +112,7 @@ CRITTER:
     DS.W 1   
 
 CRTATK  EQU 4
+
 
 *~Font name~Courier New~
 *~Font size~10~
