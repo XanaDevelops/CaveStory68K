@@ -114,6 +114,14 @@
 </data>
  </layer>
  <objectgroup id="2" name="Capa de Objetos 1">
+  <object id="18" name="DOOR" gid="115" x="448" y="224" width="16" height="16">
+   <properties>
+    <property name="W_HIDDEN" type="int" value="0"/>
+    <property name="W_M_NEXTX" type="int" value="112"/>
+    <property name="W_M_NEXTY" type="int" value="48"/>
+    <property name="W_NEXTMAP" type="int" value="1"/>
+   </properties>
+  </object>
   <object id="3" name="BAT" gid="425" x="208" y="336" width="16" height="16"/>
   <object id="4" name="BAT" gid="425" x="176" y="336" width="16" height="16"/>
   <object id="5" name="BAT" gid="425" x="144" y="400" width="16" height="16"/>
@@ -179,14 +187,6 @@
   <object id="41" name="SPIKE" gid="358" x="528" y="212" width="16" height="16">
    <properties>
     <property name="W_DIR" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="18" name="DOOR" gid="115" x="448" y="224" width="16" height="16">
-   <properties>
-    <property name="W_HIDDEN" type="int" value="0"/>
-    <property name="W_M_NEXTX" type="int" value="112"/>
-    <property name="W_M_NEXTY" type="int" value="48"/>
-    <property name="W_NEXTMAP" type="int" value="1"/>
    </properties>
   </object>
   <object id="1" name="PLAYER" gid="535" x="432" y="224" width="16" height="16"/>
