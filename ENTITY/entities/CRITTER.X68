@@ -78,7 +78,7 @@ CRITTER_UPDATE:
     MOVE.W  (SP)+, D0
     ADDQ.L  #4, SP
     TST.W   D0      ;-1 NO DIST, 
-    BMI     .ENDDIST 
+    BMI     .NOATK 
     ;OPERAR ESTADOS
     CMP.W   #AGRO, D0
     BLT     .DOAGRO
