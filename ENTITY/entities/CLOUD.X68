@@ -57,7 +57,7 @@ CLOUD:
     DC.L NUBE0                                     ;@SPRITE DEFECTO
     DC.W 0
     DC.L 0                                          ;SPRITEINDEX
-    DS.L 4                                                  
+                                                
     
 TYPE        EQU ET_DATA
 

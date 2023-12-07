@@ -39,7 +39,7 @@ TEXTDISP:
     DC.L -1                                         ;@TEXTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0
-    DS.L 4                                          
+                                        
         
 
 ET_TEXTO    EQU ET_SPRITE

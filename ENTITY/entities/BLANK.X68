@@ -34,7 +34,7 @@ BLANK:
     DC.L -1                                         ;@SPRITE DEFECTO
     DC.W 0
     DC.L 0                                          ;SPRITEINDEX
-    DS.L 4                                          
+                                         
 
     
 *~Font name~Courier New~

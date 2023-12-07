@@ -372,7 +372,7 @@ PLAYER:
     DC.L QUOTE_WALK_RN                              ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0
-    DS.L 4                                          ;46.W (timer sprite)
+                                              ;46.W (timer sprite)
                                               ;47.B (lookdir) 0:left 4:right 
                                                     ;48.B (lookdir) 8:up 12:down
                                                     ;49.B (timer jump)

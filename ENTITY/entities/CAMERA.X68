@@ -135,7 +135,7 @@ CAMERA:
     DC.L SQR_TRANS                                  ;@SPRITE DEFECTO
     DC.W 0
     DC.L 0                                          ;SPRITEINDEX
-    DS.L 4                                          
+                                              
 
 
 ENTFOCUS        EQU ET_DATA   ;L

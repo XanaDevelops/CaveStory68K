@@ -28,7 +28,7 @@ INSTANCE_ENTITY:
     DBRA    D7, .COPYLOOP
     
     MOVE.L  A1, A0
-    MOVE.L  22(A0), A1
+    MOVE.L  ET_START(A0), A1
     JSR     (A1)              ;START
     .ENDINST:
     MOVE.L  A0, 20(SP)

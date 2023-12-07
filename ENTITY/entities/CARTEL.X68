@@ -28,8 +28,7 @@ CARTEL:
     DC.L DEFAULT_INTERACTION                        ;@
     DC.L CARTELS                                    ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
-    DC.W 0
-    DS.L 4                                          
+    DC.W 0                                          
      
 
 INTERACT_ID     EQU ET_DATA    ;W                                  

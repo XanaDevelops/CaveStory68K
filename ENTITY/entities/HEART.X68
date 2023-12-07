@@ -94,7 +94,7 @@ HEART:
     DC.L HEART_SM                                   ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0
-    DS.L 4                                                 
+                                        
 
 INTERACT_ID     EQU ET_DATA    ;
 

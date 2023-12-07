@@ -53,7 +53,7 @@ HEALER:
     DC.L HEALER_SPR                                 ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0
-    DS.L 4                                          
+                                         
        
 
 *~Font name~Courier New~

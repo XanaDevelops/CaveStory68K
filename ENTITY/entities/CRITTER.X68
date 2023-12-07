@@ -136,7 +136,7 @@ CRITTER:
     DC.L CRITTER_L                                         ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0
-    DS.L 4                                          
+                                      
 
 
 CRTATK      EQU 4

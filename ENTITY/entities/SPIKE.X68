@@ -52,7 +52,7 @@ SPIKE:
     DC.L SPIKE_SPR                                  ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0
-    DS.L 4                                          
+                                         
        
 
 SPIKEATK    EQU ET_HP

@@ -55,7 +55,7 @@ DOOR:
     DC.L DOOR_SPR                                   ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0
-    DS.L 4                                          
+                                   
        
 
 NEXTX   EQU ET_DATA ;W

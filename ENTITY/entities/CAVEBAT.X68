@@ -135,7 +135,7 @@ BAT:
     DC.L BAT_FLY_L                                  ;@SPRITE DEFECTO
     DC.W 0
     DC.L 0                                          ;SPRITEINDEX
-    DS.L 4                                          ;
+                                         ;
     
 
 VELDIR      EQU ET_DATA    ;B
