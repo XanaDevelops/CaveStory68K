@@ -23,7 +23,7 @@ BLT_PS_START:
     MOVE.W  42(SP), ET_XPOS(A0)
     MOVE.W  40(SP), ET_YPOS(A0)
 
-    BSET.B  #2, STATUS+1(A0) ;DISABLE GRAV
+    BSET.B  #2, ET_BSTATE(A0) ;DISABLE GRAV
     
     
 
@@ -114,7 +114,7 @@ BLT_PS_UPDATE:
     .NOCOLIE:
 
     CLR.L   D0
-    MOVE.B  STATUS+1(A0), D0
+    MOVE.B  ET_BSTATE(A0), D0
     ANDI.B  #%11110000, D0
     TST.B   D0
     BEQ     .NOHIT
@@ -136,7 +136,7 @@ BULLET_POLARSTAR:
     DC.W 0, 0                                       ;POSITION
     DC.W 0                                          ;ET_HP (damage dealt)
     DC.W 0, 0                                       ;SPEED
-    DC.W 0                                          ;STATUS 00 UDLR(AIRBONE)(!GRAV)--
+    DC.W 0                                          ;ET_MSTATE 00 UDLR(AIRBONE)(!GRAV)--
     DC.W 0,0, 64,4                                  ;COLISION_BOX
     DC.L BLT_PS_START, BLT_PS_UPDATE, DEFAULT_PAINT ;@
     DC.L DEFAULT_RTS                                ;@

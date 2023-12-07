@@ -50,7 +50,7 @@ DORITO_UPDATE:
     BRA     .ENDUPDATE
     .NODW: 
 
-    BCLR.B  #3, STATUS+1(A0)
+    BCLR.B  #3, ET_BSTATE(A0)
 
     MOVE.L  A0, -(SP)
     BSR     UPDATE_PHYSICS
@@ -58,7 +58,7 @@ DORITO_UPDATE:
 
     ;COMPROBAR SUELO
     CLR.L   D0
-    BTST.B  #3, STATUS+1(A0)
+    BTST.B  #3, ET_BSTATE(A0)
     BEQ .NOHIT
         MOVE.W #-10, ET_YSPEED(A0)
     .NOHIT:
@@ -105,7 +105,7 @@ DORITO:
     DC.W 0, 0                                       ;POSITION
     DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
-    DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
+    DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 12,16, 54,64                               ;COLISION_BOX 44
     DC.L DORITO_START, DORITO_UPDATE, DEFAULT_PAINT ;@
     DC.L DORITO_INTERACT                            ;@

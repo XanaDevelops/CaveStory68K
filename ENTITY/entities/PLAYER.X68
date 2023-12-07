@@ -74,7 +74,7 @@ PLAYER_UPDATE:
     BTST.L  #KEYM_DOWN, D1
     BEQ     .NODW
     .SIDW:
-    BTST.B  #3, STATUS+1(A0)
+    BTST.B  #3, ET_BSTATE(A0)
     BEQ     .LKOBK
         TST.W   ET_XSPEED(A0)
         BNE     .NODW
@@ -130,18 +130,18 @@ PLAYER_UPDATE:
     .NOMMAX:
 
     ;SALTO
-    BTST.B  #3, STATUS+1(A0)
+    BTST.B  #3, ET_BSTATE(A0)
     BEQ .NOS
         MOVE.B  #JUMPTIME, TIMERJUMP(A0)
     .NOS:
     BTST.L  #KEYM_Z, D1                 ;SALTO BASE
     BEQ     .NOZ
-    BTST.B  #7, STATUS+1(A0)
+    BTST.B  #7, ET_BSTATE(A0)
     BEQ .SIZ
     CLR.B   TIMERJUMP(A0)
     BRA     .ENDJ
     .SIZ:
-    BTST.B  #3, STATUS+1(A0)
+    BTST.B  #3, ET_BSTATE(A0)
     BNE     .SIS
     TST.B   TIMERJUMP(A0)
     BLE     .ENDZ
@@ -160,7 +160,7 @@ PLAYER_UPDATE:
     .NOZ:
     CLR.B   TIMERJUMP(A0)
     .ENDZ:
-    BCLR.B  #3, STATUS+1(A0)
+    BCLR.B  #3, ET_BSTATE(A0)
     .ENDJ:
 
     BTST.B  #KEYM_X, (KEY_PRESS_PLAYER)
@@ -183,7 +183,7 @@ PLAYER_UPDATE:
             .NOOF:
             MOVE.L  D1, SPRITE_INDEX(A0)
 
-            BTST.B  #3, STATUS+1(A0)
+            BTST.B  #3, ET_BSTATE(A0)
             BNE     .NOSFXWALK
             MOVE.W  #69, -(SP)
             MOVE.W  #0, -(SP)
@@ -365,7 +365,7 @@ PLAYER:
     DC.W 0, 0                                       ;POSITION
     DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
-    DC.W 0                                          ;STATUS 00UDLR(!AIRBONE)(!GRAV)--
+    DC.W 0                                          ;ET_MSTATE 00UDLR(!AIRBONE)(!GRAV)--
     DC.W 8,4, 58,64                                 ;COLISION_BOX
     DC.L PLAYER_START, PLAYER_UPDATE, PLAYER_PAINT  ;@
     DC.L PLAYER_DAMAGE                              ;@

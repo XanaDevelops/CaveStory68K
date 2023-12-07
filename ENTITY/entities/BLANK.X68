@@ -27,7 +27,7 @@ BLANK:
     DC.W 0, 0                                       ;POSITION
     DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
-    DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
+    DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,0, 0,0                                    ;COLISION_BOX 44
     DC.L BLANK_START, BLANK_UPDATE, BLANK_DRAW      ;@
     DC.L BLANK_INTERACT                             ;@

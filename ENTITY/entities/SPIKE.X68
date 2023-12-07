@@ -45,7 +45,7 @@ SPIKE:
     DC.W 0, 0                                       ;POSITION
     DC.W 9999                                       ;ET_HP
     DC.W 0, 0                                       ;SPEED
-    DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
+    DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 8,12, 56,64                                 ;COLISION_BOX 44
     DC.L SPIKE_START, SPIKE_UPDATE, DEFAULT_PAINT   ;@
     DC.L DEFAULT_RTS                                ;@

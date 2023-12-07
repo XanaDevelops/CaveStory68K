@@ -89,7 +89,7 @@ CRITTER_UPDATE:
     CMP.W   #ATKRANGE, D0
     BGT     .NOATK
     MOVE.L  #2, SPRITE_INDEX(A0) ;ATK
-    BTST.B  #3, STATUS+1(A0)
+    BTST.B  #3, ET_BSTATE(A0)
     BEQ     .ENDDIST
     ADD.W   #CRITTER_JS, ET_YSPEED(A0)
     MOVE.W  #MAX_PLYR_SPEED-4, ET_XSPEED(A0) ;PLACEHOLDER!!!
@@ -129,7 +129,7 @@ CRITTER:
     DC.W 0, 0                                       ;POSITION
     DC.W 10                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
-    DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
+    DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,14, 64,64                                 ;COLISION_BOX 44
     DC.L CRITTER_START, CRITTER_UPDATE, DEFAULT_PAINT ;@
     DC.L CRITTER_DAMAGE                             ;@

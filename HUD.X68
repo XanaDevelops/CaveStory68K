@@ -90,7 +90,7 @@ HUD_DRAW:
     
     RTS
 .TEXTLVL     DC.B 'LVL:',0
-.TEXTHP      DC.B 'ET_HP:',0
+.TEXTHP      DC.B 'HP:',0
             DS.W 0
 
 VALUEBAR:

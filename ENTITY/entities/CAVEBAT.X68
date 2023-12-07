@@ -15,7 +15,7 @@ BAT_START:
 
     MOVE.W  #BATANMSPD, TIMERSPRITE(A0)
 
-    BSET.B  #2, STATUS+1(A0) ;DISABLE GRAV
+    BSET.B  #2, ET_BSTATE(A0) ;DISABLE GRAV
 
     RTS
 
@@ -128,7 +128,7 @@ BAT:
     DC.W 0, 0                                       ;POSITION
     DC.W 3                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
-    DC.W 0                                          ;STATUS 00UDLR(!AIRBONE)(!GRAV)--
+    DC.W 0                                          ;ET_MSTATE 00UDLR(!AIRBONE)(!GRAV)--
     DC.W 4,4, 42,48                                 ;COLISION_BOX
     DC.L BAT_START, BAT_UPDATE, DEFAULT_PAINT       ;@
     DC.L BAT_DAMAGE                                 ;@

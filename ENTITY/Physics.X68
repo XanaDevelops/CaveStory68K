@@ -19,7 +19,7 @@ UPDATE_PHYSICS:
     LEA     INTERACT_MAP, A2
 
     ;OBTENER Y BAJAR FLAGS COLISION
-    MOVE.B  STATUS+1(A0), D7
+    MOVE.B  ET_BSTATE(A0), D7
     ANDI.L  #%00000111, D7
 
      ;GRAVEDAD
@@ -245,7 +245,7 @@ UPDATE_PHYSICS:
     .SVAR:
     MOVE.W  D5, ET_XPOS(A0)
     MOVE.W  D6, ET_YPOS(A0)
-    MOVE.B  D7, STATUS+1(A0)
+    MOVE.B  D7, ET_BSTATE(A0)
 
     MOVEM.L (SP)+, A2-A0/D7-D0
     RTS
@@ -255,7 +255,7 @@ SLOPECALC:
     ; NO TOCAR
     ; (A2,D0).B -> SLOPE
     ; D5,D6.W -> X,Y
-    ; D7.B  -> STATUS
+    ; D7.B  -> ET_MSTATE
     ; A0.L @ENT
     ; (SP).W -> PRE:0 IZQ, 4 DER -> RET: NUEVA +Y, -1 NO COLI
     MOVEM.L D0-D5, -(SP)

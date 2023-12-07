@@ -51,7 +51,8 @@ ET_YPOS            EQU 4
 ET_HP              EQU 6
 ET_XSPEED          EQU 8
 ET_YSPEED          EQU 10
-STATUS          EQU 12
+ET_MSTATE          EQU 12
+ET_BSTATE          EQU 13
 COLISION_BOX    EQU 14
 AD_START        EQU 22
 AD_UPDATE       EQU 26

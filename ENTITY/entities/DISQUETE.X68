@@ -55,7 +55,7 @@ DISQUETE:
     DC.W 0, 0                                       ;POSITION
     DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
-    DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
+    DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,0, 64,64                                 ;COLISION_BOX 44
     DC.L DISKQ_START, DISKQ_UPDATE, DEFAULT_PAINT   ;@
     DC.L DISKQ_INTERACT                             ;@
