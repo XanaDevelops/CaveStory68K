@@ -52,7 +52,7 @@ class SvgToPythonScript(inkex.OutputExtension):
 
         def __init__(self, code, obj_id=None, dep_ids=None):
             '''Associate an array of code lines with the source SVG object
-            ID and any SVG object IDs upon which the SVG object depends.'''
+            ET_ID and any SVG object IDs upon which the SVG object depends.'''
             self.code = code
             self.var_name = self.id2var(obj_id)
             if dep_ids is None:
@@ -69,7 +69,7 @@ class SvgToPythonScript(inkex.OutputExtension):
 
         @classmethod
         def id2var(self, obj_id):
-            """Return an Inkscape object's ID as a Python variable name.
+            """Return an Inkscape object's ET_ID as a Python variable name.
             Return None if given None."""
             if obj_id is None:
                 return None

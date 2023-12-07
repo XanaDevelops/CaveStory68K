@@ -5,21 +5,21 @@
 * Description:
 *-----------------------------------------------------------
 HEART_START:
-    ;28(SP) YPOS 
-    ;30(SP) XPOS
+    ;28(SP) ET_YPOS 
+    ;30(SP) ET_XPOS
     ;32(SP) TYPE
 
-    MOVE.W  28(SP), YPOS(A0)
-    MOVE.W  30(SP), XPOS(A0)
+    MOVE.W  28(SP), ET_YPOS(A0)
+    MOVE.W  30(SP), ET_XPOS(A0)
 
     MOVE.W  #HRTANMSPD, TIMERSPRITE(A0)
     
     TST.W   32(SP)
     BEQ     .TPEQ
-    MOVE.W  #BGHEART, HP(A0)
+    MOVE.W  #BGHEART, ET_HP(A0)
     BRA     .ENDHSTART
     .TPEQ:
-    MOVE.W  #SMHEART, HP(A0)
+    MOVE.W  #SMHEART, ET_HP(A0)
     ;DEF HEART_SM
     .ENDHSTART:
     RTS
@@ -35,10 +35,10 @@ HEART_UPDATE:
     CMP.L   #-1, A1
     BEQ     .NODW
 
-    ;CMP.W #1, ID(A1)
+    ;CMP.W #1, ET_ID(A1)
     ;BNE .NODW
     
-    MOVE.W  HP(A0), -(SP)
+    MOVE.W  ET_HP(A0), -(SP)
     MOVE.L  A1, -(SP)
     BSR     HEART_INTERACT
     ADDQ.L  #6, SP
@@ -72,20 +72,20 @@ HEART_INTERACT:
     MOVE.L  12(SP), A0
     MOVE.W  16(SP), D0
     
-    ADD.W   HP(A0), D0
+    ADD.W   ET_HP(A0), D0
     CMP.W   MAXHEALTH(A0), D0
     BLE     .NOOV
     MOVE.W  MAXHEALTH(A0), D0
     .NOOV:
-    MOVE.W  D0, HP(A0)
+    MOVE.W  D0, ET_HP(A0)
 
     MOVEM.L (SP)+, A0/D0
     RTS
 
 HEART:
-    DC.W 70                                         ;ID
+    DC.W 70                                         ;ET_ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 0                                          ;HP
+    DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00UDLR(!AIRBONE)(!GRAV)--
     DC.W 8,10, 52,52                                 ;COLISION_BOX 44

@@ -5,11 +5,11 @@
 * Description:
 *-----------------------------------------------------------
 HEALER_START:
-    ;28(SP) YPOS 
-    ;30(SP) XPOS
+    ;28(SP) ET_YPOS 
+    ;30(SP) ET_XPOS
 
-    MOVE.W  28(SP), YPOS(A0)
-    MOVE.W  30(SP), XPOS(A0)
+    MOVE.W  28(SP), ET_YPOS(A0)
+    MOVE.W  30(SP), ET_XPOS(A0)
 
     CLR.L SPRITE_INDEX(A0)
 
@@ -32,7 +32,7 @@ HEALER_INTERACT:
 
     ;CURAR JUGADOR
     ;MOVE.L  16(SP), A0
-    ;MOVE.W  MAXHEALTH(A0), HP(A0)
+    ;MOVE.W  MAXHEALTH(A0), ET_HP(A0)
 
     MOVE.W #IHEALDIAG, -(SP)
     JSR START_DBOX
@@ -42,9 +42,9 @@ HEALER_INTERACT:
     RTS
 
 HEALER:
-    DC.W 52                                         ;ID
+    DC.W 52                                         ;ET_ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 0                                          ;HP
+    DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,0, 64,64                                  ;COLISION_BOX 44

@@ -6,11 +6,11 @@
 *-----------------------------------------------------------
 
 CRITTER_START:
-    ;28(SP) YPOS 
-    ;30(SP) XPOS
+    ;28(SP) ET_YPOS 
+    ;30(SP) ET_XPOS
 
-    MOVE.W  28(SP), YPOS(A0)
-    MOVE.W  30(SP), XPOS(A0)
+    MOVE.W  28(SP), ET_YPOS(A0)
+    MOVE.W  30(SP), ET_XPOS(A0)
     
     CLR.W   TIMERSPRITE(A0)
 
@@ -23,13 +23,13 @@ CRITTER_START:
 
 CRITTER_UPDATE:
 
-    ;CHECK HP
-    TST.W   HP(A0)
+    ;CHECK ET_HP
+    TST.W   ET_HP(A0)
     BGT     .NOKILL
         ;DROP
         SUBQ.L  #2, SP ;RESERVA TIPO
-        MOVE.W  XPOS(A0), -(SP)
-        MOVE.W  YPOS(A0), -(SP)
+        MOVE.W  ET_XPOS(A0), -(SP)
+        MOVE.W  ET_YPOS(A0), -(SP)
 
         TRAP    #14
         MOVE.L  (RNGVAL), D1
@@ -91,18 +91,18 @@ CRITTER_UPDATE:
     MOVE.L  #2, SPRITE_INDEX(A0) ;ATK
     BTST.B  #3, STATUS+1(A0)
     BEQ     .ENDDIST
-    ADD.W   #CRITTER_JS, YSPEED(A0)
-    MOVE.W  #MAX_PLYR_SPEED-4, XSPEED(A0) ;PLACEHOLDER!!!
+    ADD.W   #CRITTER_JS, ET_YSPEED(A0)
+    MOVE.W  #MAX_PLYR_SPEED-4, ET_XSPEED(A0) ;PLACEHOLDER!!!
     ;MIRAR DIRECCION
-    MOVE.W  XPOS(A0), D0
+    MOVE.W  ET_XPOS(A0), D0
     MOVE.L  (PLAYERREF), A1
-    SUB.W   XPOS(A1), D0
+    SUB.W   ET_XPOS(A1), D0
     BMI     .NONEG3
-    NEG.W   XSPEED(A0)
+    NEG.W   ET_XSPEED(A0)
     .NONEG3:
     BRA     .ENDDIST
     .NOATK:
-    CLR.W   XSPEED(A0)
+    CLR.W   ET_XSPEED(A0)
     .ENDDIST:
     .ENDUPDATE:
     RTS
@@ -114,7 +114,7 @@ CRITTER_DAMAGE:
     MOVE.L  12(SP), A0
 
     MOVE.W  16(SP), D0
-    SUB.W   D0, HP(A0)
+    SUB.W   D0, ET_HP(A0)
 
     MOVE.W  #36, -(SP)
     MOVE.W  #1, -(SP)
@@ -125,9 +125,9 @@ CRITTER_DAMAGE:
     RTS
 
 CRITTER:
-    DC.W -3                                         ;ID
+    DC.W -3                                         ;ET_ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 10                                          ;HP
+    DC.W 10                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,14, 64,64                                 ;COLISION_BOX 44

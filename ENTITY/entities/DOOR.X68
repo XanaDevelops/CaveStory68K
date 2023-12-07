@@ -5,16 +5,16 @@
 * Description:
 *-----------------------------------------------------------
 DOOR_START:
-    ;28(SP).W YPOS 
-    ;30(SP).W XPOS
+    ;28(SP).W ET_YPOS 
+    ;30(SP).W ET_XPOS
     ;34(SP).W NEXTY
     ;36(SP).W NEXTX
     ;33(SP).W NEXTID
 
     ;38(SP).W HIDDEN MODE
 
-    MOVE.W  28(SP), YPOS(A0)
-    MOVE.W  30(SP), XPOS(A0)
+    MOVE.W  28(SP), ET_YPOS(A0)
+    MOVE.W  30(SP), ET_XPOS(A0)
 
     MOVE.W  34(SP), NEXTY(A0)
     MOVE.W  36(SP), NEXTX(A0)
@@ -44,9 +44,9 @@ DOOR_INTERACT:
     RTS
 
 DOOR:
-    DC.W 53                                         ;ID
+    DC.W 53                                         ;ET_ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 0                                          ;HP
+    DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,0, 64,64                                 ;COLISION_BOX 44

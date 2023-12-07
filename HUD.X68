@@ -69,7 +69,7 @@ HUD_DRAW:
     MOVE.L  (PLAYERREF), A0  ;COMPROBAR QUE EXISTA!
     CMP.L   #-1, A0
     BEQ     .NOPL
-    MOVE.W  HP(A0), D1
+    MOVE.W  ET_HP(A0), D1
     BRA     .DRAWHB
     .NOPL:
     MOVE.W  #0, D1
@@ -90,13 +90,13 @@ HUD_DRAW:
     
     RTS
 .TEXTLVL     DC.B 'LVL:',0
-.TEXTHP      DC.B 'HP:',0
+.TEXTHP      DC.B 'ET_HP:',0
             DS.W 0
 
 VALUEBAR:
     ;MUESTRA UNA BARRA HORIZONTAL
-    ; 38(SP).W XPOS
-    ; 36(SP).W YPOS
+    ; 38(SP).W ET_XPOS
+    ; 36(SP).W ET_YPOS
     ; 34(SP).W LENGTH (PX) (multiplo vMAx)
     ; 32(SP).W WIDTH
     ; 30(SP).W VALUE
@@ -114,8 +114,8 @@ VALUEBAR:
     
     ;RECT GRANDE
     MOVE.B  #87, D0
-    MOVE.W  38(SP), D1   ;XPOS
-    MOVE.W  36(SP), D2   ;YPOS
+    MOVE.W  38(SP), D1   ;ET_XPOS
+    MOVE.W  36(SP), D2   ;ET_YPOS
     MOVE.W  34(SP), D3   ;LENGTH
     MOVE.W  32(SP), D4   ;WIDTH
     ADD.W   D1, D3

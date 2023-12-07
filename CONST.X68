@@ -45,12 +45,12 @@ HBL             EQU 140
 HBW             EQU 20
 
 ;ENTITY
-ID              EQU 0
-XPOS            EQU 2
-YPOS            EQU 4
-HP              EQU 6
-XSPEED          EQU 8
-YSPEED          EQU 10
+ET_ID              EQU 0
+ET_XPOS            EQU 2
+ET_YPOS            EQU 4
+ET_HP              EQU 6
+ET_XSPEED          EQU 8
+ET_YSPEED          EQU 10
 STATUS          EQU 12
 COLISION_BOX    EQU 14
 AD_START        EQU 22

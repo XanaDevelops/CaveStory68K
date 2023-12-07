@@ -10,7 +10,7 @@ DEFAULT_INTERACTION:
 
     MOVE.L  12(SP), A0
 
-    MOVE.W  ID(A0), D0
+    MOVE.W  ET_ID(A0), D0
     SUB.W   #50, D0
     LEA     .INTERACTIONS, A1
     LSL.W   #2, D0

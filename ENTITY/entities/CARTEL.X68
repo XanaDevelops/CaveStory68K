@@ -6,21 +6,21 @@
 *-----------------------------------------------------------
 
 CARTEL_START:
-    ;28(SP) YPOS 
-    ;30(SP) XPOS
+    ;28(SP) ET_YPOS 
+    ;30(SP) ET_XPOS
     ;32(SP) INTEACT_ID
 
-    MOVE.W  28(SP), YPOS(A0)
-    MOVE.W  30(SP), XPOS(A0)
+    MOVE.W  28(SP), ET_YPOS(A0)
+    MOVE.W  30(SP), ET_XPOS(A0)
 
     MOVE.W  32(SP), INTERACT_ID(A0)
 
     RTS
 
 CARTEL:
-    DC.W 50                                         ;ID
+    DC.W 50                                         ;ET_ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 0                                          ;HP
+    DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00UDLR(!AIRBONE)(!GRAV)--
     DC.W 4,2, 60,64                                 ;COLISION_BOX

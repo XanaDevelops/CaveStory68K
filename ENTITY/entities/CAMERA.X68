@@ -26,7 +26,7 @@ CAMERA_START:
     MOVE.L  40(SP), A1
     CMP.L   #-1, A1
     BLE     .NOINST
-    MOVE.W  ID(A1), -(SP)
+    MOVE.W  ET_ID(A1), -(SP)
     SUBQ.L  #4, SP
     BSR     FIND_FIRST_ID
 
@@ -51,7 +51,7 @@ CAMERA_UPDATE:
     ;SI OTRAS ENTIDADES
     ;TODO: PROGRAMAR CENTRADO
     
-    MOVE.W  YPOS(A1), D0
+    MOVE.W  ET_YPOS(A1), D0
     SUB.W   (SCREEN_Y), D0
     ;MOVE.W #SCREEN_HEIGHT/2, D2
 
@@ -73,7 +73,7 @@ CAMERA_UPDATE:
         MOVE.W  D1, (SCR_SPEED_Y)
     .NOKSDW:
 
-    MOVE.W  XPOS(A1), D0
+    MOVE.W  ET_XPOS(A1), D0
     SUB.W   (SCREEN_X), D0
     
     TST.B   LOOKDIRLR(A1)                    ;Scroll horizontal
@@ -124,9 +124,9 @@ CAMERA_UPDATE:
 
 
 CAMERA:
-    DC.W 2                                          ;ID
+    DC.W 2                                          ;ET_ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 0                                          ;HP
+    DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,0, 0,0                                   ;COLISION_BOX 44

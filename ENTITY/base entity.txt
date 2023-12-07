@@ -1,11 +1,11 @@
-0   ID              DS.W 1 !=0
-2   XPOS            DS.W 1
-4   YPOS            DS.W 1
-6   HP              DS.W 1
-8   XSPEED          DS.W 1
-10  YSPEED          DS.W 1
+0   ET_ID              DS.W 1 !=0
+2   ET_XPOS            DS.W 1
+4   ET_YPOS            DS.W 1
+6   ET_HP              DS.W 1
+8   ET_XSPEED          DS.W 1
+10  ET_YSPEED          DS.W 1
 12  STATUS          DS.W 1 00 13:(CAN_UP)(CAN_DOWN)(CAN_LEFT)(CAN_RIGHT)(!AIRBONE)(!GRAV)--
-14  COLISION_BOX    DS.W 4 (TOP_X)(TOP_Y)(BOT_X)(BOT_Y) RESPECTO XPOS,YPOS
+14  COLISION_BOX    DS.W 4 (TOP_X)(TOP_Y)(BOT_X)(BOT_Y) RESPECTO ET_XPOS,ET_YPOS
 22  @START          DS.L 1
 26  @UPDATE         DS.L 1
 30  @DRAW           DS.L 1
@@ -16,7 +16,7 @@
                     DS.W 1
 64  
 
-A0 apunta a @ID
+A0 apunta a @ET_ID
 en start: SP data se encuentra en 28(SP), sin contar registros movem
 
 IDs:

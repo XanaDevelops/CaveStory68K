@@ -5,23 +5,23 @@
 * Description:
 *-----------------------------------------------------------
 DORITO_START:
-    ;28(SP) YPOS 
-    ;30(SP) XPOS
+    ;28(SP) ET_YPOS 
+    ;30(SP) ET_XPOS
     ;32(SP) TYPE
 
-    MOVE.W  28(SP), YPOS(A0)
-    MOVE.W  30(SP), XPOS(A0)
+    MOVE.W  28(SP), ET_YPOS(A0)
+    MOVE.W  30(SP), ET_XPOS(A0)
 
     MOVE.W  #DRTANMSPD, TIMERSPRITE(A0)
     
     ;CMP.W #0, 32(SP)
     ;BEQ .TPEQ
-    ;MOVE.W #BGDORITO, HP(A0)
+    ;MOVE.W #BGDORITO, ET_HP(A0)
     ;BRA .ENDHSTART
     .TPEQ:
-    ;MOVE.W #SMDORITO, HP(A0)
+    ;MOVE.W #SMDORITO, ET_HP(A0)
     ;DEF DORITO_SM
-    MOVE.W  #MDORITO, HP(A0)
+    MOVE.W  #MDORITO, ET_HP(A0)
     .ENDHSTART:
     RTS
 
@@ -36,10 +36,10 @@ DORITO_UPDATE:
     CMP.L   #-1, A1
     BEQ .NODW
 
-    ;CMP.W #1, ID(A1)
+    ;CMP.W #1, ET_ID(A1)
     ;BNE .NODW
 
-    MOVE.W  HP(A0), -(SP)
+    MOVE.W  ET_HP(A0), -(SP)
     MOVE.L  A1, -(SP)
     BSR     DORITO_INTERACT
     ADDQ.L  #6, SP
@@ -60,7 +60,7 @@ DORITO_UPDATE:
     CLR.L   D0
     BTST.B  #3, STATUS+1(A0)
     BEQ .NOHIT
-        MOVE.W #-10, YSPEED(A0)
+        MOVE.W #-10, ET_YSPEED(A0)
     .NOHIT:
 
     MOVE.L  SPRITE_INDEX(A0), D1                   ;ANIM_INDEX
@@ -84,26 +84,26 @@ DORITO_PAINT:
 DORITO_INTERACT:
     MOVEM.L D0/A0, -(SP)
 
-    MOVE.W  HP(A0), -(SP)
+    MOVE.W  ET_HP(A0), -(SP)
     JSR     GM_UPD_BLTXP
     ADDQ.L  #2, SP
     ;MOVE.L 12(SP), A0
     ;MOVE.W 16(SP), D0
     
-    ;ADD.W HP(A0), D0
+    ;ADD.W ET_HP(A0), D0
     ;CMP.W MAXHEALTH(A0), D0
     ;BLE .NOOV
     ;MOVE.W MAXHEALTH(A0), D0
     ;.NOOV:
-    ;MOVE.W D0, HP(A0)
+    ;MOVE.W D0, ET_HP(A0)
 
     MOVEM.L (SP)+, A0/D0
     RTS
 
 DORITO:
-    DC.W 71                                         ;ID
+    DC.W 71                                         ;ET_ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 0                                          ;HP
+    DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 12,16, 54,64                               ;COLISION_BOX 44

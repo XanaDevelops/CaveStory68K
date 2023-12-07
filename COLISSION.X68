@@ -46,7 +46,7 @@ GENERATE_COLIMAP:
                 BEQ     .SLADV      ;BLT?
                 CMP.W   D0, D1
                 BNE     .SLOPE_ID_LOOP
-                MOVE.B  D3, D2 ;CADA RAMPA SU ID
+                MOVE.B  D3, D2 ;CADA RAMPA SU ET_ID
                 BRA     .END_CHECK
             .END_CHECK:
             MOVE.B  D2, (A1)+

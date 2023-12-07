@@ -5,11 +5,11 @@
 * Description:
 *-----------------------------------------------------------
 DISKQ_START:
-    ;28(SP) YPOS 
-    ;30(SP) XPOS
+    ;28(SP) ET_YPOS 
+    ;30(SP) ET_XPOS
 
-    MOVE.W  28(SP), YPOS(A0)
-    MOVE.W  30(SP), XPOS(A0)
+    MOVE.W  28(SP), ET_YPOS(A0)
+    MOVE.W  30(SP), ET_XPOS(A0)
 
     MOVE.W  #DSKANIM, TIMERSPRITE(A0)
     RTS
@@ -43,17 +43,17 @@ DISKQ_INTERACT:
     JSR     START_DBOX
     ADDQ.L  #2, SP
 
-    MOVE.W  XPOS(A0), SPAWNX
-    MOVE.W  YPOS(A0), SPAWNY
+    MOVE.W  ET_XPOS(A0), SPAWNX
+    MOVE.W  ET_YPOS(A0), SPAWNY
 
     JSR     GAME_SAVE
 
     RTS
 
 DISQUETE:
-    DC.W 51                                         ;ID
+    DC.W 51                                         ;ET_ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 0                                          ;HP
+    DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,0, 64,64                                 ;COLISION_BOX 44

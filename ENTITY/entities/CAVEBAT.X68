@@ -5,11 +5,11 @@
 * Description:
 *-----------------------------------------------------------
 BAT_START:
-    ;36(SP) YPOS 
-    ;38(SP) XPOS
+    ;36(SP) ET_YPOS 
+    ;38(SP) ET_XPOS
 
-    MOVE.W  28(SP), YPOS(A0)
-    MOVE.W  30(SP), XPOS(A0)
+    MOVE.W  28(SP), ET_YPOS(A0)
+    MOVE.W  30(SP), ET_XPOS(A0)
 
     CLR.B   VELDIR(A0)
 
@@ -22,12 +22,12 @@ BAT_START:
 BAT_UPDATE:
     MOVEM.L D1-D2/A1, -(SP)
 
-    TST.W   HP(A0)
+    TST.W   ET_HP(A0)
     BGT     .NOKILL
         ;DROP
         SUBQ.L  #2, SP ;RESERVA TIPO
-        MOVE.W  XPOS(A0), -(SP)
-        MOVE.W  YPOS(A0), -(SP)
+        MOVE.W  ET_XPOS(A0), -(SP)
+        MOVE.W  ET_YPOS(A0), -(SP)
 
         TRAP    #14
         MOVE.L  (RNGVAL), D1
@@ -50,22 +50,22 @@ BAT_UPDATE:
         BRA     .ENDUPDATE
     .NOKILL:
 
-    TST.W   YSPEED(A0)
+    TST.W   ET_YSPEED(A0)
     BNE     .NOIMP
     NOT.B   VELDIR(A0)
     BMI     .ESNEG
-        ADD.W   #BATMY, YSPEED(A0)
+        ADD.W   #BATMY, ET_YSPEED(A0)
         BRA     .NOIMP
     .ESNEG:
-        SUB.W   #BATMY, YSPEED(A0)
+        SUB.W   #BATMY, ET_YSPEED(A0)
     .NOIMP:
 
-    TST.W   YSPEED(A0)
+    TST.W   ET_YSPEED(A0)
     BMI     .ESNEG2
-        SUBQ.W  #1, YSPEED(A0)
+        SUBQ.W  #1, ET_YSPEED(A0)
         BRA     .ESZERO
     .ESNEG2:
-        ADDQ.W  #1, YSPEED(A0)
+        ADDQ.W  #1, ET_YSPEED(A0)
     .ESZERO:
 
     MOVE.L  A0, -(SP)
@@ -113,7 +113,7 @@ BAT_DAMAGE:
     MOVE.L  12(SP), A0
 
     MOVE.W  16(SP), D0
-    SUB.W   D0, HP(A0)
+    SUB.W   D0, ET_HP(A0)
 
     MOVE.W  #36, -(SP)
     MOVE.W  #1, -(SP)
@@ -124,9 +124,9 @@ BAT_DAMAGE:
     RTS
 
 BAT:
-    DC.W -1                                         ;ID
+    DC.W -1                                         ;ET_ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 3                                          ;HP
+    DC.W 3                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00UDLR(!AIRBONE)(!GRAV)--
     DC.W 4,4, 42,48                                 ;COLISION_BOX

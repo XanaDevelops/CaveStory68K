@@ -6,7 +6,7 @@
 *-----------------------------------------------------------
 
 START_DBOX:
-    ; 4(SP).W ID
+    ; 4(SP).W ET_ID
     MOVE.W  4(SP), (CURRENTTXTID) 
 
     ANDI.B  #%00010111, (GAMEFLAGS)
@@ -198,7 +198,7 @@ DBCODES:
     ;NOTAS:
     ;   TODO OPTIMIZAR VALORES SINGLE
     ;   SIGLE CON PARAMETROS DESPLAZAR A1 IGUALMENTE
-    ; (SP) ID DB CODE >=$A0 -> 0 SI SALIDA DRAW_DBOX
+    ; (SP) ET_ID DB CODE >=$A0 -> 0 SI SALIDA DRAW_DBOX
     ; MODIFICA A1, D1
     
     MOVEM.L D0/D2-D3/D7/A0, -(SP)
@@ -206,7 +206,7 @@ DBCODES:
     ;AVANZA A1
     ADDQ.L  #1, A1
 
-    ;OBTIENE ID
+    ;OBTIENE ET_ID
     MOVE.W  24(SP), D7
     BRA     .DECODE
 
@@ -404,7 +404,7 @@ DBCODES:
 .CSFX:
     BRA     .END
 .CBGM:
-    ;REPRODUCE BGM -> ID.B
+    ;REPRODUCE BGM -> ET_ID.B
     CMP.B   D0, D2
     BNE     .NOBGM
 
@@ -429,7 +429,7 @@ DBCODES:
     ADDQ.B  #1, D2
     ADDQ.B  #1, D3
     MOVE.L  (PLAYERREF), A0
-    MOVE.W  MAXHEALTH(A0), HP(A0)
+    MOVE.W  MAXHEALTH(A0), ET_HP(A0)
 
     .ENDHPM:
     ADDQ.B  #1, D0

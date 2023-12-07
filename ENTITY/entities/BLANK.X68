@@ -6,11 +6,11 @@
 *-----------------------------------------------------------
 
 BLANK_START:
-    ;28(SP) YPOS 
-    ;30(SP) XPOS
+    ;28(SP) ET_YPOS 
+    ;30(SP) ET_XPOS
 
-    MOVE.W  28(SP), YPOS(A0)
-    MOVE.W  30(SP), XPOS(A0)
+    MOVE.W  28(SP), ET_YPOS(A0)
+    MOVE.W  30(SP), ET_XPOS(A0)
     RTS
 
 BLANK_UPDATE:
@@ -23,9 +23,9 @@ BLANK_INTERACT:
     RTS
 
 BLANK:
-    DC.W 0                                          ;ID
+    DC.W 0                                          ;ET_ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 0                                          ;HP
+    DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,0, 0,0                                    ;COLISION_BOX 44

@@ -5,23 +5,23 @@
 * Description:
 *-----------------------------------------------------------
 PLAYER_START:
-    ;28(SP) YPOS 
-    ;30(SP) XPOS
+    ;28(SP) ET_YPOS 
+    ;30(SP) ET_XPOS
 
     MOVE.L  A0, (PLAYERREF)
     CLR.B   (PLYERDED)
 
-    MOVE.W  30(SP), XPOS(A0)
-    MOVE.W  28(SP), YPOS(A0)
+    MOVE.W  30(SP), ET_XPOS(A0)
+    MOVE.W  28(SP), ET_YPOS(A0)
 
     CMP.W   #-1, (SPAWNX)
     BEQ     .NOSPAWN
-    MOVE.W  (SPAWNX), XPOS(A0)
-    MOVE.W  (SPAWNY), YPOS(A0)
+    MOVE.W  (SPAWNX), ET_XPOS(A0)
+    MOVE.W  (SPAWNY), ET_YPOS(A0)
     .NOSPAWN:
 
     MOVE.W  (PMAXHP), MAXHEALTH(A0) 
-    MOVE.W  (PACTHP), HP(A0)
+    MOVE.W  (PACTHP), ET_HP(A0)
 
     MOVE.W  #ANIMSPEED, TIMERSPRITE(A0) 
     MOVE.B  #4, LOOKDIRLR(A0)
@@ -30,9 +30,9 @@ PLAYER_START:
 PLAYER_UPDATE:
     MOVEM.L D0-D1, -(SP)
 
-    TST.W   HP(A0)        ;KILL?
+    TST.W   ET_HP(A0)        ;KILL?
     BGT     .LIVE
-        CLR.W   HP(A0)
+        CLR.W   ET_HP(A0)
         BSR     GM_PLYRDED
         MOVE.W  #66, -(SP)
         MOVE.W  #1, -(SP)
@@ -52,13 +52,13 @@ PLAYER_UPDATE:
 
     BTST.L  #KEYM_LEFT, D1
     BEQ     .NOLEFT
-    SUBQ.W  #2, XSPEED(A0)
+    SUBQ.W  #2, ET_XSPEED(A0)
     CLR.B   LOOKDIRLR(A0)
     .NOLEFT:
 
     BTST.L  #KEYM_RIGHT, D1
     BEQ     .NORIGHT
-    ADDQ.W  #2, XSPEED(A0) 
+    ADDQ.W  #2, ET_XSPEED(A0) 
     MOVE.B  #4, LOOKDIRLR(A0)
     .NORIGHT:
 
@@ -76,7 +76,7 @@ PLAYER_UPDATE:
     .SIDW:
     BTST.B  #3, STATUS+1(A0)
     BEQ     .LKOBK
-        TST.W   XSPEED(A0)
+        TST.W   ET_XSPEED(A0)
         BNE     .NODW
             MOVE.W  #16, D0                  ;16 BACK 24 LKDOWN
             MOVE.B  #12, LOOKDIRUD(A0)
@@ -108,25 +108,25 @@ PLAYER_UPDATE:
     ADD.B   LOOKDIRLR(A0), D0
     MOVE.L  (A1, D0.W), AD_SPRITE(A0)
 
-    TST.W   XSPEED(A0)
+    TST.W   ET_XSPEED(A0)
     BEQ     .ESZERO
     BMI     .ESNEG
-        SUBQ.W  #1, XSPEED(A0)
+        SUBQ.W  #1, ET_XSPEED(A0)
         BRA     .ESZERO
     .ESNEG:
-        ADDQ.W  #1, XSPEED(A0)
+        ADDQ.W  #1, ET_XSPEED(A0)
     .ESZERO:
 
     ;CMP.B #20, TIMERINVI(A0)
     ;BGT .NOMMAX
 
-    CMP.W   #MAX_PLYR_SPEED, XSPEED(A0)
+    CMP.W   #MAX_PLYR_SPEED, ET_XSPEED(A0)
     BLE     .NOMAX
-        MOVE.W  #MAX_PLYR_SPEED, XSPEED(A0)
+        MOVE.W  #MAX_PLYR_SPEED, ET_XSPEED(A0)
     .NOMAX:
-    CMP.W   #-MAX_PLYR_SPEED, XSPEED(A0)
+    CMP.W   #-MAX_PLYR_SPEED, ET_XSPEED(A0)
     BGE     .NOMMAX
-        MOVE.W  #-MAX_PLYR_SPEED, XSPEED(A0)
+        MOVE.W  #-MAX_PLYR_SPEED, ET_XSPEED(A0)
     .NOMMAX:
 
     ;SALTO
@@ -154,7 +154,7 @@ PLAYER_UPDATE:
     ADDQ.L  #4, SP
 
     .NOSFXJ:
-    MOVE.W  #JUMPSPEED, YSPEED(A0)   ;VEL SALTO
+    MOVE.W  #JUMPSPEED, ET_YSPEED(A0)   ;VEL SALTO
     SUBQ.B  #1, TIMERJUMP(A0)
     BRA     .ENDZ
     .NOZ:
@@ -168,7 +168,7 @@ PLAYER_UPDATE:
     BSR     BULLET_SHOT
     .NOX:
 
-    TST.W   XSPEED(A0)
+    TST.W   ET_XSPEED(A0)
     BEQ     .NOANIM
         MOVE.L  SPRITE_INDEX(A0), D1                   ;ANIM_INDEX
         MOVE.W  TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO
@@ -235,10 +235,10 @@ PLAYER_PAINT:
 
     MOVE.L  (A1, D0), -(SP)
 
-    MOVE.W  YPOS(A0), D0
+    MOVE.W  ET_YPOS(A0), D0
     SUB.W   (SCREEN_Y), D0
     MOVE.W  D0, -(SP)
-    MOVE.W  XPOS(A0), D0
+    MOVE.W  ET_XPOS(A0), D0
     SUB.W   (SCREEN_X), D0
     MOVE.W  D0, -(SP)
 
@@ -255,10 +255,10 @@ PLAYER_PAINT:
         ADDA.L #COLISION_BOX, A0
         MOVEM.W (A0)+, D1-D4
         SUBA.L #AD_START, A0
-        ADD.W XPOS(A0), D1
-        ADD.W XPOS(A0), D3
-        ADD.W YPOS(A0), D2
-        ADD.W YPOS(A0), D4
+        ADD.W ET_XPOS(A0), D1
+        ADD.W ET_XPOS(A0), D3
+        ADD.W ET_YPOS(A0), D2
+        ADD.W ET_YPOS(A0), D4
         SUB.W SCREEN_X, D1
         SUB.W SCREEN_X, D3
         SUB.W SCREEN_Y, D2
@@ -285,16 +285,16 @@ PLAYER_DAMAGE:
 
     ;RESTAR VIDA
     MOVE.W  16(SP), D0
-    SUB.W   D0, HP(A0)
+    SUB.W   D0, ET_HP(A0)
 
     ADD.B   #INVTIME, TIMERINVI(A0)
 
     ;KNOCKBACK    
-    MOVE.W  XSPEED(A0), D0
+    MOVE.W  ET_XSPEED(A0), D0
     ADD.W   D0, D0
     NEG.W   D0
-    MOVE.W  D0, XSPEED(A0)
-    ;NEG.W YSPEED(A0)
+    MOVE.W  D0, ET_XSPEED(A0)
+    ;NEG.W ET_YSPEED(A0)
 
     MOVE.W  #67, -(SP)
     MOVE.W  #1, -(SP)
@@ -330,8 +330,8 @@ BULLET_SHOT:
     JSR     PLAY_SFX
     ADDQ.L  #4, SP
 
-    MOVE.W  XPOS(A0), -(SP)
-    MOVE.W  YPOS(A0), -(SP)
+    MOVE.W  ET_XPOS(A0), -(SP)
+    MOVE.W  ET_YPOS(A0), -(SP)
 
     ADD.W   #24, (SP)     ;OFFSET Y
     TST.B   LOOKDIRLR(A0)
@@ -361,9 +361,9 @@ BULLET_SHOT:
     RTS
 
 PLAYER:
-    DC.W 1                                          ;ID
+    DC.W 1                                          ;ET_ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 0                                          ;HP
+    DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00UDLR(!AIRBONE)(!GRAV)--
     DC.W 8,4, 58,64                                 ;COLISION_BOX

@@ -29,7 +29,7 @@ START_SERVER:
     RTS
 
 SEND_BGM:
-    ; 6(SP) ID BGM
+    ; 6(SP) ET_ID BGM
     MOVE.W  D0, -(SP)
     
     MOVE.W  6(SP), D0
@@ -56,7 +56,7 @@ LOCALBGM:
     RTS
 
 PLAY_BGM:
-    ; 20(SP).W ID SND
+    ; 20(SP).W ET_ID SND
     MOVEM.L D0-D2/A0, -(SP)
 
     MOVE.B  #76, D0
@@ -73,7 +73,7 @@ PLAY_BGM:
 
 
 PLAY_SFX:
-    ; 22(SP).W ID SND
+    ; 22(SP).W ET_ID SND
     ; 20(SP).W HAS PRIO
     MOVEM.L D0-D2/A0, -(SP)
 

@@ -77,9 +77,9 @@ TS_DRAW:
     RTS
 
 TITLESCREEN:
-    DC.W 91                                         ;ID
+    DC.W 91                                         ;ET_ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 0                                          ;HP
+    DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,0, 0,0                                   ;COLISION_BOX 44

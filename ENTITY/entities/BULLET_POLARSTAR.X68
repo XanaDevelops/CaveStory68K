@@ -8,8 +8,8 @@ VSPEEDPS DC.W  -BLT_PS_SPEED,0, BLT_PS_SPEED,0, 0,-BLT_PS_SPEED, 0,BLT_PS_SPEED
 BLT_PS_START:
     ;36(SP) DIR
     ;38(SP) LEVEL
-    ;40(SP) YPOS
-    ;42(SP) XPOS
+    ;40(SP) ET_YPOS
+    ;42(SP) ET_XPOS
     MOVEM.L D0/A1, -(SP)
     CMP.B   #MAX_BLT_ONSCR, (BULLET_POLARSTAR+BLT_ONSCREEN)
     BLE     .NOAB
@@ -20,8 +20,8 @@ BLT_PS_START:
     .NOAB:
     ADDQ.B  #1, (BULLET_POLARSTAR+BLT_ONSCREEN)
 
-    MOVE.W  42(SP), XPOS(A0)
-    MOVE.W  40(SP), YPOS(A0)
+    MOVE.W  42(SP), ET_XPOS(A0)
+    MOVE.W  40(SP), ET_YPOS(A0)
 
     BSET.B  #2, STATUS+1(A0) ;DISABLE GRAV
     
@@ -85,8 +85,8 @@ BLT_PS_UPDATE:
     LEA     VSPEEDPS, A1
     MOVE.B  TRAVEL_DIR(A0), D0
     ASL.W   #2, D0
-    MOVE.W  (A1, D0), XSPEED(A0)
-    MOVE.W  2(A1, D0), YSPEED(A0)
+    MOVE.W  (A1, D0), ET_XSPEED(A0)
+    MOVE.W  2(A1, D0), ET_YSPEED(A0)
 
     MOVE.L  A0, -(SP)
     BSR     UPDATE_PHYSICS
@@ -132,9 +132,9 @@ BLT_PS_UPDATE:
     RTS
 
 BULLET_POLARSTAR:
-    DC.W 10                                         ;ID
+    DC.W 10                                         ;ET_ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 0                                          ;HP (damage dealt)
+    DC.W 0                                          ;ET_HP (damage dealt)
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;STATUS 00 UDLR(AIRBONE)(!GRAV)--
     DC.W 0,0, 64,4                                  ;COLISION_BOX
@@ -149,7 +149,7 @@ BULLET_POLARSTAR:
                                                     
 
 
-DAMAGE              EQU HP
+DAMAGE              EQU ET_HP
 
 LEVELPOWER          EQU AUX_DATA   ;B
 MAX_T_SCREEN        EQU AUX_DATA+1 ;B

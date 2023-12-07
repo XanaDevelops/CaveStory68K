@@ -48,7 +48,7 @@ from tempfile import TemporaryDirectory
 # conflicting IDs.
 _id_prefix = 'simp-ink-scr-%d-' % random.randint(100000, 999999)
 
-# Keep track of the next ID to append to _id_prefix.
+# Keep track of the next ET_ID to append to _id_prefix.
 _next_obj_id = 1
 
 # Maintain all top-level SVG state in _simple_top.
@@ -426,7 +426,7 @@ class SimpleObject(SVGOutputMixin):
         from inkex's get_inkscape_bbox but adapted to work with any object, not
         just text, which is a limitation at the time of this writing."""
         iobj = self.get_inkex_object()
-        iobj_id = iobj.get_id()  # Force ID creation.
+        iobj_id = iobj.get_id()  # Force ET_ID creation.
         with TemporaryDirectory(prefix='inkscape-command-') as tmpdir:
             svg_file = inkex.command.write_svg(iobj.root, tmpdir, 'input.svg')
             out = inkex.command.inkscape(svg_file,
@@ -1556,7 +1556,7 @@ class SimplePathEffect(SVGOutputMixin):
         _simple_top.append_def(pe)
 
     def __str__(self):
-        '''Return a path effect as a "#" and its ID.  This enables directly
+        '''Return a path effect as a "#" and its ET_ID.  This enables directly
         associating the path effect with a path.'''
         return '#%s' % self._inkscape_obj.get_id()
 

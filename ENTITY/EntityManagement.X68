@@ -50,7 +50,7 @@ SLASHKILLA: ;/kill @e
     LEA     ENTITY_MEM, A0
     MOVE.W  #NUM_ENT-1, D7
     .KILLALOOP:
-        MOVE.W  #0, ID(A0)
+        MOVE.W  #0, ET_ID(A0)
         ADDA.L  #ENT_SIZE_L, A0
     DBRA    D7, .KILLALOOP
     
@@ -90,9 +90,9 @@ DRAW_ALL_ENT:
     RTS
 
 FIND_FIRST_ID:
-    ; 20(SP) ID
+    ; 20(SP) ET_ID
     ; 16(SP) @
-    ;DEVUELVE @ CUYO ID==BUSCADO, ELSE -1
+    ;DEVUELVE @ CUYO ET_ID==BUSCADO, ELSE -1
     MOVEM.L D0/D7/A0, -(SP)
 
     LEA     ENTITY_MEM, A0
@@ -126,14 +126,14 @@ DIST_PLYR:
     MOVE.L  22(SP), A0
     MOVE.L  (PLAYERREF), A1
 
-    MOVE.W  XPOS(A0), D1
-    MOVE.W  YPOS(A0), D2
+    MOVE.W  ET_XPOS(A0), D1
+    MOVE.W  ET_YPOS(A0), D2
     
-    SUB.W   XPOS(A1), D1
+    SUB.W   ET_XPOS(A1), D1
     BPL     .NONEG1
     NEG.W   D1
     .NONEG1:
-    SUB.W   YPOS(A1), D2
+    SUB.W   ET_YPOS(A1), D2
     BPL     .NONEG2
     NEG.W   D2
     .NONEG2:
@@ -163,10 +163,10 @@ DEFAULT_PAINT:
     MOVE.L  4(A1, D1), A2
 
     MOVE.L  A2, -(SP)
-    MOVE.W  YPOS(A0), D0
+    MOVE.W  ET_YPOS(A0), D0
     SUB.W   (SCREEN_Y), D0
     MOVE.W  D0, -(SP)
-    MOVE.W  XPOS(A0), D0
+    MOVE.W  ET_XPOS(A0), D0
     SUB.W   (SCREEN_X), D0
     MOVE.W  D0, -(SP)
 
@@ -179,10 +179,10 @@ DEFAULT_PAINT:
         ADDA.L #COLISION_BOX, A0
         MOVEM.W (A0)+, D1-D4
         SUBA.L #AD_START, A0
-        ADD.W XPOS(A0), D1
-        ADD.W XPOS(A0), D3
-        ADD.W YPOS(A0), D2
-        ADD.W YPOS(A0), D4
+        ADD.W ET_XPOS(A0), D1
+        ADD.W ET_XPOS(A0), D3
+        ADD.W ET_YPOS(A0), D2
+        ADD.W ET_YPOS(A0), D4
         SUB.W SCREEN_X, D1
         SUB.W SCREEN_X, D3
         SUB.W SCREEN_Y, D2
@@ -207,8 +207,8 @@ IS_OUT_DISPLAY:
     MOVEM.W (A0)+, D2-D5 ;XY XY
     SUBA.L  #22, A0
 
-    MOVE.W  XPOS(A0), D0
-    MOVE.W  YPOS(A0), D1
+    MOVE.W  ET_XPOS(A0), D0
+    MOVE.W  ET_YPOS(A0), D1
     SUB.W   (SCREEN_X), D0
     SUB.W   (SCREEN_Y), D1
 
