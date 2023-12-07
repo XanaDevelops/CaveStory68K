@@ -52,8 +52,9 @@ HEALER:
     DC.L HEALER_INTERACT                            ;@
     DC.L HEALER_SPR                                 ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
+    DC.W 0
     DS.L 4                                          
-    DS.W 1   
+       
 
 *~Font name~Courier New~
 *~Font size~10~

@@ -12,7 +12,7 @@ CRITTER_START:
     MOVE.W  28(SP), ET_YPOS(A0)
     MOVE.W  30(SP), ET_XPOS(A0)
     
-    CLR.W   TIMERSPRITE(A0)
+    CLR.W   ET_TSPRT(A0)
 
     CLR.L   ET_ISPR(A0)
     ; 0:SLEEP
@@ -135,8 +135,9 @@ CRITTER:
     DC.L CRITTER_DAMAGE                             ;@
     DC.L CRITTER_L                                         ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
+    DC.W 0
     DS.L 4                                          
-    DS.W 1   
+
 
 CRTATK      EQU 4
 AGRO        EQU 375

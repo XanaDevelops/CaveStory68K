@@ -32,9 +32,9 @@ BLANK:
     DC.L BLANK_START, BLANK_UPDATE, BLANK_DRAW      ;@
     DC.L BLANK_INTERACT                             ;@
     DC.L -1                                         ;@SPRITE DEFECTO
+    DC.W 0
     DC.L 0                                          ;SPRITEINDEX
     DS.L 4                                          
-    DS.W 1   
 
     
 *~Font name~Courier New~

@@ -12,7 +12,7 @@ DORITO_START:
     MOVE.W  28(SP), ET_YPOS(A0)
     MOVE.W  30(SP), ET_XPOS(A0)
 
-    MOVE.W  #DRTANMSPD, TIMERSPRITE(A0)
+    MOVE.W  #DRTANMSPD, ET_TSPRT(A0)
     
     ;CMP.W #0, 32(SP)
     ;BEQ .TPEQ
@@ -64,7 +64,7 @@ DORITO_UPDATE:
     .NOHIT:
 
     MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
-        MOVE.W  TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO
+        MOVE.W  ET_TSPRT(A0), D2                   ;CONTROLAR SALTO TODO
         SUBQ.W  #1, D2
         BNE     .NOTIMER
             MOVE.W  #DRTANMSPD, D2
@@ -76,7 +76,7 @@ DORITO_UPDATE:
             .NOOF:
             MOVE.L  D1, ET_ISPR(A0)
         .NOTIMER:
-        MOVE.W  D2, TIMERSPRITE(A0)
+        MOVE.W  D2, ET_TSPRT(A0)
     .ENDUPDATE:    
     RTS
 DORITO_PAINT:
@@ -111,8 +111,9 @@ DORITO:
     DC.L DORITO_INTERACT                            ;@
     DC.L DORITO_M                                   ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
+    DC.W 0
     DS.L 4                                          
-    DS.W 1        
+            
 
 INTERACT_ID     EQU ET_DATA    ;
 

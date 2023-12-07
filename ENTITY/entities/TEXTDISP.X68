@@ -12,7 +12,7 @@ TEXTDISP_START:
     MOVE.W  28(SP), ET_YPOS(A0)
     MOVE.W  30(SP), ET_XPOS(A0)
 
-    MOVE.L  32(SP), AD_TEXTO(A0)
+    MOVE.L  32(SP), ET_TEXTO(A0)
     RTS
 
 TEXTDISP_DRAW:
@@ -21,7 +21,7 @@ TEXTDISP_DRAW:
     MOVE.B  #95, D0
     MOVE.W  ET_XPOS(A0), D1
     MOVE.W  ET_YPOS(A0), D2
-    MOVE.L  AD_TEXTO(A0), A1
+    MOVE.L  ET_TEXTO(A0), A1
     TRAP    #15
 
     MOVEM.L (SP)+, A1/D2-D0
@@ -38,10 +38,11 @@ TEXTDISP:
     DC.L DEFAULT_RTS                                ;@
     DC.L -1                                         ;@TEXTO
     DC.L 0                                          ;SPRITEINDEX
+    DC.W 0
     DS.L 4                                          
-    DS.W 1        
+        
 
-AD_TEXTO    EQU ET_SPRITE
+ET_TEXTO    EQU ET_SPRITE
 
 *~Font name~Courier New~
 *~Font size~10~

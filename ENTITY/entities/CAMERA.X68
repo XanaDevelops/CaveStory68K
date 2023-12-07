@@ -14,7 +14,7 @@ CAMERA_START:
     MOVE.W  36(SP), (SCREEN_Y)
     CLR.L   ET_ISPR(A0)
     CLR.B   TRANS_STATUS(A0)
-    MOVE.W  #ANIMSPEED, TIMERSPRITE(A0)
+    MOVE.W  #ANIMSPEED, ET_TSPRT(A0)
 
     JSR     PREVENT_SCREEN_OOB
 
@@ -133,11 +133,12 @@ CAMERA:
     DC.L CAMERA_START, CAMERA_UPDATE, DEFAULT_RTS   ;@
     DC.L DEFAULT_RTS                                ;@
     DC.L SQR_TRANS                                  ;@SPRITE DEFECTO
+    DC.W 0
     DC.L 0                                          ;SPRITEINDEX
     DS.L 4                                          
-    DS.W 1
 
-ENTFOCUS        EQU ET_DATA+2   ;L
+
+ENTFOCUS        EQU ET_DATA   ;L
 
 
 

@@ -55,9 +55,9 @@ CLOUD:
     DC.L CLOUD_START, CLOUD_UPDATE, CLOUD_PAINT     ;@
     DC.L DEFAULT_RTS                                ;@
     DC.L NUBE0                                     ;@SPRITE DEFECTO
+    DC.W 0
     DC.L 0                                          ;SPRITEINDEX
-    DS.L 4                                          
-    DS.W 1        
+    DS.L 4                                                  
     
 TYPE        EQU ET_DATA
 

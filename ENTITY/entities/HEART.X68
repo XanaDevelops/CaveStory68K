@@ -12,7 +12,7 @@ HEART_START:
     MOVE.W  28(SP), ET_YPOS(A0)
     MOVE.W  30(SP), ET_XPOS(A0)
 
-    MOVE.W  #HRTANMSPD, TIMERSPRITE(A0)
+    MOVE.W  #HRTANMSPD, ET_TSPRT(A0)
     
     TST.W   32(SP)
     BEQ     .TPEQ
@@ -50,7 +50,7 @@ HEART_UPDATE:
     .NODW: 
 
     MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
-        MOVE.W  TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO
+        MOVE.W  ET_TSPRT(A0), D2                   ;CONTROLAR SALTO TODO
         SUBQ.W  #1, D2
         BNE .NOTIMER
             MOVE.W  #HRTANMSPD, D2
@@ -62,7 +62,7 @@ HEART_UPDATE:
             .NOOF:
             MOVE.L  D1, ET_ISPR(A0)
         .NOTIMER:
-        MOVE.W  D2, TIMERSPRITE(A0)
+        MOVE.W  D2, ET_TSPRT(A0)
     .ENDUPDATE:    
     RTS
 
@@ -93,8 +93,8 @@ HEART:
     DC.L HEART_INTERACT                             ;@
     DC.L HEART_SM                                   ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
-    DS.L 4                                          
-    DS.W 1        
+    DC.W 0
+    DS.L 4                                                 
 
 INTERACT_ID     EQU ET_DATA    ;
 

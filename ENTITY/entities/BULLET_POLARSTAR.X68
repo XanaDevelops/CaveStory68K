@@ -142,8 +142,9 @@ BULLET_POLARSTAR:
     DC.L DEFAULT_RTS                                ;@
     DC.L PSTAR_BULLET_1                             ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
+    DC.W 0
     DS.L 4                                          ;46.B (level) 012
-    DS.W 1                                          ;47.B (time onscreen)
+                                                    ;47.B (time onscreen)
                                                     ;48.W (traveldistance)
                                                     ;49.B (dir) 0123 LRUD
                                                     

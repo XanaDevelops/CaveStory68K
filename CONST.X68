@@ -58,7 +58,8 @@ ET_REVDAM       EQU 34
 ET_INTER        EQU ET_REVDAM
 ET_SPRITE       EQU 38
 ET_ISPR         EQU 42
-ET_DATA         EQU 46
+ET_TSPRT        EQU 46
+ET_DATA         EQU 48
 
 ENT_SIZE_L      EQU 64  ;MULTIPLO 4 
 NUM_ENT         EQU 75

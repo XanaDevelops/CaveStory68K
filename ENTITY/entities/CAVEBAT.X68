@@ -13,7 +13,7 @@ BAT_START:
 
     CLR.B   VELDIR(A0)
 
-    MOVE.W  #BATANMSPD, TIMERSPRITE(A0)
+    MOVE.W  #BATANMSPD, ET_TSPRT(A0)
 
     BSET.B  #2, ET_BSTATE(A0) ;DISABLE GRAV
 
@@ -87,7 +87,7 @@ BAT_UPDATE:
     ADDQ.L  #4, SP
 
     MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
-        MOVE.W  TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO
+        MOVE.W  ET_TSPRT(A0), D2                   ;CONTROLAR SALTO TODO
         SUBQ.W  #1, D2
         BNE     .NOTIMER
             MOVE.W  #BATANMSPD, D2
@@ -99,7 +99,7 @@ BAT_UPDATE:
             .NOOF:
             MOVE.L  D1, ET_ISPR(A0)
         .NOTIMER:
-        MOVE.W  D2, TIMERSPRITE(A0)
+        MOVE.W  D2, ET_TSPRT(A0)
 
     .ENDUPDATE:
 
@@ -133,12 +133,12 @@ BAT:
     DC.L BAT_START, BAT_UPDATE, DEFAULT_PAINT       ;@
     DC.L BAT_DAMAGE                                 ;@
     DC.L BAT_FLY_L                                  ;@SPRITE DEFECTO
+    DC.W 0
     DC.L 0                                          ;SPRITEINDEX
     DS.L 4                                          ;
-    DS.W 1                                          ;
+    
 
-TIMERSPRITE EQU ET_DATA      ;W 
-VELDIR      EQU ET_DATA+2    ;B
+VELDIR      EQU ET_DATA    ;B
 
 
 BATATK      EQU 2

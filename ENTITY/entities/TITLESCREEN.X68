@@ -87,8 +87,9 @@ TITLESCREEN:
     DC.L DEFAULT_RTS                                ;@
     DC.L -1                                         ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
+    DC.W 0
     DS.L 4                                          
-    DS.W 1   
+      
 
 
 

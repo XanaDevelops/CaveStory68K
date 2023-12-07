@@ -11,14 +11,14 @@ DISKQ_START:
     MOVE.W  28(SP), ET_YPOS(A0)
     MOVE.W  30(SP), ET_XPOS(A0)
 
-    MOVE.W  #DSKANIM, TIMERSPRITE(A0)
+    MOVE.W  #DSKANIM, ET_TSPRT(A0)
     RTS
 
 DISKQ_UPDATE:
     MOVEM.L D1-D2/A1, -(SP)
 
     MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
-        MOVE.W  TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO
+        MOVE.W  ET_TSPRT(A0), D2                   ;CONTROLAR SALTO TODO
         SUBQ.W  #1, D2
         BNE     .NOTIMER
             MOVE.W  #DSKANIM, D2
@@ -30,7 +30,7 @@ DISKQ_UPDATE:
             .NOOF:
             MOVE.L  D1, ET_ISPR(A0)
         .NOTIMER:
-        MOVE.W  D2, TIMERSPRITE(A0)
+        MOVE.W  D2, ET_TSPRT(A0)
     .ENDUPDATE:    
 
     MOVEM.L (SP)+, A1/D2-D1
@@ -61,8 +61,10 @@ DISQUETE:
     DC.L DISKQ_INTERACT                             ;@
     DC.L DISKQ_SPR                                  ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
+    DC.W 0
     DS.L 4                                          
-    DS.W 1     
+       
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~

@@ -23,7 +23,7 @@ PLAYER_START:
     MOVE.W  (PMAXHP), MAXHEALTH(A0) 
     MOVE.W  (PACTHP), ET_HP(A0)
 
-    MOVE.W  #ANIMSPEED, TIMERSPRITE(A0) 
+    MOVE.W  #ANIMSPEED, ET_TSPRT(A0) 
     MOVE.B  #4, LOOKDIRLR(A0)
     RTS
 
@@ -171,7 +171,7 @@ PLAYER_UPDATE:
     TST.W   ET_XSPEED(A0)
     BEQ     .NOANIM
         MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
-        MOVE.W  TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO
+        MOVE.W  ET_TSPRT(A0), D2                   ;CONTROLAR SALTO TODO
         SUBQ.W  #1, D2
         BNE     .NOTIMER
             MOVE.W  #ANIMSPEED, D2
@@ -191,7 +191,7 @@ PLAYER_UPDATE:
             ADDQ.L  #4, SP
             .NOSFXWALK:
         .NOTIMER:
-        MOVE.W  D2, TIMERSPRITE(A0)
+        MOVE.W  D2, ET_TSPRT(A0)
     BRA .ENDANIM
     .NOANIM:
         CLR.L   ET_ISPR(A0)
@@ -371,17 +371,17 @@ PLAYER:
     DC.L PLAYER_DAMAGE                              ;@
     DC.L QUOTE_WALK_RN                              ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
+    DC.W 0
     DS.L 4                                          ;46.W (timer sprite)
-    DS.W 1                                          ;47.B (lookdir) 0:left 4:right 
+                                              ;47.B (lookdir) 0:left 4:right 
                                                     ;48.B (lookdir) 8:up 12:down
                                                     ;49.B (timer jump)
                                                     ;50.B (equipped arm)
-TIMERSPRITE     EQU ET_DATA    ;W
-LOOKDIRLR       EQU ET_DATA+2  ;B
-LOOKDIRUD       EQU ET_DATA+3  ;B
-TIMERJUMP       EQU ET_DATA+4  ;B
-TIMERINVI       EQU ET_DATA+5  ;B
-MAXHEALTH       EQU ET_DATA+6  ;W
+LOOKDIRLR       EQU ET_DATA+0  ;B
+LOOKDIRUD       EQU ET_DATA+1  ;B
+TIMERJUMP       EQU ET_DATA+2  ;B
+TIMERINVI       EQU ET_DATA+3  ;B
+MAXHEALTH       EQU ET_DATA+4  ;W
 
 
 
