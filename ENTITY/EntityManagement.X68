@@ -19,7 +19,8 @@ INSTANCE_ENTITY:
     CMPA.L  #-1, A1
     BEQ     .ENDINST
 
-    MOVE.W  #(ENT_SIZE_L/4)-1, D7
+    ;ET_DATA MULT 4
+    MOVE.W  #(ET_DATA/4)-1, D7
     CLR.L   D1
     .COPYLOOP:
         MOVE.L  (A0)+, (A1, D1)
