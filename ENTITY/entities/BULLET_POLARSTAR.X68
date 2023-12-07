@@ -41,7 +41,7 @@ BLT_PS_START:
     ;TODO
     ASL.W   #1, D0  ;POR ASL.W #1 DE ANTES!
     LEA     PSTAR_BULLETS, A1
-    MOVE.L  (A1, D0), AD_SPRITE(A0) ;LOAD SPRITE
+    MOVE.L  (A1, D0), ET_SPRITE(A0) ;LOAD SPRITE
     
     LEA     .HBOXS, A1
     MOVE.L  (A1, D0), A1
@@ -50,14 +50,14 @@ BLT_PS_START:
 
     CMP.B   #2, D0
     BGE .NOV
-        MOVE.L  #0, SPRITE_INDEX(A0)
-        MOVE.W 0(A1), COLISION_BOX+4(A0)
-        MOVE.W 2(A1), COLISION_BOX+6(A0)
+        MOVE.L  #0, ET_ISPR(A0)
+        MOVE.W 0(A1), ET_HBOX+4(A0)
+        MOVE.W 2(A1), ET_HBOX+6(A0)
         BRA     .ENDIR
     .NOV:
-        MOVE.L  #1, SPRITE_INDEX(A0)
-        MOVE.W  2(A1), COLISION_BOX+4(A0)   ;HBOX DEPENDIENTE NIVEL
-        MOVE.W  0(A1), COLISION_BOX+6(A0)
+        MOVE.L  #1, ET_ISPR(A0)
+        MOVE.W  2(A1), ET_HBOX+4(A0)   ;HBOX DEPENDIENTE NIVEL
+        MOVE.W  0(A1), ET_HBOX+6(A0)
     .ENDIR:
 
     .ENDS:
@@ -100,7 +100,7 @@ BLT_PS_UPDATE:
     
     MOVE.W  DAMAGE(A0), -(SP)
     MOVE.L  A1, -(SP)
-    MOVE.L  AD_DODAM(A1), A1
+    MOVE.L  ET_REVDAM(A1), A1
     JSR     (A1)
     ADDQ.L  #6, SP
 
@@ -137,7 +137,7 @@ BULLET_POLARSTAR:
     DC.W 0                                          ;ET_HP (damage dealt)
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00 UDLR(AIRBONE)(!GRAV)--
-    DC.W 0,0, 64,4                                  ;COLISION_BOX
+    DC.W 0,0, 64,4                                  ;ET_HBOX
     DC.L BLT_PS_START, BLT_PS_UPDATE, DEFAULT_PAINT ;@
     DC.L DEFAULT_RTS                                ;@
     DC.L PSTAR_BULLET_1                             ;@SPRITE DEFECTO
@@ -151,12 +151,12 @@ BULLET_POLARSTAR:
 
 DAMAGE              EQU ET_HP
 
-LEVELPOWER          EQU AUX_DATA   ;B
-MAX_T_SCREEN        EQU AUX_DATA+1 ;B
-MAX_TRVL_DIST       EQU AUX_DATA+2 ;W
-TRAVEL_DIR          EQU AUX_DATA+4 ;B
-BLT_ONSCREEN        EQU AUX_DATA+5 ;B
-MAX_BLT_ONSCR       EQU AUX_DATA+6 ;B
+LEVELPOWER          EQU ET_DATA   ;B
+MAX_T_SCREEN        EQU ET_DATA+1 ;B
+MAX_TRVL_DIST       EQU ET_DATA+2 ;W
+TRAVEL_DIR          EQU ET_DATA+4 ;B
+BLT_ONSCREEN        EQU ET_DATA+5 ;B
+MAX_BLT_ONSCR       EQU ET_DATA+6 ;B
 
 
 

@@ -23,7 +23,7 @@ CARTEL:
     DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00UDLR(!AIRBONE)(!GRAV)--
-    DC.W 4,2, 60,64                                 ;COLISION_BOX
+    DC.W 4,2, 60,64                                 ;ET_HBOX
     DC.L CARTEL_START, DEFAULT_RTS, DEFAULT_PAINT   ;@
     DC.L DEFAULT_INTERACTION                        ;@
     DC.L CARTELS                                    ;@SPRITE DEFECTO
@@ -31,7 +31,7 @@ CARTEL:
     DS.L 4                                          
     DS.W 1        
 
-INTERACT_ID     EQU AUX_DATA    ;W                                  
+INTERACT_ID     EQU ET_DATA    ;W                                  
 
 *~Font name~Courier New~
 *~Font size~10~

@@ -14,7 +14,7 @@ CRITTER_START:
     
     CLR.W   TIMERSPRITE(A0)
 
-    CLR.L   SPRITE_INDEX(A0)
+    CLR.L   ET_ISPR(A0)
     ; 0:SLEEP
     ; 1:WARNING
     ; 2:DO ATK
@@ -65,7 +65,7 @@ CRITTER_UPDATE:
     
     MOVE.W  #CRTATK, -(SP)
     MOVE.L  A1, -(SP)
-    MOVE.L  AD_DODAM(A1), A1
+    MOVE.L  ET_REVDAM(A1), A1
     JSR     (A1)
     ADDQ.L  #6, SP
     .NOCOLIE:
@@ -82,13 +82,13 @@ CRITTER_UPDATE:
     ;OPERAR ESTADOS
     CMP.W   #AGRO, D0
     BLT     .DOAGRO
-    CLR.L   SPRITE_INDEX(A0) ;SLEEP
+    CLR.L   ET_ISPR(A0) ;SLEEP
     BRA     .NOATK
     .DOAGRO:
-    MOVE.L  #1, SPRITE_INDEX(A0) ;WARN
+    MOVE.L  #1, ET_ISPR(A0) ;WARN
     CMP.W   #ATKRANGE, D0
     BGT     .NOATK
-    MOVE.L  #2, SPRITE_INDEX(A0) ;ATK
+    MOVE.L  #2, ET_ISPR(A0) ;ATK
     BTST.B  #3, ET_BSTATE(A0)
     BEQ     .ENDDIST
     ADD.W   #CRITTER_JS, ET_YSPEED(A0)
@@ -130,7 +130,7 @@ CRITTER:
     DC.W 10                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
-    DC.W 0,14, 64,64                                 ;COLISION_BOX 44
+    DC.W 0,14, 64,64                                 ;ET_HBOX 44
     DC.L CRITTER_START, CRITTER_UPDATE, DEFAULT_PAINT ;@
     DC.L CRITTER_DAMAGE                             ;@
     DC.L CRITTER_L                                         ;@SPRITE DEFECTO

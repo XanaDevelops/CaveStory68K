@@ -80,24 +80,24 @@ BAT_UPDATE:
     
     MOVE.W  #BATATK, -(SP)
     MOVE.L  A1, -(SP)
-    MOVE.L  AD_DODAM(A1), A1
+    MOVE.L  ET_REVDAM(A1), A1
     JSR     (A1)
     ADDQ.L  #6, SP
     .NOCOLIE:
     ADDQ.L  #4, SP
 
-    MOVE.L  SPRITE_INDEX(A0), D1                   ;ANIM_INDEX
+    MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
         MOVE.W  TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO
         SUBQ.W  #1, D2
         BNE     .NOTIMER
             MOVE.W  #BATANMSPD, D2
             ADDQ.L  #1, D1
-            MOVE.L  AD_SPRITE(A0), A1
+            MOVE.L  ET_SPRITE(A0), A1
             CMP.L   (A1), D1
             BLT     .NOOF
             MOVE.L  #0, D1
             .NOOF:
-            MOVE.L  D1, SPRITE_INDEX(A0)
+            MOVE.L  D1, ET_ISPR(A0)
         .NOTIMER:
         MOVE.W  D2, TIMERSPRITE(A0)
 
@@ -129,7 +129,7 @@ BAT:
     DC.W 3                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00UDLR(!AIRBONE)(!GRAV)--
-    DC.W 4,4, 42,48                                 ;COLISION_BOX
+    DC.W 4,4, 42,48                                 ;ET_HBOX
     DC.L BAT_START, BAT_UPDATE, DEFAULT_PAINT       ;@
     DC.L BAT_DAMAGE                                 ;@
     DC.L BAT_FLY_L                                  ;@SPRITE DEFECTO
@@ -137,8 +137,8 @@ BAT:
     DS.L 4                                          ;
     DS.W 1                                          ;
 
-TIMERSPRITE EQU AUX_DATA      ;W 
-VELDIR      EQU AUX_DATA+2    ;B
+TIMERSPRITE EQU ET_DATA      ;W 
+VELDIR      EQU ET_DATA+2    ;B
 
 
 BATATK      EQU 2

@@ -45,23 +45,23 @@ HBL             EQU 140
 HBW             EQU 20
 
 ;ENTITY
-ET_ID              EQU 0
-ET_XPOS            EQU 2
-ET_YPOS            EQU 4
-ET_HP              EQU 6
-ET_XSPEED          EQU 8
-ET_YSPEED          EQU 10
-ET_MSTATE          EQU 12
-ET_BSTATE          EQU 13
-COLISION_BOX    EQU 14
-AD_START        EQU 22
-AD_UPDATE       EQU 26
-AD_DRAW         EQU 30
-AD_DODAM        EQU 34
-AD_INTER        EQU AD_DODAM
-AD_SPRITE       EQU 38
-SPRITE_INDEX    EQU 42
-AUX_DATA        EQU 46
+ET_ID           EQU 0
+ET_XPOS         EQU 2
+ET_YPOS         EQU 4
+ET_HP           EQU 6
+ET_XSPEED       EQU 8
+ET_YSPEED       EQU 10
+ET_MSTATE       EQU 12
+ET_BSTATE       EQU 13
+ET_HBOX         EQU 14
+ET_START        EQU 22
+ET_UPDATE       EQU 26
+ET_DRAW         EQU 30
+ET_REVDAM       EQU 34
+ET_INTER        EQU ET_REVDAM
+ET_SPRITE       EQU 38
+ET_ISPR         EQU 42
+ET_DATA         EQU 46
 
 ;PLAYER
 G               EQU 1

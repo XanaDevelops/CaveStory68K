@@ -11,7 +11,7 @@ HEALER_START:
     MOVE.W  28(SP), ET_YPOS(A0)
     MOVE.W  30(SP), ET_XPOS(A0)
 
-    CLR.L SPRITE_INDEX(A0)
+    CLR.L ET_ISPR(A0)
 
     RTS
 
@@ -21,7 +21,7 @@ HEALER_UPDATE:
     TRAP    #14
     MOVE.L  (RNGVAL), D0
     ANDI.L  #1, D0
-    MOVE.L  D0, SPRITE_INDEX(A0)
+    MOVE.L  D0, ET_ISPR(A0)
     
     MOVE.L (SP)+, D0
     RTS
@@ -47,7 +47,7 @@ HEALER:
     DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
-    DC.W 0,0, 64,64                                  ;COLISION_BOX 44
+    DC.W 0,0, 64,64                                  ;ET_HBOX 44
     DC.L HEALER_START, HEALER_UPDATE, DEFAULT_PAINT ;@
     DC.L HEALER_INTERACT                            ;@
     DC.L HEALER_SPR                                 ;@SPRITE DEFECTO

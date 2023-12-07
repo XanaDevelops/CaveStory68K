@@ -22,7 +22,7 @@ DOOR_START:
 
     TST.W   38(SP)
     BEQ     .NOHID
-    MOVE.L  #DEFAULT_RTS, AD_DRAW(A0)
+    MOVE.L  #DEFAULT_RTS, ET_DRAW(A0)
     .NOHID:
 
     RTS
@@ -49,7 +49,7 @@ DOOR:
     DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
-    DC.W 0,0, 64,64                                 ;COLISION_BOX 44
+    DC.W 0,0, 64,64                                 ;ET_HBOX 44
     DC.L DOOR_START, DEFAULT_RTS, DEFAULT_PAINT     ;@
     DC.L DOOR_INTERACT                              ;@
     DC.L DOOR_SPR                                   ;@SPRITE DEFECTO
@@ -57,9 +57,9 @@ DOOR:
     DS.L 4                                          
     DS.W 1   
 
-NEXTX   EQU AUX_DATA ;W
-NEXTY   EQU AUX_DATA+2 ;W
-NEXTID  EQU AUX_DATA+4
+NEXTX   EQU ET_DATA ;W
+NEXTY   EQU ET_DATA+2 ;W
+NEXTID  EQU ET_DATA+4
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~

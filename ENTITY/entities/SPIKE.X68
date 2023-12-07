@@ -13,7 +13,7 @@ SPIKE_START:
     MOVE.W  28(SP), ET_YPOS(A0)
     MOVE.W  30(SP), ET_XPOS(A0)
 
-    MOVE.W  32(SP), SPRITE_INDEX+2(A0)
+    MOVE.W  32(SP), ET_ISPR+2(A0)
     
     RTS
 
@@ -31,7 +31,7 @@ SPIKE_UPDATE:
 
     MOVE.W  SPIKEATK(A0), -(SP)
     MOVE.L  A1, -(SP)
-    MOVE.L  AD_DODAM(A1), A1
+    MOVE.L  ET_REVDAM(A1), A1
     JSR     (A1)
     ADDQ.L  #6, SP
     .NOCOLIE:
@@ -46,7 +46,7 @@ SPIKE:
     DC.W 9999                                       ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
-    DC.W 8,12, 56,64                                 ;COLISION_BOX 44
+    DC.W 8,12, 56,64                                 ;ET_HBOX 44
     DC.L SPIKE_START, SPIKE_UPDATE, DEFAULT_PAINT   ;@
     DC.L DEFAULT_RTS                                ;@
     DC.L SPIKE_SPR                                  ;@SPRITE DEFECTO

@@ -12,7 +12,7 @@ CAMERA_START:
     ;SCREEN_X Y SCREEN_Y
     MOVE.W  38(SP), (SCREEN_X)
     MOVE.W  36(SP), (SCREEN_Y)
-    CLR.L   SPRITE_INDEX(A0)
+    CLR.L   ET_ISPR(A0)
     CLR.B   TRANS_STATUS(A0)
     MOVE.W  #ANIMSPEED, TIMERSPRITE(A0)
 
@@ -129,7 +129,7 @@ CAMERA:
     DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
-    DC.W 0,0, 0,0                                   ;COLISION_BOX 44
+    DC.W 0,0, 0,0                                   ;ET_HBOX 44
     DC.L CAMERA_START, CAMERA_UPDATE, DEFAULT_RTS   ;@
     DC.L DEFAULT_RTS                                ;@
     DC.L SQR_TRANS                                  ;@SPRITE DEFECTO
@@ -137,7 +137,7 @@ CAMERA:
     DS.L 4                                          
     DS.W 1
 
-ENTFOCUS        EQU AUX_DATA+2   ;L
+ENTFOCUS        EQU ET_DATA+2   ;L
 
 
 

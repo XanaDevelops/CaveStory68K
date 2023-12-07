@@ -80,7 +80,7 @@ PLAYER_UPDATE:
         BNE     .NODW
             MOVE.W  #16, D0                  ;16 BACK 24 LKDOWN
             MOVE.B  #12, LOOKDIRUD(A0)
-            CLR.L   SPRITE_INDEX(A0)          ;FIXBUG
+            CLR.L   ET_ISPR(A0)          ;FIXBUG
 
             ;MIRAR SI INTERACTUA ALGO
             MOVE.L  A0, -(SP)
@@ -94,19 +94,19 @@ PLAYER_UPDATE:
 
             MOVE.L  A0, -(SP)
             MOVE.L  A1, -(SP)
-            MOVE.L  AD_INTER(A1), A1
+            MOVE.L  ET_INTER(A1), A1
             JSR     (A1)
             ADDQ.L  #8, SP
             BRA     .NODW
     .LKOBK:
             MOVE.W  #24, D0
             MOVE.B  #12, LOOKDIRUD(A0)
-            CLR.L   SPRITE_INDEX(A0)          ;FIXBUG
+            CLR.L   ET_ISPR(A0)          ;FIXBUG
     .NODW:
 
     LEA     QUOTE_ANIM_V, A1
     ADD.B   LOOKDIRLR(A0), D0
-    MOVE.L  (A1, D0.W), AD_SPRITE(A0)
+    MOVE.L  (A1, D0.W), ET_SPRITE(A0)
 
     TST.W   ET_XSPEED(A0)
     BEQ     .ESZERO
@@ -170,18 +170,18 @@ PLAYER_UPDATE:
 
     TST.W   ET_XSPEED(A0)
     BEQ     .NOANIM
-        MOVE.L  SPRITE_INDEX(A0), D1                   ;ANIM_INDEX
+        MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
         MOVE.W  TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO
         SUBQ.W  #1, D2
         BNE     .NOTIMER
             MOVE.W  #ANIMSPEED, D2
             ADDQ.L  #1, D1
-            MOVE.L  AD_SPRITE(A0), A1
+            MOVE.L  ET_SPRITE(A0), A1
             CMP.L   (A1), D1
             BLT     .NOOF
             MOVE.L  #0, D1
             .NOOF:
-            MOVE.L  D1, SPRITE_INDEX(A0)
+            MOVE.L  D1, ET_ISPR(A0)
 
             BTST.B  #3, ET_BSTATE(A0)
             BNE     .NOSFXWALK
@@ -194,7 +194,7 @@ PLAYER_UPDATE:
         MOVE.W  D2, TIMERSPRITE(A0)
     BRA .ENDANIM
     .NOANIM:
-        CLR.L   SPRITE_INDEX(A0)
+        CLR.L   ET_ISPR(A0)
     .ENDANIM:
 
     MOVE.L  A0, -(SP)
@@ -217,8 +217,8 @@ PLAYER_PAINT:
     MOVEM.L D0-D2/A1-A2, -(SP)
 
 
-    MOVE.L  AD_SPRITE(A0), A1
-    MOVE.L  SPRITE_INDEX(A0), D1
+    MOVE.L  ET_SPRITE(A0), A1
+    MOVE.L  ET_ISPR(A0), D1
 
     ASL.L   #2, D1
     MOVE.L  4(A1, D1), A2
@@ -252,9 +252,9 @@ PLAYER_PAINT:
 
     IFNE DEBUG
         MOVE.B #90, D0
-        ADDA.L #COLISION_BOX, A0
+        ADDA.L #ET_HBOX, A0
         MOVEM.W (A0)+, D1-D4
-        SUBA.L #AD_START, A0
+        SUBA.L #ET_START, A0
         ADD.W ET_XPOS(A0), D1
         ADD.W ET_XPOS(A0), D3
         ADD.W ET_YPOS(A0), D2
@@ -366,7 +366,7 @@ PLAYER:
     DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00UDLR(!AIRBONE)(!GRAV)--
-    DC.W 8,4, 58,64                                 ;COLISION_BOX
+    DC.W 8,4, 58,64                                 ;ET_HBOX
     DC.L PLAYER_START, PLAYER_UPDATE, PLAYER_PAINT  ;@
     DC.L PLAYER_DAMAGE                              ;@
     DC.L QUOTE_WALK_RN                              ;@SPRITE DEFECTO
@@ -376,12 +376,12 @@ PLAYER:
                                                     ;48.B (lookdir) 8:up 12:down
                                                     ;49.B (timer jump)
                                                     ;50.B (equipped arm)
-TIMERSPRITE     EQU AUX_DATA    ;W
-LOOKDIRLR       EQU AUX_DATA+2  ;B
-LOOKDIRUD       EQU AUX_DATA+3  ;B
-TIMERJUMP       EQU AUX_DATA+4  ;B
-TIMERINVI       EQU AUX_DATA+5  ;B
-MAXHEALTH       EQU AUX_DATA+6  ;W
+TIMERSPRITE     EQU ET_DATA    ;W
+LOOKDIRLR       EQU ET_DATA+2  ;B
+LOOKDIRUD       EQU ET_DATA+3  ;B
+TIMERJUMP       EQU ET_DATA+4  ;B
+TIMERINVI       EQU ET_DATA+5  ;B
+MAXHEALTH       EQU ET_DATA+6  ;W
 
 
 

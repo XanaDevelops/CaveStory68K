@@ -49,18 +49,18 @@ HEART_UPDATE:
     BRA     .ENDUPDATE
     .NODW: 
 
-    MOVE.L  SPRITE_INDEX(A0), D1                   ;ANIM_INDEX
+    MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
         MOVE.W  TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO
         SUBQ.W  #1, D2
         BNE .NOTIMER
             MOVE.W  #HRTANMSPD, D2
             ADDQ.L  #1, D1
-            MOVE.L  AD_SPRITE(A0), A1
+            MOVE.L  ET_SPRITE(A0), A1
             CMP.L   (A1), D1
             BLT     .NOOF
             MOVE.L  #0, D1
             .NOOF:
-            MOVE.L  D1, SPRITE_INDEX(A0)
+            MOVE.L  D1, ET_ISPR(A0)
         .NOTIMER:
         MOVE.W  D2, TIMERSPRITE(A0)
     .ENDUPDATE:    
@@ -88,7 +88,7 @@ HEART:
     DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00UDLR(!AIRBONE)(!GRAV)--
-    DC.W 8,10, 52,52                                 ;COLISION_BOX 44
+    DC.W 8,10, 52,52                                 ;ET_HBOX 44
     DC.L HEART_START, HEART_UPDATE, DEFAULT_PAINT   ;@
     DC.L HEART_INTERACT                             ;@
     DC.L HEART_SM                                   ;@SPRITE DEFECTO
@@ -96,7 +96,7 @@ HEART:
     DS.L 4                                          
     DS.W 1        
 
-INTERACT_ID     EQU AUX_DATA    ;
+INTERACT_ID     EQU ET_DATA    ;
 
 
 *~Font name~Courier New~

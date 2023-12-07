@@ -17,18 +17,18 @@ DISKQ_START:
 DISKQ_UPDATE:
     MOVEM.L D1-D2/A1, -(SP)
 
-    MOVE.L  SPRITE_INDEX(A0), D1                   ;ANIM_INDEX
+    MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
         MOVE.W  TIMERSPRITE(A0), D2                   ;CONTROLAR SALTO TODO
         SUBQ.W  #1, D2
         BNE     .NOTIMER
             MOVE.W  #DSKANIM, D2
             ADDQ.L  #1, D1
-            MOVE.L  AD_SPRITE(A0), A1
+            MOVE.L  ET_SPRITE(A0), A1
             CMP.L   (A1), D1
             BLT     .NOOF
             MOVE.L  #0, D1
             .NOOF:
-            MOVE.L  D1, SPRITE_INDEX(A0)
+            MOVE.L  D1, ET_ISPR(A0)
         .NOTIMER:
         MOVE.W  D2, TIMERSPRITE(A0)
     .ENDUPDATE:    
@@ -56,7 +56,7 @@ DISQUETE:
     DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
-    DC.W 0,0, 64,64                                 ;COLISION_BOX 44
+    DC.W 0,0, 64,64                                 ;ET_HBOX 44
     DC.L DISKQ_START, DISKQ_UPDATE, DEFAULT_PAINT   ;@
     DC.L DISKQ_INTERACT                             ;@
     DC.L DISKQ_SPR                                  ;@SPRITE DEFECTO

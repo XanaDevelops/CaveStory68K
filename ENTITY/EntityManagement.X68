@@ -156,8 +156,8 @@ DEFAULT_PAINT:
 
     MOVEM.L D0-D1/A1-A2, -(SP)
 
-    MOVE.L  AD_SPRITE(A0), A1
-    MOVE.L  SPRITE_INDEX(A0), D1
+    MOVE.L  ET_SPRITE(A0), A1
+    MOVE.L  ET_ISPR(A0), D1
 
     ASL.L   #2, D1
     MOVE.L  4(A1, D1), A2
@@ -176,9 +176,9 @@ DEFAULT_PAINT:
 
     IFNE DEBUG
         MOVE.B #90, D0
-        ADDA.L #COLISION_BOX, A0
+        ADDA.L #ET_HBOX, A0
         MOVEM.W (A0)+, D1-D4
-        SUBA.L #AD_START, A0
+        SUBA.L #ET_START, A0
         ADD.W ET_XPOS(A0), D1
         ADD.W ET_XPOS(A0), D3
         ADD.W ET_YPOS(A0), D2

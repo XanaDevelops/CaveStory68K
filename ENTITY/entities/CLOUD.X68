@@ -17,7 +17,7 @@ CLOUD_START:
     MOVE.W  D0, TYPE(A0)
     ASL.W   #1, D0
     LEA     CLOUDS, A1
-    MOVE.L  (A1, D0.W), AD_SPRITE(A0)
+    MOVE.L  (A1, D0.W), ET_SPRITE(A0)
 
     RTS
 
@@ -38,7 +38,7 @@ CLOUD_UPDATE:
     RTS
 
 CLOUD_PAINT:
-    MOVE.L  AD_SPRITE(A0), -(SP)
+    MOVE.L  ET_SPRITE(A0), -(SP)
     MOVE.W  ET_YPOS(A0), -(SP) ;Y
     MOVE.W  ET_XPOS(A0), -(SP) ;X
     JSR     FASTSPRITE
@@ -51,7 +51,7 @@ CLOUD:
     DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
-    DC.W 0,0, 0,0                                   ;COLISION_BOX 44
+    DC.W 0,0, 0,0                                   ;ET_HBOX 44
     DC.L CLOUD_START, CLOUD_UPDATE, CLOUD_PAINT     ;@
     DC.L DEFAULT_RTS                                ;@
     DC.L NUBE0                                     ;@SPRITE DEFECTO
@@ -59,7 +59,7 @@ CLOUD:
     DS.L 4                                          
     DS.W 1        
     
-TYPE        EQU AUX_DATA
+TYPE        EQU ET_DATA
 
 CLOUDXSIZE  EQU 640
 STARTVEL    EQU 7

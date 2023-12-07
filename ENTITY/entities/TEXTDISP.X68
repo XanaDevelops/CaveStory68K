@@ -33,7 +33,7 @@ TEXTDISP:
     DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
-    DC.W 0,0, 0,0                                   ;COLISION_BOX 44
+    DC.W 0,0, 0,0                                   ;ET_HBOX 44
     DC.L TEXTDISP_START, DEFAULT_RTS, TEXTDISP_DRAW ;@
     DC.L DEFAULT_RTS                                ;@
     DC.L -1                                         ;@TEXTO
@@ -41,7 +41,7 @@ TEXTDISP:
     DS.L 4                                          
     DS.W 1        
 
-AD_TEXTO    EQU AD_SPRITE
+AD_TEXTO    EQU ET_SPRITE
 
 *~Font name~Courier New~
 *~Font size~10~
