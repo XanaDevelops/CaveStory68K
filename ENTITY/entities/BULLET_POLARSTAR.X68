@@ -147,7 +147,7 @@ BULLET_POLARSTAR:
                                                     ;47.B (time onscreen)
                                                     ;48.W (traveldistance)
                                                     ;49.B (dir) 0123 LRUD
-                                                    
+;STATIC VALUES                    
 
 
 DAMAGE              EQU ET_HP
