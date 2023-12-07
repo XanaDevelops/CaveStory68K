@@ -65,7 +65,7 @@ UPDATE_ALL_ENT:
     .UPDATE_ALL_LOOP:
         TST.W   (A0)
         BEQ .ES_0_UPDLP
-            MOVE.L  26(A0), A1
+            MOVE.L  ET_UPDATE(A0), A1
             JSR     (A1)
         .ES_0_UPDLP:
         ADDA.L  #ENT_SIZE_L, A0
@@ -81,7 +81,7 @@ DRAW_ALL_ENT:
     .DRAW_ALL_LOOP:
         TST.W   (A0)
         BEQ     .ES_0_DRWLP
-            MOVE.L  30(A0), A1
+            MOVE.L  ET_DRAW(A0), A1
             JSR     (A1)
         .ES_0_DRWLP:
         ADDA.L  #ENT_SIZE_L, A0
