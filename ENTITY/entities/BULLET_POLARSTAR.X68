@@ -148,7 +148,8 @@ BULLET_POLARSTAR:
                                                     ;48.W (traveldistance)
                                                     ;49.B (dir) 0123 LRUD
 ;STATIC VALUES                    
-
+MAX_BLT_ONSCR       DS.B 1
+                    DS.W 0
 
 DAMAGE              EQU ET_HP
 
