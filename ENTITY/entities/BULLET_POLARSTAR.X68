@@ -143,22 +143,21 @@ BULLET_POLARSTAR:
     DC.L PSTAR_BULLET_1                             ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0
-                                              ;46.B (level) 012
-                                                    ;47.B (time onscreen)
-                                                    ;48.W (traveldistance)
-                                                    ;49.B (dir) 0123 LRUD
-;STATIC VALUES                    
-MAX_BLT_ONSCR       DS.B 1
-                    DS.W 0
+;STATIC VALUES
+    DS.B 1
+    DS.W 0                    
+
+    
 
 DAMAGE              EQU ET_HP
 
-LEVELPOWER          EQU ET_DATA   ;B
-MAX_T_SCREEN        EQU ET_DATA+1 ;B
-MAX_TRVL_DIST       EQU ET_DATA+2 ;W
-TRAVEL_DIR          EQU ET_DATA+4 ;B
-BLT_ONSCREEN        EQU ET_DATA+5 ;B
-MAX_BLT_ONSCR       EQU ET_DATA+6 ;B
+LEVELPOWER          EQU ET_DATA    ;B
+MAX_T_SCREEN        EQU ET_DATA+1  ;B
+MAX_TRVL_DIST       EQU ET_DATA+2  ;W
+TRAVEL_DIR          EQU ET_DATA+4  ;B
+BLT_ONSCREEN        EQU ET_DATA+5  ;B
+;STATIC VALUES
+MAX_BLT_ONSCR       EQU ENT_SIZE_L ;B
 
 
 
