@@ -48,8 +48,8 @@
             "scale": 4,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 625.75,
-                "y": 157.625
+                "x": 363.25,
+                "y": 242.125
             }
         },
         "98_slopetest.tmx": {
@@ -171,11 +171,11 @@
         "NpcSym.tsx",
         "CAMARA.tsx",
         "MyChar.tsx",
+        "00_TITLESCREEN.tmx",
         "01_STARTCAVE.tmx",
         "02_FIRSTCAVE.tmx",
         "98_slopetest.tmx",
-        "99_tiledtest.tmx",
-        "00_TITLESCREEN.tmx"
+        "99_tiledtest.tmx"
     ],
     "project": "sin nombre.tiled-project",
     "property.type": "int",
@@ -185,8 +185,8 @@
         "NpcSym.tsx",
         "CAMARA.tsx",
         "MyChar.tsx",
-        "01_STARTCAVE.tmx",
         "00_TITLESCREEN.tmx",
+        "01_STARTCAVE.tmx",
         "99_tiledtest.tmx",
         "98_slopetest.tmx",
         "02_FIRSTCAVE.tmx",
