@@ -5,16 +5,24 @@
 * Description:
 *-----------------------------------------------------------
 SOLID_ID    DC.W 2, 33, 34, 42, 49, 50, -1
-SLOPE_ID    DC.W 3,-2,4,-2,  5,-2,6,-2,  19,7,-2,20,8,-2,  21,9,-2,22,10,-2 -1
+SLOPE_ID    DC.W 3,-2,4,-2,  5,-2,6,-2,  19,7,-2,20,8,-2,  21,9,-2,22,10,-2, -1
 ;-2 SEPARA TIPO RAMPA, -1 FIN
 
 GENERATE_COLIMAP:
-    MOVEM.L D0-D3/D6-D7/A0-A2, -(SP)
+    MOVEM.L D0-D4/D6-D7/A0-A2, -(SP)
+
+    CLR.L D4
+    .RELOAD:
 
     MOVE.L  CURRENTMAPDIR, A0
     LEA     INTERACT_MAP, A1
-    MOVE.L  (A0), A2
-
+    TST.W   D4
+    BNE     .OTRACAPA
+    MOVE.L  4(A0), A2
+    BRA     .START
+    .OTRACAPA:
+    MOVE.L  0(A0), A2
+    .START:
     MOVE.W  10(A0), D7
     SUBQ.W  #1, D7
     .GENERATE_LOOP_Y:
@@ -22,7 +30,13 @@ GENERATE_COLIMAP:
         SUBQ.W  #1, D6
         .GENERATE_LOOP_X:
             MOVE.W  (A2)+, D0
+            TST.W   D4
+            BEQ     .PCAPA
+            MOVE.B  (A1), D2
+            BRA     .CHECK
+            .PCAPA:
             MOVE.B  #0, D2
+            .CHECK:
             ;COMPROBAR BLOQUES SOLIDOS, EN COLIMAP -1
             LEA     SOLID_ID, A3
             .SOLID_ID_LOOP:
@@ -53,8 +67,15 @@ GENERATE_COLIMAP:
         DBRA    D6, .GENERATE_LOOP_X
     DBRA    D7, .GENERATE_LOOP_Y
 
-    MOVEM.L (SP)+, A2-A0/D7-D6/D3-D0
+    TST.W   D4
+    BNE     .END
+    ADDQ.W  #1, D4
+    BRA     .RELOAD
+
+    .END:
+    MOVEM.L (SP)+, A2-A0/D7-D6/D4-D0
     RTS
+
 
 
 

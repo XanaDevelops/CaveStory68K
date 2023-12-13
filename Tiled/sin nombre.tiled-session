@@ -24,10 +24,10 @@
                 2
             ],
             "scale": 4,
-            "selectedLayer": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 128,
-                "y": 112.125
+                "x": 127.75,
+                "y": 111.875
             }
         },
         "01_tiledtest.tmx": {
@@ -45,11 +45,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 2,
-            "selectedLayer": 2,
+            "scale": 5.5,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 424,
-                "y": 399.75
+                "x": 545.0909090909091,
+                "y": 193
             }
         },
         "98_slopetest.tmx": {
