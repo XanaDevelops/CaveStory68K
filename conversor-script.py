@@ -346,7 +346,8 @@ class Conversor():
     def ConvertMapaTiled(self, path:str) -> list:
         tmxF = tmx.TileMap.load(path)
         #importante orden dentro de Tiled
-        tileLayer,bgnLayer, objLayer = tmxF.layers
+        tileLayer, objLayer, bgnLayer = tmxF.layers
+        print(tileLayer, objLayer, bgnLayer)
 
         tmxName = path.split("/")[-1].split(".")[0].upper()
         tileData:str = ""

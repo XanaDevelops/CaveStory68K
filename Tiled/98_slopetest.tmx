@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="60" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="3">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="60" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="4">
  <tileset firstgid="1" source="PrtCave.tsx"/>
  <tileset firstgid="81" source="NpcSym.tsx"/>
  <tileset firstgid="381" source="CAMARA.tsx"/>
@@ -27,6 +27,14 @@
 49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50
 </data>
  </layer>
+ <objectgroup id="2" name="Capa de Objetos 1">
+  <object id="1" name="PLAYER" gid="93" x="64" y="240" width="16" height="16"/>
+  <object id="2" name="CAMERA" gid="240" x="0" y="16" width="16" height="16">
+   <properties>
+    <property name="L_SEEK" value="PLAYER"/>
+   </properties>
+  </object>
+ </objectgroup>
  <layer id="3" name="Capa de patrones 2" width="60" height="18">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -49,12 +57,4 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="2" name="Capa de Objetos 1">
-  <object id="1" name="PLAYER" gid="93" x="64" y="240" width="16" height="16"/>
-  <object id="2" name="CAMERA" gid="240" x="0" y="16" width="16" height="16">
-   <properties>
-    <property name="L_SEEK" value="PLAYER"/>
-   </properties>
-  </object>
- </objectgroup>
 </map>

@@ -21,6 +21,14 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="2" name="Capa de Objetos 1">
+  <object id="1" name="CAMERA" gid="1" x="0" y="16" width="16" height="16">
+   <properties>
+    <property name="L_SEEK" type="int" value="-1"/>
+   </properties>
+  </object>
+  <object id="2" name="TITLESCREEN" gid="2" x="0" y="16" width="16" height="16"/>
+ </objectgroup>
  <layer id="3" name="Capa de patrones 2" width="18" height="16">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -41,12 +49,4 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="2" name="Capa de Objetos 1">
-  <object id="1" name="CAMERA" gid="1" x="0" y="16" width="16" height="16">
-   <properties>
-    <property name="L_SEEK" type="int" value="-1"/>
-   </properties>
-  </object>
-  <object id="2" name="TITLESCREEN" gid="2" x="0" y="16" width="16" height="16"/>
- </objectgroup>
 </map>
