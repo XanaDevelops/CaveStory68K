@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "02_FIRSTCAVE.tmx",
+    "activeFile": "98_slopetest.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -48,8 +48,8 @@
             "scale": 4,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 341.25,
-                "y": 243.625
+                "x": 341,
+                "y": 243.375
             }
         },
         "98_slopetest.tmx": {
@@ -59,8 +59,8 @@
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 480,
-                "y": 144.16666666666666
+                "x": 343.66666666666663,
+                "y": 199.49999999999997
             }
         },
         "99_tiledtest.tmx": {
@@ -187,9 +187,9 @@
         "MyChar.tsx",
         "00_TITLESCREEN.tmx",
         "01_STARTCAVE.tmx",
+        "02_FIRSTCAVE.tmx",
         "99_tiledtest.tmx",
         "98_slopetest.tmx",
-        "02_FIRSTCAVE.tmx",
         "01_tiledtest.tmx",
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx"
     ],
