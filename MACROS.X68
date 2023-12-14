@@ -117,9 +117,9 @@ UPDATE_KEY MACRO
 
 KILL_ET_ENEMY MACRO
     ; MATA, y dropea, ENEMIGO
-    ;\0.B RNG SEPARATOR
-    ;\1,W HEART TYPE (0)
-    ;\2.W DORITO TYPE (1)
+    ; 1.B RNG SEPARATOR
+    ; 2,W HEART TYPE (0)
+    ; 3.W DORITO TYPE (1)
     IFNE NARG-3
         FAIL ERROR KILL_ET_ENEMY, ARGUMENTOS INSUFICIENTES
         MEXIT
@@ -132,20 +132,20 @@ KILL_ET_ENEMY MACRO
     TRAP    #14
     MOVE.L  (RNGVAL), D1
     ANDI.L  #$FF, D1
-    CMP.B   \0, D1
+    CMP.B   \1, D1
     BHI     .NOHEART\@
-    MOVE.W  \1, 4(SP) ;TEST
-    MOVE.L  #HEART, -(SP)
-    BRA     .ENDDROP
-    .NOHEART\@:
     MOVE.W  \2, 4(SP) ;TEST
+    MOVE.L  #HEART, -(SP)
+    BRA     .ENDDROP\@
+    .NOHEART\@:
+    MOVE.W  \3, 4(SP) ;TEST
     MOVE.L  #DORITO, -(SP)
     .ENDDROP\@:
     JSR     INSTANCE_ENTITY
     ADDA.L  #10, SP
     
     MOVE.L  A0, -(SP)
-    BSR     DESTROY_ENTITY
+    JSR     DESTROY_ENTITY
     ADDQ.L  #4, SP
 
     ENDM

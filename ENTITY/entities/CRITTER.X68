@@ -27,7 +27,7 @@ CRITTER_UPDATE:
     ;CHECK ET_HP
     TST.W   ET_HP(A0)
     BGT     .NOKILL
-    KILL_ET_ENEMY   #$2F, #0, #1
+    KILL_ET_ENEMY #$2F, #0, #1
         BRA     .ENDUPDATE
     .NOKILL:
 
@@ -121,6 +121,11 @@ CRITTER:
 CRTATK      EQU 4
 AGRO        EQU 375
 ATKRANGE    EQU 250
+
+
+
+
+
 
 
 
