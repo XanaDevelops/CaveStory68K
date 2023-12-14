@@ -24,30 +24,8 @@ BAT_UPDATE:
 
     TST.W   ET_HP(A0)
     BGT     .NOKILL
-        ;DROP
-        SUBQ.L  #2, SP ;RESERVA TIPO
-        MOVE.W  ET_XPOS(A0), -(SP)
-        MOVE.W  ET_YPOS(A0), -(SP)
-
-        TRAP    #14
-        MOVE.L  (RNGVAL), D1
-        ANDI.L  #$FF, D1
-        CMP.B   #$2F, D1
-        BHI     .NOHEART
-        MOVE.W  #0, 4(SP) ;TEST
-        MOVE.L  #HEART, -(SP)
-        BRA     .ENDDROP
-        .NOHEART:
-        MOVE.W  #1, 4(SP) ;TEST
-        MOVE.L  #DORITO, -(SP)
-        .ENDDROP:
-        JSR     INSTANCE_ENTITY
-        ADDA.L  #10, SP
-        
-        MOVE.L  A0, -(SP)
-        BSR     DESTROY_ENTITY
-        ADDQ.L  #4, SP
-        BRA     .ENDUPDATE
+    KILL_ET_ENEMY #$2F, #0, #1
+    BRA     .ENDUPDATE
     .NOKILL:
 
     TST.W   ET_YSPEED(A0)

@@ -28,7 +28,7 @@ CRITTER_UPDATE:
     TST.W   ET_HP(A0)
     BGT     .NOKILL
     KILL_ET_ENEMY #$2F, #0, #1
-        BRA     .ENDUPDATE
+    BRA     .ENDUPDATE
     .NOKILL:
 
 
