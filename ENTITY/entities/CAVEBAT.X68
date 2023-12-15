@@ -8,8 +8,13 @@ BAT_START:
     ;36(SP) ET_YPOS 
     ;38(SP) ET_XPOS
 
-    MOVE.W  28(SP), ET_YPOS(A0)
-    MOVE.W  30(SP), ET_XPOS(A0)
+    ;BUG DEL EASY68K
+    MOVE.W  28(SP), D2
+    MOVE.W  28(SP), D2
+    MOVE.W  D2, ET_YPOS(A0)
+    MOVE.W  30(SP), D2
+    MOVE.W  30(SP), D2
+    MOVE.W  D2, ET_XPOS(A0)
 
     CLR.B   VELDIR(A0)
 
