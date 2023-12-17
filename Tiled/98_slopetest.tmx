@@ -28,14 +28,6 @@
 </data>
  </layer>
  <objectgroup id="2" name="Capa de Objetos 1">
-  <object id="1" name="PLAYER" gid="93" x="64" y="240" width="16" height="16"/>
-  <object id="2" name="CAMERA" gid="240" x="0" y="16" width="16" height="16">
-   <properties>
-    <property name="L_SEEK" value="PLAYER"/>
-   </properties>
-  </object>
-  <object id="4" name="BAT" gid="425" x="208" y="192" width="16" height="16"/>
-  <object id="5" name="CRITTER" gid="384" x="336" y="192" width="16" height="16"/>
   <object id="6" name="DOOR" gid="115" x="144" y="224" width="16" height="16">
    <properties>
     <property name="W_HIDDEN" type="int" value="0"/>
@@ -44,6 +36,14 @@
     <property name="W_NEXTMAP" type="int" value="3"/>
    </properties>
   </object>
+  <object id="5" name="CRITTER" gid="384" x="336" y="192" width="16" height="16"/>
+  <object id="1" name="PLAYER" gid="93" x="64" y="240" width="16" height="16"/>
+  <object id="2" name="CAMERA" gid="240" x="0" y="16" width="16" height="16">
+   <properties>
+    <property name="L_SEEK" value="PLAYER"/>
+   </properties>
+  </object>
+  <object id="4" name="BAT" gid="425" x="208" y="192" width="16" height="16"/>
  </objectgroup>
  <layer id="3" name="Capa de patrones 2" width="60" height="18">
   <data encoding="csv">
