@@ -26,7 +26,14 @@ DORITO_START:
 	
 	;CALCULAR UNA ET_XSPEED ALEATORIA
 	TRAP #14
-	
+	MOVE.L  (RNGVAL), D0
+    ANDI.L  #$86, D0
+    BCLR.L  #7, D0
+    BEQ     .DONEG
+    NEG.W   D0
+    .DONEG:
+
+    MOVE.W  D0, ET_XSPEED(A0)
 	
     RTS
 
@@ -65,7 +72,8 @@ DORITO_UPDATE:
     CLR.L   D0
     BTST.B  #3, ET_BSTATE(A0)
     BEQ .NOHIT
-        MOVE.W #DRJMPSPD, ET_YSPEED(A0)
+        MOVE.W  #DRJMPSPD, ET_YSPEED(A0)
+        ASR.W   ET_XSPEED(A0) ;BUGGY
     .NOHIT:
 
     MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
