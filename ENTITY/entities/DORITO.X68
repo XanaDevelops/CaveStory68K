@@ -60,7 +60,7 @@ DORITO_UPDATE:
     CLR.L   D0
     BTST.B  #3, ET_BSTATE(A0)
     BEQ .NOHIT
-        MOVE.W #-10, ET_YSPEED(A0)
+        MOVE.W #DRJMPSPD, ET_YSPEED(A0)
     .NOHIT:
 
     MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
