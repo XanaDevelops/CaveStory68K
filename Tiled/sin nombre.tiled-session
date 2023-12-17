@@ -15,8 +15,8 @@
             "scale": 1.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 144,
-                "y": 128.33333333333331
+                "x": 143.66666666666669,
+                "y": 128.33333333333334
             }
         },
         "01_STARTCAVE.tmx": {
@@ -24,10 +24,10 @@
                 2
             ],
             "scale": 5.5,
-            "selectedLayer": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 128,
-                "y": 111.9090909090909
+                "x": 127.54545454545456,
+                "y": 111.45454545454547
             }
         },
         "01_tiledtest.tmx": {
@@ -48,8 +48,8 @@
             "scale": 4,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 341,
-                "y": 243.375
+                "x": 436.875,
+                "y": 245.75
             }
         },
         "98_slopetest.tmx": {
@@ -59,8 +59,8 @@
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 343.66666666666663,
-                "y": 199.49999999999997
+                "x": 120.83333333333333,
+                "y": 217.66666666666666
             }
         },
         "99_tiledtest.tmx": {
@@ -70,8 +70,8 @@
             "scale": 4.4976562499999995,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 135.84853222164324,
-                "y": 128.1778704186208
+                "x": 135.95970123328124,
+                "y": 127.95553239534482
             }
         },
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx": {
