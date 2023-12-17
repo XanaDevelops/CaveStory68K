@@ -5,7 +5,7 @@
 * Description:
 *-----------------------------------------------------------
 
-UPDATE_PHYSICS:
+UPDATE_PHYSICS: ;TODO? quitar bit colision L/R
     ; ACTUALIZA LA POSICION ACORDE A LA VELOCIDAD Y 
     ; AL MAPA DE COLISIONES
     ; NO RESTA VELOCIDAD, PERO SI 0 SI COLI
