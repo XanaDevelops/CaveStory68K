@@ -5,7 +5,7 @@
 * Description:
 *-----------------------------------------------------------
 DEBUG           EQU 1 ;DEBUG
-DGB_ADV_HB      EQU 0 ;MUESTRA POS FUTURA
+DBG_ADV_HB      EQU 0 ;MUESTRA POS FUTURA
 DGB_NODBUF      EQU 0 ;JUST DON'T 
 DGBTRACE        EQU 0 ;AFECTA ENORMEMENTE EL RENDIMENTO
 
@@ -48,13 +48,13 @@ ET_YPOS         EQU 4
 ET_HP           EQU 6
 ET_XSPEED       EQU 8
 ET_YSPEED       EQU 10
-ET_MSTATE       EQU 12
-ET_BSTATE       EQU 13
+ET_MSTATE       EQU 12 ;Machine STATE
+ET_BSTATE       EQU 13 ;Body    STATE
 ET_HBOX         EQU 14
 ET_START        EQU 22
 ET_UPDATE       EQU 26
 ET_DRAW         EQU 30
-ET_REVDAM       EQU 34
+ET_REVDAM       EQU 34  ;REcieVeDAMage
 ET_INTER        EQU ET_REVDAM
 ET_SPRITE       EQU 38
 ET_ISPR         EQU 42

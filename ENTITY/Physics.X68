@@ -46,7 +46,7 @@ UPDATE_PHYSICS: ;TODO? quitar bit colision L/R
     COLIMAPD1D4
 
     IFNE DEBUG
-    IFNE DGB_ADV_HB
+    IFNE DBG_ADV_HB
         DBG_HBOXP
     ENDC
     ENDC
@@ -107,7 +107,7 @@ UPDATE_PHYSICS: ;TODO? quitar bit colision L/R
     UPDPHGETHB
 
     IFNE DEBUG
-    IFNE DGB_ADV_HB
+    IFNE DBG_ADV_HB
         DBG_HBOXP
     ENDC
     ENDC
@@ -305,10 +305,10 @@ SLOPECALC:
 
     TST.W   28(SP)
     BNE     .DBG
-    MOVE.W  D2, (DBGWORD1)
+    ;MOVE.W  D2, (DBGWORD1)
     BRA     .EXITSLPCALC
     .DBG:
-    MOVE.W  D2, (DBGWORD2)
+    ;MOVE.W  D2, (DBGWORD2)
 
     ;DBG
     ;MOVE.W  #-1, D2
