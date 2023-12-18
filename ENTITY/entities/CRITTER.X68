@@ -15,23 +15,112 @@ CRITTER_START:
     CLR.W   ET_TSPRT(A0)
 
     CLR.L   ET_ISPR(A0)
+    CLR.B   ET_MSTATE(A0)
     ; 0:SLEEP
     ; 1:WARNING
     ; 2:DO ATK
     ; 3:REST
 
+    CLR.W   CR_WAITATK(A0)
+    CLR.B   CR_LOOKDIR(A0)
+
     RTS
 
 CRITTER_UPDATE:
+    MOVEM.L D0-D1, -(SP)
 
     ;CHECK ET_HP
     TST.W   ET_HP(A0)
     BGT     .NOKILL
     KILL_ET_ENEMY #$2F, #0, #1
-        BRA     .ENDUPDATE
+    BRA     .ENDUPDATE
     .NOKILL:
 
+    CLR.L   D1
+    
+    ;CALCULAR DISTANCIA
+    MOVE.L  A0, -(SP)
+    SUBQ.W  #2, SP
+    BSR     DIST_PLYR
+    MOVE.W  (SP)+, D0
+    ADDQ.L  #4, SP
+    TST.W   D0      ;-1 NO DIST, 
+    BMI     .STEND 
+    ;OPERAR ESTADOS
+    MOVE.B  CR_LOOKDIR(A0), D1
 
+    MOVE.W  ET_ISPR+2(A0), (DBGWORD1)
+
+    TST.B   ET_MSTATE(A0)
+    BEQ     .ST0
+    CMP.B   #2, ET_MSTATE(A0)
+    BEQ     .ST2
+    BLT     .ST1
+.ST3:
+    SUBQ.W  #1, CR_WAITATK(A0)
+    BPL     .NOST1
+    MOVE.B  #1, ET_MSTATE(A0)
+    .NOST1:
+    BTST.B  #3, ET_BSTATE(A0)
+    BEQ     .AIRBONE
+    MOVE.L  #1, ET_ISPR(A0) ;WARN
+    CLR.W   ET_XSPEED(A0)
+    BRA     .STEND
+    .AIRBONE:
+    MOVE.L  #2, ET_ISPR(A0) ;PREV OVERFLOW POR D1
+    BRA     .STEND
+.ST0:
+    CMP.W   #AGRO, D0
+    BLT     .DOAGRO
+    CLR.L   ET_ISPR(A0) ;SLEEP
+    BRA     .STEND
+    .DOAGRO:
+    MOVE.L  #1, ET_ISPR(A0) ;WARN
+    MOVE.B  #1, ET_MSTATE(A0)
+    BRA     .STEND
+.ST1:
+    MOVE.L  #1, ET_ISPR(A0) ;PREV BUG
+    CMP.W   #ATKRANGE, D0
+    BLE     .JST2
+    CMP.W   #AGRO, D0
+    BLT     .STEND
+    CLR.B   ET_MSTATE(A0)
+    BRA     .STEND
+    .JST2:
+    MOVE.B  #2, ET_MSTATE(A0)
+    BRA     .STEND
+.ST2:
+    BTST.B  #3, ET_BSTATE(A0) ;SUELO
+    BNE     .DOATK
+    ;EN EL AIRE
+    MOVE.B  #1, ET_MSTATE(A0)
+    BRA     .STEND
+    .DOATK:
+    MOVE.L  #2, ET_ISPR(A0) ;ATK
+
+    MOVE.B  #3, ET_MSTATE(A0)
+    MOVE.W  #CRWAITATK, CR_WAITATK(A0)
+
+    ADD.W   #CRITTER_JS, ET_YSPEED(A0)
+    MOVE.W  #MAX_PLYR_SPEED-4, ET_XSPEED(A0) ;PLACEHOLDER!!!
+    ;MIRAR DIRECCION
+    MOVEQ.L #3, D1 ;Nº SPRITES POR DIR
+    MOVE.W  ET_XPOS(A0), D0
+    MOVE.L  (PLAYERREF), A1
+    
+    SUB.W   ET_XPOS(A1), D0
+    BMI     .NONEG3
+    NEG.W   ET_XSPEED(A0)
+    CLR.L   D1
+    .NONEG3:
+.STEND:
+
+    ADD.L   D1, ET_ISPR(A0)
+
+    MOVE.W  ET_ISPR+2(A0), (DBGWORD2)
+
+    MOVE.B  D1, CR_LOOKDIR(A0)
+    ;ACTUALIZAR FISICAS Y COLISION
     MOVE.L  A0, -(SP)
     BSR     UPDATE_PHYSICS
 
@@ -50,40 +139,8 @@ CRITTER_UPDATE:
     .NOCOLIE:
     ADDQ.L  #4, SP
 
-    ;CALCULAR DISTANCIA
-    MOVE.L  A0, -(SP)
-    SUBQ.W  #2, SP
-    BSR     DIST_PLYR
-    MOVE.W  (SP)+, D0
-    ADDQ.L  #4, SP
-    TST.W   D0      ;-1 NO DIST, 
-    BMI     .NOATK 
-    ;OPERAR ESTADOS
-    CMP.W   #AGRO, D0
-    BLT     .DOAGRO
-    CLR.L   ET_ISPR(A0) ;SLEEP
-    BRA     .NOATK
-    .DOAGRO:
-    MOVE.L  #1, ET_ISPR(A0) ;WARN
-    CMP.W   #ATKRANGE, D0
-    BGT     .NOATK
-    MOVE.L  #2, ET_ISPR(A0) ;ATK
-    BTST.B  #3, ET_BSTATE(A0)
-    BEQ     .ENDDIST
-    ADD.W   #CRITTER_JS, ET_YSPEED(A0)
-    MOVE.W  #MAX_PLYR_SPEED-4, ET_XSPEED(A0) ;PLACEHOLDER!!!
-    ;MIRAR DIRECCION
-    MOVE.W  ET_XPOS(A0), D0
-    MOVE.L  (PLAYERREF), A1
-    SUB.W   ET_XPOS(A1), D0
-    BMI     .NONEG3
-    NEG.W   ET_XSPEED(A0)
-    .NONEG3:
-    BRA     .ENDDIST
-    .NOATK:
-    CLR.W   ET_XSPEED(A0)
-    .ENDDIST:
     .ENDUPDATE:
+    MOVEM.L (SP)+, D1-D0
     RTS
 
 CRITTER_DAMAGE:
@@ -109,7 +166,7 @@ CRITTER:
     DC.W 10                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
-    DC.W 0,14, 64,64                                 ;ET_HBOX 44
+    DC.W 4,16, 60,64                                 ;ET_HBOX 44
     DC.L CRITTER_START, CRITTER_UPDATE, DEFAULT_PAINT ;@
     DC.L CRITTER_DAMAGE                             ;@
     DC.L CRITTER_L                                         ;@SPRITE DEFECTO
@@ -117,10 +174,16 @@ CRITTER:
     DC.W 0
                                       
 
+CR_WAITATK  EQU ET_DATA   ;W
+CR_LOOKDIR  EQU ET_DATA+2 ;B
 
+CRWAITATK   EQU 50 ;SPLIT CONST? WAIT X FRAMES
 CRTATK      EQU 4
 AGRO        EQU 375
 ATKRANGE    EQU 250
+
+
+
 
 
 

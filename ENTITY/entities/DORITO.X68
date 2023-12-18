@@ -23,34 +23,46 @@ DORITO_START:
     ;DEF DORITO_SM
     MOVE.W  #MDORITO, ET_HP(A0)
     .ENDHSTART:
+	
+	;CALCULAR UNA ET_XSPEED ALEATORIA
+	TRAP #14
+	MOVE.L  (RNGVAL), D0
+    ANDI.L  #$86, D0
+    BCLR.L  #7, D0
+    BEQ     .DONEG
+    NEG.W   D0
+    .DONEG:
+
+    MOVE.W  D0, ET_XSPEED(A0)
+	
     RTS
 
 DORITO_UPDATE:
-    ;MIRAR SI INTERACTUA ALGO
+    ;MIRAR SI INTERACTUA JUGADOR
     MOVE.L  A0, -(SP)
     SUBQ.L  #4, SP
     BSR     COLLISION_ENT_PLR
 
+    ;SI COLISIONA
     MOVE.L  (SP)+, A1
     ADDQ.L  #4, SP
     CMP.L   #-1, A1
     BEQ .NODW
 
-    ;CMP.W #1, ET_ID(A1)
-    ;BNE .NODW
-
+    ;DAR XP ARMA AL JUGADOR
     MOVE.W  ET_HP(A0), -(SP)
     MOVE.L  A1, -(SP)
     BSR     DORITO_INTERACT
     ADDQ.L  #6, SP
 
+    ;Y ELIMINARSE
     MOVE.L  A0, -(SP)
     JSR     DESTROY_ENTITY
     ADDQ.L  #4, SP
     BRA     .ENDUPDATE
     .NODW: 
 
-    BCLR.B  #3, ET_BSTATE(A0)
+    ;BCLR.B  #3, ET_BSTATE(A0) ;ESTO LO HACE UPDATE_PHYSICS?? -> SI
 
     MOVE.L  A0, -(SP)
     BSR     UPDATE_PHYSICS
@@ -60,7 +72,8 @@ DORITO_UPDATE:
     CLR.L   D0
     BTST.B  #3, ET_BSTATE(A0)
     BEQ .NOHIT
-        MOVE.W #-10, ET_YSPEED(A0)
+        MOVE.W  #DRJMPSPD, ET_YSPEED(A0)
+        ASR.W   ET_XSPEED(A0) ;BUGGY
     .NOHIT:
 
     MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
@@ -79,8 +92,7 @@ DORITO_UPDATE:
         MOVE.W  D2, ET_TSPRT(A0)
     .ENDUPDATE:    
     RTS
-DORITO_PAINT:
-    RTS
+
 DORITO_INTERACT:
     MOVEM.L D0/A0, -(SP)
 
