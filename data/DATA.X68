@@ -63,6 +63,9 @@ HEALER_SPR      DC.L 2
                 DC.L SPR_HEALER_0, SPR_HEALER_1
 DOOR_SPR        DC.L 1
                 DC.L SPR_DOOR_0
+CHEST_C_SPR     DC.L 3
+                DC.L SPR_CHEST_C_0, SPR_CHEST_C_1, SPR_CHEST_C_2
+                
 HEART_SM        DC.L 2
                 DC.L HEART_SM_0, HEART_SM_1
 DORITO_M        DC.L 5

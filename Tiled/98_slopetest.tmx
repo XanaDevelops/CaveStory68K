@@ -33,7 +33,7 @@
     <property name="W_HIDDEN" type="int" value="0"/>
     <property name="W_M_NEXTX" type="int" value="144"/>
     <property name="W_M_NEXTY" type="int" value="208"/>
-    <property name="W_NEXTMAP" type="int" value="3"/>
+    <property name="W_NEXTMAP" type="int" value="4"/>
    </properties>
   </object>
   <object id="5" name="CRITTER" gid="384" x="336" y="192" width="16" height="16"/>
@@ -44,7 +44,7 @@
    </properties>
   </object>
   <object id="4" name="BAT" gid="425" x="208" y="192" width="16" height="16"/>
-  <object id="7" name="CHEST" gid="96" x="128" y="160" width="16" height="16"/>
+  <object id="7" name="TESTCUBO" gid="96" x="128" y="160" width="16" height="16"/>
  </objectgroup>
  <layer id="3" name="Capa de patrones 2" width="60" height="18">
   <data encoding="csv">

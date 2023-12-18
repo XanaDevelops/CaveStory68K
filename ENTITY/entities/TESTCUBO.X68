@@ -5,7 +5,7 @@
 * Description:
 *-----------------------------------------------------------
 
-CHEST_START:
+TESTCUBO_START:
     ;28(SP) ET_YPOS 
     ;30(SP) ET_XPOS
 
@@ -13,7 +13,7 @@ CHEST_START:
     MOVE.W  30(SP), ET_XPOS(A0)
     RTS
 
-CHEST_UPDATE:
+TESTCUBO_UPDATE:
     MOVEM.L D1-D2/A1, -(SP)
 
     MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
@@ -36,17 +36,17 @@ CHEST_UPDATE:
     RTS
 
 
-CHEST:
-    DC.W 53                                         ;ET_ID
+TESTCUBO:
+    DC.W 127                                         ;ET_ID
     DC.W 0, 0                                       ;ET_XPOS, ET_YPOS
     DC.W 0                                          ;ET_HP
     DC.W 0, 0                                       ;ET_XSPEED, ET_YSPEED
     DC.W 0                                          ;ET_MSTATE 00 
                                                     ;ET_BSTATE UDLR(!AIRBONE)(!GRAV)--
-    DC.W 0,0, 64,64                                   ;ET_HBOX 44
-    DC.L CHEST_START, CHEST_UPDATE, DEFAULT_PAINT   ;@EXECUTES
+    DC.W 128,128, 384,384                           ;ET_HBOX 44
+    DC.L TESTCUBO_START, TESTCUBO_UPDATE, DEFAULT_PAINT   ;@EXECUTES
     DC.L DEFAULT_RTS                                ;@INTERACT/EXTRA
-    DC.L CHEST_C_SPR                                ;@SPRITE DEFECTO
+    DC.L SPR_TESTCUBO                               ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W BLNDANIM                                   ;ET_TSPRT
                                          
