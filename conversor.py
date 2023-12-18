@@ -6,6 +6,7 @@ def ConvertSpriteSVG() -> list:
     
     path = user_args[1]
     #print("CONVERSOR", path)
+    path = path.replace("\\", "/")
     svgName = path.split("/")[-1].split(".")[0].upper()
 
     colorText = f".Color:\n"
@@ -39,6 +40,7 @@ def ConvertSpriteSVG() -> list:
 
     retText = f"\n{svgName} DC.L .Color, .Size\n{colorText}\tDC.L -1\n{sizeText}\n\n"
     #print("\n###########\nRETTEXT\n"+retText+"##################\n",user_args[0])
+
     with open(user_args[0], "+a") as sprites:
         sprites.write(retText)
         sprites.flush()

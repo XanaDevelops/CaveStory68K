@@ -73,7 +73,7 @@ class Conversor():
                     case 5:
                         self.ConvertIMGtoSVG(input("path: "),input("out: "))
                     case 6:
-                        self.ConvertSpriteSVG(input("Path: "))
+                        self.ConvertSpriteSVG(input("Path: "), True if input()=="" else False)
                     case 7:
                         self.SplitImage(input("Path: "), input("Out: "), int(input("H: ")), int(input("W: ")))
                     case 8:
@@ -158,12 +158,28 @@ class Conversor():
             fSV.close()
   
 
-    def ConvertSpriteSVG(self, path:str, verb:bool = False) -> list:
+    def ConvertSpriteSVG(self, path:str, verb:bool = False) -> None:
         #os.popen(f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py .\sprites\dibujo.svg")
         #print(retText)
-        devnull = open(os.devnull, "w")
-        subprocess.run((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py {path} {self.pathSprites} {path}".split()),stdout=devnull)
-        devnull.close()
+        if os.path.isdir(path):
+            os.remove("CONVERSION_OUT.X68")
+            
+            for x in os.listdir(path):
+                if ".svg" in x:
+                    self.ConvertSpriteSVG(path+x, verb)
+            return
+        if(not verb):
+            devnull = open(os.devnull, "w")
+            subprocess.run((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py {path} {self.pathSprites} {path}".split()),
+                       stdout=devnull)
+            devnull.close()
+        else:
+            print("VERBOSE")
+            devnull = open(os.devnull, "w")
+            subprocess.run((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py {path} CONVERSION_OUT.X68 {path}".split()),
+                       stdout=devnull)
+            devnull.close()
+
     def ConvertSpriteBForce(self, path:str, rawData:bool = False, verb:bool = False) -> list:
         img = Image.open(path)
         bmpName = path.split("/")[-1].split(".")[0].upper()
@@ -496,6 +512,13 @@ class Conversor():
             os.remove(out+"/"+x)
 
     def ConvertIMGtoSVG(self, path:str, out:str):
+        if os.path.isdir(path):
+            for x in os.listdir(path):
+                if ".png" in x:
+                    x2 = x.replace(".png", ".svg")
+                    self.ConvertIMGtoSVG(path+x, path+x2)
+            return
+        
         #convierte de img 
         sizes, colors, name = self.ConvertSpriteBForce(path, True)
         #print(colors)

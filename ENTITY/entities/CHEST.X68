@@ -14,13 +14,27 @@ CHEST_START:
     RTS
 
 CHEST_UPDATE:
+    MOVEM.L D1-D2/A1, -(SP)
+
+    MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
+        MOVE.W  ET_TSPRT(A0), D2                   ;CONTROLAR SALTO TODO
+        SUBQ.W  #1, D2
+        BNE     .NOTIMER
+            MOVE.W  #1, D2 ;TSPRT
+            ADDQ.L  #1, D1
+            MOVE.L  ET_SPRITE(A0), A1
+            CMP.L   (A1), D1
+            BLT     .NOOF
+            MOVE.L  #0, D1
+            .NOOF:
+            MOVE.L  D1, ET_ISPR(A0)
+        .NOTIMER:
+        MOVE.W  D2, ET_TSPRT(A0)
+    .ENDUPDATE:    
+
+    MOVEM.L (SP)+, A1/D2-D1
     RTS
 
-CHEST_DRAW:
-    RTS
-
-CHEST_INTERACT:
-    RTS
 
 CHEST:
     DC.W 53                                         ;ET_ID
@@ -30,14 +44,15 @@ CHEST:
     DC.W 0                                          ;ET_MSTATE 00 
                                                     ;ET_BSTATE UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,0, 0,0                                   ;ET_HBOX 44
-    DC.L CHEST_START, CHEST_UPDATE, CHEST_DRAW      ;@EXECUTES
-    DC.L CHEST_INTERACT                             ;@INTERACT/EXTRA
-    DC.L -1                                         ;@SPRITE DEFECTO
+    DC.L CHEST_START, CHEST_UPDATE, DEFAULT_PAINT   ;@EXECUTES
+    DC.L DEFAULT_RTS                                ;@INTERACT/EXTRA
+    DC.L SPR_TESTCUBO                               ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
-    DC.W 0                                          ;ET_TSPRT
+    DC.W 1                                          ;ET_TSPRT
                                          
 
     
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~
