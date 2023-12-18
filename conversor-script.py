@@ -526,9 +526,12 @@ class Conversor():
             os.remove(out)
         #print(colors)
         devnull = open(os.devnull, "w")
-        subprocess.run(((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=transform.py svg/PLANTILLA {out} "
-                       +f"{'@'.join(str(x) for x in sizes)} "
-                       +f"{'@'.join(y for y in ['#'.join([str(x[0]),str(x[1]),str(x[2])]) for x in colors])}").split()),stdout=devnull)
+        with open("auxfile.tmp", "w") as temp:
+            temp.write(f"{'@'.join(str(x) for x in sizes)}\n"
+                       +f"{'@'.join(y for y in ['#'.join([str(x[0]),str(x[1]),str(x[2])]) for x in colors])}")
+        # crear archivo aux, path demasiado largo
+        subprocess.run(((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=transform.py svg/PLANTILLA {out} auxfile.tmp").split()),
+                       stdout=sys.stdout)
         devnull.close()
     def SoundImport(self):
         print("\nImportando Canciones y SFX")

@@ -4,8 +4,12 @@ def ConvertIMGtoSVG():
         #print(len(user_args))
         #[print(x) for x in user_args]
 
-        sizes = user_args[1].split("@")
-        colors = [x.split("#") for x in user_args[2].split("@")]
+        with open(user_args[1], "r") as temp:
+             sizes = temp.readline()
+             color = temp.readline()
+             
+        sizes = sizes.split("@")
+        colors = [x.split("#") for x in color.split("@")]
         colors = ["#"+"".join([(f"{hex(int(y))[2:]:>02}") for y in x]) for x in colors]
         out = user_args[0]
 

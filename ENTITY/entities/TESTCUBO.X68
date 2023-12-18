@@ -46,7 +46,7 @@ TESTCUBO:
     DC.W 128,128, 384,384                           ;ET_HBOX 44
     DC.L TESTCUBO_START, TESTCUBO_UPDATE, DEFAULT_PAINT   ;@EXECUTES
     DC.L DEFAULT_RTS                                ;@INTERACT/EXTRA
-    DC.L SPR_TESTCUBO                               ;@SPRITE DEFECTO
+    DC.L SPR_LOL                               ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W BLNDANIM                                   ;ET_TSPRT
                                          

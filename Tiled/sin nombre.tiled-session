@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "98_slopetest.tmx",
+    "activeFile": "03_FIRSTGUN.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -57,10 +57,10 @@
                 3
             ],
             "scale": 4,
-            "selectedLayer": 1,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 115.25,
-                "y": 145.625
+                "x": 156.5,
+                "y": 143.125
             }
         },
         "98_slopetest.tmx": {
@@ -190,6 +190,7 @@
         "00_TITLESCREEN.tmx",
         "01_STARTCAVE.tmx",
         "02_FIRSTCAVE.tmx",
+        "03_FIRSTGUN.tmx",
         "98_slopetest.tmx",
         "99_tiledtest.tmx"
     ],
@@ -206,8 +207,8 @@
         "02_FIRSTCAVE.tmx",
         "99_tiledtest.tmx",
         "98_slopetest.tmx",
-        "01_tiledtest.tmx",
-        "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx"
+        "03_FIRSTGUN.tmx",
+        "01_tiledtest.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
