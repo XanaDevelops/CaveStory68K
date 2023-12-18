@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
-   sodipodi:docname="NpcSym_096.svg"
+   sodipodi:docname="chest_C_2.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +33,7 @@
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g38">
+     inkscape:current-layer="layer1">
     <inkscape:grid
        id="grid1"
        units="px"
@@ -60,244 +60,258 @@
   <g
      inkscape:groupmode="layer"
      inkscape:label="Capa 1"
-     id="g38">
+     id="g36">
+    <rect
+       x="6"
+       y="10"
+       width="14"
+       height="6"
+       style="fill:#ea7321"
+       id="rect1" />
     <rect
        x="22"
        y="12"
        width="8"
        height="6"
-       style="fill:#42293a"
-       id="rect1" />
+       style="fill:#8c8194"
+       id="rect2" />
+    <rect
+       x="22"
+       y="20"
+       width="6"
+       height="8"
+       style="fill:#ffb967"
+       id="rect3" />
     <rect
        x="2"
        y="28"
-       width="18"
+       width="20"
        height="2"
-       style="fill:#ff0000"
-       id="rect3" />
-    <rect
-       x="6"
-       y="10"
-       width="18"
-       height="2"
-       style="fill:#ffb967"
+       style="fill:#840000"
        id="rect4" />
     <rect
-       x="4"
-       y="12"
+       x="2"
+       y="16"
+       width="18"
+       height="2"
+       style="fill:#8c8194"
+       id="rect5" />
+    <rect
+       x="14"
+       y="18"
        width="16"
-       height="16"
-       style="fill:#ea7321;stroke-width:2.82843"
+       height="2"
+       style="fill:#ff0000"
+       id="rect6" />
+    <rect
+       x="16"
+       y="20"
+       width="4"
+       height="8"
+       style="fill:#ea7321"
        id="rect7" />
     <rect
        x="6"
        y="30"
        width="14"
        height="2"
-       style="fill:#b1adc1"
+       style="fill:#ea7321"
        id="rect8" />
-    <rect
-       x="8"
-       y="16"
-       width="12"
-       height="2"
-       style="fill:#b1adc1"
-       id="rect9" />
-    <rect
-       x="4"
-       y="14"
-       width="16"
-       height="2"
-       style="fill:#a55200"
-       id="rect6" />
-    <rect
-       x="8"
-       y="18"
-       width="6"
-       height="6"
-       style="fill:#840000;stroke-width:1.73205"
-       id="rect21" />
     <rect
        x="6"
        y="24"
        width="10"
        height="2"
        style="fill:#ff0000"
-       id="rect10" />
+       id="rect9" />
     <rect
-       x="20"
-       y="18"
+       x="6"
+       y="26"
        width="10"
-       height="12"
-       style="fill:#840000;stroke-width:2.44949"
-       id="rect13" />
+       height="2"
+       style="fill:#ea7321"
+       id="rect10" />
     <rect
        x="2"
        y="20"
        width="2"
        height="8"
-       style="fill:#fffff3"
-       id="rect14" />
+       style="fill:#8c8194"
+       id="rect11" />
     <rect
        x="4"
        y="20"
        width="2"
        height="8"
-       style="fill:#a55200"
-       id="rect15" />
+       style="fill:#fffff3"
+       id="rect12" />
     <rect
        x="20"
        y="20"
        width="2"
        height="8"
-       style="fill:#675567"
-       id="rect16" />
+       style="fill:#fffff3"
+       id="rect13" />
     <rect
        x="22"
-       y="20"
-       width="6"
-       height="8"
-       style="fill:#a55200"
-       id="rect2" />
+       y="28"
+       width="8"
+       height="2"
+       style="fill:#ff0000"
+       id="rect14" />
     <rect
        x="22"
        y="30"
        width="8"
        height="2"
-       style="fill:#42293a"
-       id="rect17" />
+       style="fill:#8c8194"
+       id="rect15" />
     <rect
        x="28"
        y="20"
        width="2"
        height="8"
-       style="fill:#42293a"
-       id="rect18" />
-    <rect
-       x="2"
-       y="12"
-       width="2"
-       height="6"
-       style="fill:#fffff3"
-       id="rect19" />
+       style="fill:#8c8194"
+       id="rect16" />
     <rect
        x="6"
        y="20"
        width="6"
        height="2"
-       style="fill:#b1adc1"
-       id="rect20" />
+       style="fill:#8c8194"
+       id="rect17" />
     <rect
-       x="14"
-       y="18"
+       x="8"
+       y="22"
        width="6"
        height="2"
-       style="fill:#ff0000"
-       id="rect22" />
+       style="fill:#840000"
+       id="rect18" />
+    <rect
+       x="2"
+       y="12"
+       width="2"
+       height="4"
+       style="fill:#8c8194"
+       id="rect19" />
     <rect
        x="2"
        y="18"
        width="4"
        height="2"
        style="fill:#ff0000"
-       id="rect23" />
+       id="rect20" />
+    <rect
+       x="4"
+       y="12"
+       width="2"
+       height="4"
+       style="fill:#ea7321"
+       id="rect21" />
+    <rect
+       x="12"
+       y="18"
+       width="2"
+       height="4"
+       style="fill:#840000"
+       id="rect22" />
     <rect
        x="14"
        y="20"
        width="2"
        height="4"
        style="fill:#ff0000"
-       id="rect25" />
+       id="rect23" />
     <rect
        x="20"
-       y="14"
-       width="2"
-       height="4"
-       style="fill:#675567"
-       id="rect26" />
+       y="10"
+       width="4"
+       height="2"
+       style="fill:#ea7321"
+       id="rect24" />
     <rect
        x="24"
        y="10"
        width="4"
        height="2"
        style="fill:#8c8194"
-       id="rect27" />
+       id="rect25" />
     <rect
        x="2"
+       y="30"
+       width="2"
+       height="2"
+       style="fill:#8c8194"
+       id="rect26" />
+    <rect
+       x="4"
+       y="10"
+       width="2"
+       height="2"
+       style="fill:#8c8194"
+       id="rect27" />
+    <rect
+       x="4"
        y="30"
        width="2"
        height="2"
        style="fill:#fffff3"
        id="rect28" />
     <rect
-       x="4"
-       y="10"
-       width="2"
-       height="2"
-       style="fill:#fffff3"
-       id="rect29" />
-    <rect
-       x="4"
-       y="16"
-       width="2"
-       height="2"
-       style="fill:#b1adc1"
-       id="rect30" />
-    <rect
-       x="4"
-       y="30"
-       width="2"
-       height="2"
-       style="fill:#a55200"
-       id="rect31" />
-    <rect
-       x="6"
-       y="16"
-       width="2"
-       height="2"
-       style="fill:#fffff3"
-       id="rect32" />
-    <rect
        x="6"
        y="18"
        width="2"
        height="2"
-       style="fill:#b1adc1"
-       id="rect33" />
+       style="fill:#8c8194"
+       id="rect29" />
     <rect
        x="6"
        y="22"
        width="2"
        height="2"
        style="fill:#ff0000"
-       id="rect34" />
+       id="rect30" />
     <rect
        x="8"
        y="18"
        width="2"
        height="2"
        style="fill:#000010"
-       id="rect35" />
+       id="rect31" />
     <rect
        x="10"
        y="18"
        width="2"
        height="2"
-       style="fill:#b1adc1"
-       id="rect36" />
+       style="fill:#8c8194"
+       id="rect32" />
     <rect
        x="20"
        y="12"
        width="2"
        height="2"
        style="fill:#b1adc1"
-       id="rect37" />
+       id="rect33" />
+    <rect
+       x="20"
+       y="14"
+       width="2"
+       height="2"
+       style="fill:#8c8194"
+       id="rect34" />
+    <rect
+       x="20"
+       y="16"
+       width="2"
+       height="2"
+       style="fill:#fffff3"
+       id="rect35" />
     <rect
        x="20"
        y="30"
        width="2"
        height="2"
-       style="fill:#675567"
-       id="rect38" />
+       style="fill:#fffff3"
+       id="rect36" />
   </g>
 </svg>

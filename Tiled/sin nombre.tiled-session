@@ -15,8 +15,8 @@
             "scale": 1.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 143.66666666666669,
-                "y": 128.33333333333334
+                "x": 144,
+                "y": 128.33333333333331
             }
         },
         "01_STARTCAVE.tmx": {
@@ -26,8 +26,8 @@
             "scale": 5.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 127.54545454545456,
-                "y": 111.45454545454547
+                "x": 128,
+                "y": 111.9090909090909
             }
         },
         "01_tiledtest.tmx": {
@@ -48,19 +48,30 @@
             "scale": 4,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 436.875,
-                "y": 245.75
+                "x": 663.5,
+                "y": 679.375
+            }
+        },
+        "03_FIRSTGUN.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 4,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 115.25,
+                "y": 145.625
             }
         },
         "98_slopetest.tmx": {
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 3,
+            "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 120.83333333333333,
-                "y": 217.66666666666666
+                "x": 7,
+                "y": 23.75
             }
         },
         "99_tiledtest.tmx": {
@@ -70,8 +81,8 @@
             "scale": 4.4976562499999995,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 135.95970123328124,
-                "y": 127.95553239534482
+                "x": 135.62619419836722,
+                "y": 127.73319437206882
             }
         },
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx": {
@@ -165,6 +176,11 @@
             }
         }
     },
+    "map.height": 18,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 18,
     "openFiles": [
         "PrtCave.tsx",
         "NpcCemet.tsx",

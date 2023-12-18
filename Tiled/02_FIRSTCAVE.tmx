@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="53" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="47">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="53" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="48">
  <tileset firstgid="1" source="PrtCave.tsx"/>
  <tileset firstgid="81" source="NpcSym.tsx"/>
  <tileset firstgid="381" source="CAMARA.tsx"/>
@@ -133,6 +133,14 @@
   <object id="41" name="SPIKE" gid="358" x="528" y="212" width="16" height="16">
    <properties>
     <property name="W_DIR" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="47" name="DOOR" gid="115" x="656" y="672" width="16" height="16">
+   <properties>
+    <property name="W_HIDDEN" type="int" value="1"/>
+    <property name="W_M_NEXTX" type="int" value="80"/>
+    <property name="W_M_NEXTY" type="int" value="140"/>
+    <property name="W_NEXTMAP" type="int" value="3"/>
    </properties>
   </object>
   <object id="1" name="PLAYER" gid="535" x="432" y="224" width="16" height="16"/>

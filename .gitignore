@@ -9,3 +9,5 @@ Thumbs.db
 .VSCodeCounter
 CONSTSCR.X68
 SAVE.DAT.bak
+__pycache__/
+blendertest/
