@@ -20,7 +20,7 @@ CHEST_UPDATE:
         MOVE.W  ET_TSPRT(A0), D2                   ;CONTROLAR SALTO TODO
         SUBQ.W  #1, D2
         BNE     .NOTIMER
-            MOVE.W  #1, D2 ;TSPRT
+            MOVE.W  #BLNDANIM, D2 ;TSPRT
             ADDQ.L  #1, D1
             MOVE.L  ET_SPRITE(A0), A1
             CMP.L   (A1), D1
@@ -48,7 +48,7 @@ CHEST:
     DC.L DEFAULT_RTS                                ;@INTERACT/EXTRA
     DC.L SPR_TESTCUBO                               ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
-    DC.W 1                                          ;ET_TSPRT
+    DC.W BLNDANIM                                   ;ET_TSPRT
                                          
 
     
