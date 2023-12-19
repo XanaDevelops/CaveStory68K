@@ -62,7 +62,7 @@ DISQUETE:
     DC.L DISKQ_SPR                                  ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0
-                                         
+    DC.W 100                                        ;ET_ZORD                                     
        
 
 *~Font name~Courier New~

@@ -242,11 +242,11 @@ PLAYER_PAINT:
     SUB.W   (SCREEN_X), D0
     MOVE.W  D0, -(SP)
 
-    BSR     FASTSPRITE      ;ARMA
+    JSR     FASTSPRITE      ;ARMA
 
     MOVE.L  A2, 4(SP)
 
-    BSR     FASTSPRITE      ;CHARA
+    JSR     FASTSPRITE      ;CHARA
 
     ADDQ.L  #8, SP
 
@@ -372,6 +372,7 @@ PLAYER:
     DC.L QUOTE_WALK_RN                              ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0
+    DC.W -256                                       ;ET_ZORD
                                               ;46.W (timer sprite)
                                               ;47.B (lookdir) 0:left 4:right 
                                                     ;48.B (lookdir) 8:up 12:down
@@ -382,6 +383,7 @@ LOOKDIRUD       EQU ET_DATA+1  ;B
 TIMERJUMP       EQU ET_DATA+2  ;B
 TIMERINVI       EQU ET_DATA+3  ;B
 MAXHEALTH       EQU ET_DATA+4  ;W
+
 
 
 

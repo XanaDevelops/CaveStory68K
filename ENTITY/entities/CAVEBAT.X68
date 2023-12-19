@@ -5,16 +5,13 @@
 * Description:
 *-----------------------------------------------------------
 BAT_START:
-    ;36(SP) ET_YPOS 
-    ;38(SP) ET_XPOS
+    ;30(SP) ET_YPOS 
+    ;28(SP) ET_XPOS
 
-    ;BUG DEL EASY68K
-    MOVE.W  28(SP), D2
-    MOVE.W  28(SP), D2
-    MOVE.W  D2, ET_YPOS(A0)
-    MOVE.W  30(SP), D2
-    MOVE.W  30(SP), D2
-    MOVE.W  D2, ET_XPOS(A0)
+    ;EL BUG ERA YO, CALCULABA MAL UNA DIRECCIÓN
+    ;QUE MODIFICABA LA INSTRUCCIÓN, JUSTAMENTE AQUÍ
+    MOVE.W  28(SP), ET_YPOS(A0) ;LONG?
+    MOVE.W  30(SP), ET_XPOS(A0)
 
     CLR.B   VELDIR(A0)
 
@@ -116,8 +113,9 @@ BAT:
     DC.L BAT_START, BAT_UPDATE, DEFAULT_PAINT       ;@
     DC.L BAT_DAMAGE                                 ;@
     DC.L BAT_FLY_L                                  ;@SPRITE DEFECTO
-    DC.W 0
     DC.L 0                                          ;SPRITEINDEX
+    DC.W 0
+    DC.W 0                                          ;ET_ZORD
                                          ;
     
 

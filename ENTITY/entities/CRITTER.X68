@@ -172,6 +172,7 @@ CRITTER:
     DC.L CRITTER_L                                         ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0
+    DC.W 0                                          ;ET_ZORD
                                       
 
 CR_WAITATK  EQU ET_DATA   ;W

@@ -35,6 +35,7 @@ BLANK:
     DC.L -1                                         ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0                                          ;ET_TSPRT
+    DC.W 0                                          ;ET_ZORD
                                          
 
     

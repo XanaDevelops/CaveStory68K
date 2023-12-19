@@ -133,12 +133,14 @@ CAMERA:
     DC.L CAMERA_START, CAMERA_UPDATE, DEFAULT_RTS   ;@
     DC.L DEFAULT_RTS                                ;@
     DC.L SQR_TRANS                                  ;@SPRITE DEFECTO
+    DC.L MAXWP                                     ;SPRITEINDEX
     DC.W 0
-    DC.L 0                                          ;SPRITEINDEX
+    DC.W 0                                          ;ET_ZORD
                                               
 
 
 ENTFOCUS        EQU ET_DATA   ;L
+
 
 
 
