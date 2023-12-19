@@ -15,19 +15,19 @@
             "scale": 1.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 144,
-                "y": 128.33333333333331
+                "x": 143.3333333333333,
+                "y": 127.66666666666663
             }
         },
         "01_STARTCAVE.tmx": {
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 5.5,
-            "selectedLayer": 1,
+            "scale": 4,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 128,
-                "y": 111.9090909090909
+                "x": 89.5,
+                "y": 154.375
             }
         },
         "01_tiledtest.tmx": {
@@ -46,21 +46,21 @@
                 2
             ],
             "scale": 4,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 424,
-                "y": 399.875
+                "x": 554.75,
+                "y": 222.125
             }
         },
         "03_FIRSTGUN.tmx": {
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 4,
-            "selectedLayer": 0,
+            "scale": 3,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 144,
-                "y": 144.125
+                "x": 116.33333333333334,
+                "y": 153.83333333333331
             }
         },
         "98_slopetest.tmx": {
@@ -70,8 +70,8 @@
             "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 480,
-                "y": 144.25
+                "x": 134.5,
+                "y": 167.25
             }
         },
         "99_tiledtest.tmx": {
@@ -81,8 +81,8 @@
             "scale": 4.4976562499999995,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 135.84853222164324,
-                "y": 128.1778704186208
+                "x": 135.1815181518152,
+                "y": 127.73319437206882
             }
         },
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx": {

@@ -46,7 +46,7 @@
    </properties>
   </object>
  </objectgroup>
- <layer id="3" name="Capa de patrones 2" width="16" height="14">
+ <layer id="3" name="Capa de patrones 2" width="16" height="14" opacity="0.6">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
