@@ -55,8 +55,9 @@ CLOUD:
     DC.L CLOUD_START, CLOUD_UPDATE, CLOUD_PAINT     ;@
     DC.L DEFAULT_RTS                                ;@
     DC.L NUBE0                                     ;@SPRITE DEFECTO
-    DC.W 0
     DC.L 0                                          ;SPRITEINDEX
+    DC.W 0
+    DC.W 0                                          ;ET_ZORD
                                                 
     
 TYPE        EQU ET_DATA

@@ -88,7 +88,7 @@ TITLESCREEN:
     DC.L -1                                         ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0
-                                     
+    DC.W $8000                                          ;ET_ZORD                                 
       
 
 

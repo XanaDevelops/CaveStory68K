@@ -49,7 +49,7 @@ TESTCUBO:
     DC.L SPR_LOL                               ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W BLNDANIM                                   ;ET_TSPRT
-                                         
+    DC.W 0                                          ;ET_ZORD                                     
 
     
 

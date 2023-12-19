@@ -49,6 +49,7 @@ CHEST:
     DC.L CHEST_C_SPR                                ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W BLNDANIM                                   ;ET_TSPRT
+    DC.W 100                                        ;ET_ZORD
                                          
 
     
