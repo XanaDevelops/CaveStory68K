@@ -43,10 +43,12 @@ class Conversor():
     fileLock = multiprocessing.Lock()
 
     MAXPROCESS:int = os.cpu_count()
+    #MAXPROCESS = 64
     activeProcess:list[multiprocessing.Process] = []
     waitProcess:list[multiprocessing.Process] = []
 
     def __init__(self):
+        print(f"NUMERO de subprocesos generables {self.MAXPROCESS}")
         self.PrintMenu()
 
     def PrintMenu(self):
@@ -179,7 +181,7 @@ class Conversor():
         for p in self.activeProcess:
             p.join()
             self.activeProcess.remove(p)
-            
+
         if(tiles):
             fSV.writelines("SPRITES\n")
             listTile = ["NULL"]*(maxN+1)
