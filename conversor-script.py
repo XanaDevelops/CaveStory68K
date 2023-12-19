@@ -4,6 +4,7 @@
 #from simple_inkscape_scripting import all_shapes
 from io import TextIOWrapper
 import sys, os, subprocess, shutil
+import multiprocessing
 from PIL import Image
 import numpy as np
 import tmx
@@ -38,6 +39,12 @@ class Conversor():
 
     tilePixSize = 16
     tileMult    = 4
+
+    fileLock = multiprocessing.Lock()
+
+    MAXPROCESS:int = os.cpu_count()
+    activeProcess:list[multiprocessing.Process] = []
+    waitProcess:list[multiprocessing.Process] = []
 
     def __init__(self):
         self.PrintMenu()
@@ -100,13 +107,16 @@ class Conversor():
             fsprite.writelines("ColorNULL:\n\tDC.L -1\nSizeNULL:\n\tDC.W 0,0,0,0\n\nNULL: DC.L ColorNULL, SizeNULL\n\n")
             fsprite.flush()
             os.fsync(fsprite)
-        self.RecursiveConverter(self.dirSprites)
+
+        self.RecursiveConverter(self.dirSprites, False, self.fileLock)
         
 
             #fsprite.writelines(f"\nSPRITEV DC.L {', '.join(names)}\n")
+
         with open(self.pathSprites, "+a") as fsprite:
             for x in os.listdir(self.dirSprBMP):
                 if(".bmp" in x):
+                    ##cambiar por el normal...
                     fsprite.writelines(self.ConvertSpriteOld(self.dirSprBMP+"/"+x)[0])
 
             fsprite.writelines("\n\n\n*~Font name~Courier New~\n")
@@ -114,7 +124,7 @@ class Conversor():
             fsprite.writelines("*~Tab type~1~\n")
             fsprite.writelines("*~Tab size~4~\n")
 
-    def RecursiveConverter(self, path:str, tiles:bool=False):
+    def RecursiveConverter(self, path:str, tiles:bool=False, lock:multiprocessing.Lock = fileLock):
         fSV:TextIOWrapper
         maxN:int
         tilesD:dict
@@ -134,17 +144,42 @@ class Conversor():
             #print("###############\n############")
             #input(path+x)
             if(os.path.isdir(path+x)):
-                print(f"AAAAAAAAAAAAAAAA: {path+x} {self.dirTilesSVG}")
+                #print(f"AAAAAAAAAAAAAAAA: {path+x} {self.dirTilesSVG}")
+                args:tuple
                 if((path+x+"/") == self.dirTilesSVG):
-                    self.RecursiveConverter(path+x+"/",True)
+                    self.RecursiveConverter(path+x+"/",True, lock)
+                    #args = (path+x+"/",True, lock)
                 else:
-                    self.RecursiveConverter(path+x+"/")
+                    self.RecursiveConverter(path+x+"/", False, lock)
+                    #args = (path+x+"/", False, lock)
+                
+                
             if(".svg" in x):
-                self.ConvertSpriteSVG(path+"/"+x)
+                #self.ConvertSpriteSVG(path+"/"+x, False, lock)
+                proc = multiprocessing.Process(target=self.ConvertSpriteSVG,
+                                               args=(path+"/"+x, False, lock))
+                if len(self.activeProcess)>self.MAXPROCESS:
+                    while(len(self.activeProcess)>self.MAXPROCESS):
+                        print("ESPERANDO")
+                        for p in self.activeProcess:
+                            p.join()
+                            self.activeProcess.remove(p)
+                        for p in self.activeProcess:
+                            if not p.is_alive():
+                                self.activeProcess.remove(p)
+
+                self.activeProcess.append(proc)
+                proc.start()
+
                 if(tiles):
                     indexT = int(x.split("_")[1].split(".")[0])
                     tilesD.update({indexT:x})
                     maxN  = max(maxN, indexT)
+
+        for p in self.activeProcess:
+            p.join()
+            self.activeProcess.remove(p)
+            
         if(tiles):
             fSV.writelines("SPRITES\n")
             listTile = ["NULL"]*(maxN+1)
@@ -158,7 +193,7 @@ class Conversor():
             fSV.close()
   
 
-    def ConvertSpriteSVG(self, path:str, verb:bool = False) -> None:
+    def ConvertSpriteSVG(self, path:str, verb:bool = False, lock:multiprocessing.Lock = fileLock) -> None:
         #os.popen(f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py .\sprites\dibujo.svg")
         #print(retText)
         if os.path.isdir(path):
@@ -166,19 +201,20 @@ class Conversor():
             
             for x in os.listdir(path):
                 if ".svg" in x:
-                    self.ConvertSpriteSVG(path+x, verb)
+                    self.ConvertSpriteSVG(path+x, verb, lock)
             return
-        if(not verb):
-            devnull = open(os.devnull, "w")
-            subprocess.run((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py {path} {self.pathSprites} {path}".split()),
-                       stdout=devnull)
-            devnull.close()
-        else:
-            print("VERBOSE")
-            devnull = open(os.devnull, "w")
-            subprocess.run((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py {path} CONVERSION_OUT.X68 {path}".split()),
-                       stdout=devnull)
-            devnull.close()
+        with lock:
+            if(not verb):
+                devnull = open(os.devnull, "w")
+                subprocess.run((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py {path} {self.pathSprites} {path}".split()),
+                            stdout=devnull)
+                devnull.close()
+            else:
+                print("VERBOSE")
+                devnull = open(os.devnull, "w")
+                subprocess.run((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=conversor.py {path} CONVERSION_OUT.X68 {path}".split()),
+                            stdout=devnull)
+                devnull.close()
 
     def ConvertSpriteBForce(self, path:str, rawData:bool = False, verb:bool = False) -> list:
         img = Image.open(path)
@@ -511,12 +547,26 @@ class Conversor():
             print(f"to remove{out}/{x}, saving {newName}.png")
             os.remove(out+"/"+x)
 
-    def ConvertIMGtoSVG(self, path:str, out:str):
+    def ConvertIMGtoSVG(self, path:str, out:str, lock:multiprocessing.Lock = fileLock):
         if os.path.isdir(path):
             for x in os.listdir(path):
                 if ".png" in x:
                     x2 = x.replace(".png", ".svg")
-                    self.ConvertIMGtoSVG(path+x, path+x2)
+                    #self.ConvertIMGtoSVG(path+x, path+x2)
+                    proc = multiprocessing.Process(target=self.ConvertIMGtoSVG, args=(path+x, path+x2, lock))
+                    if len(self.activeProcess)>self.MAXPROCESS:
+                        while(len(self.activeProcess)>self.MAXPROCESS):
+                            print("ESPERANDO")
+                            for p in self.activeProcess:
+                                p.join()
+                                self.activeProcess.remove(p)
+                            for p in self.activeProcess:
+                                if not p.is_alive():
+                                    self.activeProcess.remove(p)
+                    self.activeProcess.append(proc)
+                    proc.start()
+            for p in self.activeProcess:
+                p.join()
             return
         
         #convierte de img 
@@ -525,14 +575,15 @@ class Conversor():
         if(os.path.exists(out)):
             os.remove(out)
         #print(colors)
-        devnull = open(os.devnull, "w")
-        with open("auxfile.tmp", "w") as temp:
-            temp.write(f"{'@'.join(str(x) for x in sizes)}\n"
+        with lock:
+            devnull = open(os.devnull, "w")
+            with open("auxfile.tmp", "w") as temp:
+                temp.write(f"{'@'.join(str(x) for x in sizes)}\n"
                        +f"{'@'.join(y for y in ['#'.join([str(x[0]),str(x[1]),str(x[2])]) for x in colors])}")
         # crear archivo aux, path demasiado largo
-        subprocess.run(((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=transform.py svg/PLANTILLA {out} auxfile.tmp").split()),
-                       stdout=sys.stdout)
-        devnull.close()
+            subprocess.run(((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=transform.py svg/PLANTILLA {out} auxfile.tmp").split()),
+                       stdout=devnull)
+            devnull.close()
     def SoundImport(self):
         print("\nImportando Canciones y SFX")
         with open(self.pathSI, "+w") as fsound:
