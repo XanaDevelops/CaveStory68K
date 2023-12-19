@@ -43,7 +43,7 @@ TESTCUBO:
     DC.W 0, 0                                       ;ET_XSPEED, ET_YSPEED
     DC.W 0                                          ;ET_MSTATE 00 
                                                     ;ET_BSTATE UDLR(!AIRBONE)(!GRAV)--
-    DC.W 128,128, 384,384                           ;ET_HBOX 44
+    DC.W 128,128, 512,480                           ;ET_HBOX 44
     DC.L TESTCUBO_START, TESTCUBO_UPDATE, DEFAULT_PAINT   ;@EXECUTES
     DC.L DEFAULT_RTS                                ;@INTERACT/EXTRA
     DC.L SPR_LOL                               ;@SPRITE DEFECTO
