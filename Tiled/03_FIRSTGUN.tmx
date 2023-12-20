@@ -28,11 +28,15 @@
  </layer>
  <objectgroup id="3" name="Capa de Objetos 1">
   <object id="1" name="CHEST" gid="96" x="192" y="160" width="16" height="16"/>
-  <object id="2" name="CARTEL" gid="173" x="128" y="160" width="16" height="16"/>
+  <object id="2" name="CARTEL" gid="173" x="128" y="160" width="16" height="16">
+   <properties>
+    <property name="W_DIAG" value="ICHOZAGUN"/>
+   </properties>
+  </object>
   <object id="5" name="DOOR" gid="115" x="96" y="160" width="16" height="16">
    <properties>
     <property name="W_HIDDEN" type="int" value="1"/>
-    <property name="W_M_NEXTX" type="int" value="656"/>
+    <property name="W_M_NEXTX" type="int" value="736"/>
     <property name="W_M_NEXTY" type="int" value="656"/>
     <property name="W_NEXTMAP" type="int" value="2"/>
    </properties>
