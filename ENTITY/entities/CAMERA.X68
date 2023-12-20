@@ -6,24 +6,31 @@
 *-----------------------------------------------------------
 
 CAMERA_START:
-    MOVEM.L A1-A2, -(SP)
+    ;46(SP) X
+    ;44(SP) Y
+    ;48(SP) ENTFOCUS
+
+    MOVEM.L D0-D1/A1-A2, -(SP)
     
     ;OTRAS FUNCIONES DEPENDEN DE
     ;SCREEN_X Y SCREEN_Y
-    MOVE.W  38(SP), (SCREEN_X)
-    MOVE.W  36(SP), (SCREEN_Y)
+    MOVE.W  46(SP), (SCREEN_X)
+    MOVE.W  44(SP), (SCREEN_Y)
+
     CLR.L   ET_ISPR(A0)
     CLR.B   TRANS_STATUS(A0)
-    MOVE.W  #ANIMSPEED, ET_TSPRT(A0)
 
-    JSR     PREVENT_SCREEN_OOB
+    CLR.L   (SCR_SPEED_X) ;TAMBIEN Y
+    
+    MOVE.W  #ANIMSPEED, ET_TSPRT(A0)
+    
 
     ;BUSCAR LA INSTANCIA A LA QUE
     ;FOCUSEAR, INSTANCIAR ANTES QUE
     ;CAMERA
     MOVE.L  #-1, ENTFOCUS(A0)
 
-    MOVE.L  40(SP), A1
+    MOVE.L  48(SP), A1
     CMP.L   #-1, A1
     BLE     .NOINST
     MOVE.W  ET_ID(A1), -(SP)
@@ -35,10 +42,15 @@ CAMERA_START:
     CMP.L   #-1, A2
     BEQ     .NOINST
     MOVE.L  A2, ENTFOCUS(A0)
-    ;COLOCAR
+    ;COLOCAR RESPECTO AL FOCUS
+    MOVE.L  ET_XPOS(A2), (SCREEN_X) ;APROVECHAR CONTINUIDAD
+    SUB.W  #SCREEN_WIDTH/2, (SCREEN_X)
+    SUB.W  #SCREEN_HEIGHT/2, (SCREEN_Y)
     .NOINST:
 
-    MOVEM.L (SP)+, A2-A1
+    JSR     PREVENT_SCREEN_OOB
+
+    MOVEM.L (SP)+, A2-A1/D1-D0
     RTS
 
 CAMERA_UPDATE:
@@ -109,13 +121,17 @@ CAMERA_UPDATE:
 
     ORI.B   #$F0, SCREEN_ST
 
-    JSR     PREVENT_SCREEN_OOB
-
     ADD.W   D0, SCREEN_X
     ADD.W   D1, SCREEN_Y
 
     MOVE.W  D0, SCR_SPEED_X
     MOVE.W  D1, SCR_SPEED_Y
+
+    JSR     PREVENT_SCREEN_OOB
+
+    
+
+    
 
     CMENDUP:
     

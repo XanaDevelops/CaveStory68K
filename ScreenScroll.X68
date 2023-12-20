@@ -9,7 +9,73 @@ ISRSCREEN:
     RTE
 
 PREVENT_SCREEN_OOB:
+    ;PREVIENE QUE LA PANTALLA SALGA DE LOS LIMITES DEL MAPA
+    ;SINO PETA...
+    ;LLAMAR CON LA VEL YA SUMADA
+    MOVEM.L D1-D4/A0, -(SP)
+
+    MOVE.W  (SCREEN_X), D1
+    MOVE.W  (SCREEN_Y), D2
+
+    CLR.B   D3 ;#7 CLR SPDX, #6 CLR SPDY, ESTA SCREEN_ST
+
+    TST.W   D1
+    BPL     .NONEGX
+    CLR.W   D1
+    BSET.L  #7, D3
+    .NONEGX:
+
+    TST.W   D2
+    BPL     .NONEGY
+    CLR.W   D2
+    BSET.L  #6, D3
+    .NONEGY:
+
+    MOVE.L  (CURRENTMAPDIR), A0
+
+    MOVE.W  10(A0), D4
+    SUBQ.W  #1, D4
+    MULU.W  #TILESIZE, D4
+    SUB.W  #SCREEN_HEIGHT+1, D4
+    CMP.W   D2, D4
+    BGT     .INBY
+    MOVE.W  D4, D2
+    BSET.L  #6, D3 
+    .INBY:
+
+    MOVE.W  8(A0), D4
+    SUBQ.W  #1, D4
+    MULU.W  #TILESIZE, D4
+    SUB.W   #SCREEN_WIDTH+1, D4
+    CMP.W   D1, D4
+    BGT     .INBX
+    MOVE.W  D4, D1
+    BSET.L  #7, D3 
+    .INBX:
+
+    BTST.L  #7, D3
+    BEQ     .NOX
+    CLR.W   (SCR_SPEED_X)
+    .NOX:
+    BTST.L  #6, D3
+    BEQ     .NOY
+    CLR.W   (SCR_SPEED_Y)
+    .NOY:
+
+    MOVE.W  D1, (SCREEN_X)
+    MOVE.W  D2, (SCREEN_Y)
+
+    MOVEM.L (SP)+, D1-D4/A0
+    RTS
+
+_PREVENT_SCREEN_OOB:
+    ;D0 SCR_SPEED_X
+    ;D1 SCR_SPEED_Y
+    
     MOVEM.L D2-D4/A0, -(SP)
+
+    ;;MOVE.W  (SCR_SPEED_Y), D1
+    ;;MOVE.W  (SCR_SPEED_X), D0
 
     TST.W   D1
     BGE     .NO_OOB_UP
@@ -67,12 +133,15 @@ PREVENT_SCREEN_OOB:
         MOVE.W  8(A0), D2
         SUBQ.W  #1, D2
         MULU.W  #TILESIZE, D2
-        SUB.W   D4, D2
+        SUB.W   D4, D2     
         CMP.W   #MAX_SCRLL_SPEEDX, D2
         BGT     .NO_OOB_RIGHT
             MOVE.W  D2, D0
             BCLR.B  #KEYM_RIGHT, SCREEN_ST
     .NO_OOB_RIGHT:
+
+    ;MOVE.W  D1, (SCR_SPEED_Y)
+    ;MOVE.W  D0, (SCR_SPEED_X)
 
     MOVEM.L (SP)+, A0/D4-D2
     RTS
