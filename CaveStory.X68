@@ -68,6 +68,26 @@ MAINLOOP:
 
     .NOFS:
 
+    IFNE DEBUG
+    ;CHECK GO MAP
+    BTST.B  #KEYM_ESC, (KEY_PRESS_MENU)
+    BEQ     .NOGM
+    ;MOVER CURSOR
+    MOVE.B  #11, D0
+    CLR.W   D1
+    TRAP    #15
+    
+    ;FORZAR APARECER EN POS DEFECTO
+    MOVE.W  #-1, (SPAWNX)
+
+    MOVE.B  #18, D0
+    LEA     ASKGMAP, A1
+    TRAP    #15
+    MOVE.W  D1, -(SP)
+    JSR     LOAD_MAP
+    ADDQ.L  #2, SP
+    .NOGM:
+    ENDC
     SUBQ.B  #1, (FTOSKIP)
     MOVE.B  (FTOSKIP), D0
     .UPDATE:

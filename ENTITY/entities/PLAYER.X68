@@ -11,14 +11,16 @@ PLAYER_START:
     MOVE.L  A0, (PLAYERREF)
     CLR.B   (PLYERDED)
 
-    MOVE.W  30(SP), ET_XPOS(A0)
-    MOVE.W  28(SP), ET_YPOS(A0)
-
-    CMP.W   #-1, (SPAWNX)
+    CMP.W   #-1, (SPAWNX) ;SI TIENE ASIGNADO SPAWN EN RUNTIME
     BEQ     .NOSPAWN
     MOVE.W  (SPAWNX), ET_XPOS(A0)
     MOVE.W  (SPAWNY), ET_YPOS(A0)
+    BRA     .CNT
     .NOSPAWN:
+    MOVE.W  30(SP), ET_XPOS(A0) ;O ENTISDATA
+    MOVE.W  28(SP), ET_YPOS(A0)
+
+    .CNT:
 
     MOVE.W  (PMAXHP), MAXHEALTH(A0) 
     MOVE.W  (PACTHP), ET_HP(A0)
@@ -33,7 +35,7 @@ PLAYER_UPDATE:
     TST.W   ET_HP(A0)        ;KILL?
     BGT     .LIVE
         CLR.W   ET_HP(A0)
-        BSR     GM_PLYRDED
+        JSR     GM_PLYRDED
         MOVE.W  #66, -(SP)
         MOVE.W  #1, -(SP)
         BSR     PLAY_SFX
@@ -383,6 +385,7 @@ LOOKDIRUD       EQU ET_DATA+1  ;B
 TIMERJUMP       EQU ET_DATA+2  ;B
 TIMERINVI       EQU ET_DATA+3  ;B
 MAXHEALTH       EQU ET_DATA+4  ;W
+
 
 
 
