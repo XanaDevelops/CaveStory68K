@@ -98,11 +98,6 @@
     <property name="W_DIR" type="int" value="1"/>
    </properties>
   </object>
-  <object id="37" name="SPIKE" gid="358" x="336" y="624" width="16" height="16">
-   <properties>
-    <property name="W_DIR" type="int" value="1"/>
-   </properties>
-  </object>
   <object id="38" name="SPIKE" gid="358" x="352" y="624" width="16" height="16">
    <properties>
     <property name="W_DIR" type="int" value="1"/>
@@ -138,7 +133,7 @@
   <object id="47" name="DOOR" gid="115" x="736" y="672" width="16" height="16">
    <properties>
     <property name="W_HIDDEN" type="int" value="1"/>
-    <property name="W_M_NEXTX" type="int" value="80"/>
+    <property name="W_M_NEXTX" type="int" value="96"/>
     <property name="W_M_NEXTY" type="int" value="140"/>
     <property name="W_NEXTMAP" type="int" value="3"/>
    </properties>

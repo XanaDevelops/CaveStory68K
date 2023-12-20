@@ -35,6 +35,7 @@ CAMERA_START:
     CMP.L   #-1, A2
     BEQ     .NOINST
     MOVE.L  A2, ENTFOCUS(A0)
+    ;COLOCAR
     .NOINST:
 
     MOVEM.L (SP)+, A2-A1
