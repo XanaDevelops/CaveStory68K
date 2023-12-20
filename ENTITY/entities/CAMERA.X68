@@ -109,7 +109,6 @@ CAMERA_UPDATE:
         MOVE.W  D0, (SCR_SPEED_X)
     .ENDCAM:
 
-
     MOVE.W  (SCR_SPEED_X), D0
     MOVE.W  (SCR_SPEED_Y), D1
     
@@ -128,10 +127,6 @@ CAMERA_UPDATE:
     MOVE.W  D1, SCR_SPEED_Y
 
     JSR     PREVENT_SCREEN_OOB
-
-    
-
-    
 
     CMENDUP:
     
