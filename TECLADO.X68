@@ -62,8 +62,6 @@ UPDATE_KEYS:
     MOVE.B  D2, (KEY_HOLD_MENU)
     MOVE.B  D0, (KEY_PRESS_MENU)
 
-    
-
     MOVEM.L (SP)+, D3-D0
     RTE
 
