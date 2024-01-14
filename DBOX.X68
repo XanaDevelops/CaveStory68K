@@ -20,7 +20,7 @@ START_DBOX:
     CLR.W   (SINRQ)     ;W PARA SINGR
     CLR.B   (TWAIT)
 
-    BSR SET_SCROLL_TEXT
+    JSR     SET_SCROLL_TEXT
 
     RTS
 UPDATE_DBOX:
@@ -478,6 +478,7 @@ TWAIT           DS.B 1
                 DS.W 0
 
 TXTDELAY        EQU 1
+
 
 
 

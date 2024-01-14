@@ -45,6 +45,7 @@ INIT:                  ; first instruction of program
     ;5 LINE DBOX
     ;4 SHOW HUD
     ;3 WAIT Z DBOX
+    ;2 CINEMATIC ON
     ;0 FULLSCREEN TOGGLE
 MAINLOOP:
     ;UPDATE RNG
@@ -88,7 +89,26 @@ MAINLOOP:
     JSR     LOAD_MAP
     ADDQ.L  #2, SP
     .NOGM:
+
+    BTST.B  #KEYM_Q, (KEY_PRESS_MENU)
+    BEQ     .NOREC
+    BTST.B  #7, (CINEMASTS)
+    BNE     .REC
+    JSR     RECORD_START
+    BRA     .NOREC
+    .REC:
+    JSR     RECORD_END
+    .NOREC:
+
+    BTST.B  #KEYM_W, (KEY_PRESS_MENU)
+    BEQ     .NOPLY
+    MOVE.W  #0, -(SP)
+    JSR     PLAYBACK_START
+    ADDQ.L  #2, SP
+    .NOPLY:
+
     ENDC
+
     SUBQ.B  #1, (FTOSKIP)
     MOVE.B  (FTOSKIP), D0
     .UPDATE:
@@ -96,6 +116,8 @@ MAINLOOP:
 
     JSR     KC_UPD
 
+    JSR     RECORD_UPDATE
+    JSR     PLAYBACK_UPDATE
     JSR     GM_UPDATE
     JSR     UPDATE_DBOX
     JSR     TRANS_CONTROL
@@ -200,6 +222,7 @@ ENDMAINLOOP:
     INCLUDE "DRAWMAP.x68"
     INCLUDE "HUD.X68"
     INCLUDE "VARS.X68"
+    INCLUDE "CINEMATIC.X68"
     INCLUDE "DBOX.X68"
     INCLUDE "TRANSITIONS.X68"
     INCLUDE "KC.X68"
