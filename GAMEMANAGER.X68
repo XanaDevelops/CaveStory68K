@@ -14,7 +14,7 @@ LOAD_SAVE:
     JSR     OPEN_READ
     MOVE.L  (SP)+, D0
     TST.L   D0
-    BNE     .DEFAULT_SAVE
+    BMI     .ERR
     ;LEER MAGIKN
     MOVE.L  D0, -(SP)
     MOVE.L  #IOFILEW, -(SP)
@@ -33,6 +33,7 @@ LOAD_SAVE:
     BPL     .RETRY       ;saquen Easy68K 6.0
     BRA     .DEFAULT_SAVE
     .NOERR:
+    MOVE.B  #-1, (FIXFILEBUG)
     MOVE.W  (IOFILEW), D1
     CMP.W   #MAGIKN, D1
     BNE     .ERR
