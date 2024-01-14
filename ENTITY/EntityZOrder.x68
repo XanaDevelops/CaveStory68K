@@ -13,9 +13,17 @@
 
 ZORD_CLEAR:
     ;LIMPIA LA LISTA 
+    MOVEM.L D7/A0, -(SP)
+
     MOVE.L  #-1, (BOTNODE)
-    MOVE.L  #-1, (NODEVECTOR)
-    MOVE.L  #-1, (BOTNODE+4)
+    LEA     NODEVECTOR, A0
+    MOVE.W  #NUM_ENT-1, D7
+    .LOOP:
+    MOVE.L  #-1, (A0)
+    ADD.L   #NODESIZE, A0
+    DBRA    D7, .LOOP
+
+    MOVEM.L (SP)+, A0/D7
     RTS
 
 ZORD_ADD:
