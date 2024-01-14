@@ -11,6 +11,7 @@
     
 
 INIT:                  ; first instruction of program
+    JSR     CLOSEFILES
     CLR.B   (GAMEFLAGS)
     BSET.B  #4, (GAMEFLAGS)
     BSR     SYSTEM_INIT
@@ -30,6 +31,8 @@ INIT:                  ; first instruction of program
     MOVE.W  #0, (LOAD_MAP_ID)
     BSR     DO_LOAD_MAP
     
+    
+    JSR     LOAD_SAVE
     ;CLEAR DEL VALOR FIXFILEBUG
     CLR.B   (FIXFILEBUG)
 

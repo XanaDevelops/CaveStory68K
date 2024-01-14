@@ -7,7 +7,9 @@
 LOAD_SAVE:
     ;CARGA LA PARTIDA GUARDADA, SI EXISTE
     MOVEM.L D0-D1, -(SP)
+    MOVE.B  #200, (FIXFILEBUG)
     .RETRY:
+    SUBQ.B  #1, (FIXFILEBUG)
     MOVE.L  #SAVEFPTH, -(SP)
     JSR     OPEN_READ
     MOVE.L  (SP)+, D0
@@ -27,7 +29,8 @@ LOAD_SAVE:
     JSR     CLOSEFILE
     ADDQ.L  #4, SP
     ;TST.B   (HASBGMSRV)  ni idea de por que pasa.....
-    ;BEQ     .RETRY       saquen Easy68K 6.0
+    TST.B   (FIXFILEBUG)
+    BPL     .RETRY       ;saquen Easy68K 6.0
     BRA     .DEFAULT_SAVE
     .NOERR:
     MOVE.W  (IOFILEW), D1
