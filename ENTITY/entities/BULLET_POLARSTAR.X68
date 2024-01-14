@@ -20,7 +20,7 @@ BLT_PS_START:
     .NOAB:
 
     ADDS_ZORD
-    
+
     ADDQ.B  #1, (BULLET_POLARSTAR+BLT_ONSCREEN)
 
     MOVE.W  42(SP), ET_XPOS(A0)
@@ -148,6 +148,7 @@ BULLET_POLARSTAR:
     DC.W 0
     DC.W -100                                       ;ET_ZORD
 ;STATIC VALUES
+    DS.W 1
     DS.B 1
     DS.B 1
     DS.W 0                    
