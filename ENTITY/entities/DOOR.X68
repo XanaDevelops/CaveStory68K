@@ -21,9 +21,10 @@ DOOR_START:
     MOVE.W  32(SP), NEXTID(A0)
 
     TST.W   38(SP)
-    BEQ     .NOHID
-    MOVE.L  #DEFAULT_RTS, ET_DRAW(A0)
-    .NOHID:
+    BNE     .HID
+    MOVE.L  #DEFAULT_PAINT, ET_DRAW(A0)
+    ADDS_ZORD
+    .HID:
 
     RTS
 
@@ -50,7 +51,7 @@ DOOR:
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,0, 64,64                                 ;ET_HBOX 44
-    DC.L DOOR_START, DEFAULT_RTS, DEFAULT_PAINT     ;@
+    DC.L DOOR_START, DEFAULT_RTS, DEFAULT_RTS     ;@
     DC.L DOOR_INTERACT                              ;@
     DC.L DOOR_SPR                                   ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX

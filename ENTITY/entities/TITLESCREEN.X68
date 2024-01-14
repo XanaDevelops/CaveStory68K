@@ -7,6 +7,8 @@
 TS_START:
     MOVEM.W D1/D7, -(SP)
 
+    ADDS_ZORD
+
     BSET.B  #4, (GAMEFLAGS)
     ;INSTANCIAR NUBES
     SUBA.L  #10, SP

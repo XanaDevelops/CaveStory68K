@@ -49,7 +49,7 @@ DESTROY_ENTITY:
 SLASHKILLA: ;/kill @e
     MOVEM.L     D7/A0, -(SP)
     JSR ZORD_CLEAR
-    
+
     LEA     ENTITY_MEM, A0
     MOVE.W  #NUM_ENT-1, D7
     .KILLALOOP:
@@ -77,6 +77,25 @@ UPDATE_ALL_ENT:
     RTS
 
 DRAW_ALL_ENT:
+    ;USA EL zORDER
+    MOVEM.L A0-A2, -(SP)
+
+    MOVE.L BOTNODE, A2
+    CMP.L   #0, A2      ;FAILSAVE
+    BMI     .END
+    .LOOP:
+    CMP.L   #0, A2
+    BMI     .END
+    MOVE.L  (A2), A0
+    MOVE.L  ET_DRAW(A0), A1
+    JSR     (A1)
+    MOVE.L  4(A2), A2 
+    BRA     .LOOP
+    .END:
+    MOVEM.L (SP)+, A2-A0
+    RTS
+
+DRAW_ALL_ENT_OLD:
     MOVEM.L D7/A0-A1, -(SP)
 
     LEA     ENTITY_MEM, A0

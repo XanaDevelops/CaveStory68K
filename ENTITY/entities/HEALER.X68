@@ -9,7 +9,7 @@ HEALER_START:
     ;30(SP) ET_XPOS
 
     ADDS_ZORD
-
+    MOVE.W  ET_ZORD(A0), D6
     MOVE.W  28(SP), ET_YPOS(A0)
     MOVE.W  30(SP), ET_XPOS(A0)
 
@@ -55,7 +55,8 @@ HEALER:
     DC.L HEALER_SPR                                 ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0
-    DC.W 100                                        ;ET_ZORD                                     
+    DC.W 100                                        ;ET_ZORD    
+                                     
        
 
 *~Font name~Courier New~

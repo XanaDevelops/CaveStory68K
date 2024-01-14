@@ -18,6 +18,9 @@ BLT_PS_START:
     ADDQ.L  #4, SP
     BRA     .ENDS
     .NOAB:
+
+    ADDS_ZORD
+    
     ADDQ.B  #1, (BULLET_POLARSTAR+BLT_ONSCREEN)
 
     MOVE.W  42(SP), ET_XPOS(A0)

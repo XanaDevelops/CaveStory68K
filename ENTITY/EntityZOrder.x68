@@ -13,7 +13,6 @@
 
 ZORD_CLEAR:
     ;LIMPIA LA LISTA 
-    MOVE.L  #NODEVECTOR, (TOPNODE)
     MOVE.L  #-1, (BOTNODE)
     MOVE.L  #-1, (NODEVECTOR)
     RTS
@@ -36,33 +35,25 @@ ZORD_ADD:
     .LOOP:
     CMP.L   #0, A1
     BMI     .INSERT
-    MOVE.L  (A1), A4
-    MOVE.L  ET_ZORD(A4), D0
-    CMP.L   ET_ZORD(A2), D0
-    BGT     .INSERT
+    MOVE.L  (A1), A4        ;COMPARATIVAS
+    MOVE.W  ET_ZORD(A4), D0
+    CMP.W   ET_ZORD(A2), D0
+    BLT     .INSERT
     MOVE.L  A1, A3
     MOVE.L  4(A1), A1
-    TST.L   4(A1)
-    BMI     .INSERT
     BRA     .LOOP
     .INSERT:
     CMP.L   #0, A3
     BPL     .NONBNODE
     MOVE.L  A0, (BOTNODE)
+    BRA     .SAVE
     .NONBNODE:
+    MOVE.L  A0, 4(A3)
+    .SAVE:
     MOVE.L  A2, (A0)    ;GUARDAR
-    CMP.L   #0, A1      ;SI ANTERIOR
-    BMI     .NOA1
-    TST.L   4(A1)       ;SI DESPLAZAR
-    BMI     .NO4A1
-    MOVE.L  4(A1), 4(A0)
-    BRA     .A
-    .NO4A1:
-    MOVE.L  #-1, 4(A0)  ;ES ULTIMO
-    .A:
-    MOVE.L  A0, 4(A1)
-    .NOA1:
+    MOVE.L  A1, 4(A0)
 
+    .END:
     MOVEM.L (SP)+, A4-A0/D0
     RTS
 
@@ -88,7 +79,6 @@ ZORD_UPDATE:
     BSR ZORD_REMOVE
     BRA ZORD_ADD
 
-TOPNODE     DC.L  NODEVECTOR
 BOTNODE     DC.L  NODEVECTOR
 NODEVECTOR  DCB.L NUM_ENT*2,-1
 

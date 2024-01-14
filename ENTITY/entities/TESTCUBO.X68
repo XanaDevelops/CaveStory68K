@@ -9,6 +9,8 @@ TESTCUBO_START:
     ;28(SP) ET_YPOS 
     ;30(SP) ET_XPOS
 
+    ADDS_ZORD
+
     MOVE.W  28(SP), ET_YPOS(A0)
     MOVE.W  30(SP), ET_XPOS(A0)
     RTS

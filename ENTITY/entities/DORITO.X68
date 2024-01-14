@@ -9,6 +9,8 @@ DORITO_START:
     ;30(SP) ET_XPOS
     ;32(SP) TYPE
 
+    ADDS_ZORD
+
     MOVE.W  28(SP), ET_YPOS(A0)
     MOVE.W  30(SP), ET_XPOS(A0)
 
