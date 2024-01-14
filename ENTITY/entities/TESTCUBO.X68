@@ -18,10 +18,10 @@ TESTCUBO_START:
 TESTCUBO_UPDATE:
     MOVEM.L D1-D2/A1, -(SP)
 
-    ADDQ.B  #1, ET_ZORD+1(A0)
+    ADDQ.B  #8, ET_ZORD+1(A0)
 
     MOVE.L  A0, -(SP)
-    JSR     ZORD_UPDATE
+    ZORD_UPDATE
     ADDQ.L  #4, SP
 
     MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
