@@ -60,18 +60,32 @@ ZORD_ADD:
 
 ZORD_REMOVE:
     ;ELIMINA ENTIDAD DE LA LISTA
-    ;X(SP).L @ET
+    ;24(SP).L @ET
+    MOVEM.L A0/A2-A3, -(SP)
 
-    LEA     NODEVECTOR, A0
-    MOVE.L  -666(SP), A1
+    MOVE.L  24(SP), A2
+
+    MOVE.L  (BOTNODE), A0
+    MOVE.L  #-1, A3
     .LOOP:
-    CMP.L   (A0), A1
-    BEQ     .FOUND
-    MOVE.L  4(A0), A0
+    CMP.L   #0, A0
     BMI     .END
+    CMP.L   (A0), A2
+    BEQ     .REM
+    MOVE.L  A0, A3
+    MOVE.L  4(A0), A0
     BRA     .LOOP
-    .FOUND:
+    .REM:
+    MOVE.L  #-1, (A0)
+    CMP.L   #0, A3
+    BMI     .NOA3
+    MOVE.L  4(A0), 4(A3)
+    BRA     .END
+    .NOA3:
+    MOVE.L  4(A0), (BOTNODE)
     .END:
+    
+    MOVEM.L (SP)+, A3-A2/A0
     RTS
 
 ZORD_UPDATE:
@@ -80,10 +94,11 @@ ZORD_UPDATE:
     BSR ZORD_REMOVE
     BRA ZORD_ADD
 
-BOTNODE     DC.L  NODEVECTOR
+BOTNODE     DC.L  -1
 NODEVECTOR  DCB.L NUM_ENT*2,-1
 
 NODESIZE    EQU 8  ;EN BYTES
+
 
 
 

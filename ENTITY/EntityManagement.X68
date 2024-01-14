@@ -43,6 +43,8 @@ DESTROY_ENTITY:
     MOVE.L  8(SP), A0
     CLR.W   (A0)
     
+    JSR ZORD_REMOVE
+
     MOVE.L  (SP)+, A0
     RTS
 
