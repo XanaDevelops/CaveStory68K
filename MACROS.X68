@@ -149,3 +149,11 @@ KILL_ET_ENEMY MACRO
     ADDQ.L  #4, SP
 
     ENDM
+
+ADDS_ZORD   MACRO
+    ;AÑADE ENTIDAD A ZORDER
+    MOVE.L  A0, -(SP)
+    JSR     ZORD_ADD
+    ADDQ.L  #4, SP
+
+    ENDM

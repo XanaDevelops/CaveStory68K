@@ -5,28 +5,137 @@
 * Description:
 *-----------------------------------------------------------
 ;------ Z ORDER ----- ;
-; PARA TENER UN Z ORDER USO UNA DOBLE LISTA ENLAZADA Y ORDENADA
+; PARA TENER UN Z ORDER USO UNA LISTA ENLAZADA Y ORDENADA
 ; PERMITE FLEXIBILIDAD EN RUNTIME
 ; ESTRUCTURA NODE
 ;   DC.L @ET ;-1 LIBRE
-;   DC.W ID NEXT NODE
-;   DC.W ID PREV NODE
+;   DC.L @NEXT NODE -1 end
 
 ZORD_CLEAR:
     ;LIMPIA LA LISTA 
-    CLR.W   (TOPNODE)
-    CLR.W   (N_NODES)
+    MOVE.L  #NODEVECTOR, (TOPNODE)
+    MOVE.L  #-1, (BOTNODE)
     MOVE.L  #-1, (NODEVECTOR)
     RTS
 
 ZORD_ADD:
+    ;AAAA
+    ;POFA FUNCIONA CABECITA MIA
+    MOVEM.L D0/A0-A4, -(SP)
+    
+    MOVE.L  28(SP), A2
+    LEA     NODEVECTOR, A0
+    .FNEW:                  ;BUSCAR ESPACIO NUEVO
+    TST.L   (A0)
+    BMI     .MFOUND
+    ADDA.L  #NODESIZE, A0
+    BRA     .FNEW           ;LIMITE?
+    .MFOUND:
+    MOVE.L  (BOTNODE), A1   
+    MOVE.L  #-1, A3
+    .LOOP:
+    CMP.L   #0, A1
+    BMI     .INSERT
+    MOVE.L  (A1), A4
+    MOVE.L  ET_ZORD(A4), D0
+    CMP.L   ET_ZORD(A2), D0
+    BGT     .INSERT
+    MOVE.L  A1, A3
+    MOVE.L  4(A1), A1
+    TST.L   4(A1)
+    BMI     .INSERT
+    BRA     .LOOP
+    .INSERT:
+    CMP.L   #0, A3
+    BPL     .NONBNODE
+    MOVE.L  A0, (BOTNODE)
+    .NONBNODE:
+    MOVE.L  A2, (A0)    ;GUARDAR
+    CMP.L   #0, A1      ;SI ANTERIOR
+    BMI     .NOA1
+    TST.L   4(A1)       ;SI DESPLAZAR
+    BMI     .NO4A1
+    MOVE.L  4(A1), 4(A0)
+    BRA     .A
+    .NO4A1:
+    MOVE.L  #-1, 4(A0)  ;ES ULTIMO
+    .A:
+    MOVE.L  A0, 4(A1)
+    .NOA1:
+
+    MOVEM.L (SP)+, A4-A0/D0
+    RTS
+
+ZORD_ADD_OLD:
     ;AÑADE ENTIDAD A LA LISTA
-    ;X(SP).L @ET
+    ;BUG ELIMINAR PRIMERO!!
+    ;28(SP).L @ET
+    MOVEM.L D0/A0-A4, -(SP)
+
+    MOVE.L  28(SP), A2  ;@ENT
+    MOVE.L  (BOTNODE), A0
+    TST.L   (A0)
+    BPL     .NONEG
+    MOVE.L  A2, (A0)     ;PRIMER NODO
+    MOVE.L  #-1, 4(A0)
+    BRA     .END
+    .NONEG:
+    MOVE.L  A0, A1
+    .ITER:
+    ;YA EXISTEN NODOS
+    MOVE.L  (A0), A4    ;@ET NODO
+    MOVE.W  ET_ZORD(A4), D0
+    CMP.W   ET_ZORD(A2), D0
+    BGT     .FOUNDC      ;NEW ANTES QUE CHECK
+    MOVE.L  A0, A1  ;LAST
+    MOVE.L  4(A0), A0
+    CMP.L   #0, A0
+    BMI     .FOUND
+    BRA     .ITER
+    .FOUNDC:
+    ;COMPROBAR BOTNODE
+    CMP.L   (BOTNODE), A1
+    BNE     .NOBN
+    CLR.L   D0
+    BRA     .FOUND
+    .NOBN:
+    ;MOVEQ.W #1, D0
+    .FOUND:
+    LEA     NODEVECTOR, A0
+    .LOOP:
+    TST.L   (A0)
+    BMI     .FMEM
+    ADDA.L  #NODESIZE, A0 
+    BRA     .LOOP
+    .FMEM:
+    MOVE.L  A2, (A0)
+    CMP.L   #0, A1  ;TST CON Ax NO DEJA
+    BMI     .NOA1
+    TST.L   4(A1)
+    BMI     .NONEXT
+    MOVE.L  4(A1), 4(A0)
+    .NONEXT:
+    MOVE.L  A0, 4(A1)
+    .NOA1:
+
+    .END:
+    MOVEM.L (SP)+, A4-A0/D0
     RTS
 
 ZORD_REMOVE:
     ;ELIMINA ENTIDAD DE LA LISTA
+    ;X(SP).L @ET
 
+    LEA     NODEVECTOR, A0
+    MOVE.L  -666(SP), A1
+    .LOOP:
+    CMP.L   (A0), A1
+    BEQ     .FOUND
+    MOVE.L  4(A0), A0
+    BMI     .END
+    BRA     .LOOP
+    .FOUND:
+    .END:
     RTS
 
 ZORD_UPDATE:
@@ -35,12 +144,19 @@ ZORD_UPDATE:
     BSR ZORD_REMOVE
     BRA ZORD_ADD
 
-N_NODES     DC.W 0
-TOPNODE     DC.W 0
-
+TOPNODE     DC.L  NODEVECTOR
+BOTNODE     DC.L  NODEVECTOR
 NODEVECTOR  DCB.L NUM_ENT*2,-1
 
 NODESIZE    EQU 8  ;EN BYTES
+
+
+
+
+
+
+
+
 
 
 *~Font name~Courier New~

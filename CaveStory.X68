@@ -23,6 +23,7 @@ INIT:                  ; first instruction of program
     MOVE.W  #0, SCR_SPEED_X
     MOVE.W  #0, SCR_SPEED_Y
 
+    JSR     ZORD_CLEAR
     JSR     ENTSTCSTART
 
     ;MANUALMENTE CARGAR MAPA

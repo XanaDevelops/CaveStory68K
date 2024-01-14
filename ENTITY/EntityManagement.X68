@@ -48,6 +48,8 @@ DESTROY_ENTITY:
 
 SLASHKILLA: ;/kill @e
     MOVEM.L     D7/A0, -(SP)
+    JSR ZORD_CLEAR
+    
     LEA     ENTITY_MEM, A0
     MOVE.W  #NUM_ENT-1, D7
     .KILLALOOP:
