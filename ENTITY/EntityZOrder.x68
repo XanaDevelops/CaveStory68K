@@ -66,62 +66,6 @@ ZORD_ADD:
     MOVEM.L (SP)+, A4-A0/D0
     RTS
 
-ZORD_ADD_OLD:
-    ;AÑADE ENTIDAD A LA LISTA
-    ;BUG ELIMINAR PRIMERO!!
-    ;28(SP).L @ET
-    MOVEM.L D0/A0-A4, -(SP)
-
-    MOVE.L  28(SP), A2  ;@ENT
-    MOVE.L  (BOTNODE), A0
-    TST.L   (A0)
-    BPL     .NONEG
-    MOVE.L  A2, (A0)     ;PRIMER NODO
-    MOVE.L  #-1, 4(A0)
-    BRA     .END
-    .NONEG:
-    MOVE.L  A0, A1
-    .ITER:
-    ;YA EXISTEN NODOS
-    MOVE.L  (A0), A4    ;@ET NODO
-    MOVE.W  ET_ZORD(A4), D0
-    CMP.W   ET_ZORD(A2), D0
-    BGT     .FOUNDC      ;NEW ANTES QUE CHECK
-    MOVE.L  A0, A1  ;LAST
-    MOVE.L  4(A0), A0
-    CMP.L   #0, A0
-    BMI     .FOUND
-    BRA     .ITER
-    .FOUNDC:
-    ;COMPROBAR BOTNODE
-    CMP.L   (BOTNODE), A1
-    BNE     .NOBN
-    CLR.L   D0
-    BRA     .FOUND
-    .NOBN:
-    ;MOVEQ.W #1, D0
-    .FOUND:
-    LEA     NODEVECTOR, A0
-    .LOOP:
-    TST.L   (A0)
-    BMI     .FMEM
-    ADDA.L  #NODESIZE, A0 
-    BRA     .LOOP
-    .FMEM:
-    MOVE.L  A2, (A0)
-    CMP.L   #0, A1  ;TST CON Ax NO DEJA
-    BMI     .NOA1
-    TST.L   4(A1)
-    BMI     .NONEXT
-    MOVE.L  4(A1), 4(A0)
-    .NONEXT:
-    MOVE.L  A0, 4(A1)
-    .NOA1:
-
-    .END:
-    MOVEM.L (SP)+, A4-A0/D0
-    RTS
-
 ZORD_REMOVE:
     ;ELIMINA ENTIDAD DE LA LISTA
     ;X(SP).L @ET
