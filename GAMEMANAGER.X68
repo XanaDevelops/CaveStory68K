@@ -14,7 +14,7 @@ LOAD_SAVE:
     JSR     OPEN_READ
     MOVE.L  (SP)+, D0
     TST.L   D0
-    BMI     .ERR
+    BMI     .ERR ;RECUERDA, BMI=MInus, BNE=NotEqual
     ;LEER MAGIKN
     MOVE.L  D0, -(SP)
     MOVE.L  #IOFILEW, -(SP)
