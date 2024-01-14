@@ -15,6 +15,7 @@ ZORD_CLEAR:
     ;LIMPIA LA LISTA 
     MOVE.L  #-1, (BOTNODE)
     MOVE.L  #-1, (NODEVECTOR)
+    MOVE.L  #-1, (BOTNODE+4)
     RTS
 
 ZORD_ADD:
