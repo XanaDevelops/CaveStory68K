@@ -148,7 +148,7 @@ BULLET_POLARSTAR:
     DC.W 0
     DC.W -100                                       ;ET_ZORD
 ;STATIC VALUES
-    DS.W 1
+    DS.W 1  ;OJO CON ESTO
     DS.B 1
     DS.B 1
     DS.W 0                    
