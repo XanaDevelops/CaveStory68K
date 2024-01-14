@@ -78,7 +78,7 @@ GAME_SAVE:
     JSR OPEN_WRITE
     MOVE.L (SP)+, D0
     CMP.L #0, D0
-    BNE .ERR
+    BMI .ERR
     ;ESCRIBIR  MAGIKN
     MOVE.L D0, -(SP)
     MOVE.W #MAGIKN, (IOFILEW)
@@ -96,7 +96,7 @@ GAME_SAVE:
     BNE .ERR
     BRA .CLOSE
     .ERR:
-    
+    ILLEGAL
     .CLOSE:
     ADDQ.L #4, SP
     JSR CLOSEFILE
