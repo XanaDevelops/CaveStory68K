@@ -18,6 +18,12 @@ TESTCUBO_START:
 TESTCUBO_UPDATE:
     MOVEM.L D1-D2/A1, -(SP)
 
+    ADDQ.B  #1, ET_ZORD+1(A0)
+
+    MOVE.L  A0, -(SP)
+    JSR     ZORD_UPDATE
+    ADDQ.L  #4, SP
+
     MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
         MOVE.W  ET_TSPRT(A0), D2                   ;CONTROLAR SALTO TODO
         SUBQ.W  #1, D2
@@ -54,6 +60,7 @@ TESTCUBO:
     DC.W 0                                          ;ET_ZORD                                     
 
     
+
 
 *~Font name~Courier New~
 *~Font size~10~
