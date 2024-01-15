@@ -64,7 +64,8 @@ class Conversor():
             print("     [6] ConvertSingle") 
             print("     [7] Split Image")
             print("     [8] Importar sonidos")    
-            print("     [9] Convert BMP to 68K Data (single DEPR)")              
+            print("     [9] Modificar .CDAT (cinematicas)")
+            print("     [10] Convert BMP to 68K Data (single DEPR)")              
             print("     [0] Exit")
 
             r = input("?: ")
@@ -88,6 +89,8 @@ class Conversor():
                     case 8:
                         self.SoundImport()
                     case 9:
+                        self.EditCDAT()
+                    case 10:
                         print(self.ConvertSpriteOld(input("path: "))[0], file=open("OUTPUT.x68", "w"))
                     case 0:
                         salir = True
@@ -586,6 +589,13 @@ class Conversor():
             subprocess.run(((f"python .\simpinkscr\simple_inkscape_scripting.py --py-source=transform.py svg/PLANTILLA {out} auxfile.tmp").split()),
                        stdout=devnull)
             devnull.close()
+
+    def EditCDAT(self):
+        filename = input("\nEditor de CDAT: .cdat?: ")
+        with open(filename, "+ab") as file:
+            file.seek(0)
+            print(f"RND SEED: {file.read(4).hex()} Frames: {(os.path.getsize(filename)-8)/4}")
+
     def SoundImport(self):
         print("\nImportando Canciones y SFX")
         with open(self.pathSI, "+w") as fsound:
