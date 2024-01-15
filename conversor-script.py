@@ -597,21 +597,21 @@ class Conversor():
         filename = input("\nEditor de CDAT: .cdat?: ")
         with open(filename, "+ab") as file:
             file.seek(0)
-            print(f"RND SEED: {file.read(4).hex()} Frames: {(os.path.getsize(filename)-8)/4}")
+            print(f"RND SEED: {file.read(4).hex()} Frames: {(os.path.getsize(filename)-4)/2}")
             #print(self.cdasym)
             while(True):
-                print(f"\t[1] Mostrar 20 siguientes frame actual:{(file.tell()-4)/4}")
+                print(f"\t[1] Mostrar 20 siguientes frame actual:{(file.tell()-2)/2}")
                 print("\t[2] Ir a frame")
                 print("\n\t[0] Salir menu principal")
                 c:int = int(input("CMD? "))
                 match c:
                     case 1:
                         print("CABECERA")
-                        linia = file.read(4)
+                        linia = file.read(2)
                         for i in range(20):
                             if(linia==b""):
                                 break
-                            self.PrintFrame(linia.hex(), (file.tell()-4)/4)
+                            self.PrintFrame(linia.hex(), (file.tell()-2)/2)
                             linia = file.read(4)
                     case 0:
                         break
