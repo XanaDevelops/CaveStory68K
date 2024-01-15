@@ -48,7 +48,6 @@ INIT:                  ; first instruction of program
     ;5 LINE DBOX
     ;4 SHOW HUD
     ;3 WAIT Z DBOX
-    ;2 CINEMATIC ON
     ;0 FULLSCREEN TOGGLE
 MAINLOOP:
     ;UPDATE RNG
@@ -98,6 +97,8 @@ MAINLOOP:
     BEQ     .REC
     BTST.B  #7, (CINEMASTS)
     BNE     .REC
+    BTST.B  #6, (CINEMASTS)
+    BNE     .REC
     JSR     RECORD_START
     .REC:
 
@@ -108,7 +109,7 @@ MAINLOOP:
     BEQ     .NOREC
     JSR     RECORD_END
     .NOREC:
-    
+
     BTST.B  #KEYM_W, (KEY_PRESS_MENU)
     BEQ     .NOPLY
     MOVE.W  #0, -(SP)
