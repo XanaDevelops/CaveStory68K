@@ -15,8 +15,9 @@ KEYM_A          EQU 1
 KEYM_S          EQU 0
 KEYM_Q          EQU 7
 KEYM_W          EQU 6
-KEYM_ESC        EQU 5
-KEYM_F11        EQU 4
+KEYM_E          EQU 5
+KEYM_ESC        EQU 4
+KEYM_F11        EQU 3
 
 
 ;KEY REG
@@ -49,12 +50,18 @@ UPDATE_KEYS:
     MOVE.B  D0, (KEY_PRESS_PLAYER)
 
     MOVE.B  #19, D0
-    MOVE.L  #'Q'<<24+'W'<<16+KEY_ESC<<8+KEY_F11, D1
+    MOVE.L  #'Q'<<24+'W'<<16+'E'<<8+KEY_ESC, D1
     TRAP    #15
 
     BSR     .CONVERT
 
-    LSL.B   #4, D2  ;COLOCAR EN SU SITIO
+    MOVE.B  #19, D0
+    MOVE.L  #KEYM_F11<<24, D1
+    TRAP    #15
+
+    BSR     .CONVERT
+
+    ;LSL.B   #4, D2  ;COLOCAR EN SU SITIO
 
     MOVE.B  (KEY_HOLD_MENU), D0
     NOT.B   D0
@@ -72,6 +79,7 @@ UPDATE_KEYS:
     ROXL.B  #1, D2                   
     DBRA.W  D3, .LOOP
     RTS
+
 
 
 

@@ -93,16 +93,22 @@ MAINLOOP:
     ADDQ.L  #2, SP
     .NOGM:
 
+    ;EMPEZAR GRABACIÓN
     BTST.B  #KEYM_Q, (KEY_PRESS_MENU)
-    BEQ     .NOREC
+    BEQ     .REC
     BTST.B  #7, (CINEMASTS)
     BNE     .REC
     JSR     RECORD_START
-    BRA     .NOREC
     .REC:
+
+    ;FINALIZAR GRABACIÓN
+    BTST.B  #KEYM_E, (KEY_PRESS_MENU)
+    BEQ     .NOREC
+    BTST.B  #7, (CINEMASTS)
+    BEQ     .NOREC
     JSR     RECORD_END
     .NOREC:
-
+    
     BTST.B  #KEYM_W, (KEY_PRESS_MENU)
     BEQ     .NOPLY
     MOVE.W  #0, -(SP)
