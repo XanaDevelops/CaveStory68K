@@ -11,6 +11,7 @@ import tmx
 from split_image import split_image
 from bruteforcer import frame_to_boxes
 import inkex, inkex.command
+
 try:
     rect
 except NameError:
@@ -46,6 +47,8 @@ class Conversor():
     #MAXPROCESS = 64
     activeProcess:list[multiprocessing.Process] = []
     waitProcess:list[multiprocessing.Process] = []
+
+    cdasym="↑↓←→ZXASQW␛␜    "
 
     def __init__(self):
         print(f"NUMERO de subprocesos generables {self.MAXPROCESS}")
@@ -595,6 +598,31 @@ class Conversor():
         with open(filename, "+ab") as file:
             file.seek(0)
             print(f"RND SEED: {file.read(4).hex()} Frames: {(os.path.getsize(filename)-8)/4}")
+            #print(self.cdasym)
+            while(True):
+                print(f"\t[1] Mostrar 20 siguientes frame actual:{(file.tell()-4)/4}")
+                print("\t[2] Ir a frame")
+                print("\n\t[0] Salir menu principal")
+                c:int = int(input("CMD? "))
+                match c:
+                    case 1:
+                        print("CABECERA")
+                        linia = file.read(4)
+                        for i in range(20):
+                            if(linia==b""):
+                                break
+                            self.PrintFrame(linia.hex(), (file.tell()-4)/4)
+                            linia = file.read(4)
+                    case 0:
+                        break
+    def PrintFrame(self, data:str, frame:int)-> None:
+        regs = [data[x:2+x] for x in range(0,8,2)]
+        print(f"Frame:{frame}:\t {regs} {'|'.join([self.Symbolice(regs[x]) for x in range(4)])}")
+
+    def Symbolice(self, data:str) -> str:
+        bData = bin(int(data,16))[2:].zfill(8)
+        #print(bData)
+        return bData
 
     def SoundImport(self):
         print("\nImportando Canciones y SFX")
