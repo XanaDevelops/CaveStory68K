@@ -56,7 +56,7 @@ UPDATE_KEYS:
     BSR     .CONVERT
 
     MOVE.B  #19, D0
-    MOVE.L  #KEYM_F11<<24, D1
+    MOVE.L  #KEY_F11<<24, D1
     TRAP    #15
 
     BSR     .CONVERT
