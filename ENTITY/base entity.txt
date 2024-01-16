@@ -22,6 +22,10 @@ en start: SP data se encuentra en 28(SP), sin contar registros movem
 IDs:
 PLAYER:     1
 ENEMY:      -1*X
+-1: BAT 
+-2: SPIKE
+-3: CRITTER
+-4: STARCUBE
 BULLETQ:    1X
 BULLETK:    2X
 NPC:        3X

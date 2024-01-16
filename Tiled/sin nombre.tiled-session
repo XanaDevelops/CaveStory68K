@@ -15,8 +15,8 @@
             "scale": 1.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 143.66666666666669,
-                "y": 128.33333333333334
+                "x": 144,
+                "y": 128.33333333333331
             }
         },
         "01_STARTCAVE.tmx": {
@@ -26,8 +26,8 @@
             "scale": 4,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 127.875,
-                "y": 111.875
+                "x": 128,
+                "y": 112.125
             }
         },
         "01_tiledtest.tmx": {
@@ -48,7 +48,7 @@
             "scale": 4,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 423.875,
+                "x": 424,
                 "y": 399.875
             }
         },
@@ -59,8 +59,8 @@
             "scale": 3,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 143.5,
-                "y": 111.33333333333334
+                "x": 108.99999999999999,
+                "y": 111.16666666666666
             }
         },
         "98_slopetest.tmx": {
@@ -70,8 +70,8 @@
             "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 479.75,
-                "y": 143.75
+                "x": 480,
+                "y": 144.25
             }
         },
         "99_tiledtest.tmx": {
@@ -81,8 +81,8 @@
             "scale": 4.4976562499999995,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 135.95970123328124,
-                "y": 127.95553239534482
+                "x": 135.84853222164324,
+                "y": 128.1778704186208
             }
         },
         "C:/Users/danie/OneDrive - Universitat de les Illes Balears/2n/Estructura Computadors II/YAP-master/YAP-master/TILED/MAPDATA.tmx": {

@@ -38,7 +38,7 @@ BLANK:
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0                                          ;ET_TSPRT
     DC.W 0                                          ;ET_ZORD
-                                         
+    DS.W 1                                         
 
     
 *~Font name~Courier New~
