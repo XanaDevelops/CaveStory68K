@@ -21,10 +21,10 @@ DOOR_START:
     MOVE.W  32(SP), NEXTID(A0)
 
     CMP.W   #1, 38(SP)
-    BNE     .NOHID
+    BEQ     .NOLOCK
     MOVE.L  #DEFAULT_PAINT, ET_DRAW(A0)
     ADDS_ZORD
-    .NOHID:
+    .HID:
     CMP.W   #2, 38(SP)
     BNE     .NOLOCK
     MOVE.L  #DEFAULT_RTS, ET_REVDAM(A0)
