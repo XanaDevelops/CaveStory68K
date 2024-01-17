@@ -66,8 +66,8 @@
 </data>
  </layer>
  <objectgroup id="2" name="Capa de Objetos 1">
-  <object id="3" name="PLAYER" gid="603" x="272" y="528" width="16" height="16"/>
-  <object id="7" name="CAMERA" gid="381" x="272" y="432" width="16" height="16">
+  <object id="3" name="PLAYER" gid="603" x="272" y="128" width="16" height="16"/>
+  <object id="7" name="CAMERA" gid="381" x="240" y="80" width="16" height="16">
    <properties>
     <property name="L_SEEK" value="PLAYER"/>
    </properties>

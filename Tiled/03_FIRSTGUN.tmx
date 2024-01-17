@@ -4,8 +4,8 @@
  <tileset firstgid="81" source="NpcSym.tsx"/>
  <tileset firstgid="381" source="CAMARA.tsx"/>
  <tileset firstgid="383" source="NpcCemet.tsx"/>
- <tileset firstgid="523" source="MyChar.tsx"/>
- <tileset firstgid="682" source="PrtMimi.tsx"/>
+ <tileset firstgid="591" source="MyChar.tsx"/>
+ <tileset firstgid="750" source="PrtMimi.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="18" height="18">
   <data encoding="csv">
 33,34,33,34,33,34,33,34,33,34,33,34,33,34,33,34,33,34,
@@ -29,7 +29,6 @@
 </data>
  </layer>
  <objectgroup id="3" name="Capa de Objetos 1">
-  <object id="1" name="CHEST" gid="96" x="192" y="160" width="16" height="16"/>
   <object id="2" name="CARTEL" gid="173" x="128" y="160" width="16" height="16">
    <properties>
     <property name="W_DIAG" value="ICHOZAGUN"/>
