@@ -52,7 +52,9 @@ CRITTER_L       DC.L 1
 
 SPIKE_SPR       DC.L 4
                 DC.L SPIKE_U, SPIKE_D, SPIKE_L, SPIKE_R
-                
+
+SPR_STARCB      DC.L 1
+                DC.L SPR_STARCUBE                
 
 CARTELS         DC.L 1
                 DC.L SPR_CARTEL
@@ -74,12 +76,14 @@ DORITO_M        DC.L 5
 
 CLOUDS          DC.L NUBE0, NUBE1, NUBE2, NUBE3
 
+SPR_G_DUST      DC.L 6
+                DC.L DUST_G_0, DUST_G_1, DUST_G_2, DUST_G_3, DUST_G_4, DUST_G_5
+
 SQR_TRANS       DC.L 16
                 DC.L NULL, SQR_TRANS_1, SQR_TRANS_2, SQR_TRANS_3, SQR_TRANS_4, SQR_TRANS_5, SQR_TRANS_6, SQR_TRANS_7, SQR_TRANS_8
                 DC.L SQR_TRANS_9, SQR_TRANS_10, SQR_TRANS_11, SQR_TRANS_12, SQR_TRANS_13, SQR_TRANS_14, SQR_TRANS_15
 
-SPR_STARCB      DC.L 1
-                DC.L SPR_STARCUBE
+
 
 
 BGMMUS  DC.B 4, 41, 41, 41, 41, 41, 41 ;PLACEHOLDER

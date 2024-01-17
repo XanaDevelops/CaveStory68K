@@ -10,7 +10,7 @@ SPRITES
 	DC.L PrtCave_032, PrtCave_033, PrtCave_034, PrtCave_035, PrtCave_036, PrtCave_037, PrtCave_038, PrtCave_039, PrtCave_040, PrtCave_041, PrtCave_042, PrtCave_043, PrtCave_044, PrtCave_045, PrtCave_046, PrtCave_047
 	DC.L PrtCave_048, PrtCave_049, PrtCave_050, PrtCave_051, PrtCave_052, PrtCave_053, PrtCave_054, PrtCave_055, PrtCave_056, PrtCave_057, PrtCave_058, PrtCave_059, PrtCave_060, PrtCave_061, PrtCave_062, NULL
 	DC.L PrtCave_064, PrtCave_065, PrtCave_066, NULL, PrtCave_068, PrtCave_069, PrtCave_070, PrtCave_071, PrtCave_072, NULL, NULL, NULL, PrtCave_076, PrtCave_077, PrtCave_078, NULL
-	DC.L PrtCave_080, NULL, NpcSym_082, NpcSym_083, NpcSym_084, NpcSym_085, NpcSym_086, NpcSym_087, NpcSym_088, NpcSym_089, NpcSym_090, NpcSym_091, NpcSym_092, NpcSym_093, NpcSym_094, NpcSym_095
+	DC.L PrtCave_080, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NpcSym_088, NpcSym_089, NpcSym_090, NpcSym_091, NpcSym_092, NpcSym_093, NpcSym_094, NpcSym_095
 	DC.L NpcSym_096, NpcSym_097, NpcSym_098, NpcSym_099, NpcSym_100, NpcSym_101, NpcSym_102, NpcSym_103, NpcSym_104, NpcSym_105, NpcSym_106, NpcSym_107, NpcSym_108, NpcSym_109, NpcSym_110, NpcSym_111
 	DC.L NpcSym_112, NpcSym_113, NpcSym_114, NpcSym_115, NpcSym_116, NpcSym_117, NpcSym_118, NpcSym_119, NpcSym_120, NpcSym_121, NpcSym_122, NpcSym_123, NpcSym_124, NpcSym_125, NpcSym_126, NpcSym_127
 	DC.L NpcSym_128, NpcSym_129, NULL, NpcSym_131, NpcSym_132, NpcSym_133, NpcSym_134, NpcSym_135, NpcSym_136, NpcSym_137, NpcSym_138, NpcSym_139, NpcSym_140, NpcSym_141, NpcSym_142, NpcSym_143

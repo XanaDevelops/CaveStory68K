@@ -15,7 +15,7 @@ import inkex, inkex.command
 try:
     rect
 except NameError:
-    print("hey")
+    print("hello there")
     from simpinkscr import *
 import contextlib
 
@@ -51,7 +51,7 @@ class Conversor():
     cdasym="↑↓←→ZXASQW␛␜    "
 
     def __init__(self):
-        print(f"NUMERO de subprocesos generables {self.MAXPROCESS}")
+        print(f"NUMERO de subprocesos habilitados {self.MAXPROCESS}")
         self.PrintMenu()
 
     def PrintMenu(self):
@@ -153,7 +153,6 @@ class Conversor():
             #input(path+x)
             if(os.path.isdir(path+x)):
                 #print(f"AAAAAAAAAAAAAAAA: {path+x} {self.dirTilesSVG}")
-                args:tuple
                 if((path+x+"/") == self.dirTilesSVG):
                     self.RecursiveConverter(path+x+"/",True, lock)
                     #args = (path+x+"/",True, lock)
@@ -162,7 +161,7 @@ class Conversor():
                     #args = (path+x+"/", False, lock)
                 
                 
-            if(".svg" in x):
+            if(".svg" in x.lower()):
                 #self.ConvertSpriteSVG(path+"/"+x, False, lock)
                 proc = multiprocessing.Process(target=self.ConvertSpriteSVG,
                                                args=(path+"/"+x, False, lock))

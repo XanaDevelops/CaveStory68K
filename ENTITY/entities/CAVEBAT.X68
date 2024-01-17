@@ -70,7 +70,7 @@ BAT_UPDATE:
     ADDQ.L  #4, SP
 
     MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
-        MOVE.W  ET_TSPRT(A0), D2                   ;CONTROLAR SALTO TODO
+        MOVE.W  ET_TSPRT(A0), D2                   ;CONTROLAR 
         SUBQ.W  #1, D2
         BNE     .NOTIMER
             MOVE.W  #BATANMSPD, D2
