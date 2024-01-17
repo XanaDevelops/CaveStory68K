@@ -13,7 +13,7 @@ PESMDUST_START:
     MOVE.W  30(SP), ET_XPOS(A0)
 
     ;CONTADOR PARA INSTANCIAS PA_DUST
-    MOVE.B  #2, PESMD_COUNTER(A0)
+    MOVE.B  #10, PESMD_COUNTER(A0)
 
     RTS
 
@@ -28,26 +28,31 @@ PESMDUST_UPDATE:
     .NOKILL:
     BTST.B  #0, PESMD_COUNTER(A0)
     BEQ     .END
-    TRAP    #TRNG
-    MOVE.L  (RNGVAL), D0
-    AND.L   #$80000007, D0
-    BPL     .NONEG
-    NEG.W   D0
-    .NONEG:
+    
     ;PRUEBA UNA INSTANCIA
     MOVE.W  ET_YPOS(A0), -(SP)
     MOVE.W  ET_XPOS(A0), -(SP)
     MOVE.L  #PADUST, -(SP)
+
+    ;OFFSET ALEATORIO
+
+    BSR     .D0VAL
+    ADD.W   D0, 4(SP)
+
     JSR     INSTANCE_ENTITY
     ADDQ.L  #8, SP
     .END:
     RTS
 
-PESMDUST_DRAW:
+    .D0VAL:
+    TRAP    #TRNG
+    MOVE.L  (RNGVAL), D0
+    AND.L   #$8000000F, D0
+    BPL     .NONEG
+    NEG.W   D0
+    .NONEG:
     RTS
 
-PESMDUST_INTERACT:
-    RTS
 
 PESMDUST:
     DC.W 40                                          ;ET_ID
