@@ -420,8 +420,10 @@ class Conversor():
             for x in range(w):
                 auxTile.append(str(tileLayer.tiles[x+y*w].gid))
                 auxBgn.append(str(bgnLayer.tiles[x+y*w].gid))
-            tileData += f"\tDC.W {','.join(auxTile)}\n"
-            bgnData += f"\tDC.W {','.join(auxBgn)}\n"
+            #tileData += f"\tDC.W {','.join(auxTile)}\n"
+            #bgnData += f"\tDC.W {','.join(auxBgn)}\n"
+            tileData += self.truncateText(auxTile, "DC.W", 32)
+            bgnData += self.truncateText(auxBgn, "DC.W", 32)
 
         for obj in objLayer.objects:
             objWSize = 3
@@ -458,13 +460,15 @@ class Conversor():
             #mirar en tmx el valor de tileset, QUE SEA CONSTANTE!!!!!!!
             '''
             <tileset firstgid="1" source="PrtCave.tsx"/>
-            <tileset firstgid="81" source="NpcSym.tsx"/>
-            <tileset firstgid="381" source="CAMARA.tsx"/>
-            <tileset firstgid="383" source="NpcCemet.tsx"/>
-            <tileset firstgid="523" source="MyChar.tsx"/>
+ <tileset firstgid="81" source="NpcSym.tsx"/>
+ <tileset firstgid="381" source="CAMARA.tsx"/>
+ <tileset firstgid="383" source="NpcCemet.tsx"/>
+ <tileset firstgid="523" source="MyChar.tsx"/>
+ <tileset firstgid="682" source="PrtMimi.tsx"/>
             '''
             offset = int(x.split("_")[1].split(".")[0]) 
-            self.ConvertTileMap(self.dirTiles+x, offset)
+            print("offset", offset)
+            self.ConvertTileMap(self.dirTiles+x,self.dirOutTiles, offset)
 
 
 
@@ -493,7 +497,7 @@ class Conversor():
         #https://stackoverflow.com/questions/68365846/pillow-np-how-to-convert-transparent-mapped-indexed-png-to-rgba-when-transpar
 
         listdir = os.listdir(fulldir)
-        #input(listdir)
+        input(listdir)
         for x in listdir:
             indexed = Image.open(fulldir+"/"+x)
             
@@ -509,6 +513,8 @@ class Conversor():
                     image = indexed.convert("RGBA")
             elif indexed.mode == 'PA':
                 image = indexed.convert("RGBA")
+            else:
+                image = indexed
             i = int(x.split("_")[2].split(".")[0])+1+offset
 
             newName = f"{fulldir}/{tileMapName}_{i:>03}"

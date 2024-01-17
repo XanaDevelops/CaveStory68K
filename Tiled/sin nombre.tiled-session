@@ -4,6 +4,18 @@
         "width": 2
     },
     "activeFile": "02_FIRSTCAVE.tmx",
+    "console.history": [
+        "funtion f(){",
+        "funtion f(){f()}",
+        "f=function",
+        "function a",
+        "function a()",
+        "function a(){",
+        "function a(){a()}",
+        "a()",
+        "Document",
+        "document"
+    ],
     "expandedProjectPaths": [
         "."
     ],
@@ -15,8 +27,8 @@
             "scale": 1.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 143.66666666666669,
-                "y": 128.33333333333334
+                "x": 143.66666666666666,
+                "y": 128
             }
         },
         "01_STARTCAVE.tmx": {
@@ -45,11 +57,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 4,
-            "selectedLayer": 1,
+            "scale": 2,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 423.875,
-                "y": 399.875
+                "x": 178.25,
+                "y": 94.5
             }
         },
         "03_FIRSTGUN.tmx": {
@@ -59,8 +71,19 @@
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 143.83333333333331,
-                "y": 143.83333333333331
+                "x": 103.66666666666664,
+                "y": 167.66666666666663
+            }
+        },
+        "04_MIMIGAV.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 471.5,
+                "y": 535.5
             }
         },
         "98_slopetest.tmx": {
@@ -137,6 +160,10 @@
             "scaleInDock": 3,
             "scaleInEditor": 4
         },
+        "PrtMimi.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 4
+        },
         "TITLESCREEN.tmx": {
             "expandedObjectLayers": [
                 2
@@ -176,11 +203,13 @@
             }
         }
     },
-    "map.height": 18,
+    "last.externalTilesetPath": "D:/UIB/2n/CaveStory/Tiled",
+    "last.imagePath": "D:/UIB/2n/CaveStory/CVSource",
+    "map.height": 100,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
-    "map.width": 18,
+    "map.width": 100,
     "openFiles": [
         "PrtCave.tsx",
         "NpcCemet.tsx",
@@ -197,19 +226,20 @@
     "project": "sin nombre.tiled-project",
     "property.type": "int",
     "recentFiles": [
-        "PrtCave.tsx",
-        "NpcCemet.tsx",
-        "NpcSym.tsx",
-        "CAMARA.tsx",
+        "04_MIMIGAV.tmx",
+        "03_FIRSTGUN.tmx",
         "MyChar.tsx",
+        "NpcSym.tsx",
+        "NpcCemet.tsx",
+        "PrtCave.tsx",
+        "CAMARA.tsx",
+        "PrtMimi.tsx",
         "00_TITLESCREEN.tmx",
         "01_STARTCAVE.tmx",
         "99_tiledtest.tmx",
-        "98_slopetest.tmx",
-        "03_FIRSTGUN.tmx",
-        "02_FIRSTCAVE.tmx",
-        "01_tiledtest.tmx"
+        "98_slopetest.tmx"
     ],
+    "tileset.lastUsedFilter": "Archivos de conjuntos de patrones Tiled (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
         "height": 16,
