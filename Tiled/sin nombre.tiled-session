@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "03_FIRSTGUN.tmx",
+    "activeFile": "02_FIRSTCAVE.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -48,8 +48,8 @@
             "scale": 4,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 663.625,
-                "y": 119.75
+                "x": 706.125,
+                "y": 147
             }
         },
         "03_FIRSTGUN.tmx": {
@@ -204,10 +204,10 @@
         "MyChar.tsx",
         "00_TITLESCREEN.tmx",
         "01_STARTCAVE.tmx",
-        "02_FIRSTCAVE.tmx",
         "99_tiledtest.tmx",
         "98_slopetest.tmx",
         "03_FIRSTGUN.tmx",
+        "02_FIRSTCAVE.tmx",
         "01_tiledtest.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",

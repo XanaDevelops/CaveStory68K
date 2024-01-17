@@ -39,6 +39,12 @@ STARCB_DESTROY:
     MOVE.W  SC_CINDEX(A0), D0
     CLR.B   (A1, D0)
 
+    MOVE.W  ET_YPOS(A0), -(SP)
+    MOVE.W  ET_XPOS(A0), -(SP)
+    MOVE.L  #PESMDUST, -(SP)
+    JSR     INSTANCE_ENTITY
+    ADDQ.L  #8, SP
+
     MOVE.L  A0, -(SP)
     JSR     DESTROY_ENTITY
     ADDQ.L  #4, SP

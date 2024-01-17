@@ -17,11 +17,10 @@ PADUST_START:
 
 PADUST_UPDATE:
 
-
     MOVE.L  ET_ISPR(A0), D1                   ;ANIM_INDEX
         MOVE.W  ET_TSPRT(A0), D2                   ;CONTROLAR 
         SUBQ.W  #1, D2
-        BNE     .NOTIMER
+        BPL     .NOTIMER
             MOVE.W  #BATANMSPD, D2
             ADDQ.L  #1, D1
             MOVE.L  ET_SPRITE(A0), A1
