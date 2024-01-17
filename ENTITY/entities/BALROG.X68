@@ -175,12 +175,12 @@ BALROG_DAMAGE:
     RTS
 
 BALROG:
-    DC.W -3                                         ;ET_ID
+    DC.W -10                                         ;ET_ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 8                                          ;ET_HP
+    DC.W 20                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
-    DC.W 4,16, 60,64                                 ;ET_HBOX 44
+    DC.W 8,16, 60*3,80                                 ;ET_HBOX 44
     DC.L BALROG_START, BALROG_UPDATE, DEFAULT_PAINT ;@
     DC.L BALROG_DAMAGE                             ;@
     DC.L BALROG_L                                         ;@SPRITE DEFECTO
