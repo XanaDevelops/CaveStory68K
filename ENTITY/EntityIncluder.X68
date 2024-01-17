@@ -25,6 +25,7 @@
     INCLUDE "ENTITY/entities/PE_SM_DUST.X68"
     INCLUDE "ENTITY/entities/PE_XL_DUST.X68"
     INCLUDE "ENTITY/entities/PA_DUST.X68"
+    INCLUDE "ENTITY/entities/BALROG.X68"
 
 
 

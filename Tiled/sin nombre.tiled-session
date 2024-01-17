@@ -57,11 +57,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 2,
-            "selectedLayer": 0,
+            "scale": 3,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 359.5,
-                "y": 184
+                "x": 807.3333333333333,
+                "y": 135.33333333333334
             }
         },
         "03_FIRSTGUN.tmx": {
@@ -71,8 +71,8 @@
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 135,
-                "y": 123.66666666666664
+                "x": 103.33333333333334,
+                "y": 167
             }
         },
         "04_MIMIGAV.tmx": {
@@ -82,8 +82,8 @@
             "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 393.5,
-                "y": 554.5
+                "x": 309.5,
+                "y": 244.5
             }
         },
         "05_SAVESPOT.tmx": {
@@ -97,6 +97,17 @@
                 "y": 167
             }
         },
+        "06_BOSSARENA.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 167.66666666666663,
+                "y": 119.66666666666664
+            }
+        },
         "98_slopetest.tmx": {
             "expandedObjectLayers": [
                 2
@@ -104,8 +115,8 @@
             "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 479.75,
-                "y": 143.75
+                "x": 478.5,
+                "y": 143
             }
         },
         "99_tiledtest.tmx": {
@@ -216,11 +227,11 @@
     },
     "last.externalTilesetPath": "D:/UIB/2n/CaveStory/Tiled",
     "last.imagePath": "D:/UIB/2n/CaveStory/CVSource",
-    "map.height": 20,
+    "map.height": 18,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
-    "map.width": 20,
+    "map.width": 18,
     "openFiles": [
         "PrtCave.tsx",
         "NpcCemet.tsx",
@@ -235,8 +246,9 @@
         "99_tiledtest.tmx"
     ],
     "project": "sin nombre.tiled-project",
-    "property.type": "string",
+    "property.type": "int",
     "recentFiles": [
+        "06_BOSSARENA.tmx",
         "05_SAVESPOT.tmx",
         "04_MIMIGAV.tmx",
         "03_FIRSTGUN.tmx",
@@ -247,8 +259,7 @@
         "CAMARA.tsx",
         "PrtMimi.tsx",
         "00_TITLESCREEN.tmx",
-        "01_STARTCAVE.tmx",
-        "99_tiledtest.tmx"
+        "01_STARTCAVE.tmx"
     ],
     "tileset.lastUsedFilter": "Archivos de conjuntos de patrones Tiled (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",

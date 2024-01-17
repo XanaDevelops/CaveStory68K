@@ -72,7 +72,7 @@ TS_DRAW:
     MOVE.L  #TITLEFIX, -(SP)
     MOVE.W  #75, -(SP) ;Y
     
-    MOVE.W  #SCREEN_WIDTH/2-275, -(SP) ;X
+    MOVE.W  #SCREEN_WIDTH/2-250, -(SP) ;X
     
     JSR     FASTSPRITE
     ADDA.L  #8, SP

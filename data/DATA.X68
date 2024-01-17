@@ -50,6 +50,9 @@ CRITTER_L       DC.L 1
                 DC.L CRITTER_L_0, CRITTER_L_1, CRITTER_L_2
                 DC.L CRITTER_R_0, CRITTER_R_1, CRITTER_R_2
 
+BALROG_L        DC.L 1
+                DC.L NPCBLLG_0, NPCBLLG_3, NPCBLLG_5
+                DC.L NPCBLLG_8, NPCBLLG_11, NPCBLLG_13
 SPIKE_SPR       DC.L 4
                 DC.L SPIKE_U, SPIKE_D, SPIKE_L, SPIKE_R
 
