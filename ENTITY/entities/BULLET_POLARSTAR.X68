@@ -68,7 +68,7 @@ BLT_PS_START:
     RTS
     .DAMAGES:   DC.W 1,2,4
     .HBOXS:     DC.L .HBOX1, .HBOX2, .HBOX3
-    .HBOX1:     DC.W 64,4
+    .HBOX1:     DC.W 64,8
     .HBOX2:     DC.W 64,16
     .HBOX3:     DC.W 64,34
 
@@ -76,6 +76,7 @@ BLT_PS_UPDATE:
     MOVEM.L D0/A1, -(SP)
     CLR.L   D0
 
+    ;LIFETIME BULLET
     TST.B   MAX_T_SCREEN(A0)
     BGE     .NOTUP
     MOVE.L  A0, -(SP)
@@ -85,6 +86,7 @@ BLT_PS_UPDATE:
     BRA     .ENDBLTPSUP
     .NOTUP:
 
+    ;MOVER NUEVA POS
     LEA     VSPEEDPS, A1
     MOVE.B  TRAVEL_DIR(A0), D0
     ASL.W   #2, D0

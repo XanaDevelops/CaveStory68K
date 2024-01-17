@@ -60,7 +60,7 @@ STARCB:
     DC.W 0, 0                                       ;ET_XSPEED, ET_YSPEED
     DC.W 0                                          ;ET_MSTATE 00 
                                                     ;ET_BSTATE UDLR(!AIRBONE)(!GRAV)--
-    DC.W -1,-1, 65,65                                   ;ET_HBOX 44
+    DC.W 0,0, 64,64                                   ;ET_HBOX 44
     DC.L STARCB_START, DEFAULT_RTS, DEFAULT_PAINT      ;@EXECUTES
     DC.L STARCB_DESTROY                             ;@INTERACT/EXTRA
     DC.L SPR_STARCB                                         ;@SPRITE DEFECTO

@@ -26,7 +26,10 @@ PADUST_UPDATE:
             MOVE.L  ET_SPRITE(A0), A1
             CMP.L   (A1), D1
             BLT     .NOOF
-            MOVE.L  #0, D1
+            ;FIN DE PARTICULA
+            MOVE.L  A0, -(SP)
+            BSR     DESTROY_ENTITY
+            ADDQ.L  #4, SP
             .NOOF:
             MOVE.L  D1, ET_ISPR(A0)
         .NOTIMER:
@@ -53,6 +56,7 @@ PADUST:
     DS.W 1                                         
 
     
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~
