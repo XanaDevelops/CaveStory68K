@@ -37,7 +37,7 @@ BALROG_UPDATE:
     ;
     MOVE.W  ET_XPOS(A0), -(SP)
     MOVE.W  ET_YPOS(A0), -(SP)
-    MOVE.L  #PE_XL_DUST, -(SP)
+    MOVE.L  #PEXLDUST, -(SP)
     JSR     INSTANCE_ENTITY
     ADDQ.L  #8, SP
 
