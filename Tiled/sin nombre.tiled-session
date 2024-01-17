@@ -38,8 +38,8 @@
             "scale": 4,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 135.75,
-                "y": 135.75
+                "x": 135.5,
+                "y": 135.5
             }
         },
         "01_tiledtest.tmx": {
@@ -60,8 +60,8 @@
             "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 168,
-                "y": 94
+                "x": 359.5,
+                "y": 184
             }
         },
         "03_FIRSTGUN.tmx": {
@@ -71,8 +71,8 @@
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 135.33333333333334,
-                "y": 167
+                "x": 135,
+                "y": 123.66666666666664
             }
         },
         "04_MIMIGAV.tmx": {
@@ -82,8 +82,19 @@
             "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 311,
-                "y": 535
+                "x": 393.5,
+                "y": 554.5
+            }
+        },
+        "05_SAVESPOT.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 183.33333333333334,
+                "y": 167
             }
         },
         "98_slopetest.tmx": {
@@ -205,11 +216,11 @@
     },
     "last.externalTilesetPath": "D:/UIB/2n/CaveStory/Tiled",
     "last.imagePath": "D:/UIB/2n/CaveStory/CVSource",
-    "map.height": 100,
+    "map.height": 20,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
-    "map.width": 100,
+    "map.width": 20,
     "openFiles": [
         "PrtCave.tsx",
         "NpcCemet.tsx",
@@ -226,6 +237,7 @@
     "project": "sin nombre.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "05_SAVESPOT.tmx",
         "04_MIMIGAV.tmx",
         "03_FIRSTGUN.tmx",
         "MyChar.tsx",
@@ -236,8 +248,7 @@
         "PrtMimi.tsx",
         "00_TITLESCREEN.tmx",
         "01_STARTCAVE.tmx",
-        "99_tiledtest.tmx",
-        "98_slopetest.tmx"
+        "99_tiledtest.tmx"
     ],
     "tileset.lastUsedFilter": "Archivos de conjuntos de patrones Tiled (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",
