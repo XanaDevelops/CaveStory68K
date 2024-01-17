@@ -4,7 +4,7 @@ Practica final Estructura Computadores II
 IMPORTANT
 EXECUTAR EN WINDOWS XP
 
-DESCARREGAR BGM DE ENLACE
+DESCARREGAR BGM DE https://uibes-my.sharepoint.com/:f:/g/personal/dgv920_id_uib_eu/Epawl-HbN_ZFj3tmDjS-ftwBXp7FVqwVfxMGsQtINMCbGw?e=W5AYMc
 
 CONTROLS:
 Z: BOTAR/ACCEPTAR
