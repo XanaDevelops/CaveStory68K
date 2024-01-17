@@ -48,8 +48,8 @@
             "scale": 4,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 706.125,
-                "y": 147
+                "x": 423.875,
+                "y": 399.875
             }
         },
         "03_FIRSTGUN.tmx": {
@@ -59,8 +59,8 @@
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 206.16666666666666,
-                "y": 162
+                "x": 143.83333333333331,
+                "y": 143.83333333333331
             }
         },
         "98_slopetest.tmx": {
