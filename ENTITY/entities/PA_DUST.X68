@@ -21,7 +21,7 @@ PADUST_UPDATE:
         MOVE.W  ET_TSPRT(A0), D2                   ;CONTROLAR 
         SUBQ.W  #1, D2
         BPL     .NOTIMER
-            MOVE.W  #BLNDANIM, D2
+            MOVE.W  #1, D2
             ADDQ.L  #1, D1
             MOVE.L  ET_SPRITE(A0), A1
             CMP.L   (A1), D1
