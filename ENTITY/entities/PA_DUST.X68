@@ -49,7 +49,7 @@ PADUST:
     DC.L SPR_G_DUST                                         ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
     DC.W 0                                          ;ET_TSPRT
-    DC.W 0                                          ;ET_ZORD
+    DC.W -512                                          ;ET_ZORD
     DS.W 1                                         
 
     
