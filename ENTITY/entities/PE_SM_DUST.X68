@@ -29,15 +29,16 @@ PESMDUST_UPDATE:
     BTST.B  #0, PESMD_COUNTER(A0)
     BEQ     .END
     
-    ;PRUEBA UNA INSTANCIA
+    ;INSTANCIA
     MOVE.W  ET_YPOS(A0), -(SP)
     MOVE.W  ET_XPOS(A0), -(SP)
     MOVE.L  #PADUST, -(SP)
 
     ;OFFSET ALEATORIO
-
     BSR     .D0VAL
     ADD.W   D0, 4(SP)
+    BSR     .D0VAL
+    ADD.W   D0, 6(SP)
 
     JSR     INSTANCE_ENTITY
     ADDQ.L  #8, SP
