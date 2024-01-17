@@ -35,7 +35,7 @@
     <property name="L_SEEK" type="int" value="-1"/>
    </properties>
   </object>
-  <object id="6" gid="174" x="144" y="176" width="16" height="16">
+  <object id="6" name="CARTEL" gid="174" x="144" y="176" width="16" height="16">
    <properties>
     <property name="W_INDEX" value="IWIN"/>
    </properties>
