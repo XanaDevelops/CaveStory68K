@@ -46,7 +46,7 @@ PEXLDUST_UPDATE:
     .D0VAL:
     TRAP    #TRNG
     MOVE.L  (RNGVAL), D0
-    AND.L   #$8000007F, D0
+    AND.L   #$8000003F, D0
     BPL     .NONEG
     NEG.W   D0
     .NONEG:
