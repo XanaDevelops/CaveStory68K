@@ -165,7 +165,7 @@ CRITTER_DAMAGE:
 CRITTER:
     DC.W -3                                         ;ET_ID
     DC.W 0, 0                                       ;POSITION
-    DC.W 10                                          ;ET_HP
+    DC.W 8                                          ;ET_HP
     DC.W 0, 0                                       ;SPEED
     DC.W 0                                          ;ET_MSTATE 00 UDLR(!AIRBONE)(!GRAV)--
     DC.W 4,16, 60,64                                 ;ET_HBOX 44
