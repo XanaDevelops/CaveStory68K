@@ -38,8 +38,8 @@
             "scale": 4,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 127.875,
-                "y": 111.875
+                "x": 135.75,
+                "y": 135.75
             }
         },
         "01_tiledtest.tmx": {
@@ -60,8 +60,8 @@
             "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 178.25,
-                "y": 94.5
+                "x": 168,
+                "y": 94
             }
         },
         "03_FIRSTGUN.tmx": {
@@ -71,8 +71,8 @@
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 103.66666666666664,
-                "y": 167.66666666666663
+                "x": 135.33333333333334,
+                "y": 167
             }
         },
         "04_MIMIGAV.tmx": {
@@ -82,8 +82,8 @@
             "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 471.5,
-                "y": 535.5
+                "x": 311,
+                "y": 535
             }
         },
         "98_slopetest.tmx": {
@@ -224,7 +224,7 @@
         "99_tiledtest.tmx"
     ],
     "project": "sin nombre.tiled-project",
-    "property.type": "int",
+    "property.type": "string",
     "recentFiles": [
         "04_MIMIGAV.tmx",
         "03_FIRSTGUN.tmx",
