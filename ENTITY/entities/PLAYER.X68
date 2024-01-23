@@ -36,8 +36,15 @@ PLAYER_UPDATE:
 
     TST.W   ET_HP(A0)        ;KILL?
     BGT     .LIVE
-        CLR.W   ET_HP(A0)
+        CLR.W   ET_HP(A0)   ;EVITAR VIDA NEGATIVA
         JSR     GM_PLYRDED
+
+        MOVE.W  ET_XPOS(A0), -(SP)
+        MOVE.W  ET_YPOS(A0), -(SP)
+        MOVE.L  #PEXLDUST, -(SP)
+        BSR     INSTANCE_ENTITY
+        ADDQ.L  #8, SP
+
         MOVE.W  #66, -(SP)
         MOVE.W  #1, -(SP)
         BSR     PLAY_SFX

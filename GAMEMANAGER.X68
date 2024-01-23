@@ -74,33 +74,33 @@ GAME_SAVE:
 
     ;ABRE ARCHIVO PARTIDA GUARDADA
     ;O LO CREA
-    MOVE.L #SAVEFPTH, -(SP)
-    JSR OPEN_WRITE
-    MOVE.L (SP)+, D0
-    CMP.L #0, D0
-    BMI .ERR
+    MOVE.L  #SAVEFPTH, -(SP)
+    JSR     OPEN_WRITE
+    MOVE.L  (SP)+, D0
+    TST.L   D0
+    BMI     .ERR
     ;ESCRIBIR  MAGIKN
-    MOVE.L D0, -(SP)
-    MOVE.W #MAGIKN, (IOFILEW)
-    MOVE.L #IOFILEW, -(SP)
-    MOVE.W #2, -(SP)
-    JSR WRITE_FILE
-    MOVE.W (SP)+, D1
-    CMP.W #0, D1
-    BNE .ERR
-    MOVE.L #GAMEDATA, (SP)
-    MOVE.W #GAMEDATASIZE, -(SP)
-    JSR WRITE_FILE
-    MOVE.W (SP)+, D1
-    CMP.W #0, D1
-    BNE .ERR
-    BRA .CLOSE
+    MOVE.L  D0, -(SP)
+    MOVE.W  #MAGIKN, (IOFILEW)
+    MOVE.L  #IOFILEW, -(SP)
+    MOVE.W  #2, -(SP)
+    JSR     WRITE_FILE
+    MOVE.W  (SP)+, D1
+    TST.W   D1
+    BNE     .ERR
+    MOVE.L  #GAMEDATA, (SP)
+    MOVE.W  #GAMEDATASIZE, -(SP)
+    JSR     WRITE_FILE
+    MOVE.W  (SP)+, D1
+    TST.W   D1
+    BNE     .ERR
+    BRA     .CLOSE
     .ERR:
-    ILLEGAL
+    ;ILLEGAL
     .CLOSE:
-    ADDQ.L #4, SP
-    JSR CLOSEFILE
-    ADDQ.L #4, SP
+    ADDQ.L  #4, SP
+    JSR     CLOSEFILE
+    ADDQ.L  #4, SP
 
     MOVEM.L (SP)+, A0/D1-D0
     RTS

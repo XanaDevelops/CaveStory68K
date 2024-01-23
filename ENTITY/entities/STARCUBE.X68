@@ -30,12 +30,28 @@ STARCB_START:
     MOVEM.L (SP)+, A1/D1
     RTS
 
-STARCB_UPDATE:
-    RTS
-
-
 STARCB_DESTROY:
+    ; 16(SP): A0
+    MOVEM.L D0/A0-A1, -(SP)
+    MOVE.L  16(SP), A0
+    LEA     INTERACT_MAP, A1
+    CLR.L   D0
+    MOVE.W  SC_CINDEX(A0), D0
+    CLR.B   (A1, D0)
+
+    MOVE.W  ET_XPOS(A0), -(SP)
+    MOVE.W  ET_YPOS(A0), -(SP)
+    MOVE.L  #PESMDUST, -(SP)
+    JSR     INSTANCE_ENTITY
+    ADDQ.L  #8, SP
+
+    MOVE.L  A0, -(SP)
+    JSR     DESTROY_ENTITY
+    ADDQ.L  #4, SP
+
+    MOVEM.L (SP)+, A1-A0/D0
     RTS
+
 
 STARCB:
     DC.W -4                                          ;ET_ID
@@ -45,7 +61,7 @@ STARCB:
     DC.W 0                                          ;ET_MSTATE 00 
                                                     ;ET_BSTATE UDLR(!AIRBONE)(!GRAV)--
     DC.W 0,0, 64,64                                   ;ET_HBOX 44
-    DC.L STARCB_START, STARCB_UPDATE, DEFAULT_PAINT      ;@EXECUTES
+    DC.L STARCB_START, DEFAULT_RTS, DEFAULT_PAINT      ;@EXECUTES
     DC.L STARCB_DESTROY                             ;@INTERACT/EXTRA
     DC.L SPR_STARCB                                         ;@SPRITE DEFECTO
     DC.L 0                                          ;SPRITEINDEX
